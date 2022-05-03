@@ -1,0 +1,13 @@
+@use "Palette";
+@use "General";
+
+.Films {
+  @extend %general-padding;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 25rem), 1fr));
+  gap: 3rem;
+
+  &:focus {
+    box-shadow: 12px 12px 2px 1px Palette.$Black_Chocolate;
+  }
+}
