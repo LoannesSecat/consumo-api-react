@@ -25,7 +25,9 @@ const SelectedFilm = () => {
   return (
     <div className="SelectedFilm">
       <Header>
-        <button onClick={() => setLocation("/home")}>Volver</button>
+        <button onClick={() => setLocation(location.origin + "/home")}>
+          Volver
+        </button>
       </Header>
 
       <div className="banner">

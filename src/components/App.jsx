@@ -4,7 +4,6 @@ import "../helpers/styles/General.scss";
 import Films from "./Films";
 import SelectedFilm from "./SelectedFilm";
 import StoreProvider from "../providers/StoreProvider";
-import { ReadFilms } from "../actions/FilmActions";
 
 const App = () => {
   const [, setLocation] = useLocation();

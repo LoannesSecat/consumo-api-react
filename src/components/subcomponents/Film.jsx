@@ -4,11 +4,11 @@ import { FilmDetails } from "../../actions/FilmActions";
 import HandleImage from "../../helpers/HandleImage";
 
 const Film = ({ data }) => {
-  const [location, setLocation] = useLocation();
+  const [loca, setLocation] = useLocation();
 
   const HandleDetails = (media_type, id) => {
     FilmDetails({ media_type: media_type, id: id });
-    setLocation(`${location}/details`);
+    setLocation(`${location.origin}${loca}/details`);
   };
 
   return (
