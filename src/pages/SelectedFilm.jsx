@@ -35,6 +35,7 @@ const SelectedFilm = () => {
           data={{
             backdrop: filmDetails.backdrop_path,
             poster: filmDetails.poster_path,
+            img_required: "backdrop",
           }}
         />
         <div className="titles">

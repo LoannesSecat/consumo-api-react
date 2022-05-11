@@ -10,6 +10,7 @@ const Film = ({ data }) => {
           media_type: data.media_type,
           poster: data.poster_path,
           backdrop: data.backdrop_path,
+          img_required: "poster",
         }}
       />
 

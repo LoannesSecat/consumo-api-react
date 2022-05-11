@@ -6,7 +6,7 @@ import { FilmDetails } from "@/actions/FilmActions";
 const TMDb = Parameters.TMDb;
 
 const HandleImage = ({ data }) => {
-  const { id, media_type, poster, backdrop } = data;
+  const { id, media_type, poster, backdrop, img_required } = data;
   const [loca, setLocation] = useLocation();
 
   const HandleDetails = (media_type, id) => {
@@ -15,15 +15,15 @@ const HandleImage = ({ data }) => {
   };
 
   const MyImage = () => {
-    if (poster != (null || undefined)) {
-      return `${TMDb.img}${poster}`;
-    }
+    switch (img_required) {
+      case "poster":
+        if (poster) return `${TMDb.img}${poster}`;
+      case "backdrop":
+        if (backdrop) return `${TMDb.img}${backdrop}`;
 
-    if (backdrop != (null || undefined)) {
-      return `${TMDb.img}${backdrop}`;
+      default:
+        return imageNotFound;
     }
-
-    return imageNotFound;
   };
 
   return (
