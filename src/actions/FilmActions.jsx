@@ -1,32 +1,38 @@
-import Parameters from "../api/Parameters";
-import Soliciter from "../api/Soliciter";
-import db from "../api/db";
-import RequestMode from "../api/RequestMode";
-import ACTIONS from "../helpers/ActionsCreators/FilmTypes";
-import useDispatch from "../hooks/useDispatch";
-import store from "../store";
+import Parameters from "@/api/Parameters";
+import Soliciter from "@/api/Soliciter";
+import db from "@/api/db";
+import RequestMode from "@/api/RequestMode";
+import ACTIONS from "@/utils/ActionsCreators/FilmTypes";
+import useDispatch from "@/hooks/useDispatch";
+import useStore from "@/hooks/useStore";
+import { MaximumPages } from "@/actions/ToolActions";
 
 const TMDb = Parameters.TMDb;
 
-export const ReadFilms = ({ page }) => {
-  let myPage = null,
-    req = `${TMDb.url_v3}${TMDb.multi_search}?${TMDb.api_key}&${
-      TMDb.query
-    }${1}&${TMDb.page}${page}&${TMDb.language}&${TMDb.include_adult}`;
-
-  page > Object.keys(db.Films).length
-    ? (myPage = Object.keys(db.Films).length)
-    : (myPage = page);
+export const ReadFilms = () => {
+  const page = useStore({ reducer: "tool", value: "page" });
+  const maxPage = useStore({ reducer: "tool", value: "maxPage" });
+  let query = "a";
+  const req = `${TMDb.url_v3}${TMDb.multi_search}?${TMDb.api_key}&${TMDb.query}${query}&${TMDb.page}${page}&${TMDb.language}&${TMDb.include_adult}`;
+  const filmsLength = Object.keys(db.Films).length;
 
   if (RequestMode === "test") {
+    if (maxPage !== filmsLength) {
+      MaximumPages(filmsLength);
+    }
+
     useDispatch({
       type: ACTIONS.READ_FILMS,
-      payload: db.Films[`page_${myPage}`],
+      payload: db.Films[`page_${page}`],
     });
   }
 
   if (RequestMode === "real") {
     Soliciter(req).then((e) => {
+      if (maxPage !== e.total_pages) {
+        MaximumPages(e.total_pages);
+      }
+
       useDispatch({
         type: ACTIONS.READ_FILMS,
         payload: e.results.filter((e) => e.media_type !== "person"), //Excluye los datos con media_type igual a "person"

@@ -79,7 +79,7 @@ export const HandleDate = ({ date, first_date, last_date }) => {
 
   if (first_date && last_date) {
     return (
-      <Fragment>
+      <>
         <dl>
           <dt className="subtitle">Primera emision</dt>
           <dd className="subtext">{first_date}</dd>
@@ -89,7 +89,7 @@ export const HandleDate = ({ date, first_date, last_date }) => {
           <dt className="subtitle">última emision</dt>
           <dd className="subtext">{last_date}</dd>
         </dl>
-      </Fragment>
+      </>
     );
   }
 };
@@ -97,7 +97,7 @@ export const HandleDate = ({ date, first_date, last_date }) => {
 export const HandlerSeasons = (arr) => {
   if (arr) {
     return (
-      <Fragment>
+      <>
         <span className="subtitle">Temporadas</span>
         <ul className="seasons">
           {arr.map((e, i) => (
@@ -110,7 +110,7 @@ export const HandlerSeasons = (arr) => {
             </li>
           ))}
         </ul>
-      </Fragment>
+      </>
     );
   }
 

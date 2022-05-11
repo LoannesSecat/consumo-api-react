@@ -2,7 +2,7 @@
   "name": "movies-platform-react",
   "private": true,
   "version": "0.1.0",
-  "homepage": "https://LoannesSecat.github.io/movies-platform-react",
+  "homepage": "https://loannessecat.github.io/movies-platform-react",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

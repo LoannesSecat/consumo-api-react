@@ -1,0 +1,12 @@
+@use "Palette";
+
+.Empty {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-weight: 500;
+  font-size: xx-large;
+}

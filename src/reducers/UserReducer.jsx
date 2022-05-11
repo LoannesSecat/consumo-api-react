@@ -1,4 +1,4 @@
-import ACTIONS from "../helpers/ActionsCreators/UserTypes";
+import ACTIONS from "@/utils/ActionsCreators/UserTypes";
 
 const initialState = {};
 
@@ -10,7 +10,7 @@ const UserReducer = (store = initialState, action) => {
       console.log("UserReducer: ", action);
 
     default:
-      return initialState;
+      return store;
   }
 };
 

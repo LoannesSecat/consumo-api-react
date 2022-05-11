@@ -1,4 +1,4 @@
-import ACTIONS from "../helpers/ActionsCreators/FilmTypes";
+import ACTIONS from "@/utils/ActionsCreators/FilmTypes";
 
 const initialState = {
   films: [],
@@ -13,7 +13,7 @@ const FilmReducer = (store = initialState, action) => {
       return { ...store, filmDetails: action.payload };
 
     default:
-      return initialState;
+      return store;
   }
 };
 
