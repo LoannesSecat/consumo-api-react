@@ -1,4 +1,4 @@
-import Parameters from "../api/Parameters";
+import Parameters from "../services/Parameters";
 import imageNotFound from "../assets/clipart15852.png";
 
 const TMDb = Parameters.TMDb;
