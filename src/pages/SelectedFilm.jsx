@@ -1,6 +1,6 @@
 import { useLocation } from "wouter";
 import "@/utils/styles/SelectedFilm.scss";
-import HandleImage from "@/utils/HandleImage";
+import HandleImage from "@/components/HandleImage";
 import { Languages } from "@/utils/Translator";
 import {
   HandleCompanies,
@@ -21,7 +21,7 @@ const SelectedFilm = () => {
   const filmDetails = useSelector((data) => data.film.filmDetails);
 
   scroll(null, 0); //Scroll to top
-
+  console.log(filmDetails);
   return (
     <div className="SelectedFilm">
       <Header>
@@ -31,8 +31,11 @@ const SelectedFilm = () => {
       </Header>
 
       <div className="banner">
-        <img
-          src={HandleImage(filmDetails.backdrop_path, filmDetails.poster_path)}
+        <HandleImage
+          data={{
+            backdrop: filmDetails.backdrop_path,
+            poster: filmDetails.poster_path,
+          }}
         />
         <div className="titles">
           <h1>

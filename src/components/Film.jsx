@@ -1,23 +1,18 @@
-import { useLocation } from "wouter";
 import "@/utils/styles/Film.scss";
-import { FilmDetails } from "@/actions/FilmActions";
-import HandleImage from "@/utils/HandleImage";
+import HandleImage from "@/components/HandleImage";
 
 const Film = ({ data }) => {
-  const [loca, setLocation] = useLocation();
-
-  const HandleDetails = (media_type, id) => {
-    FilmDetails({ media_type: media_type, id: id });
-    setLocation(`${location.origin}${loca}/details`);
-  };
-
   return (
     <div className="Film">
-      <img
-        src={HandleImage(data.poster_path, data.backdrop_path)}
-        onClick={() => HandleDetails(data.media_type, data.id)}
-        loading="lazy"
+      <HandleImage
+        data={{
+          id: data.id,
+          media_type: data.media_type,
+          poster: data.poster_path,
+          backdrop: data.backdrop_path,
+        }}
       />
+
       <div className="info">
         <h2>{data.title ? data.title : data.name}</h2>
         {data.overview ? <p>{data.overview}</p> : null}
