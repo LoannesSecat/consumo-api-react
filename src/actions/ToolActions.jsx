@@ -17,3 +17,10 @@ export const MaximumPages = (numPage) => {
     payload: numPage,
   });
 };
+
+export const MessageAlert = (msg) => {
+  useDispatch({
+    type: ACTIONS.MESSAGE_ALERT,
+    payload: msg,
+  });
+};

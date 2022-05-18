@@ -6,6 +6,7 @@ import SelectedFilm from "./SelectedFilm";
 import PageNotFound from "./PageNotFound";
 import StoreProvider from "@/providers/StoreProvider";
 import { ReadFilms } from "@/actions/FilmActions";
+import Alert from "@/components/Alert";
 
 const App = () => {
   const [, setLocation] = useLocation();
@@ -17,6 +18,7 @@ const App = () => {
 
   return (
     <StoreProvider>
+      <Alert />
       <Switch>
         <Route path="/home" component={Films} />
         <Route path="/home/details" component={SelectedFilm} />

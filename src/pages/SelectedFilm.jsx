@@ -17,8 +17,8 @@ import Header from "@/components/Header";
 import { useSelector } from "react-redux";
 
 const SelectedFilm = () => {
-  const [, setLocation] = useLocation();
   const filmDetails = useSelector((data) => data.film.filmDetails);
+  const [, setLocation] = useLocation();
 
   scroll(null, 0); //Scroll to top
   console.log(filmDetails);

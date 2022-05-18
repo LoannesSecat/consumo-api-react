@@ -4,6 +4,7 @@ const initialState = {
   page: 1,
   minPage: 1,
   maxPage: 1,
+  alertMessage: { msg: "", color: "" },
 };
 
 const ToolReducer = (store = initialState, action) => {
@@ -16,6 +17,8 @@ const ToolReducer = (store = initialState, action) => {
       return { ...store, minPage: action.payload };
     case ACTIONS.MAXIMUM_NUM_PAGES:
       return { ...store, maxPage: action.payload };
+    case ACTIONS.MESSAGE_ALERT:
+      return { ...store, alertMessage: action.payload };
 
     default:
       return store;
