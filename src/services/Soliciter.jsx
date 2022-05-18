@@ -1,8 +1,7 @@
 const Soliciter = async (request) => {
   return fetch(request)
     .then((res) => res.json())
-    .then((data) => data)
-    .catch((err) => console.log(`Error in Soliciter.jsx - ${err}`));
+    .catch((err) => console.warn(err));
 };
 
 export default Soliciter;
