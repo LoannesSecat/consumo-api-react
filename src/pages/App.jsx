@@ -1,4 +1,4 @@
-import { useLocation, Route, Switch } from "wouter";
+import { useLocation, Route, Switch, Router } from "wouter";
 import { useEffect } from "react";
 import "@/utils/styles/General.scss";
 import Films from "./Films";
@@ -22,7 +22,7 @@ const App = () => {
       <Switch>
         <Route path="/home" component={Films} />
         <Route path="/home/details" component={SelectedFilm} />
-        <Route path="" component={PageNotFound} />
+        <Route component={PageNotFound} />
       </Switch>
     </StoreProvider>
   );

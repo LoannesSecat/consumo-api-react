@@ -1,8 +1,7 @@
 @use "Palette";
-@use "General";
 
 .Films {
-  @extend %general-padding;
+  padding: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 25rem), 1fr));
   gap: 3rem;

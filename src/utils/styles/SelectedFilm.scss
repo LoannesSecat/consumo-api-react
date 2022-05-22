@@ -1,5 +1,4 @@
 @use "Palette";
-@use "General";
 
 .SelectedFilm {
   transition: 0.5s;
@@ -47,7 +46,7 @@
   }
 
   .details {
-    @extend %general-padding;
+    padding: 20px;
 
     .genres {
       background-color: Palette.$Ghost_White;
@@ -58,7 +57,7 @@
     }
 
     p {
-      font-size: larger;
+      font-size: large;
     }
 
     .subtitle {
@@ -76,6 +75,18 @@
         > ul {
           list-style: none;
         }
+      }
+    }
+
+    .homepage {
+      margin-inline-start: 40px;
+      text-decoration: none;
+      display: block;
+      color: Palette.$Black_Chocolate;
+
+      &:hover,
+      :active {
+        color: Palette.$Royal_Blue_Dark;
       }
     }
   }

@@ -9,8 +9,8 @@ const HandleImage = ({ data }) => {
   const { id, media_type, poster, backdrop, img_required } = data;
   const [loca, setLocation] = useLocation();
 
-  const HandleDetails = (media_type, id) => {
-    FilmDetails({ media_type: media_type, id: id });
+  const HandleDetails = (myData) => {
+    FilmDetails(myData);
     setLocation(`${location.origin}${loca}/details`);
   };
 
@@ -27,11 +27,7 @@ const HandleImage = ({ data }) => {
   };
 
   return (
-    <img
-      src={MyImage()}
-      onClick={() => HandleDetails(media_type, id)}
-      loading="eager"
-    />
+    <img src={MyImage()} onClick={() => HandleDetails(data)} loading="eager" />
   );
 };
 

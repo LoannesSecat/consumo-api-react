@@ -6,42 +6,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  img {
-    height: 100%;
-    width: 100%;
-    fill: green;
-    .sun {
-      background-color: yellow;
-    }
-  }
+
   span {
     margin-bottom: 5rem;
-    font-size: 5vw;
+    font-size: 3ch;
     font-weight: bold;
     color: Palette.$Black_Chocolate;
   }
 
-  div {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  button {
+    background-color: Palette.$Cerise;
+    color: Palette.$Ghost_White;
+    border: Palette.$Ghost_White 1px solid;
+    border-radius: 15px;
+    padding: 5px 15px;
+    cursor: pointer;
 
-    button {
-      background-color: Palette.$Cerise;
-      color: Palette.$Ghost_White;
-      border: Palette.$Ghost_White 1px solid;
-      border-radius: 15px;
-      padding: 5px 15px;
-      cursor: pointer;
-
-      &:active {
-        background-color: Palette.$Ghost_White;
-        color: Palette.$Cerise;
-        border-color: Palette.$Cerise;
-      }
+    &:active {
+      background-color: Palette.$Ghost_White;
+      color: Palette.$Cerise;
+      border-color: Palette.$Cerise;
     }
   }
-}
-
-@keyframes goback {
 }

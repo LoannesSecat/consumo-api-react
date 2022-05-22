@@ -41,7 +41,9 @@ export const ReadFilms = () => {
   }
 };
 
-export const FilmDetails = async ({ media_type, id }) => {
+export const FilmDetails = (extraData) => {
+  const { media_type, id } = extraData;
+
   let req = "",
     myData = {};
 
@@ -60,7 +62,7 @@ export const FilmDetails = async ({ media_type, id }) => {
   if (RequestMode === "test") {
     useDispatch({
       type: ACTIONS.FILM_DETAILS,
-      payload: myData,
+      payload: { ...myData, ...extraData },
     });
   }
 
@@ -68,7 +70,7 @@ export const FilmDetails = async ({ media_type, id }) => {
     Soliciter(req).then((e) => {
       useDispatch({
         type: ACTIONS.FILM_DETAILS,
-        payload: e,
+        payload: { ...e, ...extraData },
       });
     });
   }
