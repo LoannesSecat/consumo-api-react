@@ -3,12 +3,12 @@ import "@/utils/styles/SelectedFilm.scss";
 import HandleImage from "@/components/HandleImage";
 import SelectedFilmDetails from "@/components/SelectedFilmDetails";
 import Header from "@/components/Header";
-import { useSelector } from "react-redux";
+import useStore from "@/hooks/useStore";
 
 const SelectedFilm = () => {
   scroll(null, 0); //Scroll to top
   const [, setLocation] = useLocation();
-  const details = useSelector((data) => data.film.filmDetails);
+  const details = useStore({ reducer: "film", value: "filmDetails" });
   const { backdrop_path, poster_path, title, name, tagline, media_type } =
     details;
 

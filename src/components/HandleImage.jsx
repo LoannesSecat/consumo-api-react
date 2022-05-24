@@ -6,7 +6,7 @@ import { FilmDetails } from "@/actions/FilmActions";
 const TMDb = Parameters.TMDb;
 
 const HandleImage = ({ data }) => {
-  const { id, media_type, poster, backdrop, img_required } = data;
+  const { poster, backdrop, img_required } = data;
   const [loca, setLocation] = useLocation();
 
   const HandleDetails = (myData) => {
@@ -27,7 +27,7 @@ const HandleImage = ({ data }) => {
   };
 
   return (
-    <img src={MyImage()} onClick={() => HandleDetails(data)} loading="eager" />
+    <img src={MyImage()} onClick={() => HandleDetails(data)} loading="lazy" />
   );
 };
 

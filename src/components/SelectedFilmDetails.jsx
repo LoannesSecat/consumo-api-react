@@ -1,12 +1,6 @@
 import { Fragment } from "react";
 import { Languages, Countries, Currency, MyDate } from "@/utils/Converter";
 
-const HandleSpaces = (index, arr) => {
-  if (arr.length === 0) return null;
-
-  return index != arr.length - 1 ? " " : <br />;
-};
-
 const SelectedFilmDetails = ({ data }) => {
   const {
     genres,
@@ -32,6 +26,12 @@ const SelectedFilmDetails = ({ data }) => {
     vote_count,
     homepage,
   } = data;
+
+  const HandleSpaces = (index, arr) => {
+    if (arr.length === 0) return null;
+
+    return index != arr.length - 1 ? " " : <br />;
+  };
 
   return (
     <>
@@ -95,14 +95,14 @@ const SelectedFilmDetails = ({ data }) => {
       {budget ? (
         <dl>
           <dt className="subtitle">Presupuesto</dt>
-          <dd className="subtext">$ {Currency(budget)}</dd>
+          <dd className="subtext">{Currency(budget)}</dd>
         </dl>
       ) : null}
 
       {revenue ? (
         <dl>
           <dt className="subtitle">Presupuesto</dt>
-          <dd className="subtext">$ {Currency(revenue)}</dd>
+          <dd className="subtext">{Currency(revenue)}</dd>
         </dl>
       ) : null}
 
