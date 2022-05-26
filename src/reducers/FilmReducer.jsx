@@ -1,4 +1,4 @@
-import ACTIONS from "@/utils/ActionsCreators/FilmTypes";
+import ACTIONS from "../utils/ActionsCreators/FilmTypes";
 
 const initialState = {
   films: [],

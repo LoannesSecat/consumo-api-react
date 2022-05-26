@@ -1,13 +1,13 @@
-import "@/utils/styles/FilmsPagination.scss";
-import { NextFilmsPage, PreviousFilmsPage } from "@/actions/ToolActions";
-import useStore from "@/hooks/useStore";
+import "../utils/styles/FilmsPagination.scss";
+import { NextFilmsPage, PreviousFilmsPage } from "../actions/ToolActions";
+import { useSelector } from "react-redux";
 
 const FilmsPagination = () => {
   scroll(null, 0); //Scroll to top
 
-  const currentPage = useStore({ reducer: "tool", value: "page" });
-  const minNumPage = useStore({ reducer: "tool", value: "minPage" });
-  const maxNumPage = useStore({ reducer: "tool", value: "maxPage" });
+  const currentPage = useSelector((e) => e.tool.page);
+  const minNumPage = useSelector((e) => e.tool.minPage);
+  const maxNumPage = useSelector((e) => e.tool.maxPage);
 
   const ButtonPrevious =
     currentPage <= minNumPage ? (

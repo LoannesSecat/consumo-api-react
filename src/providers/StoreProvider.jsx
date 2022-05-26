@@ -1,5 +1,5 @@
 import { Provider } from "react-redux";
-import store from "@/store";
+import store from "../store";
 
 const storeProvider = ({ children }) => {
   return <Provider store={store}>{children}</Provider>;

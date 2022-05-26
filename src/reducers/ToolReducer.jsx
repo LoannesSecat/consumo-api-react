@@ -1,4 +1,4 @@
-import ACTIONS from "@/utils/ActionsCreators/ToolTypes";
+import ACTIONS from "../utils/ActionsCreators/ToolTypes";
 
 const initialState = {
   page: 1,

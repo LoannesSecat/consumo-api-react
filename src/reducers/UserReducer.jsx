@@ -1,4 +1,4 @@
-import ACTIONS from "@/utils/ActionsCreators/UserTypes";
+import ACTIONS from "../utils/ActionsCreators/UserTypes";
 
 const initialState = {};
 

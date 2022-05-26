@@ -1,4 +1,4 @@
-import "@/utils/styles/PageNotFound.scss";
+import "../utils/styles/PageNotFound.scss";
 
 const PageNotFound = () => {
   return (

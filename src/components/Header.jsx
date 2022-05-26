@@ -1,4 +1,4 @@
-import "@/utils/styles/Header.scss";
+import "../utils/styles/Header.scss";
 
 const Header = ({ children }) => {
   return <div className="Header">{children}</div>;

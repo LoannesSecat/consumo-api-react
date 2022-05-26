@@ -1,10 +1,10 @@
-import Parameters from "@/services/Parameters";
-import Soliciter from "@/services/Soliciter";
-import db from "@/services/Mocks";
-import ACTIONS from "@/utils/ActionsCreators/FilmTypes";
-import useDispatch from "@/hooks/useDispatch";
-import useStore from "@/hooks/useStore";
-import { MaximumPages } from "@/actions/ToolActions";
+import Parameters from "../services/Parameters";
+import Soliciter from "../services/Soliciter";
+import db from "../services/Mocks";
+import ACTIONS from "../utils/ActionsCreators/FilmTypes";
+import useDispatch from "../hooks/useDispatch";
+import useStore from "../hooks/useStore";
+import { MaximumPages } from "../actions/ToolActions";
 
 const TMDb = Parameters.TMDb;
 
@@ -55,7 +55,7 @@ export const FilmDetails = (extraData) => {
   }).then((e) => {
     useDispatch({
       type: e.type,
-      payload: { ...e.data, ...extraData },
+      payload: { ...extraData, ...e.data },
     });
   });
 };

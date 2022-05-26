@@ -1,10 +1,10 @@
-import "@/utils/styles/Alert.scss";
+import "../utils/styles/Alert.scss";
 import { useEffect } from "react";
-import { MessageAlert } from "@/actions/ToolActions";
-import useStore from "@/hooks/useStore";
+import { MessageAlert } from "../actions/ToolActions";
+import { useSelector } from "react-redux";
 
 const Alert = () => {
-  const { msg, color } = useStore({ reducer: "tool", value: "alertMessage" });
+  const { msg, color } = useSelector((e) => e.tool.alertMessage);
 
   useEffect(() => {
     setTimeout(() => {

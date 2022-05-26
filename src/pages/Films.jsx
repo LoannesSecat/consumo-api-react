@@ -1,10 +1,10 @@
-import Film from "@/components/Film";
-import Header from "@/components/Header";
-import FilmsPagination from "@/components/FilmsPagination";
-import "@/utils/styles/Films.scss";
-import Empty from "@/components/Empty";
+import Film from "../components/Film";
+import Header from "../components/Header";
+import FilmsPagination from "../components/FilmsPagination";
+import "../utils/styles/Films.scss";
+import Empty from "../components/Empty";
 import { useSelector } from "react-redux";
-import Loading from "@/components/Loading";
+import Loading from "../components/Loading";
 
 const Films = () => {
   const dataFilms = useSelector((e) => e.film.films);

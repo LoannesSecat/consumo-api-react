@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Languages, Countries, Currency, MyDate } from "@/utils/Converter";
+import { Languages, Countries, Currency, MyDate } from "../utils/Converter";
 
 const SelectedFilmDetails = ({ data }) => {
   const {

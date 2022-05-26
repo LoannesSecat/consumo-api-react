@@ -1,4 +1,4 @@
-import useStore from "@/hooks/useStore";
+import useStore from "../../hooks/useStore";
 import FilmsData from "./Films";
 import SelectedFilm from "./SelectedFilm";
 

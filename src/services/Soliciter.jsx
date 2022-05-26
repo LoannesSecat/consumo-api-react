@@ -1,6 +1,6 @@
-import { MessageAlert } from "@/actions/ToolActions";
-import RequestMode from "@/services/RequestMode";
-import useDispatch from "@/hooks/useDispatch";
+import { MessageAlert } from "../actions/ToolActions";
+import RequestMode from "../services/RequestMode";
+import useDispatch from "../hooks/useDispatch";
 
 const Soliciter = async ({ request, mock, action }) => {
   useDispatch({ type: action, payload: "loading" });

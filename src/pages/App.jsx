@@ -1,12 +1,12 @@
 import { useLocation, Route, Switch } from "wouter";
 import { useEffect } from "react";
-import "@/utils/styles/General.scss";
+import "../utils/styles/General.scss";
 import Films from "./Films";
 import SelectedFilm from "./SelectedFilm";
 import PageNotFound from "./PageNotFound";
-import StoreProvider from "@/providers/StoreProvider";
-import { ReadFilms } from "@/actions/FilmActions";
-import Alert from "@/components/Alert";
+import StoreProvider from "../providers/StoreProvider";
+import { ReadFilms } from "../actions/FilmActions";
+import Alert from "../components/Alert";
 
 const App = () => {
   const [, setLocation] = useLocation();

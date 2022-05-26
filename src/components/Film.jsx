@@ -1,5 +1,5 @@
-import "@/utils/styles/Film.scss";
-import HandleImage from "@/components/HandleImage";
+import "../utils/styles/Film.scss";
+import HandleImage from "../components/HandleImage";
 
 const Film = ({ data }) => {
   return (
@@ -8,8 +8,8 @@ const Film = ({ data }) => {
         data={{
           id: data.id,
           media_type: data.media_type,
-          poster: data.poster_path,
-          backdrop: data.backdrop_path,
+          poster_path: data.poster_path,
+          backdrop_path: data.backdrop_path,
           img_required: "poster",
         }}
       />
