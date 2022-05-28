@@ -1,7 +1,7 @@
 import "../utils/styles/Film.scss";
-import HandleImage from "../components/HandleImage";
+import HandleImage from "./HandleImage";
 
-const Film = ({ data }) => {
+export default function Film({ data }) {
   return (
     <div className="Film">
       <HandleImage
@@ -25,6 +25,4 @@ const Film = ({ data }) => {
       </div>
     </div>
   );
-};
-
-export default Film;
+}

@@ -1,8 +1,8 @@
-import ACTIONS from "../utils/ActionsCreators/UserTypes";
+import ACTIONS from "../ActionsCreators/UserTypes";
 
 const initialState = {};
 
-const UserReducer = (store = initialState, action) => {
+export default function UserReducer(store = initialState, action) {
   switch (action.type) {
     case "a":
       console.log("UserReducer: ", action);
@@ -12,6 +12,4 @@ const UserReducer = (store = initialState, action) => {
     default:
       return store;
   }
-};
-
-export default UserReducer;
+}

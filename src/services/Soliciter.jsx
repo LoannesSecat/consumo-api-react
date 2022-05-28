@@ -1,8 +1,8 @@
-import { MessageAlert } from "../actions/ToolActions";
-import RequestMode from "../services/RequestMode";
+import { MessageAlert } from "../redux/actions/ToolActions";
+import RequestMode from "./RequestMode";
 import useDispatch from "../hooks/useDispatch";
 
-const Soliciter = async ({ request, mock, action }) => {
+export default function Soliciter({ request, mock, action }) {
   useDispatch({ type: action, payload: "loading" });
 
   if (RequestMode === "test") return { type: action, data: mock };
@@ -18,6 +18,4 @@ const Soliciter = async ({ request, mock, action }) => {
 
   if (!navigator.onLine)
     MessageAlert({ msg: "Sin conexión a internet", color: "red" });
-};
-
-export default Soliciter;
+}

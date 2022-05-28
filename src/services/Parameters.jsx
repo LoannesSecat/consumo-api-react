@@ -1,6 +1,6 @@
 export default {
   OMDb: {
-    apikey: "apikey=ae63f570",
+    apikey: "apikey=" + import.meta.env.VITE_OMDB_API_KEY,
     url: "http://www.omdbapi.com/?",
     search_all: "s=all",
     type: {
@@ -25,7 +25,7 @@ export default {
   TMDb: {
     url_v3: "https://api.themoviedb.org/3/",
     url_v4: "https://api.themoviedb.org/4/",
-    api_key: "api_key=5cbcf6f5d3e8e12a4226fd2675b7efbb",
+    api_key: "api_key=" + import.meta.env.VITE_TMDB_API_KEY,
     language: "language=es",
     multi_search: "search/multi",
     page: "page=",

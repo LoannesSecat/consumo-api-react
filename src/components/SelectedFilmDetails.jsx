@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Languages, Countries, Currency, MyDate } from "../utils/Converter";
 
-const SelectedFilmDetails = ({ data }) => {
+export default function SelectedFilmDetails({ data }) {
   const {
     genres,
     overview,
@@ -186,6 +186,4 @@ const SelectedFilmDetails = ({ data }) => {
       ) : null}
     </>
   );
-};
-
-export default SelectedFilmDetails;
+}

@@ -1,8 +1,8 @@
 import "../utils/styles/FilmsPagination.scss";
-import { NextFilmsPage, PreviousFilmsPage } from "../actions/ToolActions";
+import { NextFilmsPage, PreviousFilmsPage } from "../redux/actions/ToolActions";
 import { useSelector } from "react-redux";
 
-const FilmsPagination = () => {
+export default function FilmsPagination() {
   scroll(null, 0); //Scroll to top
 
   const currentPage = useSelector((e) => e.tool.page);
@@ -30,6 +30,4 @@ const FilmsPagination = () => {
       {ButtonNext}
     </div>
   );
-};
-
-export default FilmsPagination;
+}

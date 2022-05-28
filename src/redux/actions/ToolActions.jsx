@@ -1,5 +1,5 @@
-import useDispatch from "../hooks/useDispatch";
-import ACTIONS from "../utils/ActionsCreators/ToolTypes";
+import useDispatch from "../../hooks/useDispatch";
+import ACTIONS from "../ActionsCreators/ToolTypes";
 import { ReadFilms } from "./FilmActions";
 
 export const NextFilmsPage = () => {

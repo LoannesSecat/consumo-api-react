@@ -5,18 +5,19 @@ import SelectedFilmDetails from "../components/SelectedFilmDetails";
 import Header from "../components/Header";
 import { useSelector } from "react-redux";
 import Loading from "../components/Loading";
+import Empty from "../components/Empty";
 
-const SelectedFilm = () => {
+export default function Details() {
   scroll(null, 0); //Scroll to top
-  const [, setLocation] = useLocation();
+  const [, navigation] = useLocation();
   const details = useSelector((e) => e.film.filmDetails);
   const { backdrop_path, poster_path, title, name, tagline, media_type } =
     details;
 
-  const Details = () => {
-    if (details === "loading") {
-      return <Loading />;
-    } else {
+  const Content = () => {
+    if (details === "loading") return <Loading />;
+
+    if (Object.keys(details).length) {
       return (
         <>
           <div className="banner">
@@ -42,19 +43,17 @@ const SelectedFilm = () => {
         </>
       );
     }
+
+    return <Empty />;
   };
 
   return (
     <div className="SelectedFilm">
       <Header>
-        <button onClick={() => setLocation(location.origin + "/home")}>
-          Volver
-        </button>
+        <button onClick={() => navigation("/")}>Volver</button>
       </Header>
 
-      <Details />
+      <Content />
     </div>
   );
-};
-
-export default SelectedFilm;
+}

@@ -1,17 +1,17 @@
 import Parameters from "../services/Parameters";
 import imageNotFound from "../assets/clipart15852.png";
 import { useLocation } from "wouter";
-import { FilmDetails } from "../actions/FilmActions";
+import { FilmDetails } from "../redux/actions/FilmActions";
 
 const TMDb = Parameters.TMDb;
 
-const HandleImage = ({ data }) => {
+export default function HandleImage({ data }) {
   const { poster_path, backdrop_path, img_required } = data;
-  const [loca, setLocation] = useLocation();
+  const [, navigate] = useLocation();
 
   const HandleDetails = (myData) => {
     FilmDetails(myData);
-    setLocation(`${location.origin}${loca}/details`);
+    navigate("/details");
   };
 
   const MyImage = () => {
@@ -29,6 +29,4 @@ const HandleImage = ({ data }) => {
   return (
     <img src={MyImage()} onClick={() => HandleDetails(data)} loading="lazy" />
   );
-};
-
-export default HandleImage;
+}

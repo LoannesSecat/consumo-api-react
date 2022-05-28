@@ -1,10 +1,10 @@
-import Parameters from "../services/Parameters";
-import Soliciter from "../services/Soliciter";
-import db from "../services/Mocks";
-import ACTIONS from "../utils/ActionsCreators/FilmTypes";
-import useDispatch from "../hooks/useDispatch";
-import useStore from "../hooks/useStore";
-import { MaximumPages } from "../actions/ToolActions";
+import Parameters from "../../services/Parameters";
+import Soliciter from "../../services/Soliciter";
+import db from "../../services/Mocks";
+import ACTIONS from "../ActionsCreators/FilmTypes";
+import useDispatch from "../../hooks/useDispatch";
+import useStore from "../../hooks/useStore";
+import { MaximumPages } from "./ToolActions";
 
 const TMDb = Parameters.TMDb;
 

@@ -1,15 +1,19 @@
 import Film from "../components/Film";
 import Header from "../components/Header";
-import FilmsPagination from "../components/FilmsPagination";
 import "../utils/styles/Films.scss";
 import Empty from "../components/Empty";
 import { useSelector } from "react-redux";
 import Loading from "../components/Loading";
+import { ReadFilms } from "../redux/actions/FilmActions";
+import { useEffect } from "react";
+import FilmsPagination from "../components/FilmsPagination";
 
-const Films = () => {
+export default function Home() {
+  useEffect(() => ReadFilms(), []);
+
   const dataFilms = useSelector((e) => e.film.films);
 
-  const CompFimls = () => {
+  const CompFilms = () => {
     if (dataFilms === "loading") return <Loading />;
 
     if (dataFilms?.length) {
@@ -36,9 +40,7 @@ const Films = () => {
         <input type="text" />
       </Header>
 
-      <CompFimls />
+      <CompFilms />
     </>
   );
-};
-
-export default Films;
+}

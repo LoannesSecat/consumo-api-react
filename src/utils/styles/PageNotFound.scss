@@ -6,12 +6,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
 
-  span {
-    margin-bottom: 5rem;
+  div {
     font-size: 3ch;
-    font-weight: bold;
-    color: Palette.$Black_Chocolate;
+    text-align: center;
+    word-break: break-word;
+
+    .border {
+      -webkit-text-stroke: 0.5px Palette.$Royal_Blue_Dark;
+      color: transparent;
+      position: absolute;
+    }
+
+    .wave {
+      color: Palette.$Royal_Blue_Dark;
+      animation: wave 10s ease-in-out infinite;
+    }
   }
 
   button {
@@ -27,5 +38,18 @@
       color: Palette.$Cerise;
       border-color: Palette.$Cerise;
     }
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    clip-path: circle(50% at 0 100%);
+  }
+  20% {
+    clip-path: circle(35% at 50% 40%);
+  }
+  50% {
+    clip-path: circle(20% at 100% 100%);
   }
 }

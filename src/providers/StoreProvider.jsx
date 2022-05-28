@@ -1,8 +1,6 @@
 import { Provider } from "react-redux";
-import store from "../store";
+import store from "../redux/store";
 
-const storeProvider = ({ children }) => {
+export default function storeProvider({ children }) {
   return <Provider store={store}>{children}</Provider>;
-};
-
-export default storeProvider;
+}

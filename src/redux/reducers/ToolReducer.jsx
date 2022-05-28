@@ -1,4 +1,4 @@
-import ACTIONS from "../utils/ActionsCreators/ToolTypes";
+import ACTIONS from "../ActionsCreators/ToolTypes";
 
 const initialState = {
   page: 1,
@@ -7,7 +7,7 @@ const initialState = {
   alertMessage: { msg: "", color: "" },
 };
 
-const ToolReducer = (store = initialState, action) => {
+export default function ToolReducer(store = initialState, action) {
   switch (action.type) {
     case ACTIONS.NEXT_FILMS_PAGE:
       return { ...store, page: store.page + 1 };
@@ -23,6 +23,4 @@ const ToolReducer = (store = initialState, action) => {
     default:
       return store;
   }
-};
-
-export default ToolReducer;
+}

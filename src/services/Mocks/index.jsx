@@ -2,7 +2,7 @@ import useStore from "../../hooks/useStore";
 import FilmsData from "./Films";
 import SelectedFilm from "./SelectedFilm";
 
-const Mocks = () => {
+export default function Mocks() {
   const page = useStore({ reducer: "tool", value: "page" });
 
   return {
@@ -12,6 +12,4 @@ const Mocks = () => {
       results: FilmsData[page - 1],
     },
   };
-};
-
-export default Mocks;
+}
