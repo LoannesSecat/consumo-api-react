@@ -1,5 +1,5 @@
 import Parameters from "../services/Parameters";
-import imageNotFound from "../assets/clipart15852.png";
+import imageNotFound from "../../assets/clipart15852.png";
 import { useLocation } from "wouter";
 import { FilmDetails } from "../redux/actions/FilmActions";
 
