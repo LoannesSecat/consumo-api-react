@@ -1,0 +1,32 @@
+@use "Palette";
+
+.Film {
+  display: flex;
+  flex-direction: column;
+
+  img {
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      transform: scale(1.015);
+    }
+  }
+
+  .info {
+    text-align: justify;
+
+    h2 {
+      text-align: center;
+    }
+
+    p {
+      // limitación de 4 líneas para el párrafo
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      // ---
+    }
+  }
+}

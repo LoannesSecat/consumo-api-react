@@ -1,0 +1,17 @@
+@use "Palette";
+
+.Empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: xx-large;
+  word-break: break-word;
+  color: Palette.$Black_Chocolate;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
