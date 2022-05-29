@@ -17,10 +17,10 @@ export default function Film({ data }) {
       <div className="info">
         <h2>{data.title ? data.title : data.name}</h2>
         {data.overview ? <p>{data.overview}</p> : null}
-        <span>{data.media_type == "movie" ? "Película" : data.media_type}</span>
+        <span>{data.media_type === "movie" ? "Película" : "Serie"}</span>
         <br />
         <span>
-          {data.release_date ? data.release_date : data.first_air_date}
+          {data.release_date ? data?.release_date : data?.first_air_date}
         </span>
       </div>
     </div>

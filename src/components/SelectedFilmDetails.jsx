@@ -61,16 +61,18 @@ export default function SelectedFilmDetails({ data }) {
         <dd className="subtext">{popularity}</dd>
       </dl>
 
-      <dl>
-        <dt className="subtitle">
-          {production_companies?.length > 1 ? "Productoras" : "Productora"}
-        </dt>
-        {production_companies?.map((e, i) => (
-          <dd key={i} className="subtext">
-            {e.name}
-          </dd>
-        ))}
-      </dl>
+      {production_companies.length ? (
+        <dl>
+          <dt className="subtitle">
+            {production_companies?.length > 1 ? "Productoras" : "Productora"}
+          </dt>
+          {production_companies?.map((e, i) => (
+            <dd key={i} className="subtext">
+              {e.name}
+            </dd>
+          ))}
+        </dl>
+      ) : null}
 
       {production_countries?.map((e, i) => (
         <dl key={i}>
@@ -83,14 +85,16 @@ export default function SelectedFilmDetails({ data }) {
         </dl>
       ))}
 
-      <dl>
-        <dt className="subtitle">Lenguajes hablados</dt>
-        {spoken_languages?.map((e, i) => (
-          <dd key={i} className="subtext">
-            {Languages(e.iso_639_1)}
-          </dd>
-        ))}
-      </dl>
+      {spoken_languages.length ? (
+        <dl>
+          <dt className="subtitle">Lenguajes hablados</dt>
+          {spoken_languages?.map((e, i) => (
+            <dd key={i} className="subtext">
+              {Languages(e.iso_639_1)}
+            </dd>
+          ))}
+        </dl>
+      ) : null}
 
       {budget ? (
         <dl>

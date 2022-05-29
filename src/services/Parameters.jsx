@@ -31,7 +31,7 @@ export default {
     page: "page=",
     query: "query=",
     list: "list",
-    img: "https://image.tmdb.org/t/p/original",
+    img: "https://image.tmdb.org/t/p/",
     include_adult: "include_adult=false",
     movie: "movie/",
     tv: "tv/",

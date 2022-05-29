@@ -17,9 +17,13 @@ export default function HandleImage({ data }) {
   const MyImage = () => {
     switch (img_required) {
       case "poster":
-        if (poster_path) return `${TMDb.img}${poster_path}`;
+        if (poster_path) return `${TMDb.img}w400${poster_path}`;
       case "backdrop":
-        if (backdrop_path) return `${TMDb.img}${backdrop_path}`;
+        if (backdrop_path) {
+          return `${TMDb.img}original${backdrop_path}`;
+        } else if (poster_path) {
+          return `${TMDb.img}original${poster_path}`;
+        }
 
       default:
         return imageNotFound;

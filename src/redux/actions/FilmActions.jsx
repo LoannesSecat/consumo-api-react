@@ -4,15 +4,15 @@ import db from "../../services/Mocks";
 import ACTIONS from "../ActionsCreators/FilmTypes";
 import useDispatch from "../../hooks/useDispatch";
 import useStore from "../../hooks/useStore";
-import { MaximumPages } from "./ToolActions";
+import { MaximumPages, NewPage } from "./ToolActions";
 
 const TMDb = Parameters.TMDb;
 
 export const ReadFilms = () => {
-  let query = "a";
-
+  const searchText = useStore({ reducer: "tool", value: "searchText" });
   const page = useStore({ reducer: "tool", value: "page" });
   const maxPage = useStore({ reducer: "tool", value: "maxPage" });
+  const query = searchText === "" ? "a" : searchText;
   const req = `${TMDb.url_v3}${TMDb.multi_search}?${TMDb.api_key}&${TMDb.query}${query}&${TMDb.page}${page}&${TMDb.language}&${TMDb.include_adult}`;
 
   Soliciter({
@@ -20,7 +20,10 @@ export const ReadFilms = () => {
     mock: db().Films,
     action: ACTIONS.READ_FILMS,
   }).then((e) => {
-    if (maxPage !== e.data.total_pages) MaximumPages(e.data.total_pages);
+    if (maxPage !== e.data.total_pages) {
+      MaximumPages(e.data.total_pages);
+      NewPage();
+    }
 
     useDispatch({
       type: e.type,

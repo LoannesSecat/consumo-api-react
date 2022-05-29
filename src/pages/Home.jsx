@@ -7,11 +7,13 @@ import Loading from "../components/Loading";
 import { ReadFilms } from "../redux/actions/FilmActions";
 import { useEffect } from "react";
 import FilmsPagination from "../components/FilmsPagination";
+import { SearchText } from "../redux/actions/ToolActions";
 
 export default function Home() {
-  useEffect(() => ReadFilms(), []);
-
   const dataFilms = useSelector((e) => e.film.films);
+  const text = useSelector((e) => e.tool.searchText);
+
+  useEffect(() => ReadFilms(), [text]);
 
   const CompFilms = () => {
     if (dataFilms === "loading") return <Loading />;
@@ -33,11 +35,24 @@ export default function Home() {
     return <Empty />;
   };
 
+  const HandleSearch = (value) => {
+    if (value[value.length - 1] === " " && value[value.length - 2] === " ") {
+      SearchText(value.slice(0, -1));
+    } else {
+      SearchText(value);
+    }
+  };
+
   return (
     <>
       <Header>
         <div>Inicio</div>
-        <input type="text" />
+        <input
+          type="text"
+          onChange={(e) => HandleSearch(e.target.value)}
+          value={text}
+          placeholder="Ej: Los guardianes de la galaxia"
+        />
       </Header>
 
       <CompFilms />
