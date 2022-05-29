@@ -1,7 +1,7 @@
 {
   "name": "movies-platform-react",
   "private": true,
-  "version": "0.1.13",
+  "version": "0.1.15",
   "homepage": "https://loannessecat.github.io/movies-platform-react",
   "scripts": {
     "dev": "vite",
