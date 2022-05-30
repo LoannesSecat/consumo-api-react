@@ -7,6 +7,5 @@ export default defineConfig(() => {
     test: {
       globals: true
     },
-    base: "https://loannessecat.github.io/movies-platform-react/"
   })
 })
