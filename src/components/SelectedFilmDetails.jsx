@@ -27,22 +27,19 @@ export default function SelectedFilmDetails({ data }) {
     homepage,
   } = data;
 
-  const HandleSpaces = (index, arr) => {
-    if (arr.length === 0) return null;
-
-    return index != arr.length - 1 ? " " : <br />;
-  };
-
   return (
     <>
-      {genres?.map((e, index, arr) => (
-        <Fragment key={index}>
-          <small className="genres">{e.name}</small>
-          {HandleSpaces(index, arr)}
-        </Fragment>
-      ))}
+      {genres?.length ? (
+        <div className="genres">
+          {genres?.map((e, index) => (
+            <Fragment key={index}>
+              <small>{e.name}</small>
+            </Fragment>
+          ))}
+        </div>
+      ) : null}
 
-      {overview?.length ? <p>{overview}</p> : <br />}
+      {overview?.length ? <p>{overview}</p> : null}
 
       <dl>
         <dt className="subtitle">Idioma original</dt>
@@ -147,10 +144,16 @@ export default function SelectedFilmDetails({ data }) {
           <ul className="seasons">
             {seasons.map((e, i) => (
               <li key={i}>
-                <span className="subtext">{e.name}</span>
+                <span className="subtext subtitle">{e.name}</span>
                 <ul>
-                  <li>Emision: {MyDate(e.air_date)}</li>
-                  <li>Episodios: {e.episode_count}</li>
+                  <li>
+                    <span className="seasons-subtitle">Emision:</span>{" "}
+                    {MyDate(e.air_date)}
+                  </li>
+                  <li>
+                    <span className="seasons-subtitle">Episodios:</span>{" "}
+                    {e.episode_count}
+                  </li>
                 </ul>
               </li>
             ))}

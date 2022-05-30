@@ -7,7 +7,6 @@ import { Route, Switch } from "wouter";
 import "./utils/styles/General.scss";
 
 export default function App() {
-  console.log(location);
   return (
     <StoreProvider>
       <Alert />

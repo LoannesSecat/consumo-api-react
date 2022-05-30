@@ -1,5 +1,5 @@
 import { useLocation } from "wouter";
-import "../utils/styles/SelectedFilm.scss";
+import "../utils/styles/Details.scss";
 import HandleImage from "../components/HandleImage";
 import SelectedFilmDetails from "../components/SelectedFilmDetails";
 import Header from "../components/Header";
