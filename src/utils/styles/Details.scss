@@ -1,11 +1,18 @@
 @use "Palette";
 
+.subtitle {
+  color: Palette.$Black_Chocolate;
+  font-weight: 600;
+  opacity: 80%;
+}
+
 .SelectedFilm {
   transition: 0.5s;
+  word-break: break-word;
 
   .Header {
     button {
-      border-radius: 15px;
+      border-radius: 10px;
       padding: 0px 10px;
       color: Palette.$Black_Chocolate;
       background-color: Palette.$Ghost_White;
@@ -49,21 +56,22 @@
     padding: 20px;
 
     .genres {
-      background-color: Palette.$Ghost_White;
-      color: Palette.$Cerise;
-      border: 1px solid Palette.$Cerise;
-      padding: 2px 10px;
-      border-radius: 15px;
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+
+      small {
+        background-color: Palette.$Ghost_White;
+        color: Palette.$Cerise;
+        border: 1px solid Palette.$Cerise;
+        padding: 1px 6px;
+        border-radius: 10px;
+        white-space: nowrap;
+      }
     }
 
     p {
       font-size: large;
-    }
-
-    .subtitle {
-      color: Palette.$Black_Chocolate;
-      font-weight: 600;
-      opacity: 80%;
     }
 
     .seasons {
@@ -75,6 +83,12 @@
         > ul {
           list-style: none;
         }
+      }
+
+      .seasons-subtitle {
+        color: Palette.$Black_Chocolate;
+        font-weight: 500;
+        opacity: 80%;
       }
     }
 

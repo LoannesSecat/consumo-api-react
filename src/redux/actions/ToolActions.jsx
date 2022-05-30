@@ -1,4 +1,4 @@
-import useDispatch from "../../hooks/useDispatch";
+import useDispatch from "../../utils/useDispatch";
 import ACTIONS from "../ActionsCreators/ToolTypes";
 import { ReadFilms } from "./FilmActions";
 
