@@ -22,7 +22,7 @@ export const ReadFilms = () => {
   }).then((e) => {
     if (maxPage !== e.data.total_pages) {
       MaximumPages(e.data.total_pages);
-      NewPage();
+      /* NewPage(); */
     }
 
     useDispatch({
