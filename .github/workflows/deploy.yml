@@ -17,7 +17,7 @@ jobs:
         run: |
           yarn install
           yarn build
-      - name: Deploy
+      - name: Deploy process
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: gh-pages
