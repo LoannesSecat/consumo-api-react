@@ -7,6 +7,6 @@ export default defineConfig(() => {
     test: {
       globals: true
     },
-    base: "/movies-platform-react/"
+    base: "./"
   })
 })
