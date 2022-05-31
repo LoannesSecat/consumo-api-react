@@ -4,14 +4,14 @@ import db from "../../services/Mocks";
 import ACTIONS from "../ActionsCreators/FilmTypes";
 import useDispatch from "../../utils/useDispatch";
 import useStore from "../../utils/useStore";
-import { MaximumPages, NewPage } from "./ToolActions";
+import { NewPage, TotalPages } from "./ToolActions";
 
 const TMDb = Parameters.TMDb;
 
 export const ReadFilms = () => {
   const searchText = useStore({ reducer: "tool", value: "searchText" });
   const page = useStore({ reducer: "tool", value: "page" });
-  const maxPage = useStore({ reducer: "tool", value: "maxPage" });
+  const totalPages = useStore({ reducer: "tool", value: "totalPages" });
   const query = searchText === "" ? "a" : searchText;
   const req = `${TMDb.url_v3}${TMDb.multi_search}?${TMDb.api_key}&${TMDb.query}${query}&${TMDb.page}${page}&${TMDb.language}&${TMDb.include_adult}`;
 
@@ -20,8 +20,8 @@ export const ReadFilms = () => {
     mock: db().Films,
     action: ACTIONS.READ_FILMS,
   }).then((e) => {
-    if (maxPage !== e.data.total_pages) {
-      MaximumPages(e.data.total_pages);
+    if (totalPages !== e.data.total_pages) {
+      TotalPages(e.data.total_pages);
       NewPage();
     }
 

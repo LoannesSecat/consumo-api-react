@@ -7,7 +7,7 @@ export default function FilmsPagination() {
 
   const currentPage = useSelector((e) => e.tool.page);
   const minNumPage = useSelector((e) => e.tool.minPage);
-  const maxNumPage = useSelector((e) => e.tool.maxPage);
+  const totalPages = useSelector((e) => e.tool.totalPages);
 
   const ButtonPrevious =
     currentPage <= minNumPage ? (
@@ -17,7 +17,7 @@ export default function FilmsPagination() {
     );
 
   const ButtonNext =
-    currentPage >= maxNumPage ? (
+    currentPage >= totalPages ? (
       <div />
     ) : (
       <button onClick={() => NextFilmsPage()}>Siguiente</button>
@@ -26,7 +26,9 @@ export default function FilmsPagination() {
   return (
     <div className="FilmsPagination">
       {ButtonPrevious}
-      <span>{currentPage}</span>
+      <span>
+        {currentPage} / {totalPages}
+      </span>
       {ButtonNext}
     </div>
   );

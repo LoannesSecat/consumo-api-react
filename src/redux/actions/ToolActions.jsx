@@ -22,13 +22,6 @@ export const PreviousFilmsPage = () => {
   ReadFilms();
 };
 
-export const MaximumPages = (numPage) => {
-  useDispatch({
-    type: ACTIONS.MAXIMUM_NUM_PAGES,
-    payload: numPage,
-  });
-};
-
 export const MessageAlert = (msg) => {
   useDispatch({
     type: ACTIONS.MESSAGE_ALERT,
@@ -42,5 +35,12 @@ export const SearchText = (text) => {
   useDispatch({
     type: ACTIONS.SEARCH_TEXT,
     payload: myText,
+  });
+};
+
+export const TotalPages = (numPages) => {
+  useDispatch({
+    type: ACTIONS.TOTAL_NUM_PAGES,
+    payload: numPages,
   });
 };
