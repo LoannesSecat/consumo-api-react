@@ -5,19 +5,17 @@ import { useSelector } from "react-redux";
 export default function FilmsPagination() {
   scroll(null, 0); //Scroll to top
 
-  const currentPage = useSelector((e) => e.tool.page);
-  const minNumPage = useSelector((e) => e.tool.minPage);
-  const totalPages = useSelector((e) => e.tool.totalPages);
+  const { page, minPage, totalPages } = useSelector((e) => e.tool);
 
   const ButtonPrevious =
-    currentPage <= minNumPage ? (
+    page <= minPage ? (
       <div />
     ) : (
       <button onClick={() => PreviousFilmsPage()}>Anterior</button>
     );
 
   const ButtonNext =
-    currentPage >= totalPages ? (
+    page >= totalPages ? (
       <div />
     ) : (
       <button onClick={() => NextFilmsPage()}>Siguiente</button>
@@ -27,7 +25,7 @@ export default function FilmsPagination() {
     <div className="FilmsPagination">
       {ButtonPrevious}
       <span>
-        {currentPage} / {totalPages}
+        {page} / {totalPages}
       </span>
       {ButtonNext}
     </div>

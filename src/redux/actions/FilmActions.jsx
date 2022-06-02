@@ -11,10 +11,10 @@ let req = "";
 
 export const ReadFilms = () => {
   const { FilmsMock } = db();
-  const searchText = useStore({ reducer: "tool", value: "searchText" });
+  const search_text = useStore({ reducer: "tool", value: "searchText" });
   const page = useStore({ reducer: "tool", value: "page" });
-  const totalPages = useStore({ reducer: "tool", value: "totalPages" });
-  const query = searchText === "" ? "a" : searchText;
+  const total_pages = useStore({ reducer: "tool", value: "totalPages" });
+  const query = search_text === "" ? "a" : search_text;
   req = `${TMDb.url_v3}${TMDb.multi_search}?${TMDb.api_key}&${TMDb.query}${query}&${TMDb.page}${page}&${TMDb.language}&${TMDb.include_adult}`;
 
   Soliciter({
@@ -22,7 +22,7 @@ export const ReadFilms = () => {
     mock: FilmsMock,
     action: ACTIONS.READ_FILMS,
   }).then((e) => {
-    if (totalPages !== e.data.total_pages) {
+    if (total_pages !== e.data.total_pages) {
       TotalPages(e.data?.total_pages);
       NewPage();
     }

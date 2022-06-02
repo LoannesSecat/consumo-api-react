@@ -16,14 +16,6 @@ export default function Film({ data }) {
     }
   };
 
-  const RelaseDate = (date) =>
-    date ? (
-      <>
-        <br />
-        <span>{MyDate(date)}</span>
-      </>
-    ) : null;
-
   return (
     <div className="Film">
       <HandleImage

@@ -8,27 +8,25 @@ import SerieDetails from "../components/SerieDetails";
 import FilmDetails from "../components/FilmDetails";
 import PersonDetails from "../components/PersonDetails";
 
+scroll(null, 0); //Scroll to top
+
 export default function Details() {
-  scroll(null, 0); //Scroll to top
   const [, navigation] = useLocation();
-  const films_details = useSelector((e) => e.film.filmDetails);
-  const person_details = useSelector((e) => e.film.personDetails);
-  const serie_details = useSelector((e) => e.film.serieDetails);
-  const type_media = useSelector((e) => e.film.mediaType);
+  const { filmDetails, personDetails, serieDetails, mediaType } = useSelector(
+    (e) => e.film
+  );
 
   const Content = () => {
-    switch (type_media) {
+    switch (mediaType) {
       case "tv":
         return (
-          <HandleLoading data={serie_details} component={<SerieDetails />} />
+          <HandleLoading data={serieDetails} component={<SerieDetails />} />
         );
       case "movie":
-        return (
-          <HandleLoading data={films_details} component={<FilmDetails />} />
-        );
+        return <HandleLoading data={filmDetails} component={<FilmDetails />} />;
       case "person":
         return (
-          <HandleLoading data={person_details} component={<PersonDetails />} />
+          <HandleLoading data={personDetails} component={<PersonDetails />} />
         );
 
       default:

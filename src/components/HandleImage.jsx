@@ -7,7 +7,6 @@ import {
   PersonDetails,
   SerieDetails,
 } from "../redux/actions/FilmActions";
-import useStore from "../utils/useStore";
 
 const TMDb = Parameters.TMDb;
 
@@ -18,9 +17,7 @@ export default function HandleImage({ data, img_required }) {
   const HandleDetails = () => {
     MediaType(media_type);
 
-    const type_media = useStore({ reducer: "film", value: "mediaType" });
-
-    switch (type_media) {
+    switch (media_type) {
       case "tv":
         SerieDetails(data);
         break;
