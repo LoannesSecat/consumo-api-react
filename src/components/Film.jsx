@@ -1,27 +1,41 @@
+import { MyDate } from "../utils/Converter";
 import "../utils/styles/Film.scss";
 import HandleImage from "./HandleImage";
+import Paragraph from "./subcomponents/Paragraph";
 
 export default function Film({ data }) {
+  const MediaType = (type) => {
+    switch (type) {
+      case "movie":
+        return <span>Película</span>;
+      case "tv":
+        return <span>Serie</span>;
+
+      default:
+        return null;
+    }
+  };
+
+  const RelaseDate = (date) =>
+    date ? (
+      <>
+        <br />
+        <span>{MyDate(date)}</span>
+      </>
+    ) : null;
+
   return (
     <div className="Film">
       <HandleImage
-        data={{
-          id: data.id,
-          media_type: data.media_type,
-          poster_path: data.poster_path,
-          backdrop_path: data.backdrop_path,
-          img_required: "poster",
-        }}
+        data={data}
+        img_required={data.media_type === "person" ? "profile" : "poster"}
       />
 
       <div className="info">
         <h2>{data.title ? data.title : data.name}</h2>
-        {data.overview ? <p>{data.overview}</p> : null}
-        <span>{data.media_type === "movie" ? "Película" : "Serie"}</span>
-        <br />
-        <span>
-          {data.release_date ? data?.release_date : data?.first_air_date}
-        </span>
+        <Paragraph param={data.overview ? data.overview : data.biography} />
+
+        {MediaType(data?.media_type)}
       </div>
     </div>
   );

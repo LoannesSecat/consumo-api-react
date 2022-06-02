@@ -1,16 +1,39 @@
 import Parameters from "../services/Parameters";
 import imageNotFound from "../assets/clipart15852.png";
 import { useLocation } from "wouter";
-import { FilmDetails } from "../redux/actions/FilmActions";
+import {
+  FilmDetails,
+  MediaType,
+  PersonDetails,
+  SerieDetails,
+} from "../redux/actions/FilmActions";
+import useStore from "../utils/useStore";
 
 const TMDb = Parameters.TMDb;
 
-export default function HandleImage({ data }) {
-  const { poster_path, backdrop_path, img_required } = data;
+export default function HandleImage({ data, img_required }) {
   const [, navigate] = useLocation();
+  const { poster_path, backdrop_path, profile_path, media_type } = data;
 
-  const HandleDetails = (myData) => {
-    FilmDetails(myData);
+  const HandleDetails = () => {
+    MediaType(media_type);
+
+    const type_media = useStore({ reducer: "film", value: "mediaType" });
+
+    switch (type_media) {
+      case "tv":
+        SerieDetails(data);
+        break;
+
+      case "movie":
+        FilmDetails(data);
+        break;
+
+      case "person":
+        PersonDetails(data);
+        break;
+    }
+
     navigate("/details");
   };
 
@@ -24,13 +47,13 @@ export default function HandleImage({ data }) {
         } else if (poster_path) {
           return `${TMDb.img}original${poster_path}`;
         }
+      case "profile":
+        if (profile_path) return `${TMDb.img}w400${profile_path}`;
 
       default:
         return imageNotFound;
     }
   };
 
-  return (
-    <img src={MyImage()} onClick={() => HandleDetails(data)} loading="lazy" />
-  );
+  return <img src={MyImage()} onClick={() => HandleDetails()} loading="lazy" />;
 }

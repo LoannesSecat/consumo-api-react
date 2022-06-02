@@ -1,0 +1,55 @@
+export default {
+  adult: false,
+  backdrop_path: "/lVy5Zqcty2NfemqKYbVJfdg44rK.jpg",
+  belongs_to_collection: {
+    id: 2883,
+    name: "Kill Bill - Colección",
+    poster_path: "/3g6ymX5cGyzXejM8NQXQFzLMFJe.jpg",
+    backdrop_path: "/oCLKNACMNrEf4T1EP6BpMXDl5m1.jpg",
+  },
+  budget: 30000000,
+  genres: [
+    { id: 28, name: "Acción" },
+    { id: 80, name: "Crimen" },
+  ],
+  homepage: "http://www.miramax.com/movie/kill-bill-volume-1",
+  id: 24,
+  imdb_id: "tt0266697",
+  original_language: "en",
+  original_title: "Kill Bill: Vol. 1",
+  overview:
+    "Uma Thurman es una asesina que, el día de su boda, es atacada por los miembros de la banda de su jefe, Bill (David Carradine). Logra sobrevivir al ataque, aunque queda en coma. Cinco años después despierta con un trozo de metal en la cabeza y un gran deseo de venganza en su corazón.",
+  popularity: 49.887,
+  poster_path: "/lfj709InbmljVqAXgUk2qjnujNN.jpg",
+  production_companies: [
+    {
+      id: 14,
+      logo_path: "/m6AHu84oZQxvq7n1rsvMNJIAsMu.png",
+      name: "Miramax",
+      origin_country: "US",
+    },
+    {
+      id: 59,
+      logo_path: "/yH7OMeSxhfP0AVM6iT0rsF3F4ZC.png",
+      name: "A Band Apart",
+      origin_country: "US",
+    },
+  ],
+  production_countries: [
+    { iso_3166_1: "US", name: "United States of America" },
+  ],
+  release_date: "2003-10-10",
+  revenue: 180899265,
+  runtime: 111,
+  spoken_languages: [
+    { english_name: "English", iso_639_1: "en", name: "English" },
+    { english_name: "Japanese", iso_639_1: "ja", name: "日本語" },
+    { english_name: "French", iso_639_1: "fr", name: "Français" },
+  ],
+  status: "Released",
+  tagline: "La sangrienta historia de una venganza",
+  title: "Kill Bill: Volumen 1",
+  video: false,
+  vote_average: 8.0,
+  vote_count: 14422,
+};
