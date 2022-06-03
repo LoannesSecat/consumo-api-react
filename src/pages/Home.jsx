@@ -41,6 +41,8 @@ export default function Home() {
     } else {
       SearchText(value);
     }
+
+    if (value === "") SearchText();
   };
 
   return (

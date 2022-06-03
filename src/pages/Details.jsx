@@ -8,8 +8,6 @@ import SerieDetails from "../components/SerieDetails";
 import FilmDetails from "../components/FilmDetails";
 import PersonDetails from "../components/PersonDetails";
 
-scroll(null, 0); //Scroll to top
-
 export default function Details() {
   const [, navigation] = useLocation();
   const { filmDetails, personDetails, serieDetails, mediaType } = useSelector(
