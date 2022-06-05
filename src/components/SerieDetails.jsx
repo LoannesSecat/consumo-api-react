@@ -35,7 +35,7 @@ export default function SerieDetails() {
     homepage,
     in_production,
     type,
-  } = useSelector((e) => e.film.serieDetails);
+  } = useSelector((e) => e.film.serie_details);
 
   return (
     <>

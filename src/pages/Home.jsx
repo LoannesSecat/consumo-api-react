@@ -11,7 +11,7 @@ import { SearchText } from "../redux/actions/ToolActions";
 
 export default function Home() {
   const data_films = useSelector((e) => e.film.films);
-  const text = useSelector((e) => e.tool.searchText);
+  const text = useSelector((e) => e.tool.search_text);
 
   useEffect(() => ReadFilms(), [text]);
 

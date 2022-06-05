@@ -34,7 +34,7 @@ export default function FilmDetails() {
     vote_average,
     vote_count,
     homepage,
-  } = useSelector((e) => e.film.filmDetails);
+  } = useSelector((e) => e.film.film_details);
 
   return (
     <>
@@ -46,7 +46,7 @@ export default function FilmDetails() {
 
         <div className="titles">
           <h1>{title}</h1>
-          {tagline.length > 0 && tagline ? <h2>{tagline}</h2> : null}
+          {tagline?.length > 0 && tagline ? <h2>{tagline}</h2> : null}
         </div>
       </div>
 

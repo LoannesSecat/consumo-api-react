@@ -2,10 +2,10 @@ import ACTIONS from "../ActionsCreators/FilmTypes";
 
 const initialState = {
   films: [],
-  filmDetails: [],
-  personDetails: [],
-  serieDetails: [],
-  mediaType: "",
+  film_details: [],
+  person_details: [],
+  serie_details: [],
+  type_media: "",
 };
 
 export default function FilmReducer(store = initialState, action) {
@@ -13,13 +13,13 @@ export default function FilmReducer(store = initialState, action) {
     case ACTIONS.READ_FILMS:
       return { ...store, films: action.payload };
     case ACTIONS.FILM_DETAILS:
-      return { ...store, filmDetails: action.payload };
+      return { ...store, film_details: action.payload };
     case ACTIONS.PERSON_DETAILS:
-      return { ...store, personDetails: action.payload };
-    case ACTIONS.MEDIA_TYPE:
-      return { ...store, mediaType: action.payload };
+      return { ...store, person_details: action.payload };
     case ACTIONS.SERIE_DETAILS:
-      return { ...store, serieDetails: action.payload };
+      return { ...store, serie_details: action.payload };
+    case ACTIONS.MEDIA_TYPE:
+      return { ...store, type_media: action.payload };
 
     default:
       return store;

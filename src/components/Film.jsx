@@ -1,10 +1,9 @@
-import { MyDate } from "../utils/Converter";
 import "../utils/styles/Film.scss";
 import HandleImage from "./HandleImage";
 import Paragraph from "./subcomponents/Paragraph";
 
 export default function Film({ data }) {
-  const MediaType = (type) => {
+  const handle_media_type = (type) => {
     switch (type) {
       case "movie":
         return <span>Película</span>;
@@ -27,7 +26,7 @@ export default function Film({ data }) {
         <h2>{data.title ? data.title : data.name}</h2>
         <Paragraph param={data.overview ? data.overview : data.biography} />
 
-        {MediaType(data?.media_type)}
+        {handle_media_type(data?.media_type)}
       </div>
     </div>
   );

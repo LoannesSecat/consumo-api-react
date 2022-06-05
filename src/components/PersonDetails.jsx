@@ -18,7 +18,7 @@ export default function PersonDetails() {
     deathday,
     place_of_birth,
     popularity,
-  } = useSelector((e) => e.film.personDetails);
+  } = useSelector((e) => e.film.person_details);
 
   return (
     <>

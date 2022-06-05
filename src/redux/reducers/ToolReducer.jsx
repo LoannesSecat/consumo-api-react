@@ -2,10 +2,10 @@ import ACTIONS from "../ActionsCreators/ToolTypes";
 
 const initialState = {
   page: 1,
-  minPage: 1,
-  totalPages: 1,
-  alertMessage: { msg: "", color: "" },
-  searchText: "",
+  min_page: 1,
+  total_pages: 1,
+  alert_message: { msg: "", color: "" },
+  search_text: "",
 };
 
 export default function ToolReducer(store = initialState, action) {
@@ -17,13 +17,13 @@ export default function ToolReducer(store = initialState, action) {
     case ACTIONS.PREVIOUS_FILMS_PAGE:
       return { ...store, page: store.page - 1 };
     case ACTIONS.MINIMUM_NUM_PAGES:
-      return { ...store, minPage: action.payload };
+      return { ...store, min_page: action.payload };
     case ACTIONS.MESSAGE_ALERT:
-      return { ...store, alertMessage: action.payload };
+      return { ...store, alert_message: action.payload };
     case ACTIONS.SEARCH_TEXT:
-      return { ...store, searchText: action.payload };
+      return { ...store, search_text: action.payload };
     case ACTIONS.TOTAL_NUM_PAGES:
-      return { ...store, totalPages: action.payload };
+      return { ...store, total_pages: action.payload };
 
     default:
       return store;

@@ -3,17 +3,17 @@ import { NextFilmsPage, PreviousFilmsPage } from "../redux/actions/ToolActions";
 import { useSelector } from "react-redux";
 
 export default function FilmsPagination() {
-  const { page, minPage, totalPages } = useSelector((e) => e.tool);
+  const { page, min_page, total_pages } = useSelector((e) => e.tool);
 
-  const ButtonPrevious =
-    page <= minPage ? (
+  const button_previous =
+    page <= min_page ? (
       <div />
     ) : (
       <button onClick={() => PreviousFilmsPage()}>Anterior</button>
     );
 
-  const ButtonNext =
-    page >= totalPages ? (
+  const button_next =
+    page >= total_pages ? (
       <div />
     ) : (
       <button onClick={() => NextFilmsPage()}>Siguiente</button>
@@ -21,11 +21,11 @@ export default function FilmsPagination() {
 
   return (
     <div className="FilmsPagination">
-      {ButtonPrevious}
+      {button_previous}
       <span>
-        {page} / {totalPages}
+        {page} / {total_pages}
       </span>
-      {ButtonNext}
+      {button_next}
     </div>
   );
 }

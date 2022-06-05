@@ -10,21 +10,22 @@ import PersonDetails from "../components/PersonDetails";
 
 export default function Details() {
   const [, navigation] = useLocation();
-  const { filmDetails, personDetails, serieDetails, mediaType } = useSelector(
-    (e) => e.film
-  );
+  const { film_details, person_details, serie_details, type_media } =
+    useSelector((e) => e.film);
 
   const Content = () => {
-    switch (mediaType) {
+    switch (type_media) {
       case "tv":
         return (
-          <HandleLoading data={serieDetails} component={<SerieDetails />} />
+          <HandleLoading data={serie_details} component={<SerieDetails />} />
         );
       case "movie":
-        return <HandleLoading data={filmDetails} component={<FilmDetails />} />;
+        return (
+          <HandleLoading data={film_details} component={<FilmDetails />} />
+        );
       case "person":
         return (
-          <HandleLoading data={personDetails} component={<PersonDetails />} />
+          <HandleLoading data={person_details} component={<PersonDetails />} />
         );
 
       default:
