@@ -95,15 +95,19 @@ export default function FilmDetails() {
           </dl>
         ) : null}
 
-        <dl>
-          <dt className="subtitle">Votación promedio</dt>
-          <dd className="subtext">{vote_average}</dd>
-        </dl>
+        {vote_average ? (
+          <dl>
+            <dt className="subtitle">Votación promedio</dt>
+            <dd className="subtext">{vote_average}</dd>
+          </dl>
+        ) : null}
 
-        <dl>
-          <dt className="subtitle">Votaciones</dt>
-          <dd className="subtext">{vote_count}</dd>
-        </dl>
+        {vote_count ? (
+          <dl>
+            <dt className="subtitle">Votaciones</dt>
+            <dd className="subtext">{vote_count}</dd>
+          </dl>
+        ) : null}
 
         <Homepage param={homepage} />
       </div>
