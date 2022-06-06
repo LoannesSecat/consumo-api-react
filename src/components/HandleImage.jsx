@@ -10,7 +10,7 @@ import {
 
 const TMDb = Parameters.TMDb;
 
-export default function HandleImage({ data, img_required }) {
+export default function HandleImage({ data, img_required, is_person }) {
   const [, navigate] = useLocation();
   const { poster_path, backdrop_path, profile_path, media_type } = data;
 
@@ -52,5 +52,12 @@ export default function HandleImage({ data, img_required }) {
     }
   };
 
-  return <img src={MyImage()} onClick={() => HandleDetails()} loading="lazy" />;
+  return (
+    <img
+      src={MyImage()}
+      onClick={() => HandleDetails()}
+      loading="lazy"
+      style={is_person ? { objectFit: "contain" } : null}
+    />
+  );
 }

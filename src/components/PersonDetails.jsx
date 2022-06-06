@@ -26,7 +26,7 @@ export default function PersonDetails() {
         <HandleImage
           data={{ profile_path }}
           img_required="profile"
-          className="img-person"
+          is_person={true}
         />
 
         <div className="titles">
@@ -50,16 +50,18 @@ export default function PersonDetails() {
 
         {known_for_department ? (
           <dl>
-            <td className="subtitle">Conocido por el campo de</td>
+            <dt className="subtitle">Conocido por el campo de</dt>
             <dd className="subtext">{known_for_department}</dd>
           </dl>
         ) : null}
 
-        {known_for ? (
+        {known_for?.length ? (
           <dl>
             <dt className="subtitle">Conocid@ por</dt>
             {known_for.map((e, i) => (
-              <dd className="subtext">{e.name ? e.name : e.title}</dd>
+              <dd className="subtext" key={i}>
+                {e.name ? e.name : e.title}
+              </dd>
             ))}
           </dl>
         ) : null}
