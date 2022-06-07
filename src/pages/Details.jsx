@@ -1,54 +1,40 @@
 import { useLocation } from "wouter";
 import "../utils/styles/Details.scss";
-import HandleImage from "../components/HandleImage";
-import SelectedFilmDetails from "../components/SelectedFilmDetails";
 import Header from "../components/Header";
 import { useSelector } from "react-redux";
-import Loading from "../components/Loading";
 import Empty from "../components/Empty";
+import HandleLoading from "../components/HandleLoading";
+import SerieDetails from "../components/SerieDetails";
+import FilmDetails from "../components/FilmDetails";
+import PersonDetails from "../components/PersonDetails";
 
 export default function Details() {
-  scroll(null, 0); //Scroll to top
   const [, navigation] = useLocation();
-  const details = useSelector((e) => e.film.filmDetails);
-  const { backdrop_path, poster_path, title, name, tagline, media_type } =
-    details;
+  const { film_details, person_details, serie_details, type_media } =
+    useSelector((e) => e.film);
 
   const Content = () => {
-    if (details === "loading") return <Loading />;
+    switch (type_media) {
+      case "tv":
+        return (
+          <HandleLoading data={serie_details} component={<SerieDetails />} />
+        );
+      case "movie":
+        return (
+          <HandleLoading data={film_details} component={<FilmDetails />} />
+        );
+      case "person":
+        return (
+          <HandleLoading data={person_details} component={<PersonDetails />} />
+        );
 
-    if (Object.keys(details).length) {
-      return (
-        <>
-          <div className="banner">
-            <HandleImage
-              data={{
-                backdrop_path: backdrop_path,
-                poster_path: poster_path,
-                img_required: "backdrop",
-              }}
-            />
-
-            <div className="titles">
-              <h1>{media_type === "movie" ? title : name}</h1>
-              {tagline?.length > 0 && (title || name) != tagline ? (
-                <h2>{tagline}</h2>
-              ) : null}
-            </div>
-          </div>
-
-          <div className="details">
-            <SelectedFilmDetails data={details} />
-          </div>
-        </>
-      );
+      default:
+        return <Empty />;
     }
-
-    return <Empty />;
   };
 
   return (
-    <div className="SelectedFilm">
+    <div className="Details">
       <Header>
         <button onClick={() => navigation("/")}>Volver</button>
       </Header>

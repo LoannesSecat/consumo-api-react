@@ -2,7 +2,7 @@ import { MessageAlert } from "../redux/actions/ToolActions";
 import RequestMode from "./RequestMode";
 import useDispatch from "../utils/useDispatch";
 
-export default function Soliciter({ request, mock, action }) {
+export default async function Soliciter({ request, mock, action }) {
   useDispatch({ type: action, payload: "loading" });
 
   if (RequestMode === "test") return { type: action, data: mock };

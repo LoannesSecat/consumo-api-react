@@ -10,19 +10,19 @@ import FilmsPagination from "../components/FilmsPagination";
 import { SearchText } from "../redux/actions/ToolActions";
 
 export default function Home() {
-  const dataFilms = useSelector((e) => e.film.films);
-  const text = useSelector((e) => e.tool.searchText);
+  const data_films = useSelector((e) => e.film.films);
+  const text = useSelector((e) => e.tool.search_text);
 
   useEffect(() => ReadFilms(), [text]);
 
   const CompFilms = () => {
-    if (dataFilms === "loading") return <Loading />;
+    if (data_films === "loading") return <Loading />;
 
-    if (dataFilms?.length) {
+    if (data_films?.length) {
       return (
         <>
           <div className="Films">
-            {dataFilms?.map((e, i) => (
+            {data_films?.map((e, i) => (
               <Film data={e} key={i} />
             ))}
           </div>
@@ -41,6 +41,8 @@ export default function Home() {
     } else {
       SearchText(value);
     }
+
+    if (value === "") SearchText();
   };
 
   return (

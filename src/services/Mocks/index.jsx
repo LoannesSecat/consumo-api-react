@@ -1,15 +1,19 @@
 import useStore from "../../utils/useStore";
-import FilmsData from "./Films";
-import SelectedFilm from "./SelectedFilm";
+import Films from "./FilmsMock";
+import FilmDetailsMock from "./FilmDetailsMock";
+import SerieDetailsMock from "./SerieDetailsMock";
+import PersonDetailsMock from "./PersonDetailsMock";
 
 export default function Mocks() {
   const page = useStore({ reducer: "tool", value: "page" });
 
   return {
-    SelectedFilm,
-    Films: {
-      total_pages: Object.keys(FilmsData).length,
-      results: FilmsData[page - 1],
+    FilmDetailsMock,
+    SerieDetailsMock,
+    PersonDetailsMock,
+    FilmsMock: {
+      total_pages: Object.keys(Films).length,
+      results: Films[page - 1],
     },
   };
 }

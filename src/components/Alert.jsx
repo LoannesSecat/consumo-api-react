@@ -4,7 +4,7 @@ import { MessageAlert } from "../redux/actions/ToolActions";
 import { useSelector } from "react-redux";
 
 export default function Alert() {
-  const { msg, color } = useSelector((e) => e.tool.alertMessage);
+  const { msg, color } = useSelector((e) => e.tool.alert_message);
 
   useEffect(() => {
     setTimeout(() => {

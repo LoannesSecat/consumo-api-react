@@ -35,5 +35,6 @@ export default {
     include_adult: "include_adult=false",
     movie: "movie/",
     tv: "tv/",
+    person: "person/",
   },
 };
