@@ -1,6 +1,6 @@
 import Film from "../components/Film";
 import Header from "../components/Header";
-import "../utils/styles/Films.scss";
+import "../utils/styles/Home.scss";
 import Empty from "../components/Empty";
 import { useSelector } from "react-redux";
 import Loading from "../components/Loading";
@@ -20,15 +20,11 @@ export default function Home() {
 
     if (data_films?.length) {
       return (
-        <>
-          <div className="Films">
-            {data_films?.map((e, i) => (
-              <Film data={e} key={i} />
-            ))}
-          </div>
-
-          <FilmsPagination />
-        </>
+        <div className="Films">
+          {data_films?.map((e, i) => (
+            <Film data={e} key={i} />
+          ))}
+        </div>
       );
     }
 
@@ -57,7 +53,10 @@ export default function Home() {
         />
       </Header>
 
-      <CompFilms />
+      <>
+        <CompFilms />
+        <FilmsPagination />
+      </>
     </>
   );
 }

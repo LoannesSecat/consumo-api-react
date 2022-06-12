@@ -12,6 +12,7 @@
   text-align: center;
   align-items: center;
   padding: 10px 10%;
+  padding-right: calc((100% - 100vw) + 10%);
   z-index: 1;
 
   button {
@@ -20,7 +21,6 @@
     padding: 5px 15px;
     border-radius: 10px;
     font-size: small;
-    cursor: pointer;
 
     &:active {
       background-color: Palette.$Tufts_Blue;

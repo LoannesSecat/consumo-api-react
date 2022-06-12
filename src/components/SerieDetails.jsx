@@ -126,18 +126,21 @@ export default function SerieDetails() {
           <ul className="seasons">
             {seasons.map((e, i) => (
               <li key={i}>
-                <span className="subtext subtitle">{e.name}</span>
+                <span className="subtitle">{e.name}</span>
+
                 <ul>
-                  <li>
-                    <span className="seasons-subtitle">
-                      Inicio de emisión:{" "}
-                    </span>
-                    {MyDate(e.air_date)}
-                  </li>
-                  <li>
-                    <span className="seasons-subtitle">Episodios: </span>
-                    {e.episode_count}
-                  </li>
+                  {e.air_date && e.episode_count
+                    ? <>
+                      <li>
+                        <span className="subtitle">Inicio de emisión: </span>
+                        <span className="subtext">{MyDate(e.air_date)}</span>
+                      </li>
+                      <li>
+                        <span className="subtitle">Episodios: </span>
+                        <span className="subtext">{e.episode_count}</span>
+                      </li>
+                    </>
+                    : <span className="subtext">Datos desconocidos</span>}
                 </ul>
               </li>
             ))}
