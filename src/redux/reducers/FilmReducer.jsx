@@ -2,10 +2,10 @@ import ACTIONS from "../ActionsCreators/FilmTypes";
 
 const initialState = {
   films: [],
-  film_details: JSON.parse(localStorage.getItem("FILM_DETAILS")) ?? [],
-  person_details: JSON.parse(localStorage.getItem("PERSON_DETAILS")) ?? [],
-  serie_details: JSON.parse(localStorage.getItem("SERIE_DETAILS")) ?? [],
-  type_media: localStorage.getItem("MEDIA_TYPE") ?? "",
+  film_details: [],
+  person_details: [],
+  serie_details: [],
+  type_media: "",
 };
 
 export default function FilmReducer(store = initialState, action) {

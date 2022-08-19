@@ -12,7 +12,7 @@ import ProductionCountries from "./subcomponents/ProductionCountries";
 import SpokenLanguages from "./subcomponents/SpokenLanguages";
 import Status from "./subcomponents/Status";
 
-export default function FilmDetails() {
+export default function FilmDetails({ data }) {
   const {
     backdrop_path,
     poster_path,
@@ -34,7 +34,7 @@ export default function FilmDetails() {
     vote_average,
     vote_count,
     homepage,
-  } = useSelector((e) => e.film.film_details);
+  } = data;
 
   return (
     <>

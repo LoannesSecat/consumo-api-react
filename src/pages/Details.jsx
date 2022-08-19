@@ -14,18 +14,24 @@ export default function Details() {
     useSelector((e) => e.film);
 
   const Content = () => {
-    switch (type_media) {
+    switch (type_media || localStorage.getItem("MEDIA_TYPE")) {
       case "tv":
         return (
-          <HandleLoading data={serie_details} component={<SerieDetails />} />
+          <HandleLoading
+            data={JSON.parse(localStorage.getItem("SERIE_DETAILS")) ?? serie_details}
+            component={SerieDetails} />
         );
       case "movie":
         return (
-          <HandleLoading data={film_details} component={<FilmDetails />} />
+          <HandleLoading
+            data={JSON.parse(localStorage.getItem("FILM_DETAILS")) ?? film_details}
+            component={FilmDetails} />
         );
       case "person":
         return (
-          <HandleLoading data={person_details} component={<PersonDetails />} />
+          <HandleLoading
+            data={JSON.parse(localStorage.getItem("PERSON_DETAILS")) ?? person_details}
+            component={PersonDetails} />
         );
 
       default:

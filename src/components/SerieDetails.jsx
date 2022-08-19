@@ -11,7 +11,7 @@ import SpokenLanguages from "./subcomponents/SpokenLanguages";
 import Status from "./subcomponents/Status";
 import OriginalTitle from "./subcomponents/OriginalTitle";
 
-export default function SerieDetails() {
+export default function SerieDetails({ data }) {
   const {
     backdrop_path,
     poster_path,
@@ -35,7 +35,7 @@ export default function SerieDetails() {
     homepage,
     in_production,
     type,
-  } = useSelector((e) => e.film.serie_details);
+  } = data;
 
   return (
     <>
@@ -129,18 +129,14 @@ export default function SerieDetails() {
                 <span className="subtitle">{e.name}</span>
 
                 <ul>
-                  {e.air_date && e.episode_count
-                    ? <>
-                      <li>
-                        <span className="subtitle">Inicio de emisión: </span>
-                        <span className="subtext">{MyDate(e.air_date)}</span>
-                      </li>
-                      <li>
-                        <span className="subtitle">Episodios: </span>
-                        <span className="subtext">{e.episode_count}</span>
-                      </li>
-                    </>
-                    : <span className="subtext">Datos desconocidos</span>}
+                  <li>
+                    <span className="subtitle">Inicio de emisión: </span>
+                    <span className="subtext">{e.air_date ? MyDate(e.air_date) : "Dato desconocido"}</span>
+                  </li>
+                  <li>
+                    <span className="subtitle">Episodios: </span>
+                    <span className="subtext">{e.episode_count || "Dato desconocido"}</span>
+                  </li>
                 </ul>
               </li>
             ))}

@@ -5,7 +5,7 @@ import Homepage from "./subcomponents/Homepage";
 import Paragraph from "./subcomponents/Paragraph";
 import Popularity from "./subcomponents/Popularity";
 
-export default function PersonDetails() {
+export default function PersonDetails({ data }) {
   const {
     profile_path,
     name,
@@ -18,7 +18,7 @@ export default function PersonDetails() {
     deathday,
     place_of_birth,
     popularity,
-  } = useSelector((e) => e.film.person_details);
+  } = data;
 
   return (
     <>
