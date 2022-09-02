@@ -5,6 +5,7 @@ import store from "~/utils/MyStore";
 
 const Film = () => store({ reducer: "film" })
 const LengthExtract = (reducer_value, media_type, want_know) => {
+  console.log("FILM: ", Film)
   if (want_know === "id")
     return Object.values(Film()[reducer_value]).find(e => e.media_type === media_type).id
 
