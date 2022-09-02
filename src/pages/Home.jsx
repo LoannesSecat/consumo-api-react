@@ -8,7 +8,6 @@ import { ReadFilms } from "../redux/actions/FilmActions";
 import { useEffect } from "react";
 import FilmsPagination from "../components/FilmsPagination";
 import { SearchText } from "../redux/actions/ToolActions";
-import useStore from "../utils/UseStore";
 
 export default function Home() {
   const data_films = useSelector((e) => e.film.films);
