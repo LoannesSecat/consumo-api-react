@@ -7,11 +7,11 @@ on:
 jobs:
   set_up:
     runs-on: ubuntu-22.04
-
+    env:
+      VITE_TMDB_API_KEY: ${{ secrets.TMDB }}
     steps:
       - shell: bash
-        env:
-          VITE_TMDB_API_KEY: ${{ secrets.TMDB }}
+
         run: |
           echo "$VITE_TMDB_API_KEY"
       - name: Checkout
