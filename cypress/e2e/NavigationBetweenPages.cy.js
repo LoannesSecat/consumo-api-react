@@ -3,30 +3,33 @@ import { url } from '../fixtures/vite'
 it('Navigation between pages', () => {
   cy.visit(url.preview)
 
-  const NumPages = cy.get(".FilmsPagination span")
+  cy.get(".FilmsPagination span").as("NumPages")
+  cy.get("body")
+    .find(".Films")
+    .children(".Film")
 
-  NumPages.contains("1")
+  cy.get("@NumPages").contains("1")
+
   cy.get("button")
     .contains("Siguiente")
     .dblclick()
 
   cy.wait(1000)
+  cy.get("@NumPages").contains("3")
 
-  NumPages.contains("3")
   cy.get("button")
     .contains("Siguiente")
     .dblclick()
     .dblclick()
 
   cy.wait(1000)
+  cy.get("@NumPages").contains("7")
 
-  NumPages.contains("7")
   cy.get("button")
     .contains("Anterior")
     .dblclick()
     .click()
 
   cy.wait(1000)
-
-  NumPages.contains("4")
+  cy.get("@NumPages").contains("4")
 })
