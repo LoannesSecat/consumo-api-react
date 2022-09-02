@@ -7,7 +7,7 @@ on:
 
 jobs:
   set_up:
-    runs-on: windows-2022
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -17,10 +17,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Install & build
-        run: |
-          yarn ci
-          yarn build
+      - name: Install
+        run: yarn ci
+      - name: Build
+        run: yarn build
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
