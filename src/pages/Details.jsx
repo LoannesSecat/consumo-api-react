@@ -1,12 +1,12 @@
 import { useLocation } from "wouter";
-import "../utils/styles/Details.scss";
+import "~/utils/styles/Details.scss";
 import Header from "../components/Header";
 import { useSelector } from "react-redux";
-import Empty from "../components/Empty";
-import HandleLoading from "../components/HandleLoading";
-import SerieDetails from "../components/SerieDetails";
-import FilmDetails from "../components/FilmDetails";
-import PersonDetails from "../components/PersonDetails";
+import Empty from "~/components/Empty";
+import HandleLoading from "~/components/HandleLoading";
+import SerieDetails from "~/components/SerieDetails";
+import FilmDetails from "~/components/FilmDetails";
+import PersonDetails from "~/components/PersonDetails";
 
 export default function Details() {
   const [, navigation] = useLocation();

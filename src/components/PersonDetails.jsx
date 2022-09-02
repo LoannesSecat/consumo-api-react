@@ -1,5 +1,4 @@
-import { useSelector } from "react-redux";
-import { MyDate } from "../utils/Converter";
+import { MyDate } from "~/utils/Converter";
 import HandleImage from "./HandleImage";
 import Homepage from "./subcomponents/Homepage";
 import Paragraph from "./subcomponents/Paragraph";

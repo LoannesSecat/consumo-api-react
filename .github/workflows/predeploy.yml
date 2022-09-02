@@ -19,7 +19,7 @@ jobs:
           node-version: 16
       - name: Install, build & preview
         run: |
-          yarn install
+          yarn ci
           yarn build
       - name: Upload artifact
         uses: actions/upload-artifact@v3

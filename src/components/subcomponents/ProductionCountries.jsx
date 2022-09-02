@@ -1,4 +1,4 @@
-import { Countries } from "../../utils/Converter";
+import { Countries } from "~/utils/Converter";
 
 export default function ProductionCountries({ param }) {
   if (param?.length)

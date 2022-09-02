@@ -1,12 +1,12 @@
-import Parameters from "../services/Parameters";
-import imageNotFound from "../assets/clipart15852.png";
+import Parameters from "~/services/Parameters";
+import imageNotFound from "~/assets/clipart15852.png";
 import { useLocation } from "wouter";
 import {
   FilmDetails,
   MediaType,
   PersonDetails,
   SerieDetails,
-} from "../redux/actions/FilmActions";
+} from "~/redux/actions/FilmActions";
 
 const TMDb = Parameters.TMDb;
 

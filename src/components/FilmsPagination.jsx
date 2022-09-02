@@ -1,5 +1,5 @@
-import "../utils/styles/FilmsPagination.scss";
-import { NextFilmsPage, PreviousFilmsPage } from "../redux/actions/ToolActions";
+import "~/utils/styles/FilmsPagination.scss";
+import { NextFilmsPage, PreviousFilmsPage } from "~/redux/actions/ToolActions";
 import { useSelector } from "react-redux";
 
 export default function FilmsPagination() {

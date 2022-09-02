@@ -1,4 +1,4 @@
-import store from "../redux/store";
+import store from "~/redux/store";
 
 export default function useStore(par) {
   if (par) {

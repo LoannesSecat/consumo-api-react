@@ -1,5 +1,5 @@
 import { useLocation } from "wouter";
-import "../utils/styles/PageNotFound.scss";
+import "~/utils/styles/PageNotFound.scss";
 
 export default function PageNotFound({ params }) {
   const [, navigate] = useLocation();

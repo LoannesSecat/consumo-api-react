@@ -1,7 +1,7 @@
 {
   "name": "movies-platform",
   "private": true,
-  "version": "0.1.24",
+  "version": "0.1.25",
   "description": "This website allow you to see films, series and profile of people that work or worked in the cinema world, also allow save the favorites and see it in your profile (this part of profile is in construction for now)",
   "scripts": {
     "dev": "vite",

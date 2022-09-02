@@ -1,4 +1,4 @@
-import useStore from "../../utils/useStore";
+import useStore from "~/utils/useStore";
 import Films from "./FilmsMock";
 import FilmDetailsMock from "./FilmDetailsMock";
 import SerieDetailsMock from "./SerieDetailsMock";

@@ -1,4 +1,4 @@
-import "../utils/styles/Film.scss";
+import "~/utils/styles/Film.scss";
 import HandleImage from "./HandleImage";
 import Paragraph from "./subcomponents/Paragraph";
 
