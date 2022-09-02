@@ -1,5 +1,4 @@
-import { useSelector } from "react-redux";
-import { Currency, MyDate } from "../utils/Converter";
+import { Currency, MyDate } from "~/utils/Converter";
 import HandleImage from "./HandleImage";
 import Genres from "./subcomponents/Genres";
 import Homepage from "./subcomponents/Homepage";
@@ -12,7 +11,7 @@ import ProductionCountries from "./subcomponents/ProductionCountries";
 import SpokenLanguages from "./subcomponents/SpokenLanguages";
 import Status from "./subcomponents/Status";
 
-export default function FilmDetails() {
+export default function FilmDetails({ data }) {
   const {
     backdrop_path,
     poster_path,
@@ -34,7 +33,7 @@ export default function FilmDetails() {
     vote_average,
     vote_count,
     homepage,
-  } = useSelector((e) => e.film.film_details);
+  } = data;
 
   return (
     <>

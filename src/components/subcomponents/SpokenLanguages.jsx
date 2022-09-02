@@ -1,4 +1,4 @@
-import { Languages } from "../../utils/Converter";
+import { Languages } from "~/utils/Converter";
 
 export default function SpokenLanguages({ param }) {
   if (param?.length)

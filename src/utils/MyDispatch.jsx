@@ -1,4 +1,4 @@
-import store from "../redux/store";
+import store from "~/redux/store";
 
 const useDispatch = (params) => store.dispatch(params);
 

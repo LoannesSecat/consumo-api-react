@@ -1,5 +1,5 @@
-import "../utils/styles/FilmsPagination.scss";
-import { NextFilmsPage, PreviousFilmsPage } from "../redux/actions/ToolActions";
+import "~/utils/styles/FilmsPagination.scss";
+import { NextFilmsPage, PreviousFilmsPage } from "~/redux/actions/ToolActions";
 import { useSelector } from "react-redux";
 
 export default function FilmsPagination() {
@@ -19,13 +19,17 @@ export default function FilmsPagination() {
       <button onClick={() => NextFilmsPage()}>Siguiente</button>
     );
 
-  return (
-    <div className="FilmsPagination">
-      {button_previous}
-      <span>
-        {page} / {total_pages}
-      </span>
-      {button_next}
-    </div>
-  );
+
+  return total_pages === 0 ?
+    null :
+    <>
+      <div className="FilmsPagination">
+        {button_previous}
+        <span>
+          {page} / {total_pages}
+        </span>
+        {button_next}
+      </div>
+    </>
+
 }

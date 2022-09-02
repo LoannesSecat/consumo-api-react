@@ -1,9 +1,14 @@
 @use "Palette";
 
 .subtitle {
-  color: Palette.$Black_Chocolate;
   font-weight: 600;
   opacity: 80%;
+}
+
+.subtitle,
+.subtext,
+.seasons-subtitle {
+  color: Palette.$Black_Chocolate;
 }
 
 .Details {
@@ -14,9 +19,7 @@
     button {
       border-radius: 10px;
       padding: 0px 10px;
-      color: Palette.$Black_Chocolate;
       background-color: Palette.$Ghost_White;
-      cursor: pointer;
       border: 1px solid Palette.$Black_Chocolate;
 
       &:active {
@@ -78,18 +81,12 @@
     .seasons {
       margin-block-start: 0;
 
-      > li {
+      >li {
         margin-block-start: 0.5em;
 
-        > ul {
+        >ul {
           list-style: none;
         }
-      }
-
-      .seasons-subtitle {
-        color: Palette.$Black_Chocolate;
-        font-weight: 500;
-        opacity: 80%;
       }
     }
 
@@ -97,10 +94,9 @@
       margin-inline-start: 40px;
       text-decoration: none;
       display: block;
-      color: Palette.$Black_Chocolate;
 
-      &:hover,
-      :active {
+
+      &:hover {
         color: Palette.$Royal_Blue_Dark;
       }
     }

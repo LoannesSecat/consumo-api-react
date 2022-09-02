@@ -1,34 +1,34 @@
-import Film from "../components/Film";
-import Header from "../components/Header";
-import "../utils/styles/Films.scss";
-import Empty from "../components/Empty";
+import Film from "~/components/Film";
+import Header from "~/components/Header";
+import "~/utils/styles/Home.scss";
+import Empty from "~/components/Empty";
 import { useSelector } from "react-redux";
-import Loading from "../components/Loading";
-import { ReadFilms } from "../redux/actions/FilmActions";
+import Loading from "~/components/Loading";
+import { ReadFilms } from "~/redux/actions/FilmActions";
 import { useEffect } from "react";
-import FilmsPagination from "../components/FilmsPagination";
-import { SearchText } from "../redux/actions/ToolActions";
+import FilmsPagination from "~/components/FilmsPagination";
+import { SearchText } from "~/redux/actions/ToolActions";
 
 export default function Home() {
   const data_films = useSelector((e) => e.film.films);
   const text = useSelector((e) => e.tool.search_text);
 
-  useEffect(() => ReadFilms(), [text]);
+  console.log("Hola prueba!")
+
+  useEffect(() => {
+    ReadFilms()
+  }, [text]);
 
   const CompFilms = () => {
     if (data_films === "loading") return <Loading />;
 
     if (data_films?.length) {
       return (
-        <>
-          <div className="Films">
-            {data_films?.map((e, i) => (
-              <Film data={e} key={i} />
-            ))}
-          </div>
-
-          <FilmsPagination />
-        </>
+        <div className="Films">
+          {data_films?.map((e, i) => (
+            <Film data={e} key={i} />
+          ))}
+        </div>
       );
     }
 
@@ -57,7 +57,10 @@ export default function Home() {
         />
       </Header>
 
-      <CompFilms />
+      <>
+        <CompFilms />
+        <FilmsPagination />
+      </>
     </>
   );
 }

@@ -1,4 +1,4 @@
-const CapitalizeText = (text) => text[0].toUpperCase() + text.slice(1);
+export const CapitalizeText = (text) => text[0].toUpperCase() + text.slice(1);
 
 export const Languages = (lan) => {
   if (lan !== undefined) {

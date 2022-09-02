@@ -1,5 +1,4 @@
-import { useSelector } from "react-redux";
-import { MyDate } from "../utils/Converter";
+import { MyDate } from "~/utils/Converter";
 import HandleImage from "./HandleImage";
 import Genres from "./subcomponents/Genres";
 import OriginalLanguage from "./subcomponents/OriginalLanguage";
@@ -11,7 +10,7 @@ import SpokenLanguages from "./subcomponents/SpokenLanguages";
 import Status from "./subcomponents/Status";
 import OriginalTitle from "./subcomponents/OriginalTitle";
 
-export default function SerieDetails() {
+export default function SerieDetails({ data }) {
   const {
     backdrop_path,
     poster_path,
@@ -35,7 +34,7 @@ export default function SerieDetails() {
     homepage,
     in_production,
     type,
-  } = useSelector((e) => e.film.serie_details);
+  } = data;
 
   return (
     <>
@@ -126,17 +125,16 @@ export default function SerieDetails() {
           <ul className="seasons">
             {seasons.map((e, i) => (
               <li key={i}>
-                <span className="subtext subtitle">{e.name}</span>
+                <span className="subtitle">{e.name}</span>
+
                 <ul>
                   <li>
-                    <span className="seasons-subtitle">
-                      Inicio de emisión:{" "}
-                    </span>
-                    {MyDate(e.air_date)}
+                    <span className="subtitle">Inicio de emisión: </span>
+                    <span className="subtext">{e.air_date ? MyDate(e.air_date) : "Dato desconocido"}</span>
                   </li>
                   <li>
-                    <span className="seasons-subtitle">Episodios: </span>
-                    {e.episode_count}
+                    <span className="subtitle">Episodios: </span>
+                    <span className="subtext">{e.episode_count || "Dato desconocido"}</span>
                   </li>
                 </ul>
               </li>

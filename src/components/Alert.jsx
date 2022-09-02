@@ -1,6 +1,6 @@
-import "../utils/styles/Alert.scss";
+import "~/utils/styles/Alert.scss";
 import { useEffect } from "react";
-import { MessageAlert } from "../redux/actions/ToolActions";
+import { MessageAlert } from "~/redux/actions/ToolActions";
 import { useSelector } from "react-redux";
 
 export default function Alert() {

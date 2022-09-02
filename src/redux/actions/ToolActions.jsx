@@ -1,38 +1,40 @@
-import useDispatch from "../../utils/useDispatch";
+import Dispatch from "~/utils/MyDispatch";
 import ACTIONS from "../ActionsCreators/ToolTypes";
 import { ReadFilms } from "./FilmActions";
 
 export const NewPage = (page) =>
-  useDispatch({ type: ACTIONS.NEW_PAGE, payload: page ? page : 1 });
+  Dispatch({ type: ACTIONS.NEW_PAGE, payload: page ? page : 1 });
 
 export const NextFilmsPage = () => {
-  useDispatch({ type: ACTIONS.NEXT_FILMS_PAGE });
+  Dispatch({ type: ACTIONS.NEXT_FILMS_PAGE });
 
   ReadFilms();
 };
 
 export const PreviousFilmsPage = () => {
-  useDispatch({
+  Dispatch({
     type: ACTIONS.PREVIOUS_FILMS_PAGE,
   });
 
   ReadFilms();
 };
 
-export const MessageAlert = (msg) =>
-  useDispatch({
+export const MessageAlert = (value) => {
+  Dispatch({
     type: ACTIONS.MESSAGE_ALERT,
-    payload: msg,
+    payload: value,
   });
+}
 
 export const SearchText = (text) =>
-  useDispatch({
+  Dispatch({
     type: ACTIONS.SEARCH_TEXT,
     payload: text ? text : "",
   });
 
 export const TotalPages = (numPages) =>
-  useDispatch({
+  Dispatch({
     type: ACTIONS.TOTAL_NUM_PAGES,
     payload: numPages,
   });
+

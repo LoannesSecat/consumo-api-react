@@ -1,11 +1,11 @@
-import useStore from "../../utils/useStore";
+import store from "~/utils/MyStore";
 import Films from "./FilmsMock";
 import FilmDetailsMock from "./FilmDetailsMock";
 import SerieDetailsMock from "./SerieDetailsMock";
 import PersonDetailsMock from "./PersonDetailsMock";
 
 export default function Mocks() {
-  const page = useStore({ reducer: "tool", value: "page" });
+  const page = store({ reducer: "tool", value: "page" });
 
   return {
     FilmDetailsMock,
