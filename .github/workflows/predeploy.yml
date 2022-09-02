@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
-      run: echo "$GITHUB_CONTEXT"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           ref: dev
+          run: echo "$GITHUB_CONTEXT"
       - name: Node version
         uses: actions/setup-node@v3
         with:
