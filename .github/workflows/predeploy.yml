@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: dev
-      - name: Node version
+      - name: Check node version
         uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -53,8 +53,6 @@ jobs:
   cypress_test:
     needs: set_up
     runs-on: ubuntu-22.04
-    env:
-      VITE_TMDB_API_KEY: ${{ secrets.TMDB }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -77,3 +75,14 @@ jobs:
           command: yarn cy:run
           start: yarn preview
           wait-on: http://localhost:4173
+
+  pushing_changes:
+    needs: [vitest_test, cypress_test]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Automated change
+          branch: master
+          repository: .
+          create_branch: false

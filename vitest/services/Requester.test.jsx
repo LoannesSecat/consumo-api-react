@@ -33,8 +33,6 @@ describe.concurrent('Check the actions of Requester file', () => {
     const conf = { request: req, mock: null, action: ACTIONS.SERIE_DETAILS }
     const res = await Requester(conf)
 
-    console.log("URL: ", req)
-    console.log("RES: ", res)
     expect(Object.entries(res)).toHaveLength(3);
     expect(Object.keys(res.value)).toHaveLength(Object.keys(SerieDetailsMock).length);
     expect(res.value).toHaveProperty("name", "9-1-1: Lone Star");
