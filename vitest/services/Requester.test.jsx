@@ -32,6 +32,8 @@ describe.concurrent('Check the actions of Requester file', () => {
     const req = `${TMDb.url_v3}${TMDb.tv}${SerieDetailsMock.id}?${TMDb.api_key}&${TMDb.language}`;
     const conf = { request: req, mock: null, action: ACTIONS.SERIE_DETAILS }
     const res = await Requester(conf)
+
+    console.log("KEY: ", import.meta.env.VITE_TMDB_API_KEY)
     console.log("RES: ", res)
     expect(Object.entries(res)).toHaveLength(3);
     expect(Object.keys(res.value)).toHaveLength(Object.keys(SerieDetailsMock).length);
