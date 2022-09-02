@@ -9,7 +9,7 @@ jobs:
   set_up:
     runs-on: ubuntu-22.04
     env:
-      VITE_TMDB_API_KEY: ${{secrets.VITE_TMDB_API_KEY}}
+      VITE_TMDB_API_KEY: ${{secrets}}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
