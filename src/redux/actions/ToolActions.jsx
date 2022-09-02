@@ -37,3 +37,4 @@ export const TotalPages = (numPages) =>
     type: ACTIONS.TOTAL_NUM_PAGES,
     payload: numPages,
   });
+

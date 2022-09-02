@@ -1,11 +1,9 @@
-import { defineConfig, } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig, } from "vite";
+import react from "@vitejs/plugin-react";
 
-export default () => {
-  return defineConfig({
+export default defineConfig({
     plugins: [react()],
     test: {
-      globals: true
+        environment: 'happy-dom',
     },
-  })
-}
+});

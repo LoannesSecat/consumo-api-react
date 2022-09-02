@@ -1,11 +1,17 @@
 import store from "../redux/store";
 
-const useStore = ({ reducer, value }) => {
-  if (value === undefined) {
-    return store.getState()[reducer];
+export default function useStore(par) {
+  if (par) {
+    const { reducer, value } = par
+
+    if (reducer && value) {
+      return store.getState()[reducer][value];
+    }
+
+    if (reducer) {
+      return store.getState()[reducer]
+    }
   }
 
-  return store.getState()[reducer][value];
+  return store.getState()
 };
-
-export default useStore;
