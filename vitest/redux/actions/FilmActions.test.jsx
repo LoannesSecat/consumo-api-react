@@ -1,7 +1,7 @@
 import { test, describe, expect } from "vitest";
-import { FilmDetails, MediaType, PersonDetails, ReadFilms, SerieDetails } from "../../../src/redux/actions/FilmActions";
-import { SearchText } from "../../../src/redux/actions/ToolActions";
-import store from "../../../src/utils/useStore";
+import { FilmDetails, MediaType, PersonDetails, ReadFilms, SerieDetails } from "~/redux/actions/FilmActions";
+import { SearchText } from "~/redux/actions/ToolActions";
+import store from "~/utils/MyStore";
 
 const Film = () => store({ reducer: "film" })
 const LengthExtract = (reducer_value, media_type, want_know) => {

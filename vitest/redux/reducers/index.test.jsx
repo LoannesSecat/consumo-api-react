@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import store from '../../../src/utils/UseStore'
+import store from '~/utils/MyStore'
 import { Reducers } from '../../Mocks'
 
 test('Check if the reducers runs good', () => {

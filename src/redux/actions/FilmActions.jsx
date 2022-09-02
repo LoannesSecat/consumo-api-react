@@ -2,8 +2,8 @@ import Parameters from "~/services/Parameters";
 import Requester from "~/services/Requester";
 import db from "~/services/Mocks";
 import ACTIONS from "../ActionsCreators/FilmTypes";
-import Dispatch from "~/utils/UseDispatch";
-import store from "~/utils/useStore";
+import Dispatch from "~/utils/MyDispatch";
+import store from "~/utils/MyStore";
 import { NewPage, TotalPages } from "./ToolActions";
 
 const { TMDb } = Parameters

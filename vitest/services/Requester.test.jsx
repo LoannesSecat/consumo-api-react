@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest"
-import Requester from '../../src/services/Requester'
-import db from '../../src/services/Mocks'
-import ACTIONS from '../../src/redux/ActionsCreators/FilmTypes'
-import RequestMode from "../../src/services/RequestMode"
-import Store from "../../src/utils/useStore"
-import Parameters from "../../src/services/Parameters"
+import Requester from '~/services/Requester'
+import db from '~/services/Mocks'
+import ACTIONS from '~/redux/ActionsCreators/FilmTypes'
+import RequestMode from "~/services/RequestMode"
+import Store from "~/utils/MyStore"
+import Parameters from "~/services/Parameters"
 
 const { SerieDetailsMock } = db()
 const objTest = [

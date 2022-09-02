@@ -1,6 +1,6 @@
 import { MessageAlert } from "~/redux/actions/ToolActions";
 import RequestMode from "./RequestMode";
-import Dispatch from "~/utils/useDispatch";
+import Dispatch from "~/utils/MyDispatch";
 
 export default async function Requester({ request, mock, action }) {
   Dispatch({ type: action, payload: "loading" });

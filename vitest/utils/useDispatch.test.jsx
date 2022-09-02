@@ -1,10 +1,10 @@
 import { expect, test } from "vitest"
-import Dispatch from "../../src/utils/useDispatch"
-import ACTION from '../../src/redux/ActionsCreators/FilmTypes'
-import Store from '../../src/utils/useStore'
+import Dispatch from "~/utils/MyDispatch"
+import ACTION from '~/redux/ActionsCreators/FilmTypes'
+import store from '~/utils/MyStore'
 
 test("This check if custom useDispatch is working", () => {
-  expect(Store({ reducer: "film", value: "type_media" })).toBe("")
+  expect(store({ reducer: "film", value: "type_media" })).toBe("")
   Dispatch({ type: ACTION.MEDIA_TYPE, payload: "tested" })
-  expect(Store({ reducer: "film", value: "type_media" })).toBe("tested")
+  expect(store({ reducer: "film", value: "type_media" })).toBe("tested")
 })

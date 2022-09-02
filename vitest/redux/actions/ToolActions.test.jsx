@@ -1,8 +1,8 @@
 import { describe, expect, test } from "vitest";
-import { MessageAlert, NewPage, NextFilmsPage, PreviousFilmsPage, SearchText, TotalPages } from "../../../src/redux/actions/ToolActions";
-import useStore from "../../../src/utils/useStore";
+import { MessageAlert, NewPage, NextFilmsPage, PreviousFilmsPage, SearchText, TotalPages } from "~/redux/actions/ToolActions";
+import store from "~/utils/MyStore";
 
-const Tool = () => useStore({ reducer: "tool" })
+const Tool = () => store({ reducer: "tool" })
 
 describe.concurrent("Check the functions of ToolActions", () => {
   test('NewPage function', () => {
@@ -46,6 +46,5 @@ describe.concurrent("Check the functions of ToolActions", () => {
     expect(Tool().total_pages).toBe(1)
     TotalPages(500)
     expect(Tool().total_pages).toBe(500)
-
   })
 })
