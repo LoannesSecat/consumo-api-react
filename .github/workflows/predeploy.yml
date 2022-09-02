@@ -13,7 +13,7 @@ jobs:
         env:
           VITE_TMDB_API_KEY: ${{ secrets.TMDB }}
         run: |
-          example-command "$VITE_TMDB_API_KEY"
+          echo "$VITE_TMDB_API_KEY"
       - name: Checkout
         uses: actions/checkout@v3
         with:
