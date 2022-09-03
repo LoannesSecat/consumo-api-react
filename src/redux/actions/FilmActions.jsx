@@ -1,4 +1,4 @@
-import Parameters from "~/services/Parameters";
+import Parameters from "~/utils/Parameters";
 import Requester from "~/services/Requester";
 import db from "~/services/Mocks";
 import ACTIONS from "../ActionsCreators/FilmTypes";

@@ -4,7 +4,7 @@ import db from '~/services/Mocks'
 import ACTIONS from '~/redux/ActionsCreators/FilmTypes'
 import RequestMode from "~/services/RequestMode"
 import Store from "~/utils/MyStore"
-import Parameters from "~/services/Parameters"
+import Parameters from "~/utils/Parameters"
 
 const { SerieDetailsMock } = db()
 const objTest = [

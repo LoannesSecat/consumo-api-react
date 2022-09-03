@@ -1,4 +1,4 @@
-import Parameters from "~/services/Parameters";
+import Parameters from "~/utils/Parameters";
 import imageNotFound from "~/assets/clipart15852.png";
 import { useLocation } from "wouter";
 import {

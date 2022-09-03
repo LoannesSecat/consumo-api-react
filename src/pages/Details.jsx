@@ -13,6 +13,8 @@ export default function Details() {
   const { film_details, person_details, serie_details, type_media } =
     useSelector((e) => e.film);
 
+  scrollTo(0, 0)
+
   const Content = () => {
     switch (type_media || localStorage.getItem("MEDIA_TYPE")) {
       case "tv":

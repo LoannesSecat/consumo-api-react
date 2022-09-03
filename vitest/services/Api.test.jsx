@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import Parameters from '../../src/services/Parameters'
+import Parameters from '~/utils/Parameters'
 
 const { OMDb, TMDb } = Parameters
 
