@@ -1,8 +1,8 @@
-import "~/utils/styles/FilmsPagination.scss";
+import "~/utils/styles/MediaPagination.scss";
 import { NextFilmsPage, PreviousFilmsPage } from "~/redux/actions/ToolActions";
 import { useSelector } from "react-redux";
 
-export default function FilmsPagination() {
+export default function MediaPagination() {
   const { page, min_page, total_pages } = useSelector((e) => e.tool);
 
   const button_previous =
@@ -31,5 +31,4 @@ export default function FilmsPagination() {
         {button_next}
       </div>
     </>
-
 }

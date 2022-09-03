@@ -1,10 +1,11 @@
-@use "Palette";
+@use "./Palette";
+@use "./General";
 
 .Header {
   background-color: Palette.$Tufts_Blue;
   padding: 0.5rem;
   position: sticky;
+  @extend %shadow-home;
   top: 0;
-  box-shadow: 0px 0px 7px 0px Palette.$Black_Chocolate;
   z-index: 1;
 }

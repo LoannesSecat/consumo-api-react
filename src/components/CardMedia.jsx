@@ -1,8 +1,8 @@
-import "~/utils/styles/Film.scss";
+import "~/utils/styles/CardMedia.scss";
 import HandleImage from "./HandleImage";
 import Paragraph from "./subcomponents/Paragraph";
 
-export default function Film({ data }) {
+export default function CardMedia({ data }) {
   const handle_media_type = (type) => {
     switch (type) {
       case "movie":
@@ -16,7 +16,7 @@ export default function Film({ data }) {
   };
 
   return (
-    <div className="Film">
+    <div className="CardMedia">
       <HandleImage
         data={data}
         img_required={data.media_type === "person" ? "profile" : "poster"}

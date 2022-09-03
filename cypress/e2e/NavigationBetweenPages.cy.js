@@ -5,8 +5,8 @@ it('Navigation between pages', () => {
 
   cy.get(".FilmsPagination span").as("NumPages")
   cy.get("body")
-    .find(".Films")
-    .children(".Film")
+    .find(".Media")
+    .children(".CardMedia")
 
   cy.get("@NumPages").contains("1")
 
