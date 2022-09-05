@@ -1,11 +1,8 @@
 import { MessageAlert } from "~/redux/actions/ToolActions";
-import RequestMode from "./RequestMode";
 import Dispatch from "~/utils/MyDispatch";
 
-export default async function Requester({ request, mock, action }) {
+export default async function Requester({ request, action }) {
   Dispatch({ type: action, payload: "loading" });
-
-  if (RequestMode.currentMode() === "test") return { type: action, value: mock };
 
   if (navigator.onLine) {
     try {

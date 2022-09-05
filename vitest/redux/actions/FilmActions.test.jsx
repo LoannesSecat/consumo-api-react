@@ -35,8 +35,6 @@ describe.concurrent('Check the functions of FilmActions', async () => {
 
   test('MediaType function', () => {
     expect(Film().type_media).toBe("")
-    MediaType("test")
-    expect(Film().type_media).toBe("test")
     MediaType("movie")
     expect(Film().type_media).toBe("movie")
   })
