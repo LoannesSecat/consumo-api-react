@@ -19,14 +19,14 @@ export const ReadFilms = async () => {
 
   const result = await Requester({ request: req, mock: FilmsMock, action: ACTIONS.READ_FILMS })
 
-  if (total_pages !== result.value.total_pages) {
-    TotalPages(result.value.total_pages);
+  if (total_pages !== result?.value?.total_pages) {
+    TotalPages(result?.value?.total_pages);
     NewPage();
   }
 
   Dispatch({
-    type: result.type,
-    payload: result.value.results,
+    type: result?.type,
+    payload: result?.value?.results,
   });
 };
 

@@ -1,47 +1,46 @@
-import CardMedia from "~/components/CardMedia";
 import Header from "~/components/Header";
+import MediaPagination from "~/components/MediaPagination";
+import Media from "~/components/Media";
 import "~/utils/styles/Home.scss";
-import Empty from "~/components/Empty";
 import { useSelector } from "react-redux";
-import Loading from "~/components/Loading";
 import { ReadFilms } from "~/redux/actions/FilmActions";
 import { useEffect } from "react";
-import MediaPagination from "~/components/MediaPagination";
 import { SearchText } from "~/redux/actions/ToolActions";
+import { useState } from "react";
 
 export default function Home() {
-  const data_films = useSelector((e) => e.film.films);
-  const text = useSelector((e) => e.tool.search_text);
+  const { search_text } = useSelector((e) => e.tool);
+  const [timer, setTimer] = useState(null)
 
   useEffect(() => {
     ReadFilms()
-  }, [text]);
-
-  const CompFilms = () => {
-    if (data_films === "loading") return <Loading />;
-
-    if (data_films?.length) {
-      return (
-        <div className="Media">
-          {data_films?.map((e, i) => (
-            <CardMedia data={e} key={i} />
-          ))}
-        </div>
-      );
-    }
-
-    return <Empty />;
-  };
+  }, []);
 
   const HandleSearch = (value) => {
     if (value[value.length - 1] === " " && value[value.length - 2] === " ") {
-      SearchText(value.slice(0, -1));
+      Aux(value.slice(0, -2))
     } else {
-      SearchText(value);
+      Aux(value)
     }
 
-    if (value === "") SearchText();
+    if (value === "") ReadFilms();
   };
+
+  const Aux = (text) => {
+    let aux_text = text
+
+    SearchText(aux_text);
+
+    clearTimeout(timer)
+    const new_timer = setTimeout(() => {
+      if (aux_text[aux_text.length - 1] === " ")
+        aux_text = aux_text.slice(0, -1)
+
+      SearchText(aux_text)
+      ReadFilms(aux_text);
+    }, 500)
+    setTimer(new_timer)
+  }
 
   return (
     <>
@@ -49,14 +48,14 @@ export default function Home() {
         <div>Inicio</div>
         <input
           type="text"
-          onChange={(e) => HandleSearch(e.target.value)}
-          value={text}
+          onChange={(e) => { HandleSearch(e.target.value) }}
+          value={search_text}
           placeholder="Ej: Los guardianes de la galaxia"
         />
       </Header>
 
       <>
-        <CompFilms />
+        <Media />
         <MediaPagination />
       </>
     </>
