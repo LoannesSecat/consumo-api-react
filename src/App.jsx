@@ -5,6 +5,7 @@ import Details from "./pages/Details";
 import PageNotFound from "./pages/PageNotFound";
 import { Route, Switch } from "wouter";
 import "./utils/styles/General.scss";
+import ReactDOM from "react-dom/client";
 
 export default function App() {
   return (
@@ -19,3 +20,5 @@ export default function App() {
     </StoreProvider>
   );
 }
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);

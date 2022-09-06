@@ -1,8 +1,8 @@
 Cypress.Commands.add("title_validation", (title) => {
   const match_case = { matchCase: false }
 
-  cy.get(".Header input").type(title)
-  cy.wait(1200)
+  cy.get(".Header input").clear().type(title)
+  cy.wait(1300)
 
   cy.get("h2")
     .contains(title, match_case)

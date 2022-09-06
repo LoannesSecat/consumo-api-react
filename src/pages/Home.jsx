@@ -33,10 +33,6 @@ export default function Home() {
 
     clearTimeout(timer)
     const new_timer = setTimeout(() => {
-      if (aux_text[aux_text.length - 1] === " ")
-        aux_text = aux_text.slice(0, -1)
-
-      SearchText(aux_text)
       ReadFilms(aux_text);
     }, 500)
     setTimer(new_timer)

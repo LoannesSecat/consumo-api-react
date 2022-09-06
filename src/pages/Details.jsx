@@ -16,23 +16,23 @@ export default function Details() {
   scrollTo(0, 0)
 
   const Content = () => {
-    switch (type_media || localStorage.getItem("MEDIA_TYPE")) {
+    switch (type_media) {
       case "tv":
         return (
           <HandleLoading
-            data={JSON.parse(localStorage.getItem("SERIE_DETAILS")) ?? serie_details}
+            data={serie_details}
             component={SerieDetails} />
         );
       case "movie":
         return (
           <HandleLoading
-            data={JSON.parse(localStorage.getItem("FILM_DETAILS")) ?? film_details}
+            data={film_details}
             component={FilmDetails} />
         );
       case "person":
         return (
           <HandleLoading
-            data={JSON.parse(localStorage.getItem("PERSON_DETAILS")) ?? person_details}
+            data={person_details}
             component={PersonDetails} />
         );
 

@@ -38,8 +38,6 @@ export const FilmDetails = async (extra_data) => {
     type: result.type,
     payload: { ...extra_data, ...result.value },
   });
-
-  localStorage.setItem(result.type, JSON.stringify({ ...extra_data, ...result.value }));
 };
 
 export const SerieDetails = async (extra_data) => {
@@ -52,8 +50,6 @@ export const SerieDetails = async (extra_data) => {
     type: result.type,
     payload: { ...extra_data, ...result.value },
   });
-
-  localStorage.setItem(result.type, JSON.stringify({ ...extra_data, ...result.value }));
 };
 
 export const PersonDetails = async (extra_data) => {
@@ -66,11 +62,6 @@ export const PersonDetails = async (extra_data) => {
     type: result.type,
     payload: { ...extra_data, ...result.value }
   });
-
-  localStorage.setItem(
-    result.type,
-    JSON.stringify({ ...extra_data, ...result.value })
-  );
 };
 
 export const MediaType = (type_media) => {
@@ -78,6 +69,4 @@ export const MediaType = (type_media) => {
     type: ACTIONS.MEDIA_TYPE,
     payload: type_media,
   });
-
-  localStorage.setItem(ACTIONS.MEDIA_TYPE, type_media);
 };
