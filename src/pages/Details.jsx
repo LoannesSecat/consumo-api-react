@@ -13,31 +13,31 @@ export default function Details() {
   const { film_details, person_details, serie_details, type_media } =
     useSelector((e) => e.film);
 
-  scrollTo(0, 0)
+  scrollTo(0, 0);
 
   const Content = () => {
     switch (type_media) {
-      case "tv":
-        return (
-          <HandleLoading
-            data={serie_details}
-            component={SerieDetails} />
-        );
-      case "movie":
-        return (
-          <HandleLoading
-            data={film_details}
-            component={FilmDetails} />
-        );
-      case "person":
-        return (
-          <HandleLoading
-            data={person_details}
-            component={PersonDetails} />
-        );
+    case "tv":
+      return (
+        <HandleLoading
+          data={serie_details}
+          component={SerieDetails} />
+      );
+    case "movie":
+      return (
+        <HandleLoading
+          data={film_details}
+          component={FilmDetails} />
+      );
+    case "person":
+      return (
+        <HandleLoading
+          data={person_details}
+          component={PersonDetails} />
+      );
 
-      default:
-        return <Empty />;
+    default:
+      return <Empty />;
     }
   };
 

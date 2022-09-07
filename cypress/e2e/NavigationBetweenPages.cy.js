@@ -1,35 +1,35 @@
-import { url } from '../fixtures/vite'
+import { url } from "../fixtures/vite";
 
-it('Navigation between pages', () => {
-  cy.visit(url.preview)
+it("Navigation between pages", () => {
+  cy.visit(url.preview);
 
-  cy.get(".FilmsPagination span").as("NumPages")
+  cy.get(".FilmsPagination span").as("NumPages");
   cy.get("body")
     .find(".Media")
-    .children(".CardMedia")
+    .children(".CardMedia");
 
-  cy.get("@NumPages").contains("1")
+  cy.get("@NumPages").contains("1");
+
+  cy.get("button")
+    .contains("Siguiente")
+    .dblclick();
+
+  cy.wait(1000);
+  cy.get("@NumPages").contains("3");
 
   cy.get("button")
     .contains("Siguiente")
     .dblclick()
+    .dblclick();
 
-  cy.wait(1000)
-  cy.get("@NumPages").contains("3")
-
-  cy.get("button")
-    .contains("Siguiente")
-    .dblclick()
-    .dblclick()
-
-  cy.wait(1000)
-  cy.get("@NumPages").contains("7")
+  cy.wait(1000);
+  cy.get("@NumPages").contains("7");
 
   cy.get("button")
     .contains("Anterior")
     .dblclick()
-    .click()
+    .click();
 
-  cy.wait(1000)
-  cy.get("@NumPages").contains("4")
-})
+  cy.wait(1000);
+  cy.get("@NumPages").contains("4");
+});
