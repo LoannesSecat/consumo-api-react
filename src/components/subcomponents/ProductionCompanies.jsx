@@ -1,17 +1,18 @@
 export default function ProductionCompanies({ param }) {
-  if (param?.length)
+  if (param?.length) {
     return (
       <dl>
         <dt className="subtitle">
           {param?.length > 1 ? "Productoras" : "Productora"}
         </dt>
-        {param?.map((e, i) => (
-          <dd key={i} className="subtext">
-            {e.name}
+        {param?.map((element) => (
+          <dd key={element.id} className="subtext">
+            {element.name}
           </dd>
         ))}
       </dl>
     );
+  }
 
   return null;
 }

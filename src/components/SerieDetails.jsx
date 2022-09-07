@@ -2,13 +2,13 @@ import { MyDate } from "~/utils/Converter";
 import HandleImage from "./HandleImage";
 import Genres from "./subcomponents/Genres";
 import OriginalLanguage from "./subcomponents/OriginalLanguage";
+import OriginalTitle from "./subcomponents/OriginalTitle";
 import Paragraph from "./subcomponents/Paragraph";
 import Popularity from "./subcomponents/Popularity";
 import ProductionCompanies from "./subcomponents/ProductionCompanies";
 import ProductionCountries from "./subcomponents/ProductionCountries";
 import SpokenLanguages from "./subcomponents/SpokenLanguages";
 import Status from "./subcomponents/Status";
-import OriginalTitle from "./subcomponents/OriginalTitle";
 
 export default function SerieDetails({ data }) {
   const {
@@ -95,52 +95,54 @@ export default function SerieDetails({ data }) {
         </dl>
 
         {last_episode_to_air ? (
-          <>
-            <dl>
-              <dt className="subtitle">Último episodio al aire</dt>
-              <dd className="subtext">
-                Episodio N°{last_episode_to_air?.episode_number} de la temporada{" "}
-                {last_episode_to_air.season_number} (
-                {last_episode_to_air.air_date})
-              </dd>
-            </dl>
-          </>
+          <dl>
+            <dt className="subtitle">Último episodio al aire</dt>
+            <dd className="subtext">
+              Episodio N°
+              {last_episode_to_air?.episode_number}
+              de la temporada
+              {last_episode_to_air.season_number}
+              (
+              {last_episode_to_air.air_date}
+              )
+            </dd>
+          </dl>
         ) : null}
 
         {next_episode_to_air ? (
-          <>
-            <dl>
-              <dt className="subtitle">Siguiente episodio al aire</dt>
-              <dd className="subtext">
-                Episodio N°{next_episode_to_air?.episode_number} de la temporada{" "}
-                {last_episode_to_air.season_number} (
-                {last_episode_to_air.air_date})
-              </dd>
-            </dl>
-          </>
+          <dl>
+            <dt className="subtitle">Siguiente episodio al aire</dt>
+            <dd className="subtext">
+              Episodio N°
+              {next_episode_to_air?.episode_number}
+              de la temporada
+              {last_episode_to_air.season_number}
+              (
+              {last_episode_to_air.air_date}
+              )
+            </dd>
+          </dl>
         ) : null}
 
-        <>
-          <span className="subtitle">Temporadas</span>
-          <ul className="seasons">
-            {seasons.map((e, i) => (
-              <li key={i}>
-                <span className="subtitle">{e.name}</span>
+        <span className="subtitle">Temporadas</span>
+        <ul className="seasons">
+          {seasons.map((element) => (
+            <li key={element.id}>
+              <span className="subtitle">{element.name}</span>
 
-                <ul>
-                  <li>
-                    <span className="subtitle">Inicio de emisión: </span>
-                    <span className="subtext">{e.air_date ? MyDate(e.air_date) : "Dato desconocido"}</span>
-                  </li>
-                  <li>
-                    <span className="subtitle">Episodios: </span>
-                    <span className="subtext">{e.episode_count || "Dato desconocido"}</span>
-                  </li>
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </>
+              <ul>
+                <li>
+                  <span className="subtitle">Inicio de emisión: </span>
+                  <span className="subtext">{element.air_date ? MyDate(element.air_date) : "Dato desconocido"}</span>
+                </li>
+                <li>
+                  <span className="subtitle">Episodios: </span>
+                  <span className="subtext">{element.episode_count || "Dato desconocido"}</span>
+                </li>
+              </ul>
+            </li>
+          ))}
+        </ul>
 
         {homepage ? (
           <dl>

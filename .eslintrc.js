@@ -1,44 +1,40 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
+  env: {
+    browser: true,
+    es2021: true,
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/jsx-runtime",
+  extends: [
     "plugin:react/recommended",
-    "plugin:cypress/recommended"
+    "airbnb",
+    "plugin:react/jsx-runtime",
+    "plugin:cypress/recommended",
   ],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
-  "plugins": [
-    "react"
+  plugins: [
+    "react",
   ],
-  "rules": {
-    "indent": [
+  rules: {
+    "linebreak-style": 0,
+    quotes: [
       "error",
-      2
+      "double",
     ],
-    "linebreak-style": [
-      "error",
-      "windows"
-    ],
-    "quotes": [
-      "error",
-      "double"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "react/react-in-jsx-scope": "off", // suppress errors for missing 'import React' in files
+    "react/button-has-type": "off",
     "react/prop-types": "off",
-    "cypress/no-unnecessary-waiting": "off"
-  }
+    "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
+    "cypress/no-unnecessary-waiting": "off",
+    "default-param-last": "off",
+    "no-restricted-globals": "off", // Global environment variables of the web like scrollTo()
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    camelcase: "off",
+    "import/no-cycle": "off",
+    "consistent-return": "off",
+  },
 };

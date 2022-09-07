@@ -3,7 +3,7 @@ import HandleImage from "./HandleImage";
 import Paragraph from "./subcomponents/Paragraph";
 
 export default function CardMedia({ data }) {
-  const handle_media_type = (type) => {
+  const handleMediaType = (type) => {
     switch (type) {
       case "movie":
         return <span>Película</span>;
@@ -26,7 +26,7 @@ export default function CardMedia({ data }) {
         <h2>{data.title ? data.title : data.name}</h2>
         <Paragraph param={data.overview ? data.overview : data.biography} />
 
-        {handle_media_type(data?.media_type)}
+        {handleMediaType(data?.media_type)}
       </div>
     </div>
   );

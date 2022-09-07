@@ -1,4 +1,4 @@
-import { url } from "../fixtures/vite";
+import { url } from "../fixtures/vite.json";
 
 describe("Searching", () => {
   let title = "";

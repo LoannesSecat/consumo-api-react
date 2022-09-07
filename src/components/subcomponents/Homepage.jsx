@@ -1,5 +1,5 @@
 export default function Homepage({ param }) {
-  if (param)
+  if (param) {
     return (
       <dl>
         <dt className="subtitle">Sitio web</dt>
@@ -13,6 +13,7 @@ export default function Homepage({ param }) {
         </a>
       </dl>
     );
+  }
 
   return null;
 }

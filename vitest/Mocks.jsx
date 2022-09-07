@@ -4,7 +4,7 @@ export const Reducers = {
     film_details: [],
     person_details: [],
     serie_details: [],
-    type_media: ''
+    type_media: "",
   },
   user: {},
   tool: {
@@ -13,12 +13,12 @@ export const Reducers = {
     total_pages: 1,
     alert_message:
     {
-      msg: '',
-      color: ''
+      msg: "",
+      color: "",
     },
-    search_text: ''
-  }
-}
+    search_text: "",
+  },
+};
 
 export const ToolReducer = {
   page: 1,
@@ -26,4 +26,4 @@ export const ToolReducer = {
   total_pages: 1,
   alert_message: { msg: "", color: "" },
   search_text: "",
-}
+};

@@ -90,7 +90,10 @@ export default function FilmDetails({ data }) {
         {runtime ? (
           <dl>
             <dt className="subtitle">Duración</dt>
-            <dd className="subtext">{runtime} Minutos</dd>
+            <dd className="subtext">
+              {runtime}
+              Minutos
+            </dd>
           </dl>
         ) : null}
 

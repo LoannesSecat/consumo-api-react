@@ -1,18 +1,20 @@
-import Parameters from "~/utils/Parameters";
-import imageNotFound from "~/assets/clipart15852.png";
 import { useLocation } from "wouter";
+import imageNotFound from "~/assets/clipart15852.png";
 import {
   FilmDetails,
   MediaType,
   PersonDetails,
   SerieDetails,
 } from "~/redux/actions/FilmActions";
+import Parameters from "~/utils/Parameters";
 
-const TMDb = Parameters.TMDb;
+const { TMDb } = Parameters;
 
 export default function HandleImage({ data, img_required, is_person }) {
   const [, navigate] = useLocation();
-  const { poster_path, backdrop_path, profile_path, media_type } = data;
+  const {
+    poster_path, backdrop_path, profile_path, media_type,
+  } = data;
 
   const HandleDetails = () => {
     MediaType(media_type);
@@ -29,6 +31,10 @@ export default function HandleImage({ data, img_required, is_person }) {
       case "person":
         PersonDetails(data);
         break;
+
+      default:
+
+        break;
     }
 
     navigate("/details");
@@ -38,14 +44,17 @@ export default function HandleImage({ data, img_required, is_person }) {
     switch (img_required) {
       case "poster":
         if (poster_path) return `${TMDb.img}w400${poster_path}`;
+        break;
       case "backdrop":
         if (backdrop_path) {
           return `${TMDb.img}original${backdrop_path}`;
-        } else if (poster_path) {
+        } if (poster_path) {
           return `${TMDb.img}original${poster_path}`;
         }
+        break;
       case "profile":
         if (profile_path) return `${TMDb.img}w400${profile_path}`;
+        break;
 
       default:
         return imageNotFound;
@@ -55,9 +64,10 @@ export default function HandleImage({ data, img_required, is_person }) {
   return (
     <img
       src={MyImage()}
-      onClick={() => HandleDetails()}
+      onClick={() => { HandleDetails(); }}
       loading="lazy"
       style={is_person ? { objectFit: "contain" } : null}
+      alt="Imagen"
     />
   );
 }

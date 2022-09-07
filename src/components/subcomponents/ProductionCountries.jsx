@@ -1,7 +1,7 @@
 import { Countries } from "~/utils/Converter";
 
 export default function ProductionCountries({ param }) {
-  if (param?.length)
+  if (param?.length) {
     return (
       <dl>
         <dt className="subtitle">
@@ -15,6 +15,7 @@ export default function ProductionCountries({ param }) {
         ))}
       </dl>
     );
+  }
 
   return null;
 }

@@ -1,20 +1,33 @@
-import Header from "~/components/Header";
-import MediaPagination from "~/components/MediaPagination";
-import Media from "~/components/Media";
-import "~/utils/styles/Home.scss";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import HandleLoading from "~/components/HandleLoading";
+import Header from "~/components/Header";
+import Media from "~/components/Media";
+import MediaPagination from "~/components/MediaPagination";
 import { ReadFilms } from "~/redux/actions/FilmActions";
-import { useEffect } from "react";
 import { SearchText } from "~/redux/actions/ToolActions";
-import { useState } from "react";
+import "~/utils/styles/Home.scss";
 
 export default function Home() {
-  const { search_text } = useSelector((e) => e.tool);
+  const searchText = useSelector((e) => e.tool.searchText);
+  const films = useSelector((e) => e.film.films);
   const [timer, setTimer] = useState(null);
 
   useEffect(() => {
     ReadFilms();
   }, []);
+
+  const Aux = (text) => {
+    const auxText = text;
+
+    SearchText(auxText);
+
+    clearTimeout(timer);
+    const newTimer = setTimeout(() => {
+      ReadFilms(newTimer);
+    }, 500);
+    setTimer(newTimer);
+  };
 
   const HandleSearch = (value) => {
     if (value[value.length - 1] === " " && value[value.length - 2] === " ") {
@@ -26,18 +39,6 @@ export default function Home() {
     if (value === "") ReadFilms();
   };
 
-  const Aux = (text) => {
-    let aux_text = text;
-
-    SearchText(aux_text);
-
-    clearTimeout(timer);
-    const new_timer = setTimeout(() => {
-      ReadFilms(aux_text);
-    }, 500);
-    setTimer(new_timer);
-  };
-
   return (
     <>
       <Header>
@@ -45,13 +46,13 @@ export default function Home() {
         <input
           type="text"
           onChange={(e) => { HandleSearch(e.target.value); }}
-          value={search_text}
+          value={searchText}
           placeholder="Ej: Los guardianes de la galaxia"
         />
       </Header>
 
       <>
-        <Media />
+        <HandleLoading data={films} Component={Media} />
         <MediaPagination />
       </>
     </>

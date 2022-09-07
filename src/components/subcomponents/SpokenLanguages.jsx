@@ -1,7 +1,7 @@
 import { Languages } from "~/utils/Converter";
 
 export default function SpokenLanguages({ param }) {
-  if (param?.length)
+  if (param?.length) {
     return (
       <dl>
         <dt className="subtitle">Lenguajes hablados</dt>
@@ -12,6 +12,7 @@ export default function SpokenLanguages({ param }) {
         ))}
       </dl>
     );
+  }
 
   return null;
 }

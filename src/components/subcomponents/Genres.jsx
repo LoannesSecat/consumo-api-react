@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 
 export default function Genres({ param }) {
-  if (param?.length)
+  if (param?.length) {
     return (
       <div className="genres">
         {param?.map((e, i) => (
@@ -11,6 +11,7 @@ export default function Genres({ param }) {
         ))}
       </div>
     );
+  }
 
   return null;
 }

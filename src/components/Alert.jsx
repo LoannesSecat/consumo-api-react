@@ -1,10 +1,10 @@
-import "~/utils/styles/Alert.scss";
 import { useEffect } from "react";
-import { MessageAlert } from "~/redux/actions/ToolActions";
 import { useSelector } from "react-redux";
+import { MessageAlert } from "~/redux/actions/ToolActions";
+import "~/utils/styles/Alert.scss";
 
 export default function Alert() {
-  const { msg, color } = useSelector((e) => e.tool.alert_message);
+  const { msg, color } = useSelector((e) => e.tool.alertMessage);
 
   useEffect(() => {
     setTimeout(() => {
@@ -14,11 +14,10 @@ export default function Alert() {
 
   if (msg === "") {
     return null;
-  } else {
-    return (
-      <div style={{ backgroundColor: color }} className="Alert">
-        {msg}
-      </div>
-    );
   }
+  return (
+    <div style={{ backgroundColor: color }} className="Alert">
+      {msg}
+    </div>
+  );
 }

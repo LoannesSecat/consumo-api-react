@@ -6,18 +6,16 @@ export default async function Requester({ request, action }) {
 
   if (navigator.onLine) {
     try {
-      const response = [fetch(request).then(e => e.json())];
+      const response = [fetch(request).then((e) => e.json())];
 
       return Promise
         .allSettled(response)
-        .then(e => {
-          return {
-            type: action,
-            ...e[0]
-          }
-        })
+        .then((e) => ({
+          type: action,
+          ...e[0],
+        }));
     } catch (error) {
-      MessageAlert({ msg: error.message, color: "red" })
+      MessageAlert({ msg: error.message, color: "red" });
     }
   }
 

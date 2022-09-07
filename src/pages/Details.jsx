@@ -1,45 +1,41 @@
 import { useLocation } from "wouter";
 import "~/utils/styles/Details.scss";
-import Header from "../components/Header";
 import { useSelector } from "react-redux";
-import Empty from "~/components/Empty";
+import Header from "../components/Header";
 import HandleLoading from "~/components/HandleLoading";
 import SerieDetails from "~/components/SerieDetails";
 import FilmDetails from "~/components/FilmDetails";
 import PersonDetails from "~/components/PersonDetails";
 
+scrollTo(0, 0);
+
 export default function Details() {
   const [, navigation] = useLocation();
-  const { film_details, person_details, serie_details, type_media } =
-    useSelector((e) => e.film);
+  const {
+    filmDetails, personDetails, serieDetails, typeMedia,
+  } = useSelector((e) => e.film);
+  let auxComponent;
+  let auxData;
 
-  scrollTo(0, 0);
-
-  const Content = () => {
-    switch (type_media) {
+  switch (typeMedia) {
     case "tv":
-      return (
-        <HandleLoading
-          data={serie_details}
-          component={SerieDetails} />
-      );
+      auxData = serieDetails;
+      auxComponent = SerieDetails;
+      break;
     case "movie":
-      return (
-        <HandleLoading
-          data={film_details}
-          component={FilmDetails} />
-      );
+      auxData = filmDetails;
+      auxComponent = FilmDetails;
+      break;
     case "person":
-      return (
-        <HandleLoading
-          data={person_details}
-          component={PersonDetails} />
-      );
+      auxData = personDetails;
+      auxComponent = PersonDetails;
+      break;
 
     default:
-      return <Empty />;
-    }
-  };
+      auxData = [];
+      auxComponent = null;
+      break;
+  }
 
   return (
     <div className="Details">
@@ -47,7 +43,10 @@ export default function Details() {
         <button onClick={() => navigation("/")}>Volver</button>
       </Header>
 
-      <Content />
+      <HandleLoading
+        data={auxData}
+        Component={auxComponent}
+      />
     </div>
   );
 }

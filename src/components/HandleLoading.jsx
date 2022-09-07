@@ -1,10 +1,10 @@
 import Empty from "./Empty";
 import Loading from "./Loading";
 
-export default function HandleLoading({ data, component }) {
-  const Aux_component = component
-
+export default function HandleLoading({ data, Component }) {
   if (data === "loading") return <Loading />;
 
-  return Object.keys(data).length ? <Aux_component data={data} /> : <Empty />;
+  return Object.keys(data).length
+    ? <Component data={data} />
+    : <Empty />;
 }
