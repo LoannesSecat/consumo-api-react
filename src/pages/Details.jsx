@@ -1,11 +1,11 @@
-import { useLocation } from "wouter";
-import "~/utils/styles/Details.scss";
 import { useSelector } from "react-redux";
-import Header from "../components/Header";
-import HandleLoading from "~/components/HandleLoading";
-import SerieDetails from "~/components/SerieDetails";
+import { useLocation } from "wouter";
 import FilmDetails from "~/components/FilmDetails";
+import HandleLoading from "~/components/HandleLoading";
 import PersonDetails from "~/components/PersonDetails";
+import SerieDetails from "~/components/SerieDetails";
+import "~/utils/styles/Details.scss";
+import Header from "../components/Header";
 
 scrollTo(0, 0);
 

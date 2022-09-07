@@ -1,29 +1,29 @@
 export const Reducers = {
   film: {
     films: [],
-    film_details: [],
-    person_details: [],
-    serie_details: [],
-    type_media: "",
+    filmDetails: [],
+    personDetails: [],
+    serieDetails: [],
+    typeMedia: "",
   },
   user: {},
   tool: {
     page: 1,
-    min_page: 1,
-    total_pages: 1,
-    alert_message:
+    minPage: 1,
+    totalPages: 1,
+    alertMessage:
     {
       msg: "",
       color: "",
     },
-    search_text: "",
+    searchText: "",
   },
 };
 
 export const ToolReducer = {
   page: 1,
-  min_page: 1,
-  total_pages: 1,
-  alert_message: { msg: "", color: "" },
-  search_text: "",
+  minPage: 1,
+  totalPages: 1,
+  alertMessage: { msg: "", color: "" },
+  searchText: "",
 };

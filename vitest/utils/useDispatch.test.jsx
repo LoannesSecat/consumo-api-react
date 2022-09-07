@@ -4,7 +4,7 @@ import Dispatch from "~/utils/MyDispatch";
 import store from "~/utils/MyStore";
 
 test("This check if custom useDispatch is working", () => {
-  expect(store({ reducer: "film", value: "type_media" })).toBe("");
+  expect(store({ reducer: "film", value: "typeMedia" })).toBe("");
   Dispatch({ type: ACTION.MEDIA_TYPE, payload: "tested" });
-  expect(store({ reducer: "film", value: "type_media" })).toBe("tested");
+  expect(store({ reducer: "film", value: "typeMedia" })).toBe("tested");
 });

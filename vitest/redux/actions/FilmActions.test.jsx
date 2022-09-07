@@ -6,9 +6,9 @@ import { SearchText } from "~/redux/actions/ToolActions";
 import store from "~/utils/MyStore";
 
 const Film = () => store({ reducer: "film" });
-const LengthExtract = (reducer_value, media_type, want_know) => {
-  if (want_know === "id") return Object.values(Film()[reducer_value]).find((e) => e.media_type === media_type).id;
-  if (want_know === "size") return Object.values(Film()[reducer_value]).length;
+const LengthExtract = (reducerValue, mediaType, wantKnow) => {
+  if (wantKnow === "id") return Object.values(Film()[reducerValue]).find((e) => e.media_type === mediaType).id;
+  if (wantKnow === "size") return Object.values(Film()[reducerValue]).length;
 };
 
 describe.concurrent("Check the functions of FilmActions", async () => {
@@ -20,21 +20,21 @@ describe.concurrent("Check the functions of FilmActions", async () => {
 
   aux_id = LengthExtract("films", "movie", "id");
   await FilmDetails({ id: aux_id });
-  test("FilmDetails function", () => expect(LengthExtract("film_details", "movie", "size")).toBeGreaterThanOrEqual(2));
+  test("FilmDetails function", () => expect(LengthExtract("filmDetails", "movie", "size")).toBeGreaterThanOrEqual(2));
 
   aux_id = LengthExtract("films", "tv", "id");
   await SerieDetails({ id: aux_id });
-  test("SerieDetails function", () => expect(LengthExtract("serie_details", "tv", "size")).toBeGreaterThanOrEqual(2));
+  test("SerieDetails function", () => expect(LengthExtract("serieDetails", "tv", "size")).toBeGreaterThanOrEqual(2));
 
   SearchText("Will Smith");
   await ReadFilms();
   aux_id = LengthExtract("films", "person", "id");
   await PersonDetails({ id: aux_id });
-  test("PersonDetails function", () => expect(LengthExtract("person_details", "person", "size")).toBeGreaterThanOrEqual(2));
+  test("PersonDetails function", () => expect(LengthExtract("personDetails", "person", "size")).toBeGreaterThanOrEqual(2));
 
   test("MediaType function", () => {
-    expect(Film().type_media).toBe("");
+    expect(Film().typeMedia).toBe("");
     MediaType("movie");
-    expect(Film().type_media).toBe("movie");
+    expect(Film().typeMedia).toBe("movie");
   });
 });
