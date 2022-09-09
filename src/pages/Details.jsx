@@ -16,6 +16,7 @@ export default function Details() {
   } = useSelector((e) => e.film);
   let auxComponent;
   let auxData;
+  console.log("DETAILS");
 
   switch (typeMedia) {
     case "tv":

@@ -3,11 +3,16 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap");
 
-%shadow-home {
+%home-shadow {
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.10);
 }
 
-body {
+%lateral-paddings {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+%padding body {
   background-color: Palette.$Ghost_White;
 }
 

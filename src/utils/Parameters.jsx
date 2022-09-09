@@ -1,6 +1,6 @@
 export default {
   OMDb: {
-    apikey: "apikey=" + import.meta.env.VITE_OMDB_API_KEY,
+    apikey: `apikey=${import.meta.env.VITE_OMDB_API_KEY}`,
     url: "http://www.omdbapi.com/",
     search_all: "s=all",
     type: {
@@ -26,13 +26,13 @@ export default {
     url: "https://api.themoviedb.org",
     url_v3: "https://api.themoviedb.org/3/",
     url_v4: "https://api.themoviedb.org/4/",
-    api_key: "api_key=" + import.meta.env.VITE_TMDB_API_KEY,
+    api_key: `api_key=${import.meta.env.VITE_TMDB_API_KEY}`,
     language: "language=es",
     multi_search: "search/multi",
     page: "page=",
     query: "query=",
     list: "list",
-    img: "https://image.tmdb.org/t/p/",
+    url_img: "https://image.tmdb.org/t/p/",
     include_adult: "include_adult=false",
     movie: "movie/",
     tv: "tv/",

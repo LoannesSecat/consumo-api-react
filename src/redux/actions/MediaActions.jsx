@@ -8,14 +8,14 @@ import { NewPage, TotalPages } from "./ToolActions";
 const { TMDb } = Parameters;
 let req = "";
 
-export const ReadFilms = async () => {
+export const ReadResources = async () => {
   const searchText = store({ reducer: "tool", value: "searchText" });
   const page = store({ reducer: "tool", value: "page" });
   const totalPages = store({ reducer: "tool", value: "totalPages" });
   const query = searchText === "" || searchText === " " ? "a" : searchText;
   req = `${TMDb.url_v3}${TMDb.multi_search}?${TMDb.api_key}&${TMDb.query}${query}&${TMDb.page}${page}&${TMDb.language}&${TMDb.include_adult}`;
 
-  const result = await Requester({ request: req, action: ACTIONS.READ_FILMS });
+  const result = await Requester({ request: req, action: ACTIONS.READ_RESOURCES });
 
   if (totalPages !== result?.value?.total_pages) {
     TotalPages(result?.value?.total_pages);

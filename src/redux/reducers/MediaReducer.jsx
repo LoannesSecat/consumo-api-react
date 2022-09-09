@@ -1,17 +1,17 @@
 import ACTIONS from "../ActionsCreators/FilmTypes";
 
 const initialState = {
-  films: [],
+  resources: [],
   filmDetails: [],
   personDetails: [],
   serieDetails: [],
   typeMedia: "",
 };
 
-export default function FilmReducer(store = initialState, action) {
+export default function MediaReducer(store = initialState, action) {
   switch (action.type) {
-    case ACTIONS.READ_FILMS:
-      return { ...store, films: action.payload };
+    case ACTIONS.READ_RESOURCES:
+      return { ...store, resources: action.payload };
     case ACTIONS.FILM_DETAILS:
       return { ...store, filmDetails: action.payload };
     case ACTIONS.PERSON_DETAILS:

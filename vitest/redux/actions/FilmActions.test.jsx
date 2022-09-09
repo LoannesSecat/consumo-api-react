@@ -1,40 +1,40 @@
 import { describe, expect, test } from "vitest";
 import {
-  FilmDetails, MediaType, PersonDetails, ReadFilms, SerieDetails,
-} from "~/redux/actions/FilmActions";
+  FilmDetails, MediaType, PersonDetails, ReadResources, SerieDetails,
+} from "~/redux/actions/MediaActions";
 import { SearchText } from "~/redux/actions/ToolActions";
 import store from "~/utils/MyStore";
 
-const Film = () => store({ reducer: "film" });
-const LengthExtract = (reducerValue, mediaType, wantKnow) => {
-  if (wantKnow === "id") return Object.values(Film()[reducerValue]).find((e) => e.media_type === mediaType).id;
-  if (wantKnow === "size") return Object.values(Film()[reducerValue]).length;
+const Media = () => store({ reducer: "media" });
+const LengthExtract = (value, mediaType, wantKnow) => {
+  if (wantKnow === "id") return Object.values(Media()[value]).find((e) => e.media_type === mediaType).id;
+  if (wantKnow === "size") return Object.values(Media()[value]).length;
 };
 
 describe.concurrent("Check the functions of FilmActions", async () => {
   let aux_id;
 
-  await ReadFilms();
+  await ReadResources();
 
-  test("ReadFilms function", () => expect(LengthExtract("films", "movie", "size")).toBeGreaterThanOrEqual(2));
+  test("ReadResources function", () => expect(LengthExtract("resources", "movie", "size")).toBeGreaterThanOrEqual(2));
 
-  aux_id = LengthExtract("films", "movie", "id");
+  aux_id = LengthExtract("resources", "movie", "id");
   await FilmDetails({ id: aux_id });
   test("FilmDetails function", () => expect(LengthExtract("filmDetails", "movie", "size")).toBeGreaterThanOrEqual(2));
 
-  aux_id = LengthExtract("films", "tv", "id");
+  aux_id = LengthExtract("resources", "tv", "id");
   await SerieDetails({ id: aux_id });
   test("SerieDetails function", () => expect(LengthExtract("serieDetails", "tv", "size")).toBeGreaterThanOrEqual(2));
 
   SearchText("Will Smith");
-  await ReadFilms();
-  aux_id = LengthExtract("films", "person", "id");
+  await ReadResources();
+  aux_id = LengthExtract("resources", "person", "id");
   await PersonDetails({ id: aux_id });
   test("PersonDetails function", () => expect(LengthExtract("personDetails", "person", "size")).toBeGreaterThanOrEqual(2));
 
   test("MediaType function", () => {
-    expect(Film().typeMedia).toBe("");
+    expect(Media().typeMedia).toBe("");
     MediaType("movie");
-    expect(Film().typeMedia).toBe("movie");
+    expect(Media().typeMedia).toBe("movie");
   });
 });

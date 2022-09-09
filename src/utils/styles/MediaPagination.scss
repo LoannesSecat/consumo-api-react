@@ -8,7 +8,7 @@
   position: fixed;
   display: grid;
   background-color: Palette.$Ghost_White;
-  @extend %shadow-home;
+  @extend %home-shadow;
   grid-template-columns: 85px 1fr 85px;
   text-align: center;
   align-items: center;

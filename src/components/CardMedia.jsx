@@ -1,33 +1,78 @@
+import { Link } from "wouter";
+import Heart from "~/assets/icons/Heart";
+import Sparkles from "~/assets/icons/Sparkles";
+import UserGroup from "~/assets/icons/UserGroup";
+import {
+  FilmDetails, MediaType, PersonDetails, SerieDetails,
+} from "~/redux/actions/MediaActions";
 import "~/utils/styles/CardMedia.scss";
 import HandleImage from "./HandleImage";
-import Paragraph from "./subcomponents/Paragraph";
 
 export default function CardMedia({ data }) {
-  const handleMediaType = (type) => {
-    switch (type) {
-      case "movie":
-        return <span>Película</span>;
-      case "tv":
-        return <span>Serie</span>;
+  const {
+    profile_path, poster_path, title, name, media_type, popularity, vote_average, vote_count,
+  } = data;
+  let mediaType = null;
 
-      default:
-        return null;
+  const MountDetails = (event) => {
+    if (event.type === "click" || event.type === "contextmenu") {
+      if (media_type === "movie") FilmDetails(data);
+      if (media_type === "tv") SerieDetails(data);
+      if (media_type === "person") PersonDetails(data);
+
+      MediaType(media_type);
     }
   };
 
+  if (media_type === "movie") mediaType = "Película";
+  if (media_type === "tv") mediaType = "Serie";
+
   return (
     <div className="CardMedia">
-      <HandleImage
-        data={data}
-        img_required={data.media_type === "person" ? "profile" : "poster"}
-      />
+      <Link href="/details" onClick={(e) => MountDetails(e)} onContextMenu={(e) => MountDetails(e)}>
+        <HandleImage
+          url={{
+            profile_path,
+            poster_path,
+          }}
+          size="w400"
+          toShowOn="home"
+        />
 
-      <div className="info">
-        <h2>{data.title ? data.title : data.name}</h2>
-        <Paragraph param={data.overview ? data.overview : data.biography} />
+        <div className="info">
+          <h2>{title ?? name}</h2>
 
-        {handleMediaType(data?.media_type)}
-      </div>
+          <div className="statistics">
+            {popularity
+              ? (
+                <div>
+                  <UserGroup />
+                  <span>{popularity}</span>
+                </div>
+              )
+              : null}
+
+            {vote_average
+              ? (
+                <div>
+                  <Sparkles />
+                  <span>{vote_average}</span>
+                </div>
+              )
+              : null}
+
+            {vote_count
+              ? (
+                <div>
+                  <Heart />
+                  <span>{vote_count}</span>
+                </div>
+              ) : null}
+          </div>
+
+          {mediaType ? <span className="media-type">{mediaType}</span> : null}
+        </div>
+      </Link>
     </div>
   );
 }

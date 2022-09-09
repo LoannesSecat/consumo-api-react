@@ -1,6 +1,6 @@
 export const Reducers = {
-  film: {
-    films: [],
+  media: {
+    resources: [],
     filmDetails: [],
     personDetails: [],
     serieDetails: [],

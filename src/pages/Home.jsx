@@ -1,21 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import HandleLoading from "~/components/HandleLoading";
 import Header from "~/components/Header";
 import Media from "~/components/Media";
 import MediaPagination from "~/components/MediaPagination";
-import { ReadFilms } from "~/redux/actions/FilmActions";
+import { ReadResources } from "~/redux/actions/MediaActions";
 import { SearchText } from "~/redux/actions/ToolActions";
 import "~/utils/styles/Home.scss";
 
 export default function Home() {
   const searchText = useSelector((e) => e.tool.searchText);
-  const films = useSelector((e) => e.film.films);
+  const resources = useSelector((e) => e.media.resources);
   const [timer, setTimer] = useState(null);
-
-  useEffect(() => {
-    ReadFilms();
-  }, []);
 
   const Aux = (text) => {
     const auxText = text;
@@ -24,7 +20,7 @@ export default function Home() {
 
     clearTimeout(timer);
     const newTimer = setTimeout(() => {
-      ReadFilms(newTimer);
+      ReadResources(newTimer);
     }, 500);
     setTimer(newTimer);
   };
@@ -36,7 +32,7 @@ export default function Home() {
       Aux(value);
     }
 
-    if (value === "") ReadFilms();
+    if (value === "") ReadResources();
   };
 
   return (
@@ -52,7 +48,7 @@ export default function Home() {
       </Header>
 
       <>
-        <HandleLoading data={films} Component={Media} />
+        <HandleLoading data={resources} Component={Media} />
         <MediaPagination />
       </>
     </>

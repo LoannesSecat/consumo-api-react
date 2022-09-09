@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import FilmReducer from "./FilmReducer";
+import MediaReducer from "./MediaReducer";
 import ToolReducer from "./ToolReducer";
 import UserReducer from "./UserReducer";
 
 const initialState = {
-  film: FilmReducer,
+  media: MediaReducer,
   user: UserReducer,
   tool: ToolReducer,
 };

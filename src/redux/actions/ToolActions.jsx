@@ -1,13 +1,13 @@
 import Dispatch from "~/utils/MyDispatch";
 import ACTIONS from "../ActionsCreators/ToolTypes";
-import { ReadFilms } from "./FilmActions";
+import { ReadResources } from "./MediaActions";
 
 export const NewPage = (page) => Dispatch({ type: ACTIONS.NEW_PAGE, payload: page || 1 });
 
 export const NextFilmsPage = () => {
   Dispatch({ type: ACTIONS.NEXT_FILMS_PAGE });
 
-  ReadFilms();
+  ReadResources();
 };
 
 export const PreviousFilmsPage = () => {
@@ -15,7 +15,7 @@ export const PreviousFilmsPage = () => {
     type: ACTIONS.PREVIOUS_FILMS_PAGE,
   });
 
-  ReadFilms();
+  ReadResources();
 };
 
 export const MessageAlert = (value) => {

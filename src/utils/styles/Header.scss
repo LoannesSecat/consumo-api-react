@@ -3,9 +3,11 @@
 
 .Header {
   background-color: Palette.$Tufts_Blue;
-  padding: 0.5rem;
+  @extend %lateral-paddings;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   position: sticky;
-  @extend %shadow-home;
+  @extend %home-shadow;
   top: 0;
   z-index: 1;
 }
