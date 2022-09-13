@@ -1,17 +1,16 @@
 import { describe, expect, test } from "vitest";
 import ACTIONS from "~/redux/ActionsCreators/FilmTypes";
 import Requester from "~/services/Requester";
-import store from "~/utils/MyStore";
 import Parameters from "~/utils/Parameters";
 
 const { TMDb } = Parameters;
 
 describe.concurrent("Check the actions of Requester file", () => {
-  test("Loading", () => {
+  /*  test("Loading", () => {
     Requester({ request: null, mock: null, action: ACTIONS.READ_RESOURCES });
     const media = store({ reducer: "media", value: "resources" });
     expect(media).toEqual("loading");
-  });
+  }); */
 
   test("Request", async () => {
     const req = `${TMDb.url_v3}${TMDb.tv}${89393}?${TMDb.api_key}&${TMDb.language}`;
