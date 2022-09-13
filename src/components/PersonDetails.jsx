@@ -23,9 +23,12 @@ export default function PersonDetails({ data }) {
     <>
       <div className="banner">
         <HandleImage
-          data={{ profile_path }}
-          img_required="profile"
-          is_person
+          url={{
+            profile_path,
+          }}
+          size="h632"
+          toShow="profile"
+          className="person-img"
         />
 
         <div className="titles">
@@ -33,7 +36,7 @@ export default function PersonDetails({ data }) {
         </div>
       </div>
 
-      <div className="details">
+      <div className="info">
         <Paragraph param={biography} />
 
         {also_known_as?.length ? (

@@ -1,42 +1,31 @@
+import { lazy } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "wouter";
-import FilmDetails from "~/components/FilmDetails";
 import HandleLoading from "~/components/HandleLoading";
-import PersonDetails from "~/components/PersonDetails";
-import SerieDetails from "~/components/SerieDetails";
+// import FilmDetails from "~/components/FilmDetails";
+// import PersonDetails from "~/components/PersonDetails";
+// import SerieDetails from "~/components/SerieDetails";
 import "~/utils/styles/Details.scss";
 import Header from "../components/Header";
+
+const FilmDetails = lazy(() => import("~/components/FilmDetails"));
+const PersonDetails = lazy(() => import("~/components/PersonDetails"));
+const SerieDetails = lazy(() => import("~/components/SerieDetails"));
 
 scrollTo(0, 0);
 
 export default function Details() {
   const [, navigation] = useLocation();
-  const {
-    filmDetails, personDetails, serieDetails, typeMedia,
-  } = useSelector((e) => e.film);
-  let auxComponent;
-  let auxData;
-  console.log("DETAILS");
+  const filmData = useSelector((e) => e.media.filmDetails);
+  const personData = useSelector((e) => e.media.personDetails);
+  const serieData = useSelector((e) => e.media.serieDetails);
+  const typeMedia = useSelector((e) => e.media.typeMedia);
 
-  switch (typeMedia) {
-    case "tv":
-      auxData = serieDetails;
-      auxComponent = SerieDetails;
-      break;
-    case "movie":
-      auxData = filmDetails;
-      auxComponent = FilmDetails;
-      break;
-    case "person":
-      auxData = personDetails;
-      auxComponent = PersonDetails;
-      break;
+  let mountComponent = null;
 
-    default:
-      auxData = [];
-      auxComponent = null;
-      break;
-  }
+  if (typeMedia === "tv") mountComponent = <HandleLoading data={serieData} Component={SerieDetails} />;
+  if (typeMedia === "movie") mountComponent = <HandleLoading data={filmData} Component={FilmDetails} />;
+  if (typeMedia === "person") mountComponent = <HandleLoading data={personData} Component={PersonDetails} />;
 
   return (
     <div className="Details">
@@ -44,10 +33,7 @@ export default function Details() {
         <button onClick={() => navigation("/")}>Volver</button>
       </Header>
 
-      <HandleLoading
-        data={auxData}
-        Component={auxComponent}
-      />
+      {mountComponent}
     </div>
   );
 }

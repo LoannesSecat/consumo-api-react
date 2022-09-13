@@ -12,7 +12,13 @@
   padding-right: 2rem;
 }
 
-%padding body {
+%no-image-style {
+  color: Palette.$Ghost_White;
+  background-color: Palette.$Black_Chocolate;
+  opacity: 10%;
+}
+
+body {
   background-color: Palette.$Ghost_White;
 }
 

@@ -6,13 +6,13 @@ Cypress.Commands.add("title_validation", (title) => {
   cy.wait(1300);
 
   cy.get("h2")
-    .contains(title, matchCase)
+    .contains(title, matchCase);
+  /*     .parent()
     .parent()
-    .parent()
-    .children("img")
-    .click();
+    .children("img") */
+/*     .click();
 
   cy.get("h1").contains(title, matchCase);
   cy.get("button").contains("Volver").click();
-  cy.get("@HomeInput").clear();
+  cy.get("@HomeInput").clear(); */
 });

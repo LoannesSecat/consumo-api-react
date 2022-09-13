@@ -10,7 +10,6 @@ import "~/utils/styles/Home.scss";
 
 export default function Home() {
   const searchText = useSelector((e) => e.tool.searchText);
-  const resources = useSelector((e) => e.media.resources);
   const [timer, setTimer] = useState(null);
 
   const Aux = (text) => {
@@ -48,7 +47,7 @@ export default function Home() {
       </Header>
 
       <>
-        <HandleLoading data={resources} Component={Media} />
+        <HandleLoading Component={Media} />
         <MediaPagination />
       </>
     </>

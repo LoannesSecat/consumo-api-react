@@ -14,7 +14,6 @@ import Status from "./subcomponents/Status";
 export default function FilmDetails({ data }) {
   const {
     backdrop_path,
-    poster_path,
     title,
     tagline,
     genres,
@@ -39,8 +38,12 @@ export default function FilmDetails({ data }) {
     <>
       <div className="banner">
         <HandleImage
-          data={{ backdrop_path, poster_path }}
-          img_required="backdrop"
+          url={{
+            backdrop_path,
+          }}
+          size="w1280"
+          toShow="backdrop"
+          className="film-img"
         />
 
         <div className="titles">
@@ -49,21 +52,14 @@ export default function FilmDetails({ data }) {
         </div>
       </div>
 
-      <div className="details">
+      <div className="info">
         <Genres param={genres} />
-
         <Paragraph param={overview} />
-
         <OriginalLanguage param={original_language} />
-
         <OriginalTitle param={original_title} />
-
         <Popularity param={popularity} />
-
         <ProductionCompanies param={production_companies} />
-
         <ProductionCountries param={production_countries} />
-
         <SpokenLanguages param={spoken_languages} />
 
         {budget ? (

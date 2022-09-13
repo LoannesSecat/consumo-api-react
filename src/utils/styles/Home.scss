@@ -1,11 +1,6 @@
 @use "Palette";
 @use "./General";
 
-.Media {
-  padding-top: 1.25rem;
-  padding-bottom: 5rem;
+.Header {
   @extend %lateral-paddings;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
-  gap: 2rem;
 }

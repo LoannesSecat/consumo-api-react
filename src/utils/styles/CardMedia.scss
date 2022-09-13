@@ -1,18 +1,26 @@
-@use "Palette";
+@use "./Palette";
+@use "./General";
 
 .CardMedia {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   a {
     position: relative;
 
     img {
       object-fit: contain;
-      border-radius: 10px;
+      border-radius: 5px;
       width: 100%;
-      height: 100%;
+      height: auto;
+    }
+
+    svg {
+      @extend %no-image-style;
+      border-radius: 5px 5px 0 0;
+      width: 100%;
+      height: 600px;
     }
 
     .info {
@@ -20,15 +28,17 @@
       bottom: 0;
       color: Palette.$Ghost_White;
       backdrop-filter: blur(15px);
-      border-radius: 0 0 10px 10px;
+      border-radius: 0 0 5px 5px;
       width: 100%;
       text-align: center;
       padding: 20px 0;
 
       h2 {
         -webkit-text-stroke: 0.3px Palette.$Black_Chocolate;
-        font-size: 1.8rem;
-        margin: 0;
+        margin: 0 15px;
+        margin-block-start: 0;
+        margin-block-end: 0;
+        word-break: break-word;
       }
 
       .statistics {
@@ -45,6 +55,7 @@
             height: 20px;
             margin-right: 5px;
             opacity: 100%;
+            border-radius: 10px;
           }
 
           .heartSVG {
@@ -73,13 +84,6 @@
         display: block;
         margin-top: 10px;
       }
-    }
-
-    svg {
-      color: Palette.$Ghost_White;
-      border-radius: 10px;
-      background-color: Palette.$Black_Chocolate;
-      opacity: 10%;
     }
   }
 }

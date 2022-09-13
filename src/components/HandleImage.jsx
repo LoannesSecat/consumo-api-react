@@ -3,13 +3,14 @@ import Parameters from "~/utils/Parameters";
 
 const { TMDb } = Parameters;
 
-export default function HandleImage({ url, size, toShowOn }) {
-  const {
-    poster_path, profile_path, backdrop_path,
-  } = url;
+export default function HandleImage({
+  url, size, toShow, className,
+}) {
   let mySrc = "";
 
-  if (toShowOn === "home" && (poster_path || profile_path)) {
+  if (toShow === "poster&profile" && (url.poster_path || url.profile_path)) {
+    const { poster_path, profile_path } = url;
+
     if (
       (poster_path || profile_path) !== undefined
       || (poster_path && profile_path) !== undefined
@@ -18,13 +19,20 @@ export default function HandleImage({ url, size, toShowOn }) {
     }
   }
 
-  if (toShowOn === "details") {
-    mySrc += `${size}${backdrop_path}`;
+  if (toShow === "backdrop" && url.backdrop_path) {
+    const { backdrop_path } = url;
+    mySrc = `${TMDb.url_img}${size}${backdrop_path}`;
+  }
+
+  if (toShow === "profile" && url.profile_path) {
+    const { profile_path } = url;
+    mySrc = `${TMDb.url_img}${size}${profile_path}`;
   }
 
   if (mySrc) {
     return (
       <img
+        className={className || null}
         src={mySrc}
         loading="lazy"
         alt="Imagen"

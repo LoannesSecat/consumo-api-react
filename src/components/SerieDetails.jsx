@@ -13,7 +13,6 @@ import Status from "./subcomponents/Status";
 export default function SerieDetails({ data }) {
   const {
     backdrop_path,
-    poster_path,
     name,
     tagline,
     genres,
@@ -36,12 +35,51 @@ export default function SerieDetails({ data }) {
     type,
   } = data;
 
+  const lastEpisodeText = (
+    <>
+      Episodio N°
+      {last_episode_to_air.episode_number}
+      {" "}
+      de la temporada
+      {" "}
+      {last_episode_to_air.season_number}
+      {" "}
+      <small>
+        (
+        {last_episode_to_air.air_date}
+        )
+      </small>
+    </>
+  );
+
+  const nextEpisodeText = (
+    <>
+      Episodio N°
+      {" "}
+      {next_episode_to_air?.episode_number}
+      {" "}
+      de la temporada
+      {" "}
+      {last_episode_to_air.season_number}
+      {" "}
+      <small>
+        (
+        {last_episode_to_air.air_date}
+        )
+      </small>
+    </>
+  );
+
   return (
     <>
       <div className="banner">
         <HandleImage
-          data={{ backdrop_path, poster_path }}
-          img_required="backdrop"
+          url={{
+            backdrop_path,
+          }}
+          size="w1280"
+          toShow="backdrop"
+          className="serie-img"
         />
 
         <div className="titles">
@@ -50,35 +88,24 @@ export default function SerieDetails({ data }) {
         </div>
       </div>
 
-      <div className="details">
+      <div className="info">
         <Genres param={genres} />
-
         <Paragraph param={overview} />
-
         <OriginalLanguage param={original_language} />
-
         <OriginalTitle param={original_name} />
-
         <Popularity param={popularity} />
-
         <ProductionCompanies param={production_companies} />
-
         <ProductionCountries param={production_countries} />
-
         <SpokenLanguages param={spoken_languages} />
-
         <Status param={status} />
-
         <dl>
           <dt className="subtitle">En producción actualmente</dt>
           <dd className="subtext">{in_production ? "Si" : "No"}</dd>
         </dl>
-
         <dl>
           <dt className="subtitle">Tipo de serie</dt>
           <dd className="subtext">{type}</dd>
         </dl>
-
         <dl>
           <dt className="subtitle">Número total de episodios</dt>
           <dd className="subtext">{number_of_episodes}</dd>
@@ -98,13 +125,7 @@ export default function SerieDetails({ data }) {
           <dl>
             <dt className="subtitle">Último episodio al aire</dt>
             <dd className="subtext">
-              Episodio N°
-              {last_episode_to_air?.episode_number}
-              de la temporada
-              {last_episode_to_air.season_number}
-              (
-              {last_episode_to_air.air_date}
-              )
+              {lastEpisodeText}
             </dd>
           </dl>
         ) : null}
@@ -113,13 +134,7 @@ export default function SerieDetails({ data }) {
           <dl>
             <dt className="subtitle">Siguiente episodio al aire</dt>
             <dd className="subtext">
-              Episodio N°
-              {next_episode_to_air?.episode_number}
-              de la temporada
-              {last_episode_to_air.season_number}
-              (
-              {last_episode_to_air.air_date}
-              )
+              {nextEpisodeText}
             </dd>
           </dl>
         ) : null}

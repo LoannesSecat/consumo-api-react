@@ -1,0 +1,10 @@
+@use "./General";
+
+.Media {
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+  @extend %lateral-paddings;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  gap: 2rem;
+}

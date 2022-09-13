@@ -3,7 +3,6 @@
 
 .Header {
   background-color: Palette.$Tufts_Blue;
-  @extend %lateral-paddings;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   position: sticky;

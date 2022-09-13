@@ -6,7 +6,7 @@ import {
   FilmDetails, MediaType, PersonDetails, SerieDetails,
 } from "~/redux/actions/MediaActions";
 import "~/utils/styles/CardMedia.scss";
-import HandleImage from "./HandleImage";
+import HandleImage from "../HandleImage";
 
 export default function CardMedia({ data }) {
   const {
@@ -14,29 +14,27 @@ export default function CardMedia({ data }) {
   } = data;
   let mediaType = null;
 
-  const MountDetails = (event) => {
-    if (event.type === "click" || event.type === "contextmenu") {
-      if (media_type === "movie") FilmDetails(data);
-      if (media_type === "tv") SerieDetails(data);
-      if (media_type === "person") PersonDetails(data);
-
-      MediaType(media_type);
-    }
-  };
-
   if (media_type === "movie") mediaType = "Película";
   if (media_type === "tv") mediaType = "Serie";
 
+  const MountDetails = () => {
+    MediaType(media_type);
+
+    if (media_type === "movie") FilmDetails(data);
+    if (media_type === "tv") SerieDetails(data);
+    if (media_type === "person") PersonDetails(data);
+  };
+
   return (
     <div className="CardMedia">
-      <Link href="/details" onClick={(e) => MountDetails(e)} onContextMenu={(e) => MountDetails(e)}>
+      <Link href="/details" onMouseDown={() => MountDetails()} onTouchStart={() => MountDetails()}>
         <HandleImage
           url={{
             profile_path,
             poster_path,
           }}
           size="w400"
-          toShowOn="home"
+          toShow="poster&profile"
         />
 
         <div className="info">
@@ -45,7 +43,7 @@ export default function CardMedia({ data }) {
           <div className="statistics">
             {popularity
               ? (
-                <div>
+                <div title="Popularidad">
                   <UserGroup />
                   <span>{popularity}</span>
                 </div>
@@ -54,7 +52,7 @@ export default function CardMedia({ data }) {
 
             {vote_average
               ? (
-                <div>
+                <div title="Votación promedio">
                   <Sparkles />
                   <span>{vote_average}</span>
                 </div>
@@ -63,7 +61,7 @@ export default function CardMedia({ data }) {
 
             {vote_count
               ? (
-                <div>
+                <div title="Me gusta">
                   <Heart />
                   <span>{vote_count}</span>
                 </div>

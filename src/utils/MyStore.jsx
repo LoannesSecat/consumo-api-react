@@ -1,6 +1,6 @@
 import store from "~/redux/store";
 
-export default function useStore(values) {
+export default function MyStore(values) {
   if (values) {
     const { reducer, value } = values;
 
