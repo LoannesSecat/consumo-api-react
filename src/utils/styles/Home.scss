@@ -1,6 +1,24 @@
-@use "Palette";
+@use "./Palette";
 @use "./General";
 
-.Header {
-  @extend %lateral-paddings;
+header.header {
+  flex-wrap: wrap-reverse;
+
+  input {
+    flex-grow: 1;
+    flex-basis: 250px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid Palette.$Black_Chocolate;
+    padding: 3px 5px;
+    @extend %transition-speed;
+
+    &:hover {
+      border-bottom: 1px solid Palette.$Cerise;
+    }
+  }
+
+  div.user-options {
+    flex-grow: 0.5;
+  }
 }

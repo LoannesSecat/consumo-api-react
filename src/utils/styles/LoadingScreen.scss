@@ -1,0 +1,30 @@
+@use "./Palette";
+
+div.loading-screen {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+
+  div {
+    border: 3px solid transparent;
+    border-top-color: Palette.$Cerise;
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+  }
+
+  animation: 1.5s rotate linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

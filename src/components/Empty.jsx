@@ -1,5 +1,5 @@
 import "~/utils/styles/Empty.scss";
 
 export default function Empty() {
-  return <div className="Empty">No hay nada para mostrar aquí</div>;
+  return <div className="empty">No hay nada para mostrar</div>;
 }

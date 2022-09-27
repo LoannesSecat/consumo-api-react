@@ -1,15 +1,8 @@
-@use "Palette";
-@use "Normalize";
-
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap");
-
-%home-shadow {
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.10);
-}
+@use "./Palette.scss";
 
 %lateral-paddings {
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 %no-image-style {
@@ -18,10 +11,6 @@
   opacity: 10%;
 }
 
-body {
-  background-color: Palette.$Ghost_White;
-}
-
-* {
-  font-family: "Fredoka", "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif;
+%transition-speed {
+  transition: .5s;
 }

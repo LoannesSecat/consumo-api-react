@@ -2,5 +2,9 @@
   "url": {
     "preview": "http://localhost:4173",
     "dev": "http://127.0.0.1:5173"
+  },
+  "test": {
+    "email": "sebastianCO1999@gmail.com",
+    "pass": "162534"
   }
 }

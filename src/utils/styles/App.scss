@@ -1,0 +1,12 @@
+@use "./Palette.scss";
+@use "./Normalize.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap");
+
+body {
+  background-color: Palette.$Ghost_White;
+}
+
+* {
+  font-family: "Fredoka", "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif;
+}

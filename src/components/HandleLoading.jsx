@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import Loading from "./Loading";
+import LoadingScreen from "./LoadingScreen";
 
 export default function HandleLoading({ data, Component }) {
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={<LoadingScreen />}>
       <Component data={data} />
     </Suspense>
   );

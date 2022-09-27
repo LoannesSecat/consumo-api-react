@@ -38,15 +38,15 @@ export default function SerieDetails({ data }) {
   const lastEpisodeText = (
     <>
       Episodio N°
-      {last_episode_to_air.episode_number}
+      {last_episode_to_air?.episode_number}
       {" "}
       de la temporada
       {" "}
-      {last_episode_to_air.season_number}
+      {last_episode_to_air?.season_number}
       {" "}
       <small>
         (
-        {last_episode_to_air.air_date}
+        {last_episode_to_air?.air_date}
         )
       </small>
     </>
@@ -60,11 +60,11 @@ export default function SerieDetails({ data }) {
       {" "}
       de la temporada
       {" "}
-      {last_episode_to_air.season_number}
+      {last_episode_to_air?.season_number}
       {" "}
       <small>
         (
-        {last_episode_to_air.air_date}
+        {last_episode_to_air?.air_date}
         )
       </small>
     </>
@@ -84,7 +84,7 @@ export default function SerieDetails({ data }) {
 
         <div className="titles">
           <h1>{name}</h1>
-          {tagline.length > 0 && tagline ? <h2>{tagline}</h2> : null}
+          { tagline && tagline.length > 0 ? <h2>{tagline}</h2> : null}
         </div>
       </div>
 
@@ -110,12 +110,10 @@ export default function SerieDetails({ data }) {
           <dt className="subtitle">Número total de episodios</dt>
           <dd className="subtext">{number_of_episodes}</dd>
         </dl>
-
         <dl>
           <dt className="subtitle">Fecha de primera emisión</dt>
           <dd className="subtext">{MyDate(first_air_date)}</dd>
         </dl>
-
         <dl>
           <dt className="subtitle">Fecha de última emisión</dt>
           <dd className="subtext">{MyDate(last_air_date)}</dd>
@@ -141,22 +139,23 @@ export default function SerieDetails({ data }) {
 
         <span className="subtitle">Temporadas</span>
         <ul className="seasons">
-          {seasons.map((element) => (
-            <li key={element.id}>
-              <span className="subtitle">{element.name}</span>
-
-              <ul>
-                <li>
-                  <span className="subtitle">Inicio de emisión: </span>
-                  <span className="subtext">{element.air_date ? MyDate(element.air_date) : "Dato desconocido"}</span>
-                </li>
-                <li>
-                  <span className="subtitle">Episodios: </span>
-                  <span className="subtext">{element.episode_count || "Dato desconocido"}</span>
-                </li>
-              </ul>
-            </li>
-          ))}
+          {seasons
+            ? seasons?.map((element) => (
+              <li key={element.id}>
+                <span className="subtitle">{element.name}</span>
+                <ul>
+                  <li>
+                    <span className="subtitle">Inicio de emisión: </span>
+                    <span className="subtext">{element.air_date ? MyDate(element.air_date) : "Dato desconocido"}</span>
+                  </li>
+                  <li>
+                    <span className="subtitle">Episodios: </span>
+                    <span className="subtext">{element.episode_count || "Dato desconocido"}</span>
+                  </li>
+                </ul>
+              </li>
+            ))
+            : null}
         </ul>
 
         {homepage ? (

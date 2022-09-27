@@ -8,9 +8,9 @@ export default function ProductionCountries({ param }) {
           {param?.length > 1 ? "Países de producción" : "País de producción"}
         </dt>
 
-        {param?.map((e, i) => (
-          <dd className="subtext" key={i}>
-            {Countries(e.iso_3166_1)}
+        {param?.map((element) => (
+          <dd className="subtext" key={element.iso_3166_1}>
+            {Countries(element.iso_3166_1)}
           </dd>
         ))}
       </dl>

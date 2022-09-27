@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import Heart from "~/assets/icons/Heart";
 import Sparkles from "~/assets/icons/Sparkles";
 import UserGroup from "~/assets/icons/UserGroup";
@@ -26,8 +26,8 @@ export default function CardMedia({ data }) {
   };
 
   return (
-    <div className="CardMedia">
-      <Link href="/details" onMouseDown={() => MountDetails()} onTouchStart={() => MountDetails()}>
+    <div className="card-media">
+      <Link to="media-details" onMouseDown={() => MountDetails()} onTouchStart={() => MountDetails()}>
         <HandleImage
           url={{
             profile_path,

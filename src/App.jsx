@@ -1,13 +1,17 @@
-import { useEffect } from "react";
+import "izitoast/dist/css/iziToast.css";
+import { StrictMode, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import { Route, Switch } from "wouter";
-import Alert from "./components/Alert";
-import Details from "./pages/Details";
-import Home from "./pages/Home";
-import PageNotFound from "./pages/PageNotFound";
+import { BrowserRouter } from "react-router-dom";
+import PagesProvider from "./providers/PagesProvider";
 import StoreProvider from "./providers/StoreProvider";
 import { ReadResources } from "./redux/actions/MediaActions";
-import "./utils/styles/General.scss";
+import { onAuthStateChange } from "./services/Supabase";
+import IziToastOptions from "./utils/IzyToastOpcions";
+import "./utils/styles/App.scss";
+
+// The next blocks of code are written here for a single run to execute the app
+onAuthStateChange();
+IziToastOptions();
 
 function App() {
   useEffect(() => {
@@ -16,13 +20,11 @@ function App() {
 
   return (
     <StoreProvider>
-      <Alert />
-
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/details" component={Details} />
-        <Route path="/:unknownPage*" component={PageNotFound} />
-      </Switch>
+      <StrictMode>
+        <BrowserRouter basename="/">
+          <PagesProvider />
+        </BrowserRouter>
+      </StrictMode>
     </StoreProvider>
   );
 }

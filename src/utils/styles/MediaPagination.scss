@@ -1,14 +1,11 @@
 @use "./Palette";
-@use "./General";
 
-.FilmsPagination {
+div.media-pagination {
+  position: sticky;
   bottom: 0;
-  left: 0;
-  right: 0;
-  position: fixed;
   display: grid;
   background-color: Palette.$Ghost_White;
-  @extend %home-shadow;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.10);
   grid-template-columns: 85px 1fr 85px;
   text-align: center;
   align-items: center;
@@ -22,8 +19,10 @@
     padding: 5px 15px;
     border-radius: 5px;
     font-size: small;
+    transition: .1s;
 
-    &:active {
+    &:active,
+    &:hover {
       background-color: Palette.$Tufts_Blue;
       color: Palette.$Ghost_White;
       border: Palette.$Tufts_Blue solid 1px;

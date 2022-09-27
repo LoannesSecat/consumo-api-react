@@ -1,0 +1,40 @@
+@use "./Palette.scss";
+@use "./General.scss";
+
+.user-options {
+  @extend %transition-speed;
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+
+  button {
+    background-color: transparent;
+    border: none;
+    color: Palette.$Ghost_White;
+    font-weight: 500;
+    padding: 3px 5px;
+    border-radius: 5px;
+    @extend %transition-speed;
+
+    &:hover {
+      background-color: Palette.$Royal_Blue_Dark;
+    }
+  }
+
+  div {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      border-radius: 15%;
+      width: 40px;
+      height: 40px;
+      border: 1px solid black;
+    }
+  }
+}

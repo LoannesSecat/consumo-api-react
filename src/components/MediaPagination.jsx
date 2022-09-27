@@ -3,33 +3,33 @@ import { NextFilmsPage, PreviousFilmsPage } from "~/redux/actions/ToolActions";
 import "~/utils/styles/MediaPagination.scss";
 
 export default function MediaPagination() {
-  const page = useSelector((e) => e.tool.page);
-  const minPage = useSelector((e) => e.tool.minPage);
-  const totalPages = useSelector((e) => e.tool.totalPages);
+  const PAGE = useSelector((e) => e.tool.page);
+  const MIN_PAGE = useSelector((e) => e.tool.minPage);
+  const TOTAL_PAGES = useSelector((e) => e.tool.totalPages);
 
-  const buttonPrevious = page <= minPage ? (
+  const BUTTON_PREVIOUS = PAGE <= MIN_PAGE ? (
     <div />
   ) : (
     <button onClick={() => PreviousFilmsPage()}>Anterior</button>
   );
 
-  const buttonNext = page >= totalPages ? (
+  const BUTTON_NEXT = PAGE >= TOTAL_PAGES ? (
     <div />
   ) : (
     <button onClick={() => NextFilmsPage()}>Siguiente</button>
   );
 
-  return totalPages === 0
+  return TOTAL_PAGES === 0
     ? null
     : (
-      <div className="FilmsPagination">
-        {buttonPrevious}
+      <div className="media-pagination">
+        {BUTTON_PREVIOUS}
         <span>
-          {page}
+          {PAGE}
           /
-          {totalPages}
+          {TOTAL_PAGES}
         </span>
-        {buttonNext}
+        {BUTTON_NEXT}
       </div>
     );
 }

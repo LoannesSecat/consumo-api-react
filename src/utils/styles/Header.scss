@@ -1,12 +1,15 @@
-@use "./Palette";
-@use "./General";
+@use "./Palette.scss";
+@use "./General.scss";
 
-.Header {
+header.header {
+  @extend %lateral-paddings;
+  padding-top: 15px;
+  padding-bottom: 15px;
   background-color: Palette.$Tufts_Blue;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
   position: sticky;
-  @extend %home-shadow;
-  top: 0;
+  top: 0px;
   z-index: 1;
+  display: flex;
+  gap: 25px;
+  align-items: center;
 }

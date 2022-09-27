@@ -9,39 +9,38 @@ import { SearchText } from "~/redux/actions/ToolActions";
 import "~/utils/styles/Home.scss";
 
 export default function Home() {
-  const searchText = useSelector((e) => e.tool.searchText);
+  const SEARCH_TEXT = useSelector((e) => e.tool.searchText);
   const [timer, setTimer] = useState(null);
 
   const Aux = (text) => {
-    const auxText = text;
+    const AUX_TEXT = text;
 
-    SearchText(auxText);
+    SearchText(AUX_TEXT);
 
     clearTimeout(timer);
+
     const newTimer = setTimeout(() => {
       ReadResources(newTimer);
     }, 500);
+
     setTimer(newTimer);
   };
 
   const HandleSearch = (value) => {
     if (value[value.length - 1] === " " && value[value.length - 2] === " ") {
-      Aux(value.slice(0, -2));
+      Aux(value.trim());
     } else {
       Aux(value);
     }
-
-    if (value === "") ReadResources();
   };
 
   return (
     <>
       <Header>
-        <div>Inicio</div>
         <input
           type="text"
           onChange={(e) => { HandleSearch(e.target.value); }}
-          value={searchText}
+          value={SEARCH_TEXT}
           placeholder="Ej: Los guardianes de la galaxia"
         />
       </Header>

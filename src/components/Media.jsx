@@ -1,20 +1,25 @@
 import { useSelector } from "react-redux";
 import "~/utils/styles/Media.scss";
+import Empty from "./Empty";
 import CardMedia from "./subcomponents/CardMedia";
 
 export default function Media() {
-  const resources = useSelector((e) => e.media.resources);
+  const RESOURCES = useSelector((e) => e.media.resources);
 
-  return (
-    <div className="Media">
-      {
-        Object.values(resources).map((element) => (
-          <CardMedia
-            key={element.id}
-            data={element}
-          />
-        ))
-      }
-    </div>
-  );
+  if (Object.keys(RESOURCES).length) {
+    return (
+      <div className="media">
+        {
+          Object.values(RESOURCES)?.map((element) => (
+            <CardMedia
+              key={element.id}
+              data={element}
+            />
+          ))
+        }
+      </div>
+    );
+  }
+
+  return <Empty />;
 }

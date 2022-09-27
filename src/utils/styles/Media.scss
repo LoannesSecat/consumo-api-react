@@ -1,6 +1,6 @@
 @use "./General";
 
-.Media {
+div.media {
   padding-top: 2rem;
   padding-bottom: 5rem;
   @extend %lateral-paddings;
