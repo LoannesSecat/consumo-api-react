@@ -23,7 +23,7 @@
     }
   }
 
-  div {
+  .user-info {
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -35,6 +35,52 @@
       width: 40px;
       height: 40px;
       border: 1px solid black;
+    }
+  }
+
+  .options-dropdown {
+    button {
+      display: flex;
+      border: none;
+
+      svg {
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    .dropdown {
+      display: none;
+      background-color: Palette.$Ghost_White;
+      top: 80px;
+      border-radius: 5px;
+      border: .1px solid Palette.$Royal_Blue_Dark;
+      right: 20px;
+      overflow: hidden;
+      transition: opacity 0.5s linear;
+      -webkit-transition: opacity 0.5s linear;
+      -moz-transition: opacity 0.5s linear;
+      -o-transition: opacity 0.5s linear;
+      -ms-transition: opacity 0.5s linear;
+
+      a {
+        color: Palette.$Black_Chocolate;
+        text-decoration: none;
+        padding: 5px 10px;
+        text-align: center;
+
+        &:hover,
+        &:active {
+          color: Palette.$Ghost_White;
+          background-color: Palette.$Cerise;
+        }
+      }
+    }
+
+    .active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
     }
   }
 }

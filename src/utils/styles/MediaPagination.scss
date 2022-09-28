@@ -20,6 +20,7 @@ div.media-pagination {
     border-radius: 5px;
     font-size: small;
     transition: .1s;
+    background-color: Palette.$Ghost_White;
 
     &:active,
     &:hover {
