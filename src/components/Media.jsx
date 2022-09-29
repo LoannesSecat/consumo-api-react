@@ -8,7 +8,7 @@ export default function Media() {
 
   if (Object.keys(RESOURCES).length) {
     return (
-      <div className="media">
+      <main className="media">
         {
           Object.values(RESOURCES)?.map((element) => (
             <CardMedia
@@ -17,7 +17,7 @@ export default function Media() {
             />
           ))
         }
-      </div>
+      </main>
     );
   }
 

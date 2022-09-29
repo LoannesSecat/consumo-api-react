@@ -1,30 +1,28 @@
 @use "./Palette";
 @use "./General";
 
-.subtitle {
-  font-weight: 600;
-  opacity: 80%;
-}
+.header {
+  justify-content: center;
 
-.subtitle,
-.subtext,
-.seasons-subtitle {
-  color: Palette.$Black_Chocolate;
+  .user-options {
+    flex-grow: 1;
+  }
 }
 
 .media-details {
   word-break: break-word;
 
-  .header {
-    justify-content: center;
+  .subtitle {
+    font-weight: 600;
+    opacity: 90%;
+    font-size: 1.15rem;
+  }
 
-    button {
-      flex-grow: 0.01;
-    }
-
-    div.user-options {
-      flex-grow: 1;
-    }
+  .subtitle,
+  .subtext,
+  .seasons-subtitle {
+    color: Palette.$Black_Chocolate;
+    font-size: 1rem;
   }
 
   .banner {
@@ -57,22 +55,30 @@
       position: absolute;
       bottom: 0;
       @extend %lateral-paddings;
-      padding-bottom: 1.25rem;
+      padding-bottom: 20px;
 
       h1,
-      h2 {
+      h3 {
         margin: 0;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h3 {
+        margin-top: 5px
       }
     }
   }
 
   .info {
     @extend %lateral-paddings;
-    padding-top: 1rem;
+    padding-top: 16px;
 
     .genres {
       display: flex;
-      gap: 0.3rem;
+      gap: 5px;
       flex-wrap: wrap;
 
       small {
@@ -82,11 +88,13 @@
         padding: 3px 7px;
         border-radius: 5px;
         white-space: nowrap;
+        font-size: 0.85rem;
       }
     }
 
     p {
       margin-bottom: 0;
+      font-size: 1.2rem;
     }
 
     .seasons {

@@ -26,7 +26,7 @@ export default function CardMedia({ data }) {
   };
 
   return (
-    <div className="card-media">
+    <section className="card-media">
       <Link to="media-details" onMouseDown={() => MountDetails()} onTouchStart={() => MountDetails()}>
         <HandleImage
           url={{
@@ -37,40 +37,40 @@ export default function CardMedia({ data }) {
           toShow="poster&profile"
         />
 
-        <div className="info">
+        <article className="info">
           <h2>{title ?? name}</h2>
 
           <div className="statistics">
             {popularity
               ? (
-                <div title="Popularidad">
+                <article title="Popularidad">
                   <UserGroup />
                   <span>{popularity}</span>
-                </div>
+                </article>
               )
               : null}
 
             {vote_average
               ? (
-                <div title="Votación promedio">
+                <article title="Votación promedio">
                   <Sparkles />
                   <span>{vote_average}</span>
-                </div>
+                </article>
               )
               : null}
 
             {vote_count
               ? (
-                <div title="Me gusta">
+                <article title="Me gusta">
                   <Heart />
                   <span>{vote_count}</span>
-                </div>
+                </article>
               ) : null}
           </div>
 
           {mediaType ? <span className="media-type">{mediaType}</span> : null}
-        </div>
+        </article>
       </Link>
-    </div>
+    </section>
   );
 }

@@ -48,7 +48,7 @@ export default function FilmDetails({ data }) {
 
         <div className="titles">
           <h1>{title}</h1>
-          {tagline?.length > 0 && tagline ? <h2>{tagline}</h2> : null}
+          {tagline && tagline?.length > 0 ? <h3>{tagline}</h3> : null}
         </div>
       </div>
 

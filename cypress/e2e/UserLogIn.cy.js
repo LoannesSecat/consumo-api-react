@@ -9,9 +9,9 @@ it("Simple user log in", () => {
   cy.get("input[type='email']").type(test.email);
   cy.get("input[type='password']").type(test.pass);
   cy.get("button").contains("iniciar", { matchCase: false }).click();
-  cy.get(".user-options div span").should("be.visible").contains("user_test");
-  cy.get(".user-options button").contains("salir", { matchCase: false }).click();
-
+  cy.get(".user-options article span").should("be.visible").contains("user_test");
+  cy.get(".options-dropdown button").click();
+  cy.get(".dropdown").should("be.visible").contains("cerrar sesión", { matchCase: false }).click();
   cy.wait(500);
 
   cy.get(".user-options").children().contains("registrarme", { matchCase: false }).should("be.visible");

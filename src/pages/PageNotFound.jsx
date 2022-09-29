@@ -7,7 +7,7 @@ export default function PageNotFound() {
   const UNKNOWN_PAGE = PARAMS["*"];
 
   return (
-    <div className="page-not-found">
+    <main className="page-not-found">
       <div>
         <h2 className="border">
           La ruta
@@ -28,6 +28,6 @@ export default function PageNotFound() {
       </div>
 
       <button onClick={() => { navigate("/"); }}>Volver al inicio</button>
-    </div>
+    </main>
   );
 }

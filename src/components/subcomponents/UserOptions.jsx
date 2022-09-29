@@ -18,23 +18,23 @@ export default function UserOpcions() {
   };
 
   return (
-    <div className="user-options">
+    <section className="user-options">
       {Object.keys(USER_DATA)?.length
         ? (
           <>
-            <div className="user-info">
+            <article className="user-info">
               <img src={USER_DATA.img ? USER_DATA.img : userSVG} alt="Img" />
               <span>{USER_DATA.nickname}</span>
-            </div>
+            </article>
 
-            <div className="options-dropdown">
+            <article className="options-dropdown">
               <button onClick={() => { setClassDropdown(classDropdown === "dropdown" ? "dropdown active" : "dropdown"); }}>{BUTTON_SVG}</button>
               <div className={classDropdown}>
                 <a href="/" onClick={(e) => { PreventDefault(e); }}>Ajustes</a>
                 <a href="/" onClick={(e) => { PreventDefault(e); }}>Favoritos</a>
                 <a href="/" onClick={(e) => { PreventDefault(e); SignOut(); }}>Cerrar sesión</a>
               </div>
-            </div>
+            </article>
           </>
         )
         : (
@@ -43,6 +43,6 @@ export default function UserOpcions() {
             <button onClick={() => { navigate("registration"); }}>Registrarme</button>
           </>
         )}
-    </div>
+    </section>
   );
 }

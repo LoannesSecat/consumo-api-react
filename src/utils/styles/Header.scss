@@ -1,7 +1,7 @@
 @use "./Palette.scss";
 @use "./General.scss";
 
-header.header {
+.header {
   @extend %lateral-paddings;
   padding-top: 15px;
   padding-bottom: 15px;

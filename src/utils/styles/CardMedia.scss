@@ -1,7 +1,7 @@
 @use "./Palette";
 @use "./General";
 
-div.card-media {
+.card-media {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +23,7 @@ div.card-media {
       height: 600px;
     }
 
-    div.info {
+    .info {
       position: absolute;
       bottom: 0;
       color: Palette.$Ghost_White;
@@ -41,13 +41,13 @@ div.card-media {
         word-break: break-word;
       }
 
-      div.statistics {
+      .statistics {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
         margin-top: 15px;
 
-        div {
+        article {
           display: flex;
 
           svg {
@@ -73,14 +73,14 @@ div.card-media {
         }
       }
 
-      span.media-type,
-      div.statistics span {
+      .media-type,
+      .statistics span {
         font-size: 2ch;
         -webkit-text-stroke: 0.5px Palette.$Black_Chocolate;
         font-weight: 600;
       }
 
-      span.media-type {
+      .media-type {
         display: block;
         margin-top: 10px;
       }

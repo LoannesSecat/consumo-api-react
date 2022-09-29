@@ -23,12 +23,12 @@ export default function MediaDetails() {
   if (TYPE_MEDIA === "person") mountComponent = <HandleLoading data={PERSON_DATA} Component={PersonDetails} />;
 
   return (
-    <div className="media-details">
+    <>
       <Header>
         <GoBackButton />
       </Header>
 
-      {mountComponent}
-    </div>
+      <main className="media-details">{mountComponent}</main>
+    </>
   );
 }

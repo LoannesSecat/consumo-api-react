@@ -1,7 +1,7 @@
 @use "./Palette";
 @use "./General";
 
-header.header {
+.header {
   flex-wrap: wrap-reverse;
 
   input {
@@ -18,7 +18,7 @@ header.header {
     }
   }
 
-  div.user-options {
-    flex-grow: 0.5;
+  .user-options {
+    flex-grow: 1;
   }
 }

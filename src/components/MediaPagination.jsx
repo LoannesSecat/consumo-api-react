@@ -22,7 +22,7 @@ export default function MediaPagination() {
   return TOTAL_PAGES === 0
     ? null
     : (
-      <div className="media-pagination">
+      <section className="media-pagination">
         {BUTTON_PREVIOUS}
         <span>
           {PAGE}
@@ -30,6 +30,6 @@ export default function MediaPagination() {
           {TOTAL_PAGES}
         </span>
         {BUTTON_NEXT}
-      </div>
+      </section>
     );
 }

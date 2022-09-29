@@ -38,7 +38,7 @@ export default function UserRegistration() {
   };
 
   return (
-    <div className="user-registration">
+    <main className="user-registration">
       <GoBackButton />
 
       <form onSubmit={HandleOnSubmit}>
@@ -75,6 +75,6 @@ export default function UserRegistration() {
 
         <button type="submit">Registrarme</button>
       </form>
-    </div>
+    </main>
   );
 }

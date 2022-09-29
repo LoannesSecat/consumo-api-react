@@ -34,7 +34,7 @@ export default function UserLogIn() {
   };
 
   return (
-    <div className="user-log-in">
+    <main className="user-log-in">
       <GoBackButton />
 
       <form onSubmit={(e) => HandleOnSubmit(e)}>
@@ -56,6 +56,6 @@ export default function UserLogIn() {
 
         <button type="submit">Iniciar sesión</button>
       </form>
-    </div>
+    </main>
   );
 }

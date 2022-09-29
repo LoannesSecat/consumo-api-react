@@ -1,6 +1,7 @@
 import { MyDate } from "~/utils/Converter";
 import HandleImage from "./HandleImage";
 import Genres from "./subcomponents/Genres";
+import Homepage from "./subcomponents/Homepage";
 import OriginalLanguage from "./subcomponents/OriginalLanguage";
 import OriginalTitle from "./subcomponents/OriginalTitle";
 import Paragraph from "./subcomponents/Paragraph";
@@ -84,7 +85,7 @@ export default function SerieDetails({ data }) {
 
         <div className="titles">
           <h1>{name}</h1>
-          { tagline && tagline.length > 0 ? <h2>{tagline}</h2> : null}
+          { tagline && tagline.length > 0 ? <h3>{tagline}</h3> : null}
         </div>
       </div>
 
@@ -158,19 +159,7 @@ export default function SerieDetails({ data }) {
             : null}
         </ul>
 
-        {homepage ? (
-          <dl>
-            <dt className="subtitle">Sitio web</dt>
-            <a
-              className="subtext homepage"
-              href={homepage}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              {homepage}
-            </a>
-          </dl>
-        ) : null}
+        <Homepage param={homepage} />
       </div>
     </>
   );
