@@ -4,7 +4,13 @@
 .header {
   flex-wrap: wrap-reverse;
 
-  input {
+  div {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .search-input {
     flex-grow: 1;
     flex-basis: 250px;
     outline: none;
@@ -12,9 +18,37 @@
     border-bottom: 1px solid Palette.$Black_Chocolate;
     padding: 3px 5px;
     @extend %transition-speed;
+    background-color: Palette.$Ghost_White;
 
     &:hover {
       border-bottom: 1px solid Palette.$Cerise;
+    }
+  }
+
+  .delete-text-input {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    margin-left: -28px;
+
+    svg {
+      width: 17.5px;
+      height: 17.5px;
+      background-color: transparent;
+      border-radius: 5px;
+      transition: 0.2s;
+      color: Palette.$Black_Chocolate;
+
+      &:hover {
+        background-color: Palette.$Black_Chocolate;
+        color: Palette.$Ghost_White;
+      }
+
+      &:active {
+        background-color: Palette.$Cerise;
+        color: Palette.$Ghost_White;
+      }
     }
   }
 
