@@ -10,5 +10,5 @@ Cypress.Commands.add("title_validation", (title) => {
 
   cy.get("h1").contains(title, matchCase);
   cy.get("button.go-back-button").click();
-  cy.get(".header .delete-text-input").click();
+  cy.get(".header .search-input").clear();
 });

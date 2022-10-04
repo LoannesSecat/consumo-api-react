@@ -9,7 +9,7 @@
   a {
     position: relative;
 
-    img {
+    .poster-img {
       object-fit: contain;
       border-radius: 5px;
       width: 100%;
@@ -38,7 +38,6 @@
         margin: 0 15px;
         margin-block-start: 0;
         margin-block-end: 0;
-        word-break: break-word;
       }
 
       .statistics {

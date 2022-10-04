@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import XMark from "~/assets/icons/XMark";
 import HandleLoading from "~/components/HandleLoading";
 import Header from "~/components/Header";
 import Media from "~/components/Media";
@@ -35,33 +34,16 @@ export default function Home() {
     }
   };
 
-  const DeleteTextInput = () => {
-    Aux("");
-  };
-
   return (
     <>
       <Header>
-        <div>
-          <input
-            type="text"
-            onChange={(e) => { HandleSearch(e.target.value); }}
-            value={SEARCH_TEXT}
-            placeholder="Ej: Los guardianes de la galaxia"
-            className="search-input"
-          />
-
-          {SEARCH_TEXT.length
-            ? (
-              <button
-                onClick={DeleteTextInput}
-                className="delete-text-input"
-              >
-                <XMark />
-              </button>
-            )
-            : null}
-        </div>
+        <input
+          type="search"
+          onChange={(e) => { HandleSearch(e.target.value); }}
+          value={SEARCH_TEXT}
+          placeholder="Ej: Los guardianes de la galaxia"
+          className="search-input"
+        />
       </Header>
 
       <>

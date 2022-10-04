@@ -7,10 +7,4 @@
   border: 1px solid Palette.$Black_Chocolate;
   color: Palette.$Black_Chocolate;
   transition: .1s;
-
-  &:active {
-    color: Palette.$Ghost_White;
-    background-color: Palette.$Tufts_Blue;
-    border-color: Palette.$Ghost_White;
-  }
 }

@@ -57,17 +57,13 @@
       border: .1px solid Palette.$Royal_Blue_Dark;
       right: 20px;
       overflow: hidden;
-      transition: opacity 0.5s linear;
-      -webkit-transition: opacity 0.5s linear;
-      -moz-transition: opacity 0.5s linear;
-      -o-transition: opacity 0.5s linear;
-      -ms-transition: opacity 0.5s linear;
 
       a {
         color: Palette.$Black_Chocolate;
         text-decoration: none;
         padding: 5px 10px;
         text-align: center;
+        width: 100%;
 
         &:hover,
         &:active {

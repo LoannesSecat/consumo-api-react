@@ -1,8 +1,8 @@
 import { expect, test } from "vitest";
-import store from "~/utils/MyStore";
-import { Reducers, ToolReducer } from "../Mocks";
+import { Reducers, ToolReducer } from "vitest/Mocks";
+import MyStore from "~/utils/MyStore";
 
 test("Check if custom useStore is working", () => {
-  expect(ToolReducer).toMatchObject(store({ reducer: "tool" }));
-  expect(Reducers).toMatchObject(store());
+  expect(ToolReducer).toMatchObject(MyStore({ reducer: "tool" }));
+  expect(Reducers).toMatchObject(MyStore());
 });

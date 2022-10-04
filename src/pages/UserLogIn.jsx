@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Eye from "~/assets/icons/Eye";
 import EyeSlash from "~/assets/icons/EyeSlash";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { LogIn } from "~/redux/actions/UserActions";
+import { LogInUser } from "~/redux/actions/UserActions";
 import FormValidator from "~/utils/FormValidator";
 import "~/utils/styles/UserLogIn.scss";
 
@@ -16,26 +16,26 @@ export default function UserLogIn() {
     setShowPass(!showPass);
   };
 
-  const HandleOnSubmit = async (e) => {
+  const HandleOnSubmit = (e) => {
     e.preventDefault();
 
     const formValues = {
       email: e.target.email.value,
       password: e.target.pass.value,
+      navigateTo: () => navigate("/"),
     };
 
     if (FormValidator(formValues)) {
-      const allOk = await LogIn(formValues);
-
-      if (allOk) {
-        navigate(-1);
-      }
+      LogInUser(formValues);
     }
   };
 
   return (
     <main className="user-log-in">
-      <GoBackButton />
+      <div>
+        <GoBackButton onClick={() => { navigate("/"); }} />
+        <button className="go-to-registration" onClick={() => { navigate("/registration"); }}>Registrarme</button>
+      </div>
 
       <form onSubmit={(e) => HandleOnSubmit(e)}>
         <label htmlFor="email">
@@ -56,6 +56,8 @@ export default function UserLogIn() {
 
         <button type="submit">Iniciar sesión</button>
       </form>
+
+      <Link to="reset-password">Reiniciar contraseña</Link>
     </main>
   );
 }

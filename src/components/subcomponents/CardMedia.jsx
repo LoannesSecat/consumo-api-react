@@ -35,6 +35,7 @@ export default function CardMedia({ data }) {
           }}
           size="w400"
           toShow="poster&profile"
+          className="poster-img"
         />
 
         <article className="info">

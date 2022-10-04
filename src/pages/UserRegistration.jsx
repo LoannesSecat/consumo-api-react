@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Eye from "~/assets/icons/Eye";
 import EyeSlash from "~/assets/icons/EyeSlash";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { SignIn } from "~/redux/actions/UserActions";
+import { SignInUser } from "~/redux/actions/UserActions";
 import FormValidator from "~/utils/FormValidator";
 import "~/utils/styles/UserRegistration.scss";
 
@@ -22,6 +22,7 @@ export default function UserRegistration() {
     let formValues = {
       email: e.target.email.value,
       password: e.target.pass.value,
+      navigateTo: () => navigate("/"),
     };
 
     if (FormValidator(formValues)) {
@@ -29,17 +30,16 @@ export default function UserRegistration() {
         formValues = { ...formValues, nickname: e.target.nickname.value };
       }
 
-      const allOk = await SignIn(formValues);
-
-      if (allOk) {
-        navigate(-1);
-      }
+      SignInUser(formValues);
     }
   };
 
   return (
     <main className="user-registration">
-      <GoBackButton />
+      <div>
+        <GoBackButton onClick={() => { navigate("/"); }} />
+        <button className="go-to-log-in" onClick={() => navigate("/login")}>Iniciar sesión</button>
+      </div>
 
       <form onSubmit={HandleOnSubmit}>
         <label htmlFor="nickname">

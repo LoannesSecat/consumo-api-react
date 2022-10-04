@@ -6,5 +6,6 @@ export default function IzyToastOpcions() {
     progressBar: false,
     messageSize: "17",
     timeout: 3000,
+    pauseOnHover: false,
   });
 }
