@@ -67,17 +67,17 @@
       @extend %lateral-paddings;
       padding-bottom: 20px;
 
-      h1,
+      h2,
       h3 {
         margin: 0;
       }
 
-      h1 {
+      h2 {
         font-size: 1.8rem;
       }
 
       h3 {
-        margin-top: 5px
+        margin-top: 5px;
       }
     }
   }

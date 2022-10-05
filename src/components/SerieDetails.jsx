@@ -84,7 +84,7 @@ export default function SerieDetails({ data }) {
         />
 
         <div className="titles">
-          <h1>{name}</h1>
+          <h2>{name}</h2>
           { tagline && tagline.length > 0 ? <h3>{tagline}</h3> : null}
         </div>
       </div>
