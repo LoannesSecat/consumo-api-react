@@ -11,6 +11,8 @@ export default function UserOpcions() {
   const USER_DATA = useSelector((e) => e.user.userData);
   const navigate = useNavigate();
   const [classDropdown, setClassDropdown] = useState("dropdown");
+  const IS_LOGGED = useSelector((e) => e.user.session);
+
   const BUTTON_SVG = classDropdown === "dropdown" ? <Cog8Tooth /> : <ChevronUp />;
 
   const PreventDefault = (e) => {
@@ -19,7 +21,7 @@ export default function UserOpcions() {
 
   return (
     <section className="user-options">
-      {Object.keys(USER_DATA)?.length
+      {IS_LOGGED
         ? (
           <>
             <article className="user-info">

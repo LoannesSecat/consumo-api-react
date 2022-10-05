@@ -16,6 +16,7 @@ export const ToolReducer = {
 export const UserReducer = {
   userData: [],
   token: [],
+  session: false,
 };
 
 export const Reducers = {

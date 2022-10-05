@@ -3,6 +3,7 @@ import ACTIONS from "../ActionsCreators/UserTypes";
 const initialState = {
   userData: [],
   token: [],
+  session: false,
 };
 
 export default function UserReducer(store = initialState, action) {
@@ -15,6 +16,8 @@ export default function UserReducer(store = initialState, action) {
       return { ...store, userData: [] };
     case ACTIONS.DELETE_TOKEN:
       return { ...store, token: [] };
+    case ACTIONS.UPDATE_SESSION:
+      return { ...store, session: action.payload };
 
     default:
       return store;

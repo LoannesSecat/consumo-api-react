@@ -9,34 +9,32 @@ import "~/utils/styles/ResetPassword.scss";
 
 export default function ResetPassword() {
   const [showPass, setShowPass] = useState(false);
-  const USER_DATA = useSelector((e) => e.user.userData);
-  const LOGGED_IN = Object.keys(USER_DATA).length;
   const navigate = useNavigate();
-
   const [values, setValues] = useState({ navigateTo: () => navigate("/") });
+  const IS_LOGGED = useSelector((e) => e.user.session);
 
   const HandleOnSubmit = (e) => {
     e.preventDefault();
 
-    if (LOGGED_IN) {
+    if (IS_LOGGED) {
       ResetPasswordUser(values);
     }
 
-    if (!LOGGED_IN) {
+    if (!IS_LOGGED) {
       ResetPasswordUser(values);
     }
   };
 
   return (
     <main className="reset-password">
-      {!LOGGED_IN ? <GoBackButton /> : null}
+      {IS_LOGGED ? null : <GoBackButton />}
 
       <form
         onSubmit={(e) => HandleOnSubmit(e)}
         onChange={(e) => setValues({ ...values, [e.target.name]: e.target.value })}
-        className={LOGGED_IN ? "form" : null}
+        className={IS_LOGGED ? "form" : null}
       >
-        { LOGGED_IN
+        { IS_LOGGED
           ? (
             <label htmlFor="password">
               <span>Nueva contraseña</span>

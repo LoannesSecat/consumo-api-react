@@ -1,7 +1,7 @@
 {
   "name": "movies-platform",
   "private": true,
-  "version": "0.1.38",
+  "version": "0.1.39",
   "description": "This website allow you to see films, series and profile of people that work or worked in the cinema world, also allow save the favorites and see it in your profile (this part of profile is in construction for now)",
   "repository": {
     "type": "git",
@@ -20,12 +20,11 @@
     "vitest:run": "vitest",
     "vitest:ui": "vitest --ui",
     "cy:run": "cypress run",
-    "cy:e2e": "cypress open --browser electron --e2e",
-    "cy:component": "yarn preview & cypress open --browser electron --component"
+    "cy:e2e": "cypress open --browser electron --e2e"
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.8.4",
-    "@supabase/supabase-js": "1.35.6",
+    "@supabase/supabase-js": "1.35.7",
     "izitoast": "1.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

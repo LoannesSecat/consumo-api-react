@@ -101,17 +101,17 @@ export async function GetUser() {
 export async function ResetPasswordUser({
   email = undefined, password = undefined, navigateTo,
 }) {
-  const USER_DATA = MyStore({ reducer: "user", value: "userData" });
-  const IN_SESSION = Object.keys(USER_DATA).length;
+  const IS_LOGGED = MyStore({ reducer: "user", value: "session" });
 
   const ExecuteNavigate = () => { if (navigateTo) navigateTo(); };
 
-  if (IN_SESSION) {
+  if (IS_LOGGED) {
     const { data, error } = await supabase.auth.update({
       password,
     });
 
     if (data) {
+      localStorage.removeItem("EVENT");
       iziToast.success({ message: "Contraseña actualizada" });
       ExecuteNavigate();
     }
@@ -121,7 +121,7 @@ export async function ResetPasswordUser({
     }
   }
 
-  if (!IN_SESSION) {
+  if (!IS_LOGGED) {
     const { data, error } = await supabase.auth.api.resetPasswordForEmail(
       email,
       { redirectTo: location.href },
@@ -140,4 +140,8 @@ export async function ResetPasswordUser({
       });
     }
   }
+}
+
+export function SessionUser(value) {
+  MyDispatch({ type: UserTypes.UPDATE_SESSION, payload: value });
 }
