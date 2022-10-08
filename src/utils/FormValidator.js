@@ -1,10 +1,10 @@
-import iziToast from "izitoast";
+import MyToast from "~/utils/MyToast";
 
 export default function FormValidator({ email, password }) {
   const EMAIL_REG_EX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   if (email.trim() === "") {
-    iziToast.warning({
+    MyToast.warning({
       message: "Te falta el correo",
     });
 
@@ -12,7 +12,7 @@ export default function FormValidator({ email, password }) {
   }
 
   if (!EMAIL_REG_EX.test(email)) {
-    iziToast.warning({
+    MyToast.warning({
       message: "Escriba un correo con el formato correcto",
     });
 
@@ -20,7 +20,7 @@ export default function FormValidator({ email, password }) {
   }
 
   if (password === "") {
-    iziToast.warning({
+    MyToast.warning({
       message: "Te falta la contraseña",
     });
 
@@ -28,7 +28,7 @@ export default function FormValidator({ email, password }) {
   }
 
   if (password.length < 6) {
-    iziToast.warning({
+    MyToast.warning({
       message: "La contraseña debe tener más de 6 caracteres",
     });
 

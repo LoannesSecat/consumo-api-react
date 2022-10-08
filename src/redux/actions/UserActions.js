@@ -1,8 +1,8 @@
-import iziToast from "izitoast";
 import supabase from "~/services/Supabase";
 import ErrorMessage from "~/services/supabase/ErrorMessage.json";
 import MyDispatch from "~/utils/MyDispatch";
 import MyStore from "~/utils/MyStore";
+import MyToast from "~/utils/MyToast";
 import UserTypes from "../ActionsCreators/UserTypes";
 
 export async function LogInUser({ email, password, navigateTo }) {
@@ -12,7 +12,7 @@ export async function LogInUser({ email, password, navigateTo }) {
   });
 
   if (error) {
-    iziToast.warning({
+    MyToast.warning({
       message: ErrorMessage[error.message],
     });
   }
@@ -38,13 +38,13 @@ export async function SignInUser({
   );
 
   if (error) {
-    iziToast.warning({
+    MyToast.warning({
       message: ErrorMessage[error.message],
     });
   }
 
   if (data) {
-    iziToast.success({
+    MyToast.success({
       message: "Te has registrado",
     });
 
@@ -59,14 +59,14 @@ export async function SignOutUser() {
     MyDispatch({ type: UserTypes.DELETE_USER });
     MyDispatch({ type: UserTypes.DELETE_TOKEN });
 
-    iziToast.success({
+    MyToast.success({
       message: "Sesión cerrada",
       timeout: 1500,
     });
   }
 
   if (error) {
-    iziToast.warning({
+    MyToast.warning({
       message: ErrorMessage[error.message],
     });
   }
@@ -81,7 +81,7 @@ export async function GetUser() {
     const { access_token, refresh_token } = SESSION;
 
     if (error) {
-      iziToast.warning({
+      MyToast.warning({
         message: "Error al cargar datos del usuario",
       });
     }
@@ -112,12 +112,12 @@ export async function ResetPasswordUser({
 
     if (data) {
       localStorage.removeItem("EVENT");
-      iziToast.success({ message: "Contraseña actualizada" });
+      MyToast.success({ message: "Contraseña actualizada" });
       ExecuteNavigate();
     }
 
     if (error) {
-      iziToast.warning({ message: error.message });
+      MyToast.warning({ message: error.message });
     }
   }
 
@@ -128,14 +128,14 @@ export async function ResetPasswordUser({
     );
 
     if (data) {
-      iziToast.info({
+      MyToast.info({
         message: `Se ha enviado un mensaje de confirmación al correo <b>${email}</b>`,
       });
       ExecuteNavigate();
     }
 
     if (error) {
-      iziToast.warning({
+      MyToast.warning({
         message: ErrorMessage[error.message],
       });
     }
