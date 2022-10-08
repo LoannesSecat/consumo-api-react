@@ -10,7 +10,7 @@ it("Simple user log in", () => {
   cy.get("input[type='password']").type(test.pass);
   cy.get("button").contains("iniciar", { matchCase: false }).click();
   cy.get(".user-options article span").should("be.visible").contains("user_test");
-  cy.get(".options-dropdown button").click();
+  cy.get(".dropdown-options button").click();
   cy.get(".dropdown").should("be.visible").contains("cerrar sesión", { matchCase: false }).click();
   cy.wait(500);
 

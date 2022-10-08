@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ChevronUp from "~/assets/icons/ChevronUp";
@@ -15,9 +15,23 @@ export default function UserOpcions() {
 
   const BUTTON_SVG = classDropdown === "dropdown" ? <Cog8Tooth /> : <ChevronUp />;
 
-  const PreventDefault = (e) => {
-    e.preventDefault();
+  const ChangeClass = () => {
+    setClassDropdown(classDropdown === "dropdown" ? "dropdown active" : "dropdown");
   };
+
+  useEffect(() => {
+    document.addEventListener("click", (elm) => {
+      const dropdownClicked = elm
+        .composedPath()
+        .some((val) => val.className === "dropdown"
+      || val.className === "dropdown active"
+      || val.className === "dropdown-button");
+
+      if (!dropdownClicked) {
+        setClassDropdown("dropdown");
+      }
+    });
+  }, []);
 
   return (
     <section className="user-options">
@@ -29,12 +43,12 @@ export default function UserOpcions() {
               <span>{USER_DATA.nickname}</span>
             </article>
 
-            <article className="options-dropdown">
-              <button onClick={() => { setClassDropdown(classDropdown === "dropdown" ? "dropdown active" : "dropdown"); }}>{BUTTON_SVG}</button>
+            <article className="dropdown-options">
+              <button className="dropdown-button" onClick={ChangeClass}>{BUTTON_SVG}</button>
               <div className={classDropdown}>
-                <a href="/" onClick={(e) => { PreventDefault(e); }}>Ajustes</a>
-                <a href="/" onClick={(e) => { PreventDefault(e); }}>Favoritos</a>
-                <a href="/" onClick={(e) => { PreventDefault(e); SignOutUser(); }}>Cerrar sesión</a>
+                <a href="/" onClick={(e) => { e.preventDefault(); }}>Ajustes</a>
+                <a href="/" onClick={(e) => { e.preventDefault(); }}>Favoritos</a>
+                <a href="/" onClick={(e) => { e.preventDefault(); SignOutUser(); }}>Cerrar sesión</a>
               </div>
             </article>
           </>
