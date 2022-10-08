@@ -20,12 +20,14 @@ export default function UserOpcions() {
   };
 
   useEffect(() => {
-    document.addEventListener("click", (elm) => {
-      const dropdownClicked = elm
+    document.addEventListener("click", (evt) => {
+      evt.stopPropagation();
+
+      const dropdownClicked = evt
         .composedPath()
-        .some((val) => val.className === "dropdown"
-      || val.className === "dropdown active"
-      || val.className === "dropdown-button");
+        .some((elm) => elm.className === "dropdown"
+      || elm.className === "dropdown active"
+      || elm.className === "dropdown-button");
 
       if (!dropdownClicked) {
         setClassDropdown("dropdown");
