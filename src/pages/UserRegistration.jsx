@@ -37,8 +37,8 @@ export default function UserRegistration() {
   return (
     <main className="user-registration">
       <div>
-        <GoBackButton onClick={() => { navigate("/"); }} />
-        <button className="go-to-log-in" onClick={() => navigate("/login")}>Iniciar sesión</button>
+        <GoBackButton />
+        <button className="go-to-log-in" onClick={() => navigate("login")}>Iniciar sesión</button>
       </div>
 
       <form onSubmit={HandleOnSubmit} className="registration-form">

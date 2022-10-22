@@ -18,9 +18,9 @@ export default function PagesProvider() {
   const IS_LOGGED = useSelector((e) => e.user.session);
 
   const RelativePath = (screen) => {
-    const ARR = pathname.split("/");
+    const RUTES = pathname.split("/");
 
-    if (ARR[ARR.length - 1] === screen) {
+    if (RUTES[RUTES.length - 1] === screen) {
       return pathname;
     }
   };

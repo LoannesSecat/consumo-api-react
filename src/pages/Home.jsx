@@ -5,7 +5,7 @@ import Header from "~/components/Header";
 import Media from "~/components/Media";
 import MediaPagination from "~/components/MediaPagination";
 import { ReadResources } from "~/redux/actions/MediaActions";
-import { SearchText } from "~/redux/actions/ToolActions";
+import { NewPage, SearchText } from "~/redux/actions/ToolActions";
 import $ from "~/utils/QuerySelector";
 import "~/utils/styles/Home.scss";
 
@@ -16,10 +16,10 @@ export default function Home() {
   const Aux = (text) => {
     const AUX_TEXT = text;
 
+    if (AUX_TEXT !== SEARCH_TEXT) NewPage();
     SearchText(AUX_TEXT);
 
     clearTimeout(timer);
-
     const newTimer = setTimeout(() => {
       ReadResources();
     }, 500);
