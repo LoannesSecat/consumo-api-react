@@ -1,5 +1,5 @@
 import userSVG from "~/assets/icons/user.svg";
-import supabase from "~/services/Supabase";
+import supabase from "~/services/supabase";
 import ErrorMessage from "~/services/supabase/ErrorMessage.json";
 import MyDispatch from "~/utils/MyDispatch";
 import MyStore from "~/utils/MyStore";
