@@ -27,5 +27,4 @@ dist-ssr
 cypress/screenshots
 cypress/videos
 /coverage
-.yarnrc
 yarn.lock
