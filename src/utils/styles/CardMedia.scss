@@ -46,7 +46,9 @@
         align-items: center;
         margin-top: 15px;
 
-        article {
+        .popularity,
+        .vote-average,
+        .vote-count {
           display: flex;
 
           svg {

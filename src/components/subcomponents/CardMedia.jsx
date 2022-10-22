@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import Heart from "~/assets/icons/Heart";
-import Sparkles from "~/assets/icons/Sparkles";
-import UserGroup from "~/assets/icons/UserGroup";
+import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
+import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
+import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
 import {
   FilmDetails, MediaType, PersonDetails, SerieDetails,
 } from "~/redux/actions/MediaActions";
@@ -26,7 +26,7 @@ export default function CardMedia({ data }) {
   };
 
   return (
-    <section className="card-media">
+    <article className="card-media">
       <Link to="media-details" onMouseDown={() => MountDetails()} onTouchStart={() => MountDetails()}>
         <HandleImage
           url={{
@@ -38,40 +38,40 @@ export default function CardMedia({ data }) {
           className="poster-img"
         />
 
-        <article className="info">
+        <footer className="info">
           <h2>{title ?? name}</h2>
 
           <div className="statistics">
             {popularity
               ? (
-                <article title="Popularidad">
+                <div title="Popularidad" className="popularity">
                   <UserGroup />
                   <span>{popularity}</span>
-                </article>
+                </div>
               )
               : null}
 
             {vote_average
               ? (
-                <article title="Votación promedio">
+                <div title="Votación promedio" className="vote-average">
                   <Sparkles />
                   <span>{vote_average}</span>
-                </article>
+                </div>
               )
               : null}
 
             {vote_count
               ? (
-                <article title="Me gusta">
+                <div title="Me gusta" className="vote-count">
                   <Heart />
                   <span>{vote_count}</span>
-                </article>
+                </div>
               ) : null}
           </div>
 
           {mediaType ? <span className="media-type">{mediaType}</span> : null}
-        </article>
+        </footer>
       </Link>
-    </section>
+    </article>
   );
 }

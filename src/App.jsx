@@ -1,5 +1,5 @@
 import "izitoast/dist/css/iziToast.css";
-import { StrictMode, useEffect } from "react";
+import { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import PagesProvider from "./providers/PagesProvider";
@@ -18,11 +18,9 @@ function App() {
 
   return (
     <StoreProvider>
-      <StrictMode>
-        <BrowserRouter basename="/">
-          <PagesProvider />
-        </BrowserRouter>
-      </StrictMode>
+      <BrowserRouter basename="/">
+        <PagesProvider />
+      </BrowserRouter>
     </StoreProvider>
   );
 }

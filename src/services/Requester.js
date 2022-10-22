@@ -1,11 +1,11 @@
 import MyToast from "~/utils/MyToast";
 
-export async function MyFetch(url) {
+export async function MyFetch(url = "") {
   try {
     const response = [
       fetch(url).then((e) => {
         if (!e.ok) {
-          MyToast.error({ message: "Ha sucedido un problema al hacer la petición" });
+          throw new Error("Estado de la petición no OK");
         }
 
         return e.json();
@@ -20,7 +20,7 @@ export async function MyFetch(url) {
   }
 }
 
-export default async function Requester({ request, action }) {
+export default async function Requester({ request = "", action = "" }) {
   if (navigator.onLine) {
     return MyFetch(request).then((element) => ({ type: action, ...element }));
   }

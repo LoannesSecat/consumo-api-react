@@ -1,4 +1,4 @@
-import Photo from "~/assets/icons/Photo";
+import { ReactComponent as Photo } from "~/assets/icons/photo.svg";
 import Parameters from "~/utils/Parameters";
 
 const { TMDb } = Parameters;

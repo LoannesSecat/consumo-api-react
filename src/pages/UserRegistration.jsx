@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Eye from "~/assets/icons/Eye";
-import EyeSlash from "~/assets/icons/EyeSlash";
+import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
+import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import { SignInUser } from "~/redux/actions/UserActions";
 import FormValidator from "~/utils/FormValidator";
@@ -41,7 +41,7 @@ export default function UserRegistration() {
         <button className="go-to-log-in" onClick={() => navigate("/login")}>Iniciar sesión</button>
       </div>
 
-      <form onSubmit={HandleOnSubmit}>
+      <form onSubmit={HandleOnSubmit} className="registration-form">
         <label htmlFor="nickname">
           <span>Nombre de usuario</span>
           <br />
@@ -73,7 +73,7 @@ export default function UserRegistration() {
           </div>
         </label>
 
-        <button type="submit">Registrarme</button>
+        <button type="submit" className="submit-registration-button">Registrarme</button>
       </form>
     </main>
   );

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Eye from "~/assets/icons/Eye";
-import EyeSlash from "~/assets/icons/EyeSlash";
+import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
+import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import { LogInUser } from "~/redux/actions/UserActions";
 import FormValidator from "~/utils/FormValidator";
@@ -37,7 +37,7 @@ export default function UserLogIn() {
         <button className="go-to-registration" onClick={() => { navigate("/registration"); }}>Registrarme</button>
       </div>
 
-      <form onSubmit={(e) => HandleOnSubmit(e)}>
+      <form onSubmit={(e) => HandleOnSubmit(e)} className="log-in-form">
         <label htmlFor="email">
           <span>Correo</span>
           <br />
@@ -54,7 +54,7 @@ export default function UserLogIn() {
           </div>
         </label>
 
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit" className="submit-log-in-button">Iniciar sesión</button>
       </form>
 
       <Link to="reset-password">Reiniciar contraseña</Link>

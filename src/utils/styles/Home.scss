@@ -11,18 +11,11 @@
   }
 
   .search-input {
+    @extend %input-bottom-line;
+    @extend %input-effect-cerise;
+
     flex-grow: 1;
     flex-basis: 250px;
-    outline: none;
-    border: none;
-    border-bottom: 1px solid Palette.$Black_Chocolate;
-    padding: 3px 5px;
-    @extend %transition-speed;
-    background-color: Palette.$Ghost_White;
-
-    &:hover {
-      border-bottom: 1px solid Palette.$Cerise;
-    }
 
     &::-webkit-search-cancel-button {
       -webkit-appearance: none;
@@ -30,7 +23,8 @@
       height: 18px;
       margin-left: 1px;
       margin-right: 0;
-      background-image: url("../../assets/icons/XMark.svg");
+      background-image: url("../../assets/icons/x-mark.svg");
+      cursor: pointer;
     }
   }
 

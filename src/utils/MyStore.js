@@ -1,11 +1,8 @@
 import store from "~/redux/store";
 
-export default function MyStore(values) {
-  if (!values) return store.getState();
-
-  const { reducer, value } = values;
-
+export default function MyStore({ reducer, value } = {}) {
   if (reducer && value) return store.getState()[reducer][value];
+  if (reducer) return store.getState()[reducer];
 
-  if (reducer) { return store.getState()[reducer]; }
+  return store.getState();
 }

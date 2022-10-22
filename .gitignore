@@ -11,9 +11,6 @@ lerna-debug.log*
 dist
 dist-ssr
 *.local
-.env
-cypress/screenshots
-cypress/videos
 
 # Editor directories and files
 .vscode/*
@@ -25,3 +22,10 @@ cypress/videos
 *.njsproj
 *.sln
 *.sw?
+
+.env
+cypress/screenshots
+cypress/videos
+/coverage
+.yarnrc
+yarn.lock

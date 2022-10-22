@@ -1,4 +1,4 @@
-import { test, url } from "../fixtures/vite.json";
+import { credentials, url } from "../fixtures/vite.json";
 
 it("Simple user log in", () => {
   cy.visit(url.preview);
@@ -6,8 +6,8 @@ it("Simple user log in", () => {
 
   cy.get(".card-media:nth-child(4)").click();
   cy.get("button").contains("iniciar sesión", { matchCase: false }).click();
-  cy.get("input[type='email']").type(test.email);
-  cy.get("input[type='password']").type(test.pass);
+  cy.get("input[type='email']").type(credentials.email);
+  cy.get("input[type='password']").type(credentials.password);
   cy.get("button").contains("iniciar", { matchCase: false }).click();
   cy.get(".user-options article span").should("be.visible").contains("user_test");
   cy.get(".dropdown-options button").click();

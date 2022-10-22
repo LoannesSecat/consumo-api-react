@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import HandleLoading from "~/components/HandleLoading";
 import Header from "~/components/Header";
@@ -6,6 +6,7 @@ import Media from "~/components/Media";
 import MediaPagination from "~/components/MediaPagination";
 import { ReadResources } from "~/redux/actions/MediaActions";
 import { SearchText } from "~/redux/actions/ToolActions";
+import $ from "~/utils/QuerySelector";
 import "~/utils/styles/Home.scss";
 
 export default function Home() {
@@ -33,6 +34,10 @@ export default function Home() {
       Aux(value);
     }
   };
+
+  useEffect(() => {
+    $(".search-input").focus();
+  }, []);
 
   return (
     <>

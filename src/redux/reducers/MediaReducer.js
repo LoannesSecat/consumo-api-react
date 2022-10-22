@@ -1,10 +1,10 @@
 import ACTIONS from "../ActionsCreators/FilmTypes";
 
 const initialState = {
-  resources: [],
-  filmDetails: [],
-  personDetails: [],
-  serieDetails: [],
+  resources: {},
+  filmDetails: {},
+  personDetails: {},
+  serieDetails: {},
   typeMedia: "",
 };
 

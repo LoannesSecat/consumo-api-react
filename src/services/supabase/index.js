@@ -9,7 +9,7 @@ export function AuthStateChange() {
   supabase.auth.onAuthStateChange(async (event) => {
     if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
       SessionUser(event === "SIGNED_IN");
-      GetUser();
+      await GetUser();
       localStorage.removeItem("EVENT");
     }
 

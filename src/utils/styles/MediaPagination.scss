@@ -1,32 +1,36 @@
-@use "./Palette";
+@use "./Palette.scss";
+@use "./General.scss";
 
 .media-pagination {
+  @extend %lateral-paddings;
   position: sticky;
   bottom: 0;
-  display: grid;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
   background-color: Palette.$Ghost_White;
   box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.10);
-  grid-template-columns: 85px 1fr 85px;
-  text-align: center;
-  align-items: center;
-  padding: 10px 10%;
-  padding-right: calc((100% - 100vw) + 10%);
+  padding-top: 10px;
+  padding-bottom: 10px;
   z-index: 1;
 
-  button {
-    color: Palette.$Black_Chocolate;
-    border: Palette.$Black_Chocolate solid 1px;
-    padding: 5px 15px;
-    border-radius: 5px;
-    font-size: small;
-    transition: .1s;
-    background-color: Palette.$Ghost_White;
+  >span {
+    text-align: center;
+    flex-grow: 1;
+  }
 
-    &:active,
-    &:hover {
-      background-color: Palette.$Tufts_Blue;
-      color: Palette.$Ghost_White;
-      border: Palette.$Tufts_Blue solid 1px;
-    }
+  .previous-button,
+  .next-button {
+    @extend %button-ghost-white;
+    @extend %button-effect-tufts-blue;
+    padding: 5px 15px;
+    font-size: 0.9rem;
+    flex-grow: auto;
+  }
+
+  .aux-previous,
+  .aux-next {
+    flex-basis: 90px;
   }
 }

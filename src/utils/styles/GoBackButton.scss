@@ -1,10 +1,6 @@
 @use "./Palette.scss";
+@use "./General.scss";
 
 .go-back-button {
-  border-radius: 5px;
-  padding: 2px 10px;
-  background-color: Palette.$Ghost_White;
-  border: 1px solid Palette.$Black_Chocolate;
-  color: Palette.$Black_Chocolate;
-  transition: .1s;
+  @extend %button-ghost-white;
 }

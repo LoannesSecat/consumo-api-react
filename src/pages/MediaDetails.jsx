@@ -16,11 +16,20 @@ export default function MediaDetails() {
   const SERIE_DATA = useSelector((e) => e.media.serieDetails);
   const TYPE_MEDIA = useSelector((e) => e.media.typeMedia);
 
-  let mountComponent = null;
-
-  if (TYPE_MEDIA === "tv") mountComponent = <HandleLoading data={SERIE_DATA} Component={SerieDetails} />;
-  if (TYPE_MEDIA === "movie") mountComponent = <HandleLoading data={FILM_DATA} Component={FilmDetails} />;
-  if (TYPE_MEDIA === "person") mountComponent = <HandleLoading data={PERSON_DATA} Component={PersonDetails} />;
+  const cases = {
+    tv: {
+      data: SERIE_DATA,
+      toRender: SerieDetails,
+    },
+    movie: {
+      data: FILM_DATA,
+      toRender: FilmDetails,
+    },
+    person: {
+      data: PERSON_DATA,
+      toRender: PersonDetails,
+    },
+  };
 
   return (
     <>
@@ -28,7 +37,12 @@ export default function MediaDetails() {
         <GoBackButton />
       </Header>
 
-      <main className="media-details">{mountComponent}</main>
+      <section className="media-details">
+        <HandleLoading
+          data={cases[TYPE_MEDIA].data}
+          Component={cases[TYPE_MEDIA].toRender}
+        />
+      </section>
     </>
   );
 }

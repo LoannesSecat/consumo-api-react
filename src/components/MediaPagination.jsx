@@ -8,21 +8,21 @@ export default function MediaPagination() {
   const TOTAL_PAGES = useSelector((e) => e.tool.totalPages);
 
   const BUTTON_PREVIOUS = PAGE <= MIN_PAGE ? (
-    <div />
+    <div className="aux-previous" />
   ) : (
-    <button onClick={() => PreviousFilmsPage()}>Anterior</button>
+    <button onClick={() => PreviousFilmsPage()} className="previous-button">Anterior</button>
   );
 
   const BUTTON_NEXT = PAGE >= TOTAL_PAGES ? (
-    <div />
+    <div className="aux-next" />
   ) : (
-    <button onClick={() => NextFilmsPage()}>Siguiente</button>
+    <button onClick={() => NextFilmsPage()} className="next-button">Siguiente</button>
   );
 
   return TOTAL_PAGES === 0
     ? null
     : (
-      <section className="media-pagination">
+      <footer className="media-pagination">
         {BUTTON_PREVIOUS}
         <span>
           {PAGE}
@@ -30,6 +30,6 @@ export default function MediaPagination() {
           {TOTAL_PAGES}
         </span>
         {BUTTON_NEXT}
-      </section>
+      </footer>
     );
 }

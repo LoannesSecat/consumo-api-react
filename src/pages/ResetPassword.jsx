@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Eye from "~/assets/icons/Eye";
-import EyeSlash from "~/assets/icons/EyeSlash";
+import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
+import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { ResetPasswordUser } from "~/redux/actions/UserActions";
+import { PreResetPasswordUser, UpdateUser } from "~/redux/actions/UserActions";
 import "~/utils/styles/ResetPassword.scss";
 
 export default function ResetPassword() {
@@ -17,11 +17,11 @@ export default function ResetPassword() {
     e.preventDefault();
 
     if (IS_LOGGED) {
-      ResetPasswordUser(values);
+      UpdateUser(values);
     }
 
     if (!IS_LOGGED) {
-      ResetPasswordUser(values);
+      PreResetPasswordUser(values);
     }
   };
 

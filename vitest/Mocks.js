@@ -1,8 +1,8 @@
 export const MediaReducer = {
-  resources: [],
-  filmDetails: [],
-  personDetails: [],
-  serieDetails: [],
+  resources: {},
+  filmDetails: {},
+  personDetails: {},
+  serieDetails: {},
   typeMedia: "",
 };
 
@@ -14,8 +14,8 @@ export const ToolReducer = {
 };
 
 export const UserReducer = {
-  userData: [],
-  token: [],
+  userData: {},
+  token: {},
   session: false,
 };
 

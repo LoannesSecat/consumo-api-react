@@ -42,5 +42,6 @@ export default {
   SUPABASE: {
     url: import.meta.env.VITE_SUPABASE_URL,
     key: import.meta.env.VITE_SUPABASE_KEY,
+    url_storage: `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/`,
   },
 };
