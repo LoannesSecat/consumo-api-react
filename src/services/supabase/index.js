@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
-import { GetUser, SessionUser } from "~/redux/actions/UserActions";
 import Parameters from "~/utils/Parameters";
+import { GetUser, SessionUser } from "../UserServices";
 
 const { SUPABASE } = Parameters;
 const supabase = createClient(SUPABASE.url, SUPABASE.key);

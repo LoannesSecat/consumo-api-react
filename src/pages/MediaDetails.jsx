@@ -9,24 +9,24 @@ const FilmDetails = lazy(() => import("~/components/FilmDetails"));
 const PersonDetails = lazy(() => import("~/components/PersonDetails"));
 const SerieDetails = lazy(() => import("~/components/SerieDetails"));
 
-export default function MediaDetails() {
-  scrollTo(0, 0);
-  const FILM_DATA = useSelector((e) => e.media.filmDetails);
-  const PERSON_DATA = useSelector((e) => e.media.personDetails);
-  const SERIE_DATA = useSelector((e) => e.media.serieDetails);
-  const TYPE_MEDIA = useSelector((e) => e.media.typeMedia);
+scrollTo(0, 0);
 
-  const cases = {
+export default function MediaDetails() {
+  const {
+    FILM_DETAILS, PERSON_DETAILS, SERIE_DETAILS, TYPE_MEDIA,
+  } = useSelector((e) => e.media);
+
+  const CASES = {
     tv: {
-      data: SERIE_DATA,
+      data: SERIE_DETAILS,
       toRender: SerieDetails,
     },
     movie: {
-      data: FILM_DATA,
+      data: FILM_DETAILS,
       toRender: FilmDetails,
     },
     person: {
-      data: PERSON_DATA,
+      data: PERSON_DETAILS,
       toRender: PersonDetails,
     },
   };
@@ -39,8 +39,8 @@ export default function MediaDetails() {
 
       <section className="media-details">
         <HandleLoading
-          data={cases[TYPE_MEDIA].data}
-          Component={cases[TYPE_MEDIA].toRender}
+          data={CASES[TYPE_MEDIA].data}
+          Component={CASES[TYPE_MEDIA].toRender}
         />
       </section>
     </>

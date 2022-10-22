@@ -1,25 +1,25 @@
-import ACTIONS from "../ActionsCreators/FilmTypes";
+import FilmActions from "../actions/MediaActions.json";
 
 const initialState = {
-  resources: {},
-  filmDetails: {},
-  personDetails: {},
-  serieDetails: {},
-  typeMedia: "",
+  RESOURCES: {},
+  FILM_DETAILS: {},
+  PERSON_DETAILS: {},
+  SERIE_DETAILS: {},
+  TYPE_MEDIA: "",
 };
 
 export default function MediaReducer(store = initialState, action) {
   switch (action.type) {
-    case ACTIONS.READ_RESOURCES:
-      return { ...store, resources: action.payload };
-    case ACTIONS.FILM_DETAILS:
-      return { ...store, filmDetails: action.payload };
-    case ACTIONS.PERSON_DETAILS:
-      return { ...store, personDetails: action.payload };
-    case ACTIONS.SERIE_DETAILS:
-      return { ...store, serieDetails: action.payload };
-    case ACTIONS.MEDIA_TYPE:
-      return { ...store, typeMedia: action.payload };
+    case FilmActions.READ_RESOURCES:
+      return { ...store, RESOURCES: action.payload };
+    case FilmActions.FILM_DETAILS:
+      return { ...store, FILM_DETAILS: action.payload };
+    case FilmActions.PERSON_DETAILS:
+      return { ...store, PERSON_DETAILS: action.payload };
+    case FilmActions.SERIE_DETAILS:
+      return { ...store, SERIE_DETAILS: action.payload };
+    case FilmActions.MEDIA_TYPE:
+      return { ...store, TYPE_MEDIA: action.payload };
 
     default:
       return store;

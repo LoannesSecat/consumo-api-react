@@ -15,7 +15,7 @@ const auxRedirect = <Navigate to="/" />;
 
 export default function PagesProvider() {
   const { pathname } = useLocation();
-  const IS_LOGGED = useSelector((e) => e.user.session);
+  const IS_LOGGED = useSelector((e) => e.user.SESSION);
 
   const RelativePath = (screen) => {
     const RUTES = pathname.split("/");

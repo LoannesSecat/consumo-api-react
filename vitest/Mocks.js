@@ -1,22 +1,22 @@
 export const MediaReducer = {
-  resources: {},
-  filmDetails: {},
-  personDetails: {},
-  serieDetails: {},
-  typeMedia: "",
+  RESOURCES: {},
+  FILM_DETAILS: {},
+  PERSON_DETAILS: {},
+  SERIE_DETAILS: {},
+  TYPE_MEDIA: "",
 };
 
 export const ToolReducer = {
-  page: 1,
-  minPage: 1,
-  totalPages: 1,
-  searchText: "",
+  PAGE: 1,
+  MIN_PAGE: 1,
+  TOTAL_PAGES: 1,
+  SEARCH_TEXT: "",
 };
 
 export const UserReducer = {
-  userData: {},
-  token: {},
-  session: false,
+  USER_DATA: {},
+  TOKEN: {},
+  SESSION: false,
 };
 
 export const Reducers = {

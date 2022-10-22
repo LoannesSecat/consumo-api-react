@@ -4,14 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as ChevronUp } from "~/assets/icons/chevron-up.svg";
 import { ReactComponent as Cog8Tooth } from "~/assets/icons/cog-8-tooth.svg";
 import userSVG from "~/assets/icons/user.svg";
-import { SignOutUser, UpdateAvatarStore, UpdateSrcSetStore } from "~/redux/actions/UserActions";
+import { SignOutUser, UpdateAvatarStore, UpdateSrcSetStore } from "~/services/UserServices";
 import "~/utils/styles/UserOptions.scss";
 
 export default function UserOpcions() {
-  const USER_DATA = useSelector((e) => e.user.userData);
+  const { USER_DATA, SESSION } = useSelector((e) => e.user);
   const navigate = useNavigate();
   const [classDropdown, setClassDropdown] = useState("dropdown");
-  const IS_LOGGED = useSelector((e) => e.user.session);
 
   const BUTTON_SVG = classDropdown === "dropdown" ? <Cog8Tooth /> : <ChevronUp />;
 
@@ -49,7 +48,7 @@ export default function UserOpcions() {
 
   return (
     <section className="user-options">
-      {IS_LOGGED
+      {SESSION
         ? (
           <>
             <article className="user-info">

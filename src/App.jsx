@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import PagesProvider from "./providers/PagesProvider";
 import StoreProvider from "./providers/StoreProvider";
-import { ReadResources } from "./redux/actions/MediaActions";
+import { ReadResources } from "./services/MediaServices";
 import { AuthStateChange } from "./services/supabase";
 import "./utils/styles/App.scss";
 

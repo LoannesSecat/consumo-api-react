@@ -5,7 +5,7 @@ import MediaPagination from "./MediaPagination";
 import CardMedia from "./subcomponents/CardMedia";
 
 export default function Media() {
-  const RESOURCES = useSelector((e) => e.media.resources);
+  const RESOURCES = useSelector((e) => e.media.RESOURCES);
 
   if (Object.keys(RESOURCES).length) {
     return (
@@ -20,6 +20,7 @@ export default function Media() {
           ))
         }
         </main>
+
         <MediaPagination />
       </>
     );

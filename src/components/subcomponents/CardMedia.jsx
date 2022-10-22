@@ -4,25 +4,33 @@ import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
 import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
 import {
   FilmDetails, MediaType, PersonDetails, SerieDetails,
-} from "~/redux/actions/MediaActions";
+} from "~/services/MediaServices";
 import "~/utils/styles/CardMedia.scss";
 import HandleImage from "../HandleImage";
+
+const MEDIA_TYPE_TEXT = {
+  movie: "Película",
+  tv: "Serie",
+};
+
+const AuxMount = (comingData, type) => {
+  const CASES = {
+    movie: FilmDetails(comingData),
+    tv: SerieDetails(comingData),
+    person: PersonDetails(comingData),
+  };
+
+  return CASES[type];
+};
 
 export default function CardMedia({ data }) {
   const {
     profile_path, poster_path, title, name, media_type, popularity, vote_average, vote_count,
   } = data;
-  let mediaType = null;
-
-  if (media_type === "movie") mediaType = "Película";
-  if (media_type === "tv") mediaType = "Serie";
 
   const MountDetails = () => {
     MediaType(media_type);
-
-    if (media_type === "movie") FilmDetails(data);
-    if (media_type === "tv") SerieDetails(data);
-    if (media_type === "person") PersonDetails(data);
+    AuxMount(data, media_type);
   };
 
   return (
@@ -69,7 +77,11 @@ export default function CardMedia({ data }) {
               ) : null}
           </div>
 
-          {mediaType ? <span className="media-type">{mediaType}</span> : null}
+          {
+          MEDIA_TYPE_TEXT[media_type]
+            ? <span className="media-type">{MEDIA_TYPE_TEXT[media_type]}</span>
+            : null
+          }
         </footer>
       </Link>
     </article>

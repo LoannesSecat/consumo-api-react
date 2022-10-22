@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { LogInUser } from "~/redux/actions/UserActions";
+import { LogInUser } from "~/services/UserServices";
 import FormValidator from "~/utils/FormValidator";
 import "~/utils/styles/UserLogIn.scss";
 

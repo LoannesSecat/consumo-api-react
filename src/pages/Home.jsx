@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import HandleLoading from "~/components/HandleLoading";
 import Header from "~/components/Header";
 import Media from "~/components/Media";
-import { ReadResources } from "~/redux/actions/MediaActions";
-import { NewPage, SearchText } from "~/redux/actions/ToolActions";
+import { ReadResources } from "~/services/MediaServices";
+import { NewPage, SearchText } from "~/services/ToolServices";
 import $ from "~/utils/QuerySelector";
 import "~/utils/styles/Home.scss";
 
 export default function Home() {
-  const SEARCH_TEXT = useSelector((e) => e.tool.searchText);
+  const { SEARCH_TEXT } = useSelector((e) => e.tool);
   const [timer, setTimer] = useState(null);
 
   const Aux = (text) => {

@@ -1,12 +1,7 @@
 {
   "name": "movies-platform",
   "private": true,
-  "version": "0.1.42",
-  "description": "This website allow you to see films, series and profile of people that work or worked in the cinema world, also allow save the favorites and see it in your profile (this part of profile is in construction for now)",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/LoannesSecat/media-platform-react.git"
-  },
+  "version": "0.1.46",
   "homepage": "https://media-platform.vercel.app",
   "scripts": {
     "dev": "vite",

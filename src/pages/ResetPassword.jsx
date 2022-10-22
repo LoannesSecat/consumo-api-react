@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { PreResetPasswordUser, UpdateUser } from "~/redux/actions/UserActions";
+import { PreResetPasswordUser, UpdateUser } from "~/services/UserServices";
 import "~/utils/styles/ResetPassword.scss";
 
 export default function ResetPassword() {

@@ -1,33 +1,33 @@
 import userSVG from "~/assets/icons/user.svg";
+import UserActions from "~/redux/actions/UserActions.json";
+import MyDispatch from "~/redux/selectors/MyDispatch";
+import MyStore from "~/redux/selectors/MyStore";
 import supabase from "~/services/supabase";
 import ErrorMessage from "~/services/supabase/ErrorMessage.json";
-import MyDispatch from "~/utils/MyDispatch";
-import MyStore from "~/utils/MyStore";
 import MyToast from "~/utils/MyToast";
 import Parameters from "~/utils/Parameters";
-import UserTypes from "../ActionsCreators/UserTypes";
 
-const USER_DATA = () => MyStore({ reducer: "user", value: "userData" });
+const USER_DATA = () => MyStore({ reducer: "user", value: "USER_DATA" });
 const AVATAR_PATH = `${USER_DATA().id}/${USER_DATA().id}_avatar.png`;
 const AVATAR_STORAGE_NAME = "avatars";
 const { SUPABASE } = Parameters;
 
 export function UpdateAvatarStore(url) {
   MyDispatch({
-    type: UserTypes.READ_USER,
+    type: UserActions.READ_USER,
     payload: {
       ...USER_DATA(),
-      avatar: url || null,
+      avatar: url ?? "",
     },
   });
 }
 
 export function UpdateSrcSetStore(path) {
   MyDispatch({
-    type: UserTypes.READ_USER,
+    type: UserActions.READ_USER,
     payload: {
       ...USER_DATA(),
-      srcSet: path || "",
+      srcSet: path ?? "",
     },
   });
 }
@@ -83,8 +83,8 @@ export async function SignOutUser() {
   const { error } = await supabase.auth.signOut();
 
   if (!error) {
-    MyDispatch({ type: UserTypes.DELETE_USER });
-    MyDispatch({ type: UserTypes.DELETE_TOKEN });
+    MyDispatch({ type: UserActions.DELETE_USER });
+    MyDispatch({ type: UserActions.DELETE_TOKEN });
 
     MyToast.success({
       message: "Sesión cerrada",
@@ -119,7 +119,7 @@ export async function GetUser() {
     }
 
     MyDispatch({
-      type: UserTypes.READ_USER,
+      type: UserActions.READ_USER,
       payload: {
         email,
         nickname: user_metadata.nickname,
@@ -130,7 +130,7 @@ export async function GetUser() {
     });
 
     MyDispatch({
-      type: UserTypes.READ_TOKEN,
+      type: UserActions.READ_TOKEN,
       payload: { access_token, refresh_token },
     });
   }
@@ -195,7 +195,7 @@ export async function PreResetPasswordUser({ email, navigateTo }) {
 }
 
 export function SessionUser(value) {
-  MyDispatch({ type: UserTypes.UPDATE_SESSION, payload: value });
+  MyDispatch({ type: UserActions.UPDATE_SESSION, payload: value });
 }
 
 export async function DeleteAvatar({ deleteType }) {

@@ -7,7 +7,7 @@ import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import {
   DeleteAvatar, UpdateAvatarStore, UpdateSrcSetStore, UpdateUser, UploadAvatar,
-} from "~/redux/actions/UserActions";
+} from "~/services/UserServices";
 import $ from "~/utils/QuerySelector";
 import "~/utils/styles/UserSettings.scss";
 
@@ -25,7 +25,7 @@ const NEW_DATA_STATE = {
 };
 
 export default function UserSettings() {
-  const USER_DATA = useSelector((e) => e.user.userData);
+  const { USER_DATA } = useSelector((e) => e.user);
   const [newData, setNewData] = useState(NEW_DATA_STATE);
   const [cropper, setCropper] = useState();
   const CLEAR_AVATAR = { ...newData, avatar: NEW_DATA_STATE.avatar };

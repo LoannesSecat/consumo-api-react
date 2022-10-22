@@ -1,23 +1,23 @@
-import ACTIONS from "../ActionsCreators/UserTypes";
+import UserActions from "../actions/UserActions.json";
 
 const initialState = {
-  userData: {},
-  token: {},
-  session: false,
+  USER_DATA: {},
+  TOKEN: {},
+  SESSION: false,
 };
 
 export default function UserReducer(store = initialState, action) {
   switch (action.type) {
-    case ACTIONS.READ_USER:
-      return { ...store, userData: action.payload };
-    case ACTIONS.READ_TOKEN:
-      return { ...store, token: action.payload };
-    case ACTIONS.DELETE_USER:
-      return { ...store, userData: {} };
-    case ACTIONS.DELETE_TOKEN:
-      return { ...store, token: {} };
-    case ACTIONS.UPDATE_SESSION:
-      return { ...store, session: action.payload };
+    case UserActions.READ_USER:
+      return { ...store, USER_DATA: action.payload };
+    case UserActions.READ_TOKEN:
+      return { ...store, TOKEN: action.payload };
+    case UserActions.DELETE_USER:
+      return { ...store, USER_DATA: {} };
+    case UserActions.DELETE_TOKEN:
+      return { ...store, TOKEN: {} };
+    case UserActions.UPDATE_SESSION:
+      return { ...store, SESSION: action.payload };
 
     default:
       return store;

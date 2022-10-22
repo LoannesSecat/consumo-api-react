@@ -20,7 +20,7 @@ export async function MyFetch(url = "") {
   }
 }
 
-export default async function Requester({ request = "", action = "" }) {
+export default async function Requester({ request, action }) {
   if (navigator.onLine) {
     return MyFetch(request).then((element) => ({ type: action, ...element }));
   }

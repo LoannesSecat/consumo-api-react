@@ -11,7 +11,7 @@ import ProductionCountries from "./subcomponents/ProductionCountries";
 import SpokenLanguages from "./subcomponents/SpokenLanguages";
 import Status from "./subcomponents/Status";
 
-export default function FilmDetails({ data }) {
+export default function FilmDetails({ data } = {}) {
   const {
     backdrop_path,
     title,

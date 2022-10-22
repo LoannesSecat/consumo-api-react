@@ -1,26 +1,26 @@
-import ACTIONS from "../ActionsCreators/ToolTypes";
+import ToolActions from "../actions/ToolActions.json";
 
 const initialState = {
-  page: 1,
-  minPage: 1,
-  totalPages: 1,
-  searchText: "",
+  PAGE: 1,
+  MIN_PAGE: 1,
+  TOTAL_PAGES: 1,
+  SEARCH_TEXT: "",
 };
 
 export default function ToolReducer(store = initialState, action) {
   switch (action.type) {
-    case ACTIONS.NEW_PAGE:
-      return { ...store, page: action.payload };
-    case ACTIONS.NEXT_FILMS_PAGE:
-      return { ...store, page: store.page + 1 };
-    case ACTIONS.PREVIOUS_FILMS_PAGE:
-      return { ...store, page: store.page - 1 };
-    case ACTIONS.MINIMUM_NUM_PAGES:
-      return { ...store, minPage: action.payload };
-    case ACTIONS.SEARCH_TEXT:
-      return { ...store, searchText: action.payload };
-    case ACTIONS.TOTAL_NUM_PAGES:
-      return { ...store, totalPages: action.payload };
+    case ToolActions.NEW_PAGE:
+      return { ...store, PAGE: action.payload };
+    case ToolActions.NEXT_FILMS_PAGE:
+      return { ...store, PAGE: store.PAGE + 1 };
+    case ToolActions.PREVIOUS_FILMS_PAGE:
+      return { ...store, PAGE: store.PAGE - 1 };
+    case ToolActions.MINIMUM_NUM_PAGES:
+      return { ...store, MIN_PAGE: action.payload };
+    case ToolActions.SEARCH_TEXT:
+      return { ...store, SEARCH_TEXT: action.payload };
+    case ToolActions.TOTAL_NUM_PAGES:
+      return { ...store, TOTAL_PAGES: action.payload };
 
     default:
       return store;
