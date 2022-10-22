@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import HandleLoading from "~/components/HandleLoading";
 import Header from "~/components/Header";
 import Media from "~/components/Media";
-import MediaPagination from "~/components/MediaPagination";
 import { ReadResources } from "~/redux/actions/MediaActions";
 import { NewPage, SearchText } from "~/redux/actions/ToolActions";
 import $ from "~/utils/QuerySelector";
@@ -51,10 +50,7 @@ export default function Home() {
         />
       </Header>
 
-      <>
-        <HandleLoading Component={Media} />
-        <MediaPagination />
-      </>
+      <HandleLoading Component={Media} />
     </>
   );
 }

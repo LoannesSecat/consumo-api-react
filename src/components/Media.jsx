@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import "~/utils/styles/Media.scss";
 import Empty from "./Empty";
+import MediaPagination from "./MediaPagination";
 import CardMedia from "./subcomponents/CardMedia";
 
 export default function Media() {
@@ -8,8 +9,9 @@ export default function Media() {
 
   if (Object.keys(RESOURCES).length) {
     return (
-      <main className="media">
-        {
+      <>
+        <main className="media">
+          {
           Object.values(RESOURCES)?.map((element) => (
             <CardMedia
               key={element.id}
@@ -17,7 +19,9 @@ export default function Media() {
             />
           ))
         }
-      </main>
+        </main>
+        <MediaPagination />
+      </>
     );
   }
 

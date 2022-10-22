@@ -1,5 +1,9 @@
 import "~/utils/styles/Empty.scss";
 
 export default function Empty() {
-  return <article className="empty">No hay nada para mostrar</article>;
+  return (
+    <div className="empty">
+      <h1>No hay nada para mostrar</h1>
+    </div>
+  );
 }
