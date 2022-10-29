@@ -1,4 +1,4 @@
-# Logs
+### Logs
 logs
 *.log
 npm-debug.log*
@@ -11,8 +11,11 @@ lerna-debug.log*
 dist
 dist-ssr
 *.local
+.env
+cypress/screenshots
+cypress/videos
 
-# Editor directories and files
+### Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
