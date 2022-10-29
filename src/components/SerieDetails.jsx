@@ -73,11 +73,9 @@ export default function SerieDetails({ data } = {}) {
 
   return (
     <>
-      <div className="banner">
+      <article className="banner">
         <HandleImage
-          url={{
-            backdrop_path,
-          }}
+          url={backdrop_path}
           size="w1280"
           toShow="backdrop"
           className="serie-img"
@@ -87,9 +85,9 @@ export default function SerieDetails({ data } = {}) {
           <h2>{name}</h2>
           { tagline && tagline.length > 0 ? <h3>{tagline}</h3> : null}
         </div>
-      </div>
+      </article>
 
-      <div className="info">
+      <article className="info">
         <Genres param={genres} />
         <Paragraph param={overview} />
         <OriginalLanguage param={original_language} />
@@ -160,7 +158,7 @@ export default function SerieDetails({ data } = {}) {
         </ul>
 
         <Homepage param={homepage} />
-      </div>
+      </article>
     </>
   );
 }

@@ -9,18 +9,19 @@
   }
 
   .go-back-button {
-
-    &:hover,
-    &:active {
-      color: Palette.$Ghost_White;
-      background-color: Palette.$Tufts_Blue;
-      border-color: Palette.$Ghost_White;
-    }
+    @extend %button-border-ghost-white;
+    @extend %button-effect-ghost-white;
   }
 }
 
 .media-details {
   word-break: break-word;
+  display: grid;
+
+  .save-favorite-button {
+    justify-self: end;
+    align-self: start;
+  }
 
   .subtitle {
     font-weight: 600;

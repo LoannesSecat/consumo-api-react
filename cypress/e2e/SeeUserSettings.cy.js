@@ -8,7 +8,7 @@ it("Check if the user settings page is visible", () => {
   cy.get("input[type='password'").clear().type(credentials.password);
   cy.get("button").contains("Iniciar sesión", { matchCase: false }).click();
 
-  cy.get(".user-options article span").should("be.visible").contains("user_test");
+  cy.get(".user-options article span").should("be.visible").contains(credentials.nickname);
   cy.get(".dropdown-options button").click();
   cy.get(".dropdown").should("be.visible").contains("ajustes", { matchCase: false }).click();
 

@@ -9,7 +9,7 @@ const { TMDb } = Parameters;
 
 export async function ReadResources() {
   const { SEARCH_TEXT, PAGE, TOTAL_PAGES } = MyStore({ reducer: "tool" });
-  const QUERY = SEARCH_TEXT === "" || SEARCH_TEXT === " " ? "a" : SEARCH_TEXT;
+  const QUERY = SEARCH_TEXT || "a";
   const URL = `${TMDb.url_v3}${TMDb.multi_search}?${TMDb.key}&${TMDb.query}${QUERY}&${TMDb.page}${PAGE}&${TMDb.language}&${TMDb.include_adult}`;
 
   const RESULT = await Requester({ request: URL, action: FilmActions.READ_RESOURCES });

@@ -36,13 +36,10 @@ export default function FilmDetails({ data } = {}) {
 
   return (
     <>
-      <div className="banner">
+      <article className="banner">
         <HandleImage
-          url={{
-            backdrop_path,
-          }}
+          url={backdrop_path}
           size="w1280"
-          toShow="backdrop"
           className="film-img"
         />
 
@@ -50,9 +47,9 @@ export default function FilmDetails({ data } = {}) {
           <h2>{title}</h2>
           {tagline && tagline?.length > 0 ? <h3>{tagline}</h3> : null}
         </div>
-      </div>
+      </article>
 
-      <div className="info">
+      <article className="info">
         <Genres param={genres} />
         <Paragraph param={overview} />
         <OriginalLanguage param={original_language} />
@@ -88,6 +85,7 @@ export default function FilmDetails({ data } = {}) {
             <dt className="subtitle">Duración</dt>
             <dd className="subtext">
               {runtime}
+              {" "}
               Minutos
             </dd>
           </dl>
@@ -108,7 +106,7 @@ export default function FilmDetails({ data } = {}) {
         ) : null}
 
         <Homepage param={homepage} />
-      </div>
+      </article>
     </>
   );
 }

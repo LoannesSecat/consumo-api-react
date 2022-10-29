@@ -1,3 +1,3 @@
-export default function $(elm) {
-  return document.querySelector(elm);
+export default function $(nameElement) {
+  return document.querySelector(nameElement);
 }

@@ -1,6 +1,6 @@
 import MyToast from "~/utils/MyToast";
 
-export async function MyFetch(url = "") {
+export async function MyFetch(url) {
   try {
     const response = [
       fetch(url).then((e) => {

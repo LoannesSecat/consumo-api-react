@@ -6,7 +6,7 @@ import userSVG from "~/assets/icons/user.svg";
 import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import {
-  DeleteAvatar, UpdateAvatarStore, UpdateSrcSetStore, UpdateUser, UploadAvatar,
+  DeleteAvatar, UpdateUser, UploadAvatar,
 } from "~/services/UserServices";
 import $ from "~/utils/QuerySelector";
 import "~/utils/styles/UserSettings.scss";
@@ -33,19 +33,7 @@ export default function UserSettings() {
   const CLEAR_PASS = { ...newData, password: NEW_DATA_STATE.password };
   const CLEAR_EMAIL = { ...newData, email: NEW_DATA_STATE.email };
 
-  const LoadAvatar = () => {
-    const IMG = new Image();
-    IMG.src = USER_DATA.avatar;
-
-    IMG.onerror = () => {
-      UpdateAvatarStore();
-      UpdateSrcSetStore(userSVG);
-    };
-  };
-
   useEffect(() => {
-    LoadAvatar();
-
     setNewData({
       ...newData,
       avatarInputDOM: $(".avatar-file-input"),
@@ -92,7 +80,10 @@ export default function UserSettings() {
                 className="avatar-image"
                 src={USER_DATA?.avatar}
                 alt="Foto de perfil"
-                srcSet={USER_DATA.srcSet}
+                onError={(evt) => {
+                  const { target } = evt;
+                  target.src = userSVG;
+                }}
               />
 
               {!USER_DATA?.srcSet

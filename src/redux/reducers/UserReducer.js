@@ -4,6 +4,7 @@ const initialState = {
   USER_DATA: {},
   TOKEN: {},
   SESSION: false,
+  FAVORITES: [],
 };
 
 export default function UserReducer(store = initialState, action) {
@@ -18,6 +19,10 @@ export default function UserReducer(store = initialState, action) {
       return { ...store, TOKEN: {} };
     case UserActions.UPDATE_SESSION:
       return { ...store, SESSION: action.payload };
+    case UserActions.READ_FAVORITES:
+      return { ...store, FAVORITES: action.payload };
+    case UserActions.DELETE_FAVORITES:
+      return { ...store, FAVORITES: [] };
 
     default:
       return store;

@@ -6,22 +6,9 @@ import {
   FilmDetails, MediaType, PersonDetails, SerieDetails,
 } from "~/services/MediaServices";
 import "~/utils/styles/CardMedia.scss";
+import Translations from "~/utils/Translations.json";
 import HandleImage from "../HandleImage";
-
-const MEDIA_TYPE_TEXT = {
-  movie: "Película",
-  tv: "Serie",
-};
-
-const AuxMount = (comingData, type) => {
-  const CASES = {
-    movie: FilmDetails(comingData),
-    tv: SerieDetails(comingData),
-    person: PersonDetails(comingData),
-  };
-
-  return CASES[type];
-};
+import SaveFavoriteButton from "./SaveFavoriteButton";
 
 export default function CardMedia({ data }) {
   const {
@@ -30,20 +17,22 @@ export default function CardMedia({ data }) {
 
   const MountDetails = () => {
     MediaType(media_type);
-    AuxMount(data, media_type);
+
+    if (media_type === "movie")FilmDetails(data);
+    if (media_type === "tv") SerieDetails(data);
+    if (media_type === "person") PersonDetails(data);
   };
 
   return (
     <article className="card-media">
+      <SaveFavoriteButton mediaData={data} />
+
       <Link to="media-details" onMouseDown={() => MountDetails()} onTouchStart={() => MountDetails()}>
         <HandleImage
-          url={{
-            profile_path,
-            poster_path,
-          }}
+          url={poster_path ?? profile_path}
           size="w400"
-          toShow="poster&profile"
           className="poster-img"
+          loading="lazy"
         />
 
         <footer className="info">
@@ -78,8 +67,8 @@ export default function CardMedia({ data }) {
           </div>
 
           {
-          MEDIA_TYPE_TEXT[media_type]
-            ? <span className="media-type">{MEDIA_TYPE_TEXT[media_type]}</span>
+          Translations.MediaType[media_type]
+            ? <span className="media-type">{Translations.MediaType[media_type]}</span>
             : null
           }
         </footer>

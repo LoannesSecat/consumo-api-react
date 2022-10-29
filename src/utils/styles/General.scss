@@ -7,14 +7,12 @@
 
 %no-image-style {
   color: Palette.$Ghost_White;
-  background-color: Palette.$Black_Chocolate;
-  opacity: 10%;
+  background-color: rgb(226, 226, 226);
 }
 
 %transition-speed {
   transition: .5s;
 }
-
 
 // Button styles
 %button-tufts-blue {
@@ -34,6 +32,16 @@
   transition: .1s;
   border-radius: 6px;
   padding: 2px 10px;
+}
+
+%button-border-ghost-white {
+  border: none;
+  outline: 0.3px solid Palette.$Ghost_White;
+  background-color: transparent;
+  transition: .1s;
+  border-radius: 6px;
+  padding: 2px 10px;
+  color: Palette.$Ghost_White;
 }
 
 %button-effect-tufts-blue {
@@ -63,6 +71,16 @@
     color: Palette.$Ghost_White;
     background-color: Palette.$Black_Chocolate;
     outline: none;
+  }
+}
+
+%button-effect-ghost-white {
+
+  &:hover,
+  &:active {
+    color: Palette.$Black_Chocolate;
+    background-color: Palette.$Ghost_White;
+    outline: 0.3px solid Palette.$Black_Chocolate;
   }
 }
 

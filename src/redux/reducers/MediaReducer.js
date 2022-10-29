@@ -1,7 +1,7 @@
 import FilmActions from "../actions/MediaActions.json";
 
 const initialState = {
-  RESOURCES: {},
+  RESOURCES: [],
   FILM_DETAILS: {},
   PERSON_DETAILS: {},
   SERIE_DETAILS: {},

@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ReactComponent as ChevronUp } from "~/assets/icons/chevron-up.svg";
 import { ReactComponent as Cog8Tooth } from "~/assets/icons/cog-8-tooth.svg";
 import userSVG from "~/assets/icons/user.svg";
-import { SignOutUser, UpdateAvatarStore, UpdateSrcSetStore } from "~/services/UserServices";
+import { SignOutUser } from "~/services/UserServices";
 import "~/utils/styles/UserOptions.scss";
 
 export default function UserOpcions() {
   const { USER_DATA, SESSION } = useSelector((e) => e.user);
   const navigate = useNavigate();
   const [classDropdown, setClassDropdown] = useState("dropdown");
+  const { pathname } = useLocation();
 
   const BUTTON_SVG = classDropdown === "dropdown" ? <Cog8Tooth /> : <ChevronUp />;
 
@@ -18,19 +19,7 @@ export default function UserOpcions() {
     setClassDropdown(classDropdown === "dropdown" ? "dropdown active" : "dropdown");
   };
 
-  const LoadAvatar = () => {
-    const IMG = new Image();
-    IMG.src = USER_DATA.avatar;
-
-    IMG.onerror = () => {
-      UpdateAvatarStore();
-      UpdateSrcSetStore(userSVG);
-    };
-  };
-
   useEffect(() => {
-    LoadAvatar();
-
     document.addEventListener("click", (evt) => {
       evt.stopPropagation();
 
@@ -55,7 +44,10 @@ export default function UserOpcions() {
               <img
                 src={USER_DATA?.avatar}
                 alt="Foto de perfil"
-                srcSet={USER_DATA.srcSet}
+                onError={((evt) => {
+                  const { target } = evt;
+                  target.src = userSVG;
+                })}
               />
 
               <span>{USER_DATA?.nickname}</span>
@@ -65,7 +57,9 @@ export default function UserOpcions() {
               <button className="dropdown-button" onClick={ChangeClass}>{BUTTON_SVG}</button>
               <div className={classDropdown}>
                 <a href="/" onClick={(e) => { e.preventDefault(); navigate("settings"); }}>Ajustes</a>
-                <a href="/" onClick={(e) => { e.preventDefault(); }}>Favoritos</a>
+                { pathname.includes("favorites")
+                  ? null
+                  : <a href="/" onClick={(e) => { e.preventDefault(); navigate("favorites"); }}>Favoritos</a>}
                 <a href="/" onClick={(e) => { e.preventDefault(); SignOutUser(); }}>Cerrar sesión</a>
               </div>
             </article>

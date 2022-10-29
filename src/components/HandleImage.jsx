@@ -1,44 +1,20 @@
-import { ReactComponent as Photo } from "~/assets/icons/photo.svg";
+import photo from "~/assets/icons/photo.svg";
 import Parameters from "~/utils/Parameters";
 
 const { TMDb } = Parameters;
 
 export default function HandleImage({
-  url, size, toShow, className,
+  url, size, className, loading,
 }) {
-  let mySrc = "";
+  const URL = url ? `${TMDb.url_img}${size}${url}` : photo;
+  const CLASSNAME = url ? className : "no-found";
 
-  if (toShow === "poster&profile" && (url.poster_path || url.profile_path)) {
-    const { poster_path, profile_path } = url;
-
-    if (
-      (poster_path || profile_path) !== undefined
-      || (poster_path && profile_path) !== undefined
-    ) {
-      mySrc = `${TMDb.url_img}${size}${profile_path ?? poster_path}`;
-    }
-  }
-
-  if (toShow === "backdrop" && url.backdrop_path) {
-    const { backdrop_path } = url;
-    mySrc = `${TMDb.url_img}${size}${backdrop_path}`;
-  }
-
-  if (toShow === "profile" && url.profile_path) {
-    const { profile_path } = url;
-    mySrc = `${TMDb.url_img}${size}${profile_path}`;
-  }
-
-  if (mySrc) {
-    return (
-      <img
-        className={className || null}
-        src={mySrc}
-        loading="lazy"
-        alt="Imagen"
-      />
-    );
-  }
-
-  return <Photo />;
+  return (
+    <img
+      className={CLASSNAME}
+      src={URL}
+      loading={loading || "eager"}
+      alt="Imagen"
+    />
+  );
 }

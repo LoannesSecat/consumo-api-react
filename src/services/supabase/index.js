@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import Parameters from "~/utils/Parameters";
+import { SearchText } from "../ToolServices";
 import { GetUser, SessionUser } from "../UserServices";
 
 const { SUPABASE } = Parameters;
@@ -11,6 +12,10 @@ export function AuthStateChange() {
       SessionUser(event === "SIGNED_IN");
       await GetUser();
       localStorage.removeItem("EVENT");
+    }
+
+    if (event === "SIGNED_OUT") {
+      SearchText();
     }
 
     if (event === "PASSWORD_RECOVERY") {

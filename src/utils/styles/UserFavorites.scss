@@ -1,0 +1,149 @@
+@use "./General.scss";
+@use "./Palette.scss";
+
+.user-favorites {
+  .header {
+    .input-search {
+      @extend %input-bottom-line;
+      @extend %input-effect-cerise;
+
+      flex-grow: 1;
+      align-self: center;
+
+      &::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        margin-left: 1px;
+        margin-right: 0;
+        background-image: url("../../assets/icons/x-mark.svg");
+        cursor: pointer;
+      }
+    }
+  }
+
+  .favorites-media {
+    @extend %lateral-paddings;
+
+    padding-top: 32px;
+    padding-bottom: 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: dense;
+    gap: 32px;
+
+    .card {
+      border: 1px solid rgb(226, 226, 226);
+      word-break: break-word;
+      display: grid;
+      border-radius: 6px;
+      padding: 12px;
+      gap: 6px;
+
+      .save-favorite-button {
+        justify-self: end;
+        align-self: start;
+        margin: 0;
+      }
+
+      .no-found {
+        @extend %no-image-style;
+        height: 400px;
+        align-self: start;
+      }
+
+      .no-found,
+      .img-person,
+      .img-tv,
+      .img-movie {
+        border-radius: 6px;
+        width: 100%;
+      }
+
+      .name,
+      .title {
+        margin: 0;
+      }
+
+      .media-type {
+        color: Palette.$Cerise;
+        font-weight: 600;
+      }
+
+      .popularity,
+      .statistics .popularity,
+      .statistics .vote-average,
+      .statistics .vote-count {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background-color: rgb(226, 226, 226);
+        border-radius: 6px;
+        padding: 3px 6px;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      .statistics {
+        align-self: start;
+        display: flex;
+        gap: 6px;
+        margin-top: 16px;
+
+        .vote-average {
+          svg {
+            color: yellow;
+          }
+        }
+
+        .vote-count {
+          svg {
+            color: red;
+          }
+        }
+      }
+    }
+
+    .person {
+      grid-column: 1 span;
+      justify-items: center;
+      align-self: start;
+
+      .img-person {
+        height: 400px;
+        object-fit: contain;
+        justify-self: center;
+      }
+
+      .known {
+        text-align: center;
+      }
+    }
+
+    .tv,
+    .movie {
+      grid-column: span 2;
+      align-self: start;
+
+      .overview {
+        margin-bottom: 0;
+      }
+    }
+
+    @media all and (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media all and (max-width: 700px) {
+      grid-template-columns: none;
+
+      .tv,
+      .movie {
+        grid-column: 1 span;
+      }
+    }
+  }
+}

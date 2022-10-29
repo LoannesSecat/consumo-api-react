@@ -12,6 +12,7 @@ const AVATAR_PATH = `${USER_DATA().id}/${USER_DATA().id}_avatar.png`;
 const AVATAR_STORAGE_NAME = "avatars";
 const { SUPABASE } = Parameters;
 
+// Auxiliary functions section
 export function UpdateAvatarStore(url) {
   MyDispatch({
     type: UserActions.READ_USER,
@@ -32,6 +33,65 @@ export function UpdateSrcSetStore(path) {
   });
 }
 
+function UpdateFavoritesStore(array) {
+  const NEW_FAV = array.map((value) => ({ ...JSON.parse(value.favorite), id_ref: value.id }));
+
+  MyDispatch({
+    type: UserActions.READ_FAVORITES,
+    payload: NEW_FAV,
+  });
+}
+
+export async function ReadDatabase({ table, userId } = {}) {
+  const { data, error } = await supabase
+    .from(table)
+    .select("favorite, id")
+    .match({ user_id: userId ?? USER_DATA().id });
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  if (data) {
+    UpdateFavoritesStore(data);
+  }
+}
+
+async function CreateDatabase({ table, insertData }) {
+  const { error, data } = await supabase
+    .from(table)
+    .insert({ favorite: insertData, user_id: USER_DATA().id });
+
+  if (error) {
+    console.log(error.message);
+    return;
+  }
+
+  if (data) {
+    MyToast.info({ message: `<b>${insertData.title}</b> ha sido agregado a favoritos` });
+    ReadDatabase({ table });
+  }
+}
+
+async function DeleteDatabase({ table, id_ref, title }) {
+  const { error, data } = await supabase
+    .from(table)
+    .delete()
+    .eq("id", id_ref);
+
+  if (error) {
+    console.log(error.message);
+    return;
+  }
+
+  if (data) {
+    MyToast.info({ message: `Eliminaste <b>${title}</b> de favoritos` });
+    ReadDatabase({ table });
+  }
+}
+
+// Primordial function section
 export async function LogInUser({ email, password, navigateTo }) {
   const { data, error } = await supabase.auth.signIn({
     email,
@@ -83,6 +143,7 @@ export async function SignOutUser() {
   const { error } = await supabase.auth.signOut();
 
   if (!error) {
+    MyDispatch({ type: UserActions.DELETE_FAVORITES });
     MyDispatch({ type: UserActions.DELETE_USER });
     MyDispatch({ type: UserActions.DELETE_TOKEN });
 
@@ -108,7 +169,7 @@ export async function GetUser() {
     const { access_token, refresh_token } = SESSION;
     const GET_PUBLIC_URL = supabase.storage
       .from(AVATAR_STORAGE_NAME)
-      .getPublicUrl(AVATAR_PATH);
+      .getPublicUrl(`${id}/${id}_avatar.png`);
 
     if (GET_USER.error) {
       MyToast.warning({
@@ -118,6 +179,7 @@ export async function GetUser() {
       return;
     }
 
+    await ReadDatabase({ table: "favorites", userId: id });
     MyDispatch({
       type: UserActions.READ_USER,
       payload: {
@@ -241,4 +303,11 @@ export async function UploadAvatar({ file }) {
     UpdateAvatarStore(`${SUPABASE.url_storage}${data.Key}`);
     MyToast.success({ message: "Foto guardada", timeout: 2000 });
   }
+}
+
+export function ManipulateFavorites({ data = {}, type = "" }) {
+  const TABLE = "favorites";
+
+  if (type === "create") CreateDatabase({ table: TABLE, insertData: data });
+  if (type === "delete") DeleteDatabase({ table: TABLE, id_ref: data.id_ref, title: data.title });
 }

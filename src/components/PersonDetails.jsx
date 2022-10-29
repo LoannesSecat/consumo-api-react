@@ -21,11 +21,9 @@ export default function PersonDetails({ data } = {}) {
 
   return (
     <>
-      <div className="banner">
+      <article className="banner">
         <HandleImage
-          url={{
-            profile_path,
-          }}
+          url={profile_path}
           size="h632"
           toShow="profile"
           className="person-img"
@@ -34,9 +32,9 @@ export default function PersonDetails({ data } = {}) {
         <div className="titles">
           <h2>{name}</h2>
         </div>
-      </div>
+      </article>
 
-      <div className="info">
+      <article className="info">
         <Paragraph param={biography} />
 
         {also_known_as?.length ? (
@@ -90,7 +88,7 @@ export default function PersonDetails({ data } = {}) {
         ) : null}
 
         <Homepage param={homepage} />
-      </div>
+      </article>
     </>
   );
 }

@@ -1,5 +1,5 @@
 export const MediaReducer = {
-  RESOURCES: {},
+  RESOURCES: [],
   FILM_DETAILS: {},
   PERSON_DETAILS: {},
   SERIE_DETAILS: {},
@@ -17,6 +17,7 @@ export const UserReducer = {
   USER_DATA: {},
   TOKEN: {},
   SESSION: false,
+  FAVORITES: [],
 };
 
 export const Reducers = {
