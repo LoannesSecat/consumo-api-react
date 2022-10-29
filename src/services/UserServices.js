@@ -1,0 +1,313 @@
+import userSVG from "~/assets/icons/user.svg";
+import UserActions from "~/redux/actions/UserActions.json";
+import MyDispatch from "~/redux/selectors/MyDispatch";
+import MyStore from "~/redux/selectors/MyStore";
+import supabase from "~/services/supabase";
+import ErrorMessage from "~/services/supabase/ErrorMessage.json";
+import MyToast from "~/utils/MyToast";
+import Parameters from "~/utils/Parameters";
+
+const USER_DATA = () => MyStore({ reducer: "user", value: "USER_DATA" });
+const AVATAR_PATH = `${USER_DATA().id}/${USER_DATA().id}_avatar.png`;
+const AVATAR_STORAGE_NAME = "avatars";
+const { SUPABASE } = Parameters;
+
+// Auxiliary functions section
+export function UpdateAvatarStore(url) {
+  MyDispatch({
+    type: UserActions.READ_USER,
+    payload: {
+      ...USER_DATA(),
+      avatar: url ?? "",
+    },
+  });
+}
+
+export function UpdateSrcSetStore(path) {
+  MyDispatch({
+    type: UserActions.READ_USER,
+    payload: {
+      ...USER_DATA(),
+      srcSet: path ?? "",
+    },
+  });
+}
+
+function UpdateFavoritesStore(array) {
+  const NEW_FAV = array.map((value) => ({ ...JSON.parse(value.favorite), id_ref: value.id }));
+
+  MyDispatch({
+    type: UserActions.READ_FAVORITES,
+    payload: NEW_FAV,
+  });
+}
+
+export async function ReadDatabase({ table, userId } = {}) {
+  const { data, error } = await supabase
+    .from(table)
+    .select("favorite, id")
+    .match({ user_id: userId ?? USER_DATA().id });
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  if (data) {
+    UpdateFavoritesStore(data);
+  }
+}
+
+async function CreateDatabase({ table, insertData }) {
+  const { error, data } = await supabase
+    .from(table)
+    .insert({ favorite: insertData, user_id: USER_DATA().id });
+
+  if (error) {
+    console.log(error.message);
+    return;
+  }
+
+  if (data) {
+    MyToast.info({ message: `<b>${insertData.title}</b> ha sido agregado a favoritos` });
+    ReadDatabase({ table });
+  }
+}
+
+async function DeleteDatabase({ table, id_ref, title }) {
+  const { error, data } = await supabase
+    .from(table)
+    .delete()
+    .eq("id", id_ref);
+
+  if (error) {
+    console.log(error.message);
+    return;
+  }
+
+  if (data) {
+    MyToast.info({ message: `Eliminaste <b>${title}</b> de favoritos` });
+    ReadDatabase({ table });
+  }
+}
+
+// Primordial function section
+export async function LogInUser({ email, password, navigateTo }) {
+  const { data, error } = await supabase.auth.signIn({
+    email,
+    password,
+  });
+
+  if (error) {
+    MyToast.warning({
+      message: ErrorMessage[error.message],
+    });
+  }
+
+  if (data) {
+    navigateTo();
+  }
+}
+
+export async function SignInUser({
+  email, password, nickname = "Anónimo", navigateTo,
+}) {
+  const { data, error } = await supabase.auth.signUp(
+    {
+      email,
+      password,
+    },
+    {
+      data: {
+        nickname,
+      },
+    },
+  );
+
+  if (error) {
+    MyToast.warning({
+      message: ErrorMessage[error.message],
+    });
+  }
+
+  if (data) {
+    MyToast.success({
+      message: "Te has registrado",
+    });
+
+    navigateTo();
+  }
+}
+
+export async function SignOutUser() {
+  const { error } = await supabase.auth.signOut();
+
+  if (!error) {
+    MyDispatch({ type: UserActions.DELETE_FAVORITES });
+    MyDispatch({ type: UserActions.DELETE_USER });
+    MyDispatch({ type: UserActions.DELETE_TOKEN });
+
+    MyToast.success({
+      message: "Sesión cerrada",
+      timeout: 1500,
+    });
+  }
+
+  if (error) {
+    MyToast.warning({
+      message: ErrorMessage[error.message],
+    });
+  }
+}
+
+export async function GetUser() {
+  const SESSION = supabase.auth.session();
+
+  if (SESSION) {
+    const GET_USER = await supabase.auth.api.getUser(SESSION?.access_token);
+    const { email, user_metadata, id } = GET_USER.user;
+    const { access_token, refresh_token } = SESSION;
+    const GET_PUBLIC_URL = supabase.storage
+      .from(AVATAR_STORAGE_NAME)
+      .getPublicUrl(`${id}/${id}_avatar.png`);
+
+    if (GET_USER.error) {
+      MyToast.warning({
+        message: "Error al cargar datos del usuario",
+      });
+
+      return;
+    }
+
+    await ReadDatabase({ table: "favorites", userId: id });
+    MyDispatch({
+      type: UserActions.READ_USER,
+      payload: {
+        email,
+        nickname: user_metadata.nickname,
+        id,
+        avatar: GET_PUBLIC_URL.publicURL,
+        srcSet: null,
+      },
+    });
+
+    MyDispatch({
+      type: UserActions.READ_TOKEN,
+      payload: { access_token, refresh_token },
+    });
+  }
+}
+
+export async function UpdateUser({
+  password,
+  nickname,
+  email,
+  navigateTo,
+}) {
+  let UPDATE_DATA = {
+    ...{ password } ?? {},
+    ...{ email } ?? {},
+  };
+
+  if (nickname) {
+    UPDATE_DATA = {
+      ...UPDATE_DATA,
+      data: {
+        nickname,
+      },
+    };
+  }
+
+  const { data, error } = await supabase.auth.update(UPDATE_DATA);
+
+  if (data) {
+    GetUser();
+    localStorage.removeItem("EVENT");
+    if (navigateTo) { navigateTo(); }
+    MyToast.success({ message: "Datos actualizados" });
+
+    return true;
+  }
+
+  if (error) {
+    MyToast.warning({ message: ErrorMessage[error.message] });
+
+    return false;
+  }
+}
+
+export async function PreResetPasswordUser({ email, navigateTo }) {
+  const { data, error } = await supabase.auth.api.resetPasswordForEmail(
+    email,
+    { redirectTo: `${location.origin}${location.pathname}` },
+  );
+
+  if (data) {
+    MyToast.info({
+      message: `Se ha enviado un mensaje de confirmación al correo <b>${email}</b>`,
+    });
+    navigateTo();
+  }
+
+  if (error) {
+    MyToast.warning({
+      message: ErrorMessage[error.message],
+    });
+  }
+}
+
+export function SessionUser(value) {
+  MyDispatch({ type: UserActions.UPDATE_SESSION, payload: value });
+}
+
+export async function DeleteAvatar({ deleteType }) {
+  const { data, error } = await supabase.storage.from(AVATAR_STORAGE_NAME)
+    .remove([AVATAR_PATH]);
+
+  if (error) {
+    if (deleteType === "no-alert") {
+      console.log(error);
+    } else {
+      MyToast.error({ message: "Ocurrió un error al eliminar la foto" });
+    }
+    return;
+  }
+
+  if (data) {
+    UpdateAvatarStore();
+    UpdateSrcSetStore(userSVG);
+
+    if (deleteType === "alert") {
+      MyToast.success({ message: "Foto eliminada", timeout: 2000 });
+    }
+  }
+}
+
+export async function UploadAvatar({ file }) {
+  await DeleteAvatar({ deleteType: "no-alert" });
+
+  const { error, data } = await supabase.storage.from(AVATAR_STORAGE_NAME)
+    .upload(AVATAR_PATH, file, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: file?.type,
+    });
+
+  if (error) {
+    UpdateAvatarStore();
+    MyToast.error({ message: "Ocurrió un error al guardar la foto" });
+    return;
+  }
+
+  if (data) {
+    UpdateAvatarStore(`${SUPABASE.url_storage}${data.Key}`);
+    MyToast.success({ message: "Foto guardada", timeout: 2000 });
+  }
+}
+
+export function ManipulateFavorites({ data = {}, type = "" }) {
+  const TABLE = "favorites";
+
+  if (type === "create") CreateDatabase({ table: TABLE, insertData: data });
+  if (type === "delete") DeleteDatabase({ table: TABLE, id_ref: data.id_ref, title: data.title });
+}

@@ -1,5 +1,4 @@
 import { Languages } from "~/utils/Converter";
-//../../utils/Converter
 
 export default function OriginalLanguage({ param }) {
   if (param) {

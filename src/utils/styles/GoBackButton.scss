@@ -1,0 +1,6 @@
+@use "./Palette.scss";
+@use "./General.scss";
+
+.go-back-button {
+  @extend %button-ghost-white;
+}

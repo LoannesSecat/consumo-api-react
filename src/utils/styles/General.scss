@@ -1,12 +1,102 @@
-@use "Palette";
-@use "Normalize";
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap");
+@use "./Palette.scss";
 
-body {
+%lateral-paddings {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+%no-image-style {
+  color: Palette.$Ghost_White;
+  background-color: rgb(226, 226, 226);
+}
+
+%transition-speed {
+  transition: .5s;
+}
+
+// Button styles
+%button-tufts-blue {
+  border: none;
+  outline: none;
+  background-color: Palette.$Tufts_Blue;
+  color: Palette.$Ghost_White;
+  transition: .1s;
+  border-radius: 6px;
+  padding: 2px 10px;
+}
+
+%button-ghost-white {
+  border: none;
+  outline: 0.1px solid Palette.$Black_Chocolate;
+  background-color: Palette.$Ghost_White;
+  transition: .1s;
+  border-radius: 6px;
+  padding: 2px 10px;
+}
+
+%button-border-ghost-white {
+  border: none;
+  outline: 0.3px solid Palette.$Ghost_White;
+  background-color: transparent;
+  transition: .1s;
+  border-radius: 6px;
+  padding: 2px 10px;
+  color: Palette.$Ghost_White;
+}
+
+%button-effect-tufts-blue {
+
+  &:hover,
+  &:active {
+    color: Palette.$Ghost_White;
+    background-color: Palette.$Tufts_Blue;
+    outline: none;
+  }
+}
+
+%button-effect-cerise {
+
+  &:hover,
+  &:active {
+    color: Palette.$Ghost_White;
+    background-color: Palette.$Cerise;
+    outline: none;
+  }
+}
+
+%button-effect-black-chocolate {
+
+  &:hover,
+  &:active {
+    color: Palette.$Ghost_White;
+    background-color: Palette.$Black_Chocolate;
+    outline: none;
+  }
+}
+
+%button-effect-ghost-white {
+
+  &:hover,
+  &:active {
+    color: Palette.$Black_Chocolate;
+    background-color: Palette.$Ghost_White;
+    outline: 0.3px solid Palette.$Black_Chocolate;
+  }
+}
+
+// Input styles
+%input-bottom-line {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid Palette.$Black_Chocolate;
+  padding: 2px 6px;
+  @extend %transition-speed;
   background-color: Palette.$Ghost_White;
 }
 
-* {
-  font-family: "Fredoka", "Century Gothic", "CenturyGothic", "AppleGothic",
-    sans-serif;
+%input-effect-cerise {
+
+  &:focus {
+    border-bottom: 1px solid Palette.$Cerise;
+  }
 }

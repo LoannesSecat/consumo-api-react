@@ -1,12 +1,9 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
-  e2e: {
-    setupNodeEvents(on, config) { },
-    screenshotOnRunFailure: false,
-    video: false
-  },
-
+  screenshotOnRunFailure: false,
+  video: false,
+  e2e: {},
   component: {
     devServer: {
       framework: "react",

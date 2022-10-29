@@ -1,9 +1,34 @@
-@use "Palette";
+@use "./Palette";
+@use "./General";
 
-.Films {
-  padding: 1.25rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 25rem), 1fr));
-  gap: 3rem;
-  padding-bottom: 5rem;
+.header {
+  flex-wrap: wrap-reverse;
+
+  div {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .search-input {
+    @extend %input-bottom-line;
+    @extend %input-effect-cerise;
+
+    flex-grow: 1;
+    flex-basis: 250px;
+
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      margin-left: 1px;
+      margin-right: 0;
+      background-image: url("../../assets/icons/x-mark.svg");
+      cursor: pointer;
+    }
+  }
+
+  .user-options {
+    flex-grow: 1;
+  }
 }

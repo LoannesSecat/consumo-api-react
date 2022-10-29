@@ -1,0 +1,133 @@
+@use "./Palette";
+@use "./General";
+
+.header {
+  justify-content: center;
+
+  .user-options {
+    flex-grow: 1;
+  }
+
+  .go-back-button {
+    @extend %button-border-ghost-white;
+    @extend %button-effect-ghost-white;
+  }
+}
+
+.media-details {
+  word-break: break-word;
+  display: grid;
+
+  .save-favorite-button {
+    justify-self: end;
+    align-self: start;
+  }
+
+  .subtitle {
+    font-weight: 600;
+    opacity: 90%;
+    font-size: 1.15rem;
+  }
+
+  .subtitle,
+  .subtext,
+  .seasons-subtitle {
+    color: Palette.$Black_Chocolate;
+    font-size: 1rem;
+  }
+
+  .banner {
+    position: relative;
+
+    img {
+      width: 100%;
+      max-height: 500px;
+    }
+
+    .person-img {
+      object-fit: contain;
+    }
+
+    .film-img,
+    .serie-img {
+      object-fit: cover;
+    }
+
+    svg {
+      height: 500px;
+      width: 100%;
+      @extend %no-image-style;
+      opacity: 10%;
+    }
+
+    .titles {
+      color: Palette.$Ghost_White;
+      -webkit-text-stroke: 0.5px Palette.$Royal_Blue_Dark;
+      position: absolute;
+      bottom: 0;
+      @extend %lateral-paddings;
+      padding-bottom: 20px;
+
+      h2,
+      h3 {
+        margin: 0;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      h3 {
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .info {
+    @extend %lateral-paddings;
+    padding-top: 16px;
+
+    .genres {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+
+      small {
+        background-color: Palette.$Ghost_White;
+        color: Palette.$Cerise;
+        border: 1px solid Palette.$Cerise;
+        padding: 3px 7px;
+        border-radius: 5px;
+        white-space: nowrap;
+        font-size: 0.85rem;
+      }
+    }
+
+    p {
+      margin-bottom: 0;
+      font-size: 1.2rem;
+    }
+
+    .seasons {
+      margin-block-start: 0;
+
+      >li {
+        margin-block-start: 0.5em;
+
+        >ul {
+          list-style: none;
+        }
+      }
+    }
+
+    .homepage {
+      margin-inline-start: 40px;
+      text-decoration: none;
+      display: initial;
+
+      &:hover {
+        color: Palette.$Royal_Blue_Dark;
+      }
+    }
+  }
+}

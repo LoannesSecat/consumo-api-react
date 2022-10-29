@@ -11,10 +11,9 @@ import ProductionCountries from "./subcomponents/ProductionCountries";
 import SpokenLanguages from "./subcomponents/SpokenLanguages";
 import Status from "./subcomponents/Status";
 
-export default function FilmDetails({ data }) {
+export default function FilmDetails({ data } = {}) {
   const {
     backdrop_path,
-    poster_path,
     title,
     tagline,
     genres,
@@ -37,33 +36,27 @@ export default function FilmDetails({ data }) {
 
   return (
     <>
-      <div className="banner">
+      <article className="banner">
         <HandleImage
-          data={{ backdrop_path, poster_path }}
-          img_required="backdrop"
+          url={backdrop_path}
+          size="w1280"
+          className="film-img"
         />
 
         <div className="titles">
-          <h1>{title}</h1>
-          {tagline?.length > 0 && tagline ? <h2>{tagline}</h2> : null}
+          <h2>{title}</h2>
+          {tagline && tagline?.length > 0 ? <h3>{tagline}</h3> : null}
         </div>
-      </div>
+      </article>
 
-      <div className="details">
+      <article className="info">
         <Genres param={genres} />
-
         <Paragraph param={overview} />
-
         <OriginalLanguage param={original_language} />
-
         <OriginalTitle param={original_title} />
-
         <Popularity param={popularity} />
-
         <ProductionCompanies param={production_companies} />
-
         <ProductionCountries param={production_countries} />
-
         <SpokenLanguages param={spoken_languages} />
 
         {budget ? (
@@ -90,7 +83,11 @@ export default function FilmDetails({ data }) {
         {runtime ? (
           <dl>
             <dt className="subtitle">Duración</dt>
-            <dd className="subtext">{runtime} Minutos</dd>
+            <dd className="subtext">
+              {runtime}
+              {" "}
+              Minutos
+            </dd>
           </dl>
         ) : null}
 
@@ -109,7 +106,7 @@ export default function FilmDetails({ data }) {
         ) : null}
 
         <Homepage param={homepage} />
-      </div>
+      </article>
     </>
   );
 }

@@ -1,0 +1,56 @@
+@use "./Palette.scss";
+@use "./Normalize.scss";
+
+body {
+  background-color: Palette.$Ghost_White;
+}
+
+@font-face {
+  font-family: "Fredoka";
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("../../assets/fonts/fredoka/Fredoka-Light.ttf");
+}
+
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("../../assets/fonts/fredoka/Fredoka-Regular.ttf");
+}
+
+
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("../../assets/fonts/fredoka/Fredoka-Medium.ttf");
+}
+
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("../../assets/fonts/fredoka/Fredoka-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("../../assets/fonts/fredoka/Fredoka-Bold.ttf");
+}
+
+* {
+  font-family: "Fredoka", "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif;
+}

@@ -1,66 +1,56 @@
-import Film from "~/components/Film";
-import Header from "~/components/Header";
-import "~/utils/styles/Home.scss";
-import Empty from "~/components/Empty";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Loading from "~/components/Loading";
-import { ReadFilms } from "~/redux/actions/FilmActions";
-import { useEffect } from "react";
-import FilmsPagination from "~/components/FilmsPagination";
-import { SearchText } from "~/redux/actions/ToolActions";
+import HandleLoading from "~/components/HandleLoading";
+import Header from "~/components/Header";
+import Media from "~/components/Media";
+import { ReadResources } from "~/services/MediaServices";
+import { NewPage, SearchText } from "~/services/ToolServices";
+import $ from "~/utils/QuerySelector";
+import "~/utils/styles/Home.scss";
 
 export default function Home() {
-  const data_films = useSelector((e) => e.film.films);
-  const text = useSelector((e) => e.tool.search_text);
+  const { SEARCH_TEXT } = useSelector((e) => e.tool);
+  const [timer, setTimer] = useState(null);
 
-  console.log("Hola prueba!")
+  const Aux = (text) => {
+    const AUX_TEXT = text;
 
-  useEffect(() => {
-    ReadFilms()
-  }, [text]);
+    if (AUX_TEXT !== SEARCH_TEXT) NewPage();
+    SearchText(AUX_TEXT);
 
-  const CompFilms = () => {
-    if (data_films === "loading") return <Loading />;
+    clearTimeout(timer);
+    const newTimer = setTimeout(() => {
+      ReadResources();
+    }, 500);
 
-    if (data_films?.length) {
-      return (
-        <div className="Films">
-          {data_films?.map((e, i) => (
-            <Film data={e} key={i} />
-          ))}
-        </div>
-      );
-    }
-
-    return <Empty />;
+    setTimer(newTimer);
   };
 
   const HandleSearch = (value) => {
     if (value[value.length - 1] === " " && value[value.length - 2] === " ") {
-      SearchText(value.slice(0, -1));
+      Aux(value.trim());
     } else {
-      SearchText(value);
+      Aux(value);
     }
-
-    if (value === "") SearchText();
   };
+
+  useEffect(() => {
+    $(".search-input").focus();
+  }, []);
 
   return (
     <>
       <Header>
-        <div>Inicio</div>
         <input
-          type="text"
-          onChange={(e) => HandleSearch(e.target.value)}
-          value={text}
+          type="search"
+          onChange={(e) => { HandleSearch(e.target.value); }}
+          value={SEARCH_TEXT}
           placeholder="Ej: Los guardianes de la galaxia"
+          className="search-input"
         />
       </Header>
 
-      <>
-        <CompFilms />
-        <FilmsPagination />
-      </>
+      <HandleLoading Component={Media} />
     </>
   );
 }

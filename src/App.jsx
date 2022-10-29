@@ -1,21 +1,28 @@
+import "izitoast/dist/css/iziToast.css";
+import { useEffect } from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import PagesProvider from "./providers/PagesProvider";
 import StoreProvider from "./providers/StoreProvider";
-import Alert from "./components/Alert";
-import Home from "./pages/Home";
-import Details from "./pages/Details";
-import PageNotFound from "./pages/PageNotFound";
-import { Route, Switch } from "wouter";
-import "./utils/styles/General.scss";
+import { ReadResources } from "./services/MediaServices";
+import { AuthStateChange } from "./services/supabase";
+import "./utils/styles/App.scss";
 
-export default function App() {
+// The next blocks of code are written here for a single run to execute the app
+AuthStateChange();
+
+function App() {
+  useEffect(() => {
+    ReadResources();
+  }, []);
+
   return (
     <StoreProvider>
-      <Alert />
-
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/details" component={Details} />
-        <Route path="/:unknownPage*" component={PageNotFound} />
-      </Switch>
+      <BrowserRouter basename="/">
+        <PagesProvider />
+      </BrowserRouter>
     </StoreProvider>
   );
 }
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);

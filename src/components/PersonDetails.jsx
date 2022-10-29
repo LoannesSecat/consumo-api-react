@@ -4,7 +4,7 @@ import Homepage from "./subcomponents/Homepage";
 import Paragraph from "./subcomponents/Paragraph";
 import Popularity from "./subcomponents/Popularity";
 
-export default function PersonDetails({ data }) {
+export default function PersonDetails({ data } = {}) {
   const {
     profile_path,
     name,
@@ -21,19 +21,20 @@ export default function PersonDetails({ data }) {
 
   return (
     <>
-      <div className="banner">
+      <article className="banner">
         <HandleImage
-          data={{ profile_path }}
-          img_required="profile"
-          is_person={true}
+          url={profile_path}
+          size="h632"
+          toShow="profile"
+          className="person-img"
         />
 
         <div className="titles">
-          <h1>{name}</h1>
+          <h2>{name}</h2>
         </div>
-      </div>
+      </article>
 
-      <div className="details">
+      <article className="info">
         <Paragraph param={biography} />
 
         {also_known_as?.length ? (
@@ -57,9 +58,9 @@ export default function PersonDetails({ data }) {
         {known_for?.length ? (
           <dl>
             <dt className="subtitle">Conocid@ por</dt>
-            {known_for.map((e, i) => (
-              <dd className="subtext" key={i}>
-                {e.name ? e.name : e.title}
+            {known_for.map((element) => (
+              <dd className="subtext" key={element.id}>
+                {element.name ?? element.title}
               </dd>
             ))}
           </dl>
@@ -87,7 +88,7 @@ export default function PersonDetails({ data }) {
         ) : null}
 
         <Homepage param={homepage} />
-      </div>
+      </article>
     </>
   );
 }

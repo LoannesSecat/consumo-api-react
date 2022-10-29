@@ -1,0 +1,96 @@
+@use "./General.scss";
+@use "./Palette.scss";
+
+.user-registration {
+  @extend %lateral-paddings;
+  height: 100vh;
+  display: grid;
+
+  >div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    align-items: flex-start;
+
+    >button {
+      @extend %button-ghost-white;
+      @extend %button-effect-tufts-blue;
+    }
+  }
+
+  .registration-form {
+    width: 50%;
+    justify-self: center;
+    align-self: flex-start;
+    display: grid;
+    @extend %transition-speed;
+
+    label {
+      span {
+        font-weight: 500;
+        font-size: 1.1rem;
+      }
+
+      input {
+        @extend %input-bottom-line;
+        @extend %input-effect-cerise;
+
+        padding: 5px 0px 1px;
+        width: 100%;
+      }
+    }
+
+    label[for="email"],
+    label[for="password"] {
+      margin-top: 30px;
+    }
+
+    label[for="password"] {
+      div {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+        gap: 10px;
+
+        button {
+          margin: 0;
+          padding: 0;
+          color: Palette.$Black_Chocolate;
+          background: transparent;
+          border: none;
+          opacity: 50%;
+
+          svg {
+            transition: 5s;
+            width: 40px;
+            height: 30px;
+            display: block;
+          }
+        }
+      }
+    }
+
+    .submit-registration-button {
+      @extend %button-tufts-blue;
+      @extend %button-effect-cerise;
+      padding: 8px 10px;
+      border: none;
+      width: 80%;
+      justify-self: center;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 1.1rem;
+      margin-top: 80px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      width: 100%;
+
+      .submit-registration-button {
+        width: 100%;
+      }
+    }
+  }
+}

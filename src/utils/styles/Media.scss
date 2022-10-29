@@ -1,0 +1,10 @@
+@use "./General";
+
+.media {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  @extend %lateral-paddings;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}

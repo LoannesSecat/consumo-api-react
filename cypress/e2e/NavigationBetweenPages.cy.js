@@ -1,35 +1,24 @@
-import { url } from '../fixtures/vite'
+import { url } from "../fixtures/vite.json";
 
-it('Navigation between pages', () => {
-  cy.visit(url.preview)
+it("Navigation between pages", () => {
+  cy.visit(url.preview);
 
-  cy.get(".FilmsPagination span").as("NumPages")
-  cy.get("body")
-    .find(".Films")
-    .children(".Film")
+  cy.get(".media-pagination span").as("NumPages");
+  cy.get("body").find(".media").children(".card-media");
+  cy.get("@NumPages").should("be.visible").contains("1");
 
-  cy.get("@NumPages").contains("1")
+  cy.get("button").contains("Siguiente").dblclick();
 
-  cy.get("button")
-    .contains("Siguiente")
-    .dblclick()
+  cy.wait(1000);
+  cy.get("@NumPages").should("be.visible").contains("3");
 
-  cy.wait(1000)
-  cy.get("@NumPages").contains("3")
+  cy.get("button").contains("Siguiente").dblclick().dblclick();
 
-  cy.get("button")
-    .contains("Siguiente")
-    .dblclick()
-    .dblclick()
+  cy.wait(1000);
+  cy.get("@NumPages").should("be.visible").contains("7");
 
-  cy.wait(1000)
-  cy.get("@NumPages").contains("7")
+  cy.get("button").contains("Anterior").dblclick().click();
 
-  cy.get("button")
-    .contains("Anterior")
-    .dblclick()
-    .click()
-
-  cy.wait(1000)
-  cy.get("@NumPages").contains("4")
-})
+  cy.wait(1000);
+  cy.get("@NumPages").should("be.visible").contains("4");
+});
