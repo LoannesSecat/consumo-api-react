@@ -17,15 +17,19 @@ export default function MediaPagination() {
     <button onClick={() => NextFilmsPage()} className="next-button">Siguiente</button>
   );
 
-  return (
-    <footer className="media-pagination">
-      {BUTTON_PREVIOUS}
-      <span>
-        {PAGE}
-        /
-        {TOTAL_PAGES}
-      </span>
-      {BUTTON_NEXT}
-    </footer>
-  );
+  if (TOTAL_PAGES > 0) {
+    return (
+      <footer className="media-pagination">
+        {BUTTON_PREVIOUS}
+        <span>
+          {PAGE}
+          /
+          {TOTAL_PAGES}
+        </span>
+        {BUTTON_NEXT}
+      </footer>
+    );
+  }
+
+  return null;
 }

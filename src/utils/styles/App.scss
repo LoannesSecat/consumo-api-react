@@ -54,3 +54,8 @@ body {
 * {
   font-family: "Fredoka", "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif;
 }
+
+#root {
+  display: grid;
+  height: 100vh;
+}

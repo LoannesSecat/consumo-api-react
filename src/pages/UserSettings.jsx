@@ -5,9 +5,7 @@ import { useSelector } from "react-redux";
 import userSVG from "~/assets/icons/user.svg";
 import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import {
-  DeleteAvatar, UpdateUser, UploadAvatar,
-} from "~/services/UserServices";
+import { DeleteAvatar, UpdateUser, UploadAvatar } from "~/services/UserServices";
 import $ from "~/utils/QuerySelector";
 import "~/utils/styles/UserSettings.scss";
 
@@ -69,110 +67,112 @@ export default function UserSettings() {
   return (
     <>
       <main className="user-settings">
-        <GoBackButton />
+        <section className="form-options">
+          <GoBackButton />
 
-        <article className="avatar">
-          <small className="subtitle">Foto</small>
+          <article className="avatar">
+            <small className="subtitle">Foto</small>
 
-          <div className="content">
-            <div className="avatar-group">
-              <img
-                className="avatar-image"
-                src={USER_DATA?.avatar}
-                alt="Foto de perfil"
-                onError={(evt) => {
-                  const { target } = evt;
-                  target.src = userSVG;
+            <div className="content">
+              <div className="avatar-group">
+                <img
+                  className="avatar-image"
+                  src={USER_DATA?.avatar}
+                  alt="Foto de perfil"
+                  onError={(evt) => {
+                    const { target } = evt;
+                    target.src = userSVG;
+                  }}
+                />
+
+                {!USER_DATA?.srcSet
+                  ? (
+                    <button
+                      className="button-delete-avatar"
+                      title="Eliminar foto"
+                      onClick={() => DeleteAvatar({ deleteType: "alert" })}
+                    >
+                      <XMark />
+                    </button>
+                  )
+                  : null}
+              </div>
+
+              <button
+                onClick={() => {
+                  newData.avatarInputDOM.click();
                 }}
-              />
-
-              {!USER_DATA?.srcSet
-                ? (
-                  <button
-                    className="button-delete-avatar"
-                    title="Eliminar foto"
-                    onClick={() => DeleteAvatar({ deleteType: "alert" })}
-                  >
-                    <XMark />
-                  </button>
-                )
-                : null}
+                className="save-change-button"
+              >
+                Cambiar foto
+              </button>
             </div>
+          </article>
 
-            <button
-              onClick={() => {
-                newData.avatarInputDOM.click();
-              }}
-              className="save-change-button"
-            >
-              Cambiar foto
-            </button>
-          </div>
-        </article>
+          <article className="nickname">
+            <small className="subtitle">Nombre de usuario</small>
 
-        <article className="nickname">
-          <small className="subtitle">Nombre de usuario</small>
+            <div className="content">
+              <span>{USER_DATA.nickname}</span>
+              <input
+                type="text"
+                onChange={(evt) => setNewData({ ...newData, nickname: evt.target.value.trim() })}
+                value={newData.nickname ? newData.nickname : ""}
+              />
+            </div>
+          </article>
 
-          <div className="content">
-            <span>{USER_DATA.nickname}</span>
-            <input
-              type="text"
-              onChange={(evt) => setNewData({ ...newData, nickname: evt.target.value.trim() })}
-              value={newData.nickname ? newData.nickname : ""}
-            />
-          </div>
-        </article>
+          <article className="email">
+            <small className="subtitle">Correo</small>
 
-        <article className="email">
-          <small className="subtitle">Correo</small>
+            <div className="content">
+              <span>{USER_DATA.email}</span>
+              <input
+                type="email"
+                onChange={(evt) => setNewData({ ...newData, email: evt.target.value.trim() })}
+                value={newData.email ? newData.email : ""}
+              />
+            </div>
+          </article>
 
-          <div className="content">
-            <span>{USER_DATA.email}</span>
-            <input
-              type="email"
-              onChange={(evt) => setNewData({ ...newData, email: evt.target.value.trim() })}
-              value={newData.email ? newData.email : ""}
-            />
-          </div>
-        </article>
+          <article className="password">
+            <small className="subtitle">Contraseña</small>
 
-        <article className="password">
-          <small className="subtitle">Contraseña</small>
-
-          <div className="content">
-            <span>Nueva contraseña</span>
-            <input
-              type="text"
-              onChange={(evt) => setNewData({ ...newData, password: evt.target.value.trim() })}
-              value={newData.password ? newData.password : ""}
-            />
-          </div>
-        </article>
+            <div className="content">
+              <span>Nueva contraseña</span>
+              <input
+                type="text"
+                onChange={(evt) => setNewData({ ...newData, password: evt.target.value.trim() })}
+                value={newData.password ? newData.password : ""}
+              />
+            </div>
+          </article>
+        </section>
 
         {
-        newData.nickname
-        || newData.email
-        || newData.password
-          ? (
-            <button
-              onClick={async () => {
-                const res = await UpdateUser({
-                  nickname: newData.nickname,
-                  email: newData.email,
-                  password: newData.password,
-                });
+          newData.nickname
+            || newData.email
+            || newData.password
+            ? (
+              <button
+                onClick={async () => {
+                  const res = await UpdateUser({
+                    nickname: newData.nickname,
+                    email: newData.email,
+                    password: newData.password,
+                  });
 
-                if (res) {
-                  setNewData({ CLEAR_NICK, CLEAR_EMAIL, CLEAR_PASS });
-                }
-              }}
-              className="save-changes-button"
-            >
-              Guardar cambios
-            </button>
-          )
-          : null
-          }
+                  if (res) {
+                    setNewData({ CLEAR_NICK, CLEAR_EMAIL, CLEAR_PASS });
+                  }
+                }}
+                className="save-changes-button"
+              >
+                Guardar cambios
+              </button>
+            )
+            : null
+        }
       </main>
 
       <input

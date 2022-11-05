@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import HandleLoading from "~/components/HandleLoading";
 import Header from "~/components/Header";
 import Media from "~/components/Media";
+import MediaPagination from "~/components/MediaPagination";
 import { ReadResources } from "~/services/MediaServices";
 import { NewPage, SearchText } from "~/services/ToolServices";
-import $ from "~/utils/QuerySelector";
 import "~/utils/styles/Home.scss";
 
 export default function Home() {
@@ -34,10 +34,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    $(".search-input").focus();
-  }, []);
-
   return (
     <>
       <Header>
@@ -49,8 +45,8 @@ export default function Home() {
           className="search-input"
         />
       </Header>
-
       <HandleLoading Component={Media} />
+      <MediaPagination />
     </>
   );
 }

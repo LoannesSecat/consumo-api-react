@@ -16,7 +16,7 @@ export const Currency = (value) => new Intl.NumberFormat("en-US", {
 }).format(value);
 
 export const MyDate = (value) => {
-  if (value !== undefined) {
+  if (value !== undefined && value !== "") {
     const aux = new Date(value);
 
     const altDate = new Intl.DateTimeFormat("es-ES", {
@@ -25,4 +25,6 @@ export const MyDate = (value) => {
 
     return CapitalizeText(altDate);
   }
+
+  return "Sin fecha";
 };
