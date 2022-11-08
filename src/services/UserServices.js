@@ -49,45 +49,12 @@ export async function ReadDatabase({ table, userId } = {}) {
     .match({ user_id: userId ?? USER_DATA().id });
 
   if (error) {
-    console.log(error);
+    console.log(error.message);
     return;
   }
 
   if (data) {
     UpdateFavoritesStore(data);
-  }
-}
-
-async function CreateDatabase({ table, insertData }) {
-  const { error, data } = await supabase
-    .from(table)
-    .insert({ favorite: insertData, user_id: USER_DATA().id });
-
-  if (error) {
-    console.log(error.message);
-    return;
-  }
-
-  if (data) {
-    MyToast.info({ message: `<b>${insertData.title}</b> ha sido agregado a favoritos` });
-    ReadDatabase({ table });
-  }
-}
-
-async function DeleteDatabase({ table, id_ref, title }) {
-  const { error, data } = await supabase
-    .from(table)
-    .delete()
-    .eq("id", id_ref);
-
-  if (error) {
-    console.log(error.message);
-    return;
-  }
-
-  if (data) {
-    MyToast.info({ message: `Eliminaste <b>${title}</b> de favoritos` });
-    ReadDatabase({ table });
   }
 }
 
@@ -305,9 +272,39 @@ export async function UploadAvatar({ file }) {
   }
 }
 
-export function ManipulateFavorites({ data = {}, type = "" }) {
+export async function ManipulateFavorites({ mediaData = {}, type = "" }) {
   const TABLE = "favorites";
 
-  if (type === "create") CreateDatabase({ table: TABLE, insertData: data });
-  if (type === "delete") DeleteDatabase({ table: TABLE, id_ref: data.id_ref, title: data.title });
+  if (type === "create") {
+    const { data, error } = await supabase
+      .from(TABLE)
+      .insert({ favorite: mediaData, user_id: USER_DATA().id });
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    if (data) {
+      MyToast.info({ message: `<b>${mediaData.title}</b> ha sido agregado a favoritos` });
+      ReadDatabase({ table: TABLE });
+    }
+  }
+
+  if (type === "delete") {
+    const { error, data } = await supabase
+      .from(TABLE)
+      .delete()
+      .eq("id", mediaData.id_ref);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    if (data) {
+      MyToast.info({ message: `Eliminaste <b>${mediaData.title}</b> de favoritos` });
+      ReadDatabase({ table: TABLE });
+    }
+  }
 }

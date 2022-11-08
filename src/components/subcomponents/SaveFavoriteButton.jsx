@@ -24,12 +24,15 @@ export default function SaveFavoriteButton({ mediaData }) {
     profile_path,
   } = mediaData;
 
-  const IS_IN_FAVORITES = Object.values(FAVORITES)?.some((elm) => elm.id === id);
   const SAVED_FAV = Object.values(FAVORITES).find((elm) => id === elm.id);
 
   useEffect(() => {
-    if (IS_IN_FAVORITES) {
+    const IS_IN_FAVORITES = Object.values(FAVORITES)?.some((elm) => elm.id === id);
+
+    if (IS_IN_FAVORITES && SESSION) {
       setLike(true);
+    } else {
+      setLike(false);
     }
   }, [FAVORITES]);
 
@@ -39,13 +42,13 @@ export default function SaveFavoriteButton({ mediaData }) {
       onClick={() => {
         if (SESSION) {
           if (like) {
-            ManipulateFavorites({ type: "delete", data: SAVED_FAV });
+            ManipulateFavorites({ type: "delete", mediaData: SAVED_FAV });
           }
 
           if (!like) {
             ManipulateFavorites({
               type: "create",
-              data: {
+              mediaData: {
                 id,
                 media_type,
                 title: title ?? name,
