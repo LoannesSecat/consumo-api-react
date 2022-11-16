@@ -2,10 +2,11 @@ import "cropperjs/dist/cropper.css";
 import { useEffect, useState } from "react";
 import Cropper from "react-cropper";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import userSVG from "~/assets/icons/user.svg";
 import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { DeleteAvatar, UpdateUser, UploadAvatar } from "~/services/UserServices";
+import { DeleteAccountUser, DeleteAvatar, UpdateUser, UploadAvatar } from "~/services/UserServices";
 import $ from "~/utils/QuerySelector";
 import "~/utils/styles/UserSettings.scss";
 
@@ -30,6 +31,7 @@ export default function UserSettings() {
   const CLEAR_NICK = { ...newData, nickname: NEW_DATA_STATE.nickname };
   const CLEAR_PASS = { ...newData, password: NEW_DATA_STATE.password };
   const CLEAR_EMAIL = { ...newData, email: NEW_DATA_STATE.email };
+  const navigate = useNavigate();
 
   useEffect(() => {
     setNewData({
@@ -67,9 +69,9 @@ export default function UserSettings() {
   return (
     <>
       <main className="user-settings">
-        <section className="form-options">
-          <GoBackButton />
+        <GoBackButton />
 
+        <section className="form-options">
           <article className="avatar">
             <small className="subtitle">Foto</small>
 
@@ -147,6 +149,13 @@ export default function UserSettings() {
               />
             </div>
           </article>
+
+          <button
+            className="delete-account-button"
+            onClick={() => { DeleteAccountUser({ navigateTo: navigate }); }}
+          >
+            Eliminar cuenta
+          </button>
         </section>
 
         {

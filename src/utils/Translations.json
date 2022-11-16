@@ -11,7 +11,8 @@
   },
   "knownForDepartment": {
     "Acting": "Actuación",
-    "Production": "Producción"
+    "Production": "Producción",
+    "Lighting": "Iluminación"
   },
   "MediaType": {
     "movie": "Película",

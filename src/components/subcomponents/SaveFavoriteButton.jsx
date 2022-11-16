@@ -24,10 +24,10 @@ export default function SaveFavoriteButton({ mediaData }) {
     profile_path,
   } = mediaData;
 
-  const SAVED_FAV = Object.values(FAVORITES).find((elm) => id === elm.id);
+  const SAVED_FAV = Object.values(FAVORITES)?.find((elm) => id === elm?.id);
 
   useEffect(() => {
-    const IS_IN_FAVORITES = Object.values(FAVORITES)?.some((elm) => elm.id === id);
+    const IS_IN_FAVORITES = Object.values(FAVORITES)?.some((elm) => elm?.id === id);
 
     if (IS_IN_FAVORITES && SESSION) {
       setLike(true);

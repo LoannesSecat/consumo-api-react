@@ -36,9 +36,14 @@
       border: 1px solid rgb(226, 226, 226);
       word-break: break-word;
       display: grid;
-      border-radius: 6px;
       padding: 12px;
       gap: 6px;
+
+      >img {
+        border-radius: 6px;
+        width: 100%;
+
+      }
 
       .save-favorite-button {
         justify-self: end;
@@ -50,14 +55,6 @@
         @extend %no-image-style;
         height: 400px;
         align-self: start;
-      }
-
-      .no-found,
-      .img-person,
-      .img-tv,
-      .img-movie {
-        border-radius: 6px;
-        width: 100%;
       }
 
       .name,
@@ -114,8 +111,9 @@
 
       .img-person {
         height: 400px;
-        object-fit: contain;
+        object-fit: cover;
         justify-self: center;
+
       }
 
       .known {

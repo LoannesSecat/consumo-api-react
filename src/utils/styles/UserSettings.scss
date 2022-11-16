@@ -5,23 +5,25 @@
   @extend %lateral-paddings;
 
   display: grid;
-  height: 100vh;
   filter: blur(0);
   transition: .1s ease all;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  grid-auto-rows: min-content;
+  gap: 32px;
+
+  .go-back-button {
+    @extend %button-effect-tufts-blue;
+    @extend %button-ghost-white;
+
+    align-self: start;
+    justify-self: start;
+  }
 
   .form-options {
     display: grid;
     grid-auto-rows: min-content;
     gap: 24px;
-
-    .go-back-button {
-      @extend %button-effect-tufts-blue;
-      @extend %button-ghost-white;
-
-      align-self: start;
-      justify-self: start;
-      margin-top: 24px;
-    }
 
     .subtitle {
       position: relative;
@@ -98,7 +100,7 @@
             border-radius: 5px;
             background-color: red;
             padding: 0;
-            transition: .1s;
+            transition: .3s all ease;
             position: absolute;
 
             >svg {
@@ -120,12 +122,30 @@
             }
           }
         }
+      }
+    }
 
-        .save-change-button {
-          @extend %button-tufts-blue;
-          margin-top: 15px;
-          justify-self: center;
-        }
+    .save-change-button {
+      @extend %button-tufts-blue;
+      margin-top: 15px;
+      justify-self: center;
+    }
+
+    .delete-account-button {
+      @extend %button-ghost-white;
+      @extend %button-effect-cerise;
+
+      justify-self: start;
+      color: red;
+      outline-color: red;
+
+      &:hover {
+        background-color: red;
+        outline-color: red
+      }
+
+      &:active {
+        background-color: Palette.$Ghost_White
       }
     }
   }
@@ -136,7 +156,6 @@
 
     justify-self: end;
     align-self: end;
-    margin-bottom: 24px;
   }
 }
 

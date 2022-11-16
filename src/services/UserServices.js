@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 import userSVG from "~/assets/icons/user.svg";
 import UserActions from "~/redux/actions/UserActions.json";
 import MyDispatch from "~/redux/selectors/MyDispatch";
@@ -34,28 +35,23 @@ export function UpdateSrcSetStore(path) {
 }
 
 function UpdateFavoritesStore(array) {
-  const NEW_FAV = array.map((value) => ({ ...JSON.parse(value.favorite), id_ref: value.id }));
-
   MyDispatch({
     type: UserActions.READ_FAVORITES,
-    payload: NEW_FAV,
+    payload: array,
   });
 }
 
-export async function ReadDatabase({ table, userId } = {}) {
+export async function ReadFavorites({ table, userId } = {}) {
   const { data, error } = await supabase
     .from(table)
-    .select("favorite, id")
+    .select("favorite")
     .match({ user_id: userId ?? USER_DATA().id });
 
   if (error) {
-    console.log(error.message);
+    MyToast.error({ message: error.message });
     return;
   }
-
-  if (data) {
-    UpdateFavoritesStore(data);
-  }
+  if (data) { UpdateFavoritesStore(data[0]?.favorite ?? data); }
 }
 
 // Primordial function section
@@ -134,7 +130,7 @@ export async function GetUser() {
     const GET_USER = await supabase.auth.api.getUser(SESSION?.access_token);
     const { email, user_metadata, id } = GET_USER.user;
     const { access_token, refresh_token } = SESSION;
-    const GET_PUBLIC_URL = supabase.storage
+    const { publicURL } = supabase.storage
       .from(AVATAR_STORAGE_NAME)
       .getPublicUrl(`${id}/${id}_avatar.png`);
 
@@ -146,14 +142,14 @@ export async function GetUser() {
       return;
     }
 
-    await ReadDatabase({ table: "favorites", userId: id });
+    await ReadFavorites({ table: "favorites", userId: id });
     MyDispatch({
       type: UserActions.READ_USER,
       payload: {
         email,
         nickname: user_metadata.nickname,
         id,
-        avatar: GET_PUBLIC_URL.publicURL,
+        avatar: publicURL,
         srcSet: null,
       },
     });
@@ -274,37 +270,106 @@ export async function UploadAvatar({ file }) {
 
 export async function ManipulateFavorites({ mediaData = {}, type = "" }) {
   const TABLE = "favorites";
+  const FAVORITES = MyStore({ reducer: "user", value: "FAVORITES" });
 
   if (type === "create") {
-    const { data, error } = await supabase
-      .from(TABLE)
-      .insert({ favorite: mediaData, user_id: USER_DATA().id });
+    if (FAVORITES.length > 0) {
+      const updateRes = await supabase
+        .from(TABLE)
+        .update({ favorite: [...FAVORITES, mediaData] })
+        .eq("user_id", USER_DATA().id);
 
-    if (error) {
-      console.log(error.message);
-      return;
+      if (updateRes.error) {
+        MyToast.error({ message: updateRes.error.message });
+        return;
+      }
+
+      if (updateRes.data) {
+        UpdateFavoritesStore(updateRes.data[0].favorite);
+        MyToast.info({ message: `<b>${mediaData.title}</b> ha sido agregado a favoritos` });
+      }
     }
 
-    if (data) {
-      MyToast.info({ message: `<b>${mediaData.title}</b> ha sido agregado a favoritos` });
-      ReadDatabase({ table: TABLE });
+    if (FAVORITES.length === 0) {
+      const insertRes = await supabase
+        .from(TABLE)
+        .insert({ favorite: [mediaData], user_id: USER_DATA().id });
+
+      if (insertRes.error) {
+        MyToast.error({ message: insertRes.error.message });
+        return;
+      }
+
+      if (insertRes.data) {
+        UpdateFavoritesStore(insertRes.data[0].favorite);
+        MyToast.info({ message: `<b>${mediaData.title}</b> ha sido agregado a favoritos` });
+      }
     }
   }
 
   if (type === "delete") {
-    const { error, data } = await supabase
-      .from(TABLE)
-      .delete()
-      .eq("id", mediaData.id_ref);
+    const filterData = FAVORITES?.filter((el) => el.id !== mediaData.id);
 
-    if (error) {
-      console.log(error.message);
+    const deleteRes = await supabase
+      .from(TABLE)
+      .update({ favorite: filterData })
+      .eq("user_id", USER_DATA().id);
+
+    if (deleteRes.error) {
+      MyToast.error({ message: deleteRes.error.message });
       return;
     }
 
-    if (data) {
+    if (deleteRes.data) {
+      UpdateFavoritesStore(deleteRes.data[0].favorite);
       MyToast.info({ message: `Eliminaste <b>${mediaData.title}</b> de favoritos` });
-      ReadDatabase({ table: TABLE });
     }
   }
+}
+
+export function DeleteAccountUser({ navigateTo }) {
+  MyToast.question({
+    timeout: false,
+    close: true,
+    overlay: true,
+    displayMode: "once",
+    id: "question",
+    message: "¿Estás seguro que quieres eliminar tu cuenta?, esta acción no es irreversible",
+    position: "center",
+    closeOnEscape: true,
+    overlayClose: true,
+    buttons: [
+      [
+        "<button><b>Si</b></button>", async (instance, toast) => {
+          instance.hide({ transitionOut: "fadeOut" }, toast, "button");
+
+          const supa = createClient(
+            import.meta.env.VITE_SUPABASE_URL,
+            import.meta.env.VITE_SSR,
+          );
+
+          const { error } = await supa.auth.api.deleteUser(USER_DATA().id);
+
+          if (error) {
+            MyToast.warning({ message: error.message });
+            return;
+          }
+
+          const deleteRes = await supabase.from("favorites").delete().eq("user_id", USER_DATA().id);
+
+          if (deleteRes.error) {
+            MyToast.warning({ message: error.message });
+            return;
+          }
+
+          SignOutUser();
+          navigateTo("/");
+          MyToast.success({ message: "Cuenta eliminada exitosamente" });
+        },
+      ],
+      ["<button><b>No</b></button>", (instance, toast) => {
+        instance.hide({ transitionOut: "fadeOut" }, toast, "button");
+      }],
+    ],
+  });
 }
