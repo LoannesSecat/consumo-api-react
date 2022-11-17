@@ -26,37 +26,38 @@
     align-self: flex-start;
     display: grid;
 
-    label {
-      span {
+    >label {
+      >span {
         font-weight: 500;
         font-size: 1.1rem;
       }
 
-      input {
+      >input,
+      div>input {
         @extend %input-bottom-line;
         @extend %input-effect-cerise;
 
         width: 100%;
-        padding: 5px 0px 1px;
+        padding: 3px 0px 3px;
       }
     }
 
-    label[for="password"] {
+    >label[for="password"] {
       margin-top: 35px;
 
-      div {
+      >div {
         display: flex;
         justify-content: center;
         gap: 10px;
 
-        button {
+        >button {
           margin: 0;
           padding: 0;
           background: transparent;
           border: none;
           opacity: 50%;
 
-          svg {
+          >svg {
             width: 40px;
             height: 30px;
             display: block;
@@ -88,10 +89,9 @@
     }
   }
 
-  a {
+  >a {
     justify-self: center;
     align-self: flex-start;
-    margin-top: -85px;
     text-decoration: none;
     color: Palette.$Royal_Blue_Dark;
   }

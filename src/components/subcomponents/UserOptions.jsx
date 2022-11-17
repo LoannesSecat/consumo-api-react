@@ -26,8 +26,8 @@ export default function UserOpcions() {
       const dropdownClicked = evt
         .composedPath()
         .some((elm) => elm.className === "dropdown"
-      || elm.className === "dropdown active"
-      || elm.className === "dropdown-button");
+          || elm.className === "dropdown active"
+          || elm.className === "dropdown-button");
 
       if (!dropdownClicked) {
         setClassDropdown("dropdown");
@@ -44,10 +44,10 @@ export default function UserOpcions() {
               <img
                 src={USER_DATA?.avatar}
                 alt="Foto de perfil"
-                onError={((evt) => {
+                onError={(evt) => {
                   const { target } = evt;
                   target.src = userSVG;
-                })}
+                }}
               />
 
               <span>{USER_DATA?.nickname}</span>
@@ -57,7 +57,7 @@ export default function UserOpcions() {
               <button className="dropdown-button" onClick={ChangeClass}>{BUTTON_SVG}</button>
               <div className={classDropdown}>
                 <a href="/" onClick={(e) => { e.preventDefault(); navigate("settings"); }}>Ajustes</a>
-                { pathname.includes("favorites")
+                {pathname.includes("favorites")
                   ? null
                   : <a href="/" onClick={(e) => { e.preventDefault(); navigate("favorites"); }}>Favoritos</a>}
                 <a href="/" onClick={(e) => { e.preventDefault(); SignOutUser(); }}>Cerrar sesión</a>

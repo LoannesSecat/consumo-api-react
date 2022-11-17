@@ -1,4 +1,4 @@
-import { createClient, } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 import Parameters from "~/utils/Parameters";
 import { SearchText } from "../ToolServices";
 import { GetUser, SessionUser } from "../UserServices";

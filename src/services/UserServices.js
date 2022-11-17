@@ -1,5 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-import userSVG from "~/assets/icons/user.svg";
 import UserActions from "~/redux/actions/UserActions.json";
 import MyDispatch from "~/redux/selectors/MyDispatch";
 import MyStore from "~/redux/selectors/MyStore";
@@ -20,16 +19,6 @@ export function UpdateAvatarStore(url) {
     payload: {
       ...USER_DATA(),
       avatar: url ?? "",
-    },
-  });
-}
-
-export function UpdateSrcSetStore(path) {
-  MyDispatch({
-    type: UserActions.READ_USER,
-    payload: {
-      ...USER_DATA(),
-      srcSet: path ?? "",
     },
   });
 }
@@ -130,8 +119,7 @@ export async function GetUser() {
     const GET_USER = await supabase.auth.api.getUser(SESSION?.access_token);
     const { email, user_metadata, id } = GET_USER.user;
     const { access_token, refresh_token } = SESSION;
-    const { publicURL } = supabase.storage
-      .from(AVATAR_STORAGE_NAME)
+    const { publicURL } = supabase.storage.from(AVATAR_STORAGE_NAME)
       .getPublicUrl(`${id}/${id}_avatar.png`);
 
     if (GET_USER.error) {
@@ -167,19 +155,11 @@ export async function UpdateUser({
   email,
   navigateTo,
 }) {
-  let UPDATE_DATA = {
-    ...{ password } ?? {},
-    ...{ email } ?? {},
-  };
+  let UPDATE_DATA = {};
 
-  if (nickname) {
-    UPDATE_DATA = {
-      ...UPDATE_DATA,
-      data: {
-        nickname,
-      },
-    };
-  }
+  if (password) UPDATE_DATA = { ...UPDATE_DATA, password };
+  if (nickname) UPDATE_DATA = { ...UPDATE_DATA, data: { nickname } };
+  if (email) UPDATE_DATA = { ...UPDATE_DATA, email };
 
   const { data, error } = await supabase.auth.update(UPDATE_DATA);
 
@@ -238,7 +218,6 @@ export async function DeleteAvatar({ deleteType }) {
 
   if (data) {
     UpdateAvatarStore();
-    UpdateSrcSetStore(userSVG);
 
     if (deleteType === "alert") {
       MyToast.success({ message: "Foto eliminada", timeout: 2000 });
