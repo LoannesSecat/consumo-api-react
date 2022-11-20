@@ -8,7 +8,7 @@ import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import { DeleteAccountUser, DeleteAvatar, UpdateUser, UploadAvatar } from "~/services/UserServices";
 import $ from "~/utils/QuerySelector";
-import "~/utils/styles/UserSettings.scss";
+import styles from "~/utils/styles/user-settings.module.scss";
 
 const NEW_DATA_STATE = {
   avatar: {
@@ -36,15 +36,15 @@ export default function UserSettings() {
   useEffect(() => {
     setNewData({
       ...newData,
-      avatarInputDOM: $(".avatar-file-input"),
-      popupDOM: $(".preview-popup"),
-      mainDOM: $(".user-settings"),
+      avatarInputDOM: $(`.${styles.avatar_file_input}`),
+      popupDOM: $(`.${styles.preview_popup}`),
+      mainDOM: $(`.${styles.user_settings}`),
     });
   }, []);
 
   const HandlePopUp = () => {
-    newData.popupDOM.classList.toggle("active");
-    newData.mainDOM.classList.toggle("popup-active");
+    newData.popupDOM.classList.toggle(styles.active);
+    newData.mainDOM.classList.toggle(styles.popup_active);
   };
 
   const HandleAvatarFile = (evt) => {
@@ -52,33 +52,35 @@ export default function UserSettings() {
     const INPUT_FILE = evt.target.files[0];
 
     reader.readAsDataURL(INPUT_FILE);
-    reader.onload = () => {
-      setNewData({
-        ...newData,
-        avatar: {
-          ...newData.avatar,
-          file: INPUT_FILE,
-          preview: reader.result,
-        },
-      });
-    };
+    if (INPUT_FILE) {
+      reader.onload = () => {
+        setNewData({
+          ...newData,
+          avatar: {
+            ...newData.avatar,
+            file: INPUT_FILE,
+            preview: reader.result,
+          },
+        });
+      };
 
-    HandlePopUp();
+      HandlePopUp();
+    }
   };
 
   return (
     <>
-      <main className="user-settings">
-        <GoBackButton />
+      <main className={styles.user_settings}>
+        <GoBackButton className={styles.go_back_button} />
 
-        <section className="form-options">
-          <article className="avatar">
-            <small className="subtitle">Foto</small>
+        <section className={styles.form_options}>
+          <article className={styles.avatar}>
+            <small className={styles.subtitle}>Foto</small>
 
-            <div className="content">
-              <div className="avatar-group">
+            <div className={styles.content}>
+              <div className={styles.avatar_group}>
                 <img
-                  className="avatar-image"
+                  className={styles.avatar_image}
                   src={USER_DATA?.avatar}
                   alt="Foto de perfil"
                   onError={(evt) => {
@@ -90,7 +92,7 @@ export default function UserSettings() {
                 {!USER_DATA?.srcSet
                   ? (
                     <button
-                      className="button-delete-avatar"
+                      className={styles.button_delete_avatar}
                       title="Eliminar foto"
                       onClick={() => DeleteAvatar({ deleteType: "alert" })}
                     >
@@ -104,17 +106,17 @@ export default function UserSettings() {
                 onClick={() => {
                   newData.avatarInputDOM.click();
                 }}
-                className="save-change-button"
+                className={styles.save_change_button}
               >
                 Cambiar foto
               </button>
             </div>
           </article>
 
-          <article className="nickname">
-            <small className="subtitle">Nombre de usuario</small>
+          <article className={styles.nickname}>
+            <small className={styles.subtitle}>Nombre de usuario</small>
 
-            <div className="content">
+            <div className={styles.content}>
               <span>{USER_DATA.nickname}</span>
               <input
                 type="text"
@@ -124,10 +126,10 @@ export default function UserSettings() {
             </div>
           </article>
 
-          <article className="email">
-            <small className="subtitle">Correo</small>
+          <article className={styles.email}>
+            <small className={styles.subtitle}>Correo</small>
 
-            <div className="content">
+            <div className={styles.content}>
               <span>{USER_DATA.email}</span>
               <input
                 type="email"
@@ -137,10 +139,10 @@ export default function UserSettings() {
             </div>
           </article>
 
-          <article className="password">
-            <small className="subtitle">Contraseña</small>
+          <article className={styles.password}>
+            <small className={styles.subtitle}>Contraseña</small>
 
-            <div className="content">
+            <div className={styles.content}>
               <span>Nueva contraseña</span>
               <input
                 type="text"
@@ -151,7 +153,7 @@ export default function UserSettings() {
           </article>
 
           <button
-            className="delete-account-button"
+            className={styles.delete_account_button}
             onClick={() => { DeleteAccountUser({ navigateTo: navigate }); }}
           >
             Eliminar cuenta
@@ -175,7 +177,7 @@ export default function UserSettings() {
                     setNewData({ CLEAR_NICK, CLEAR_EMAIL, CLEAR_PASS });
                   }
                 }}
-                className="save-changes-button"
+                className={styles.save_changes_button}
               >
                 Guardar cambios
               </button>
@@ -188,15 +190,15 @@ export default function UserSettings() {
         type="file"
         name="avatar"
         accept=".jpg, .jpeg, .png"
-        className="avatar-file-input"
+        className={styles.avatar_file_input}
         onChange={(evt) => {
           HandleAvatarFile(evt);
         }}
       />
 
-      <article className="preview-popup">
-        <div className="preview-popup-container">
-          <div className="preview-avatar-image">
+      <article className={styles.preview_popup}>
+        <div className={styles.preview_popup_container}>
+          <div className={styles.preview_avatar_image}>
             <Cropper
               src={newData?.avatar?.preview}
               initialAspectRatio={1}
@@ -218,7 +220,7 @@ export default function UserSettings() {
           </div>
           <small>Puedes acercar, alejar o mover la imagen</small>
 
-          <div className="preview-popup-buttons">
+          <div className={styles.preview_popup_buttons}>
             <button
               onClick={() => {
                 setNewData({
@@ -232,13 +234,13 @@ export default function UserSettings() {
                 HandlePopUp();
                 setNewData(CLEAR_AVATAR);
               }}
-              className="preview-delete-button"
+              className={styles.preview_delete_button}
             >
               Volver
             </button>
 
             <button
-              className="preview-save-button"
+              className={styles.preview_save_button}
               onClick={async () => {
                 const IMG_DATA = cropper.getCroppedCanvas().toDataURL();
                 const BASE64 = await fetch(IMG_DATA);

@@ -1,11 +1,11 @@
 import { Languages } from "~/utils/Converter";
 
-export default function OriginalLanguage({ param }) {
+export default function OriginalLanguage({ param, className }) {
   if (param) {
     return (
       <dl>
-        <dt className="subtitle">Idioma original</dt>
-        <dd className="subtext">{Languages(param)}</dd>
+        <dt className={className.sTitle}>Idioma original</dt>
+        <dd className={className.sText}>{Languages(param)}</dd>
       </dl>
     );
   }

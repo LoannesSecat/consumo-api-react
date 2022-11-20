@@ -1,24 +1,24 @@
 @use "./Palette";
 @use "./General";
 
-.card-media {
+.card_media {
   justify-self: center;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
 
-  a {
+  >a {
     position: relative;
 
-    .poster-img {
+    .poster_img {
       object-fit: contain;
       border-radius: 6px;
       width: 100%;
       height: auto;
-      margin-bottom: 5px
+      margin-bottom: 5px;
     }
 
-    .no-found {
+    .img_not_found {
       @extend %no-image-style;
       border-radius: 6px;
       width: 100%;
@@ -35,7 +35,7 @@
       text-align: center;
       padding: 20px 0;
 
-      h2 {
+      >h2 {
         -webkit-text-stroke: 0.3px Palette.$Black_Chocolate;
         margin: 0 15px;
         margin-block-start: 0;
@@ -50,11 +50,11 @@
         margin-top: 15px;
 
         .popularity,
-        .vote-average,
-        .vote-count {
+        .vote_average,
+        .vote_count {
           display: flex;
 
-          svg {
+          >svg {
             width: 20px;
             height: 20px;
             margin-right: 5px;
@@ -77,14 +77,14 @@
         }
       }
 
-      .media-type,
-      .statistics span {
+      .media_type,
+      .statistics>span {
         font-size: 2ch;
         -webkit-text-stroke: 0.5px Palette.$Black_Chocolate;
         font-weight: 600;
       }
 
-      .media-type {
+      .media_type {
         display: block;
         margin-top: 10px;
       }

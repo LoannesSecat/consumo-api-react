@@ -1,25 +1,25 @@
 import { useSelector } from "react-redux";
 import { NextFilmsPage, PreviousFilmsPage } from "~/services/ToolServices";
-import "~/utils/styles/MediaPagination.scss";
+import styles from "~/utils/styles/media-pagination.module.scss";
 
 export default function MediaPagination() {
   const { PAGE, MIN_PAGE, TOTAL_PAGES } = useSelector((e) => e.tool);
 
   const BUTTON_PREVIOUS = PAGE <= MIN_PAGE ? (
-    <div className="aux-previous" />
+    <div className={styles.aux_previous} />
   ) : (
-    <button onClick={() => PreviousFilmsPage()} className="previous-button">Anterior</button>
+    <button onClick={() => PreviousFilmsPage()} className={styles.previous_button}>Anterior</button>
   );
 
   const BUTTON_NEXT = PAGE >= TOTAL_PAGES ? (
-    <div className="aux-next" />
+    <div className={styles.aux_next} />
   ) : (
-    <button onClick={() => NextFilmsPage()} className="next-button">Siguiente</button>
+    <button onClick={() => NextFilmsPage()} className={styles.next_button}>Siguiente</button>
   );
 
   if (TOTAL_PAGES > 0) {
     return (
-      <footer className="media-pagination">
+      <footer className={styles.media_pagination}>
         {BUTTON_PREVIOUS}
         <span>
           {PAGE}

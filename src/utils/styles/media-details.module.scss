@@ -2,7 +2,8 @@
 @use "./General";
 
 .header {
-  justify-content: center;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
 
   .user-options {
     flex-grow: 1;
@@ -12,13 +13,17 @@
     @extend %button-border-ghost-white;
     @extend %button-effect-ghost-white;
   }
+
+  @media (max-width: 280px) {
+    justify-content: center;
+  }
 }
 
-.media-details {
+.media_details {
   word-break: break-word;
   display: grid;
 
-  .save-favorite-button {
+  .save_favorite_button {
     justify-self: end;
     align-self: start;
   }
@@ -31,7 +36,7 @@
 
   .subtitle,
   .subtext,
-  .seasons-subtitle {
+  .seasons_subtitle {
     color: Palette.$Black_Chocolate;
     font-size: 1rem;
   }
@@ -39,21 +44,25 @@
   .banner {
     position: relative;
 
-    img {
+    >img {
       width: 100%;
       max-height: 500px;
     }
 
-    .person-img {
+    .person_img {
       object-fit: contain;
     }
 
-    .film-img,
-    .serie-img {
+    .film_img,
+    .serie_img {
       object-fit: cover;
     }
 
-    svg {
+    .img_not_found {
+      @extend %no-image-style;
+    }
+
+    >svg {
       height: 500px;
       width: 100%;
       @extend %no-image-style;
@@ -68,16 +77,16 @@
       @extend %lateral-paddings;
       padding-bottom: 20px;
 
-      h2,
+      >h2,
       h3 {
         margin: 0;
       }
 
-      h2 {
+      >h2 {
         font-size: 1.8rem;
       }
 
-      h3 {
+      >h3 {
         margin-top: 5px;
       }
     }
@@ -92,7 +101,7 @@
       gap: 5px;
       flex-wrap: wrap;
 
-      small {
+      >small {
         background-color: Palette.$Ghost_White;
         color: Palette.$Cerise;
         border: 1px solid Palette.$Cerise;
@@ -103,7 +112,7 @@
       }
     }
 
-    p {
+    >p {
       margin-bottom: 0;
       font-size: 1.2rem;
     }

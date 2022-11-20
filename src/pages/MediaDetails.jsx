@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import HandleLoading from "~/components/HandleLoading";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import SaveFavoriteButton from "~/components/subcomponents/SaveFavoriteButton";
-import "~/utils/styles/MediaDetails.scss";
+import styles from "~/utils/styles/media-details.module.scss";
 import Header from "../components/Header";
 
 const FilmDetails = lazy(() => import("~/components/FilmDetails"));
@@ -32,12 +32,15 @@ export default function MediaDetails() {
 
   return (
     <>
-      <Header>
+      <Header className={styles.header}>
         <GoBackButton />
       </Header>
 
-      <section className="media-details">
-        <SaveFavoriteButton mediaData={CASES[TYPE_MEDIA].data} />
+      <section className={styles.media_details}>
+        <SaveFavoriteButton
+          mediaData={CASES[TYPE_MEDIA].data}
+          className={styles.save_favorite_button}
+        />
 
         <HandleLoading
           data={CASES[TYPE_MEDIA].data}

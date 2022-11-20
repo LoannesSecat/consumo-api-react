@@ -1,7 +1,7 @@
 @use "./General.scss";
 @use "./Palette.scss";
 
-.user-settings {
+.user_settings {
   @extend %lateral-paddings;
 
   display: grid;
@@ -12,7 +12,7 @@
   grid-auto-rows: min-content;
   gap: 32px;
 
-  .go-back-button {
+  .go_back_button {
     @extend %button-effect-tufts-blue;
     @extend %button-ghost-white;
 
@@ -20,7 +20,7 @@
     justify-self: start;
   }
 
-  .form-options {
+  .form_options {
     display: grid;
     grid-auto-rows: min-content;
     gap: 24px;
@@ -83,10 +83,10 @@
         align-items: center;
         width: 100%;
 
-        .avatar-group {
+        .avatar_group {
           display: flex;
 
-          .avatar-image {
+          .avatar_image {
             border-radius: 5px;
             background-color: rgb(226, 226, 226);
             height: 150px;
@@ -94,7 +94,7 @@
             border: 0.3px solid black;
           }
 
-          .button-delete-avatar {
+          .button_delete_avatar {
             border: none;
             outline: transparent;
             border-radius: 5px;
@@ -125,13 +125,13 @@
       }
     }
 
-    .save-change-button {
+    .save_change_button {
       @extend %button-tufts-blue;
       margin-top: 15px;
       justify-self: center;
     }
 
-    .delete-account-button {
+    .delete_account_button {
       @extend %button-ghost-white;
       @extend %button-effect-cerise;
 
@@ -150,7 +150,7 @@
     }
   }
 
-  .save-changes-button {
+  .save_changes_button {
     @extend %button-ghost-white;
     @extend %button-effect-cerise;
 
@@ -159,11 +159,11 @@
   }
 }
 
-.avatar-file-input {
+.avatar_file_input {
   display: none;
 }
 
-.preview-popup {
+.preview_popup {
   visibility: hidden;
   position: absolute;
   z-index: 1;
@@ -174,7 +174,7 @@
   display: grid;
   place-items: center;
 
-  .preview-popup-container {
+  .preview_popup_container {
     padding: 30px;
     background-color: Palette.$Ghost_White;
     border-radius: 5px;
@@ -182,24 +182,24 @@
     display: grid;
     place-items: center;
 
-    .preview-avatar-image {
+    .preview_avatar_image {
       background-color: grey;
 
-      div {
+      >div {
         width: 250px;
         height: 250px;
       }
     }
 
-    .preview-popup-buttons {
+    .preview_popup_buttons {
       margin-top: 15px;
 
-      .preview-delete-button,
-      .preview-save-button {
+      .preview_delete_button,
+      .preview_save_button {
         @extend %button-tufts-blue;
       }
 
-      .preview-delete-button {
+      .preview_delete_button {
         background-color: red;
         margin-right: 30px;
       }
@@ -207,10 +207,10 @@
   }
 }
 
-.preview-popup.active {
+.preview_popup.active {
   visibility: visible;
 }
 
-.user-settings.popup-active {
+.user_settings.popup_active {
   filter: blur(20px);
 }

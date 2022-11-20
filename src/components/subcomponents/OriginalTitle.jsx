@@ -1,9 +1,9 @@
-export default function OriginalTitle({ param }) {
+export default function OriginalTitle({ param, className }) {
   if (param) {
     return (
       <dl>
-        <dt className="subtitle">Título original</dt>
-        <dd className="subtext">{param}</dd>
+        <dt className={className.sTitle}>Título original</dt>
+        <dd className={className.sText}>{param}</dd>
       </dl>
     );
   }

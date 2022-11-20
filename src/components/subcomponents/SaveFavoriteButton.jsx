@@ -4,9 +4,9 @@ import { ReactComponent as BookmarkSlash } from "~/assets/icons/bookmark-slash.s
 import { ReactComponent as Bookmark } from "~/assets/icons/bookmark.svg";
 import { ManipulateFavorites } from "~/services/UserServices";
 import MyToast from "~/utils/MyToast";
-import "~/utils/styles/SaveFavoriteButton.scss";
+import styles from "~/utils/styles/save-favorite-button.module.scss";
 
-export default function SaveFavoriteButton({ mediaData }) {
+export default function SaveFavoriteButton({ mediaData, className }) {
   const [like, setLike] = useState(false);
   const { SESSION, FAVORITES } = useSelector((state) => state.user);
   const {
@@ -38,7 +38,7 @@ export default function SaveFavoriteButton({ mediaData }) {
 
   return (
     <button
-      className="save-favorite-button"
+      className={`${styles.save_favorite_button} ${className ?? ""}`.trim()}
       onClick={() => {
         if (SESSION) {
           if (like) {

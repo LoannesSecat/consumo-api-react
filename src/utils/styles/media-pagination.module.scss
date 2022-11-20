@@ -1,7 +1,7 @@
 @use "./Palette.scss";
 @use "./General.scss";
 
-.media-pagination {
+.media_pagination {
   @extend %lateral-paddings;
   position: sticky;
   bottom: 0;
@@ -21,8 +21,8 @@
     flex-grow: 1;
   }
 
-  .previous-button,
-  .next-button {
+  .previous_button,
+  .next_button {
     @extend %button-ghost-white;
     @extend %button-effect-tufts-blue;
     padding: 5px 16px;
@@ -30,8 +30,8 @@
     flex-grow: auto;
   }
 
-  .aux-previous,
-  .aux-next {
+  .aux_previous,
+  .aux_next {
     flex-basis: 90px;
   }
 }

@@ -3,8 +3,8 @@ import { url } from "../fixtures/vite.json";
 it("Navigation between pages", () => {
   cy.visit(url.preview);
 
-  cy.get(".media-pagination span").as("NumPages");
-  cy.get("body").find(".media").children(".card-media");
+  cy.get("footer>span").as("NumPages");
+  cy.get("body").find("main").children("article");
   cy.get("@NumPages").should("be.visible").contains("1");
 
   cy.get("button").contains("Siguiente").dblclick();

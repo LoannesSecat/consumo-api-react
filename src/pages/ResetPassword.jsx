@@ -5,7 +5,7 @@ import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import { PreResetPasswordUser, UpdateUser } from "~/services/UserServices";
-import "~/utils/styles/ResetPassword.scss";
+import styles from "~/utils/styles/reset-password.module.scss";
 
 export default function ResetPassword() {
   const [showPass, setShowPass] = useState(false);
@@ -26,17 +26,17 @@ export default function ResetPassword() {
   };
 
   return (
-    <main className="reset-password">
-      {IS_LOGGED ? null : <GoBackButton />}
+    <main className={styles.reset_password}>
+      {IS_LOGGED ? null : <GoBackButton className={styles.go_back_button} />}
 
       <form
         onSubmit={(e) => HandleOnSubmit(e)}
         onChange={(e) => setValues({ ...values, [e.target.name]: e.target.value })}
-        className={IS_LOGGED ? "form" : null}
+        className={IS_LOGGED ? styles.form : null}
       >
-        { IS_LOGGED
+        {IS_LOGGED
           ? (
-            <label htmlFor="password">
+            <label htmlFor="password" className={styles.new_password}>
               <span>Nueva contraseña</span>
               <br />
               <div>
@@ -53,12 +53,10 @@ export default function ResetPassword() {
             </label>
           )
           : (
-            <label htmlFor="email">
+            <label htmlFor="email" className={styles.email_registered}>
               <span>Escribe el correo registrado</span>
               <br />
-              <div>
-                <input type="email" name="email" autoComplete="true" />
-              </div>
+              <input type="email" name="email" autoComplete="true" />
             </label>
           )}
 

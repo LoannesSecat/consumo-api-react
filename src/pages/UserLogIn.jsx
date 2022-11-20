@@ -5,7 +5,7 @@ import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import { LogInUser } from "~/services/UserServices";
 import FormValidator from "~/utils/FormValidator";
-import "~/utils/styles/UserLogIn.scss";
+import styles from "~/utils/styles/user-login.module.scss";
 
 export default function UserLogIn() {
   const [showPass, setShowPass] = useState(false);
@@ -31,13 +31,13 @@ export default function UserLogIn() {
   };
 
   return (
-    <main className="user-log-in">
+    <main className={styles.user_log_in}>
       <div>
         <GoBackButton />
-        <button className="go-to-registration" onClick={() => { navigate("registration"); }}>Registrarme</button>
+        <button className={styles.go_to_registration} onClick={() => { navigate("registration"); }}>Registrarme</button>
       </div>
 
-      <form onSubmit={(e) => HandleOnSubmit(e)} className="log-in-form">
+      <form onSubmit={(e) => HandleOnSubmit(e)} className={styles.log_in_form}>
         <label htmlFor="email">
           <span>Correo</span>
           <br />
@@ -54,7 +54,7 @@ export default function UserLogIn() {
           </div>
         </label>
 
-        <button type="submit" className="submit-log-in-button">Iniciar sesión</button>
+        <button type="submit" className={styles.submit_log_in_button}>Iniciar sesión</button>
       </form>
 
       <Link to="reset-password">Reiniciar contraseña</Link>

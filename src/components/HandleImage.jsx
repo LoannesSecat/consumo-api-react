@@ -7,7 +7,7 @@ export default function HandleImage({
   url, size, className, loading,
 }) {
   const URL = url ? `${TMDb.url_img}${size}${url}` : photo;
-  const CLASSNAME = url ? className : "no-found";
+  const CLASSNAME = url ? className.style : className.not_found;
 
   return (
     <img

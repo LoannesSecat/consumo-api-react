@@ -6,7 +6,7 @@ import Media from "~/components/Media";
 import MediaPagination from "~/components/MediaPagination";
 import { ReadResources } from "~/services/MediaServices";
 import { NewPage, SearchText } from "~/services/ToolServices";
-import "~/utils/styles/Home.scss";
+import styles from "~/utils/styles/home.module.scss";
 
 export default function Home() {
   const { SEARCH_TEXT } = useSelector((e) => e.tool);
@@ -36,13 +36,13 @@ export default function Home() {
 
   return (
     <>
-      <Header>
+      <Header className={styles.header}>
         <input
           type="search"
           onChange={(e) => { HandleSearch(e.target.value); }}
           value={SEARCH_TEXT}
           placeholder="Ej: Los guardianes de la galaxia"
-          className="search-input"
+          className={styles.search_input}
         />
       </Header>
       <HandleLoading Component={Media} />

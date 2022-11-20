@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import "~/utils/styles/PageNotFound.scss";
+import styles from "~/utils/styles/page-not-found.module.scss";
 
 export default function PageNotFound() {
   const PARAMS = useParams();
@@ -7,9 +7,9 @@ export default function PageNotFound() {
   const UNKNOWN_PAGE = PARAMS["*"];
 
   return (
-    <main className="page-not-found">
+    <main className={styles.page_not_found}>
       <div>
-        <h2 className="border">
+        <h2 className={styles.border}>
           La ruta
           {" "}
           /
@@ -17,7 +17,7 @@ export default function PageNotFound() {
           {" "}
           no es válida
         </h2>
-        <h2 className="wave">
+        <h2 className={styles.wave}>
           La ruta
           {" "}
           /

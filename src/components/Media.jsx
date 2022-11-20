@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import "~/utils/styles/Media.scss";
+import styles from "~/utils/styles/media.module.scss";
 import Empty from "./Empty";
 import CardMedia from "./subcomponents/CardMedia";
 
@@ -8,7 +8,7 @@ export default function Media() {
 
   if (Object.keys(RESOURCES).length) {
     return (
-      <main className="media">
+      <main className={styles.media}>
         {
           Object.values(RESOURCES)?.map((element) => (
             <CardMedia
