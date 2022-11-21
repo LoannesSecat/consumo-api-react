@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
@@ -9,7 +9,7 @@ import styles from "~/utils/styles/user-registration.module.scss";
 
 export default function UserRegistration() {
   const [showPass, setShowPass] = useState(false);
-  const navigate = useNavigate();
+  const [, navigate] = useLocation();
 
   const HandleShowPass = (e) => {
     e.preventDefault();

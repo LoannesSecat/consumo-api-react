@@ -25,20 +25,20 @@
   }
 
   >button {
-    background-color: Palette.$Cerise;
-    color: Palette.$Ghost_White;
-    border: Palette.$Ghost_White 1px solid;
-    border-radius: 5px;
+    @extend %button-ghost-white;
+    @extend %button-effect-cerise;
+
     padding: 5px 15px;
     align-self: flex-start;
     margin-top: 50px;
-    @extend %transition-speed;
+    background-color: Palette.$Cerise;
+    color: Palette.$Ghost_White;
+    outline-color: Palette.$Cerise;
 
-    &:active,
-    &:hover {
+    &:hover,
+    &:active {
       background-color: Palette.$Ghost_White;
       color: Palette.$Cerise;
-      border-color: Palette.$Cerise;
     }
   }
 }

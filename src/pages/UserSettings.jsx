@@ -2,7 +2,7 @@ import "cropperjs/dist/cropper.css";
 import { useEffect, useState } from "react";
 import Cropper from "react-cropper";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 import userSVG from "~/assets/icons/user.svg";
 import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
@@ -31,7 +31,7 @@ export default function UserSettings() {
   const CLEAR_NICK = { ...newData, nickname: NEW_DATA_STATE.nickname };
   const CLEAR_PASS = { ...newData, password: NEW_DATA_STATE.password };
   const CLEAR_EMAIL = { ...newData, email: NEW_DATA_STATE.email };
-  const navigate = useNavigate();
+  const [, navigate] = useLocation();
 
   useEffect(() => {
     setNewData({

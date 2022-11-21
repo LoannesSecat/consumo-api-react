@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
@@ -9,7 +9,7 @@ import styles from "~/utils/styles/user-login.module.scss";
 
 export default function UserLogIn() {
   const [showPass, setShowPass] = useState(false);
-  const navigate = useNavigate();
+  const [, navigate] = useLocation();
 
   const HandleShowPass = (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ export default function UserLogIn() {
     const formValues = {
       email: e.target.email.value,
       password: e.target.pass.value,
-      navigateTo: () => navigate("/"),
+      navigate,
     };
 
     if (FormValidator(formValues)) {
@@ -57,7 +57,7 @@ export default function UserLogIn() {
         <button type="submit" className={styles.submit_log_in_button}>Iniciar sesión</button>
       </form>
 
-      <Link to="reset-password">Reiniciar contraseña</Link>
+      <Link href="reset-password">Reiniciar contraseña</Link>
     </main>
   );
 }

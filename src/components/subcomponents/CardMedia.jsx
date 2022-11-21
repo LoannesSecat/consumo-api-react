@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
 import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
 import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
@@ -30,7 +30,7 @@ export default function CardMedia({ data }) {
     <article className={styles.card_media}>
       <SaveFavoriteButton mediaData={data} />
 
-      <Link to="media-details" onMouseDown={() => MountDetails()} onTouchStart={() => MountDetails()}>
+      <Link href="media-details" onMouseDown={() => MountDetails()} onTouchStart={() => MountDetails()}>
         <HandleImage
           url={poster_path ?? profile_path}
           size="w400"

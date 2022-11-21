@@ -82,9 +82,9 @@
 
   &:hover,
   &:active {
-    color: Palette.$Black_Chocolate;
-    background-color: Palette.$Ghost_White;
-    outline: 0.1px solid Palette.$Black_Chocolate;
+    color: Palette.$Ghost_White;
+    background-color: transparent;
+    outline: 0.1px solid Palette.$Ghost_White;
   }
 }
 

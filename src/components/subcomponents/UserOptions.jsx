@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 import { ReactComponent as ChevronUp } from "~/assets/icons/chevron-up.svg";
 import { ReactComponent as Cog8Tooth } from "~/assets/icons/cog-8-tooth.svg";
 import userSVG from "~/assets/icons/user.svg";
@@ -9,9 +9,8 @@ import styles from "~/utils/styles/user-options.module.scss";
 
 export default function UserOpcions() {
   const { USER_DATA, SESSION } = useSelector((e) => e.user);
-  const navigate = useNavigate();
+  const [location, navigate] = useLocation();
   const [classDropdown, setClassDropdown] = useState(styles.dropdown);
-  const { pathname } = useLocation();
 
   const BUTTON_SVG = classDropdown === styles.dropdown ? <Cog8Tooth /> : <ChevronUp />;
 
@@ -58,7 +57,7 @@ export default function UserOpcions() {
 
               <div className={classDropdown}>
                 <a href="/" onClick={(e) => { e.preventDefault(); navigate("settings"); }}>Ajustes</a>
-                {pathname.includes("favorites")
+                {location.includes("favorites")
                   ? null
                   : <a href="/" onClick={(e) => { e.preventDefault(); navigate("favorites"); }}>Favoritos</a>}
                 <a href="/" onClick={(e) => { e.preventDefault(); SignOutUser(); }}>Cerrar sesión</a>

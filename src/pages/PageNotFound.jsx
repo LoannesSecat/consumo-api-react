@@ -1,10 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "wouter";
 import styles from "~/utils/styles/page-not-found.module.scss";
 
-export default function PageNotFound() {
-  const PARAMS = useParams();
-  const navigate = useNavigate();
-  const UNKNOWN_PAGE = PARAMS["*"];
+export default function PageNotFound({ params }) {
+  const [, navigate] = useLocation();
+  const UNKNOWN_PAGE = params.path;
 
   return (
     <main className={styles.page_not_found}>

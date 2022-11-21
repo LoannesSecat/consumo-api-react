@@ -44,8 +44,8 @@ export async function ReadFavorites({ table, userId } = {}) {
 }
 
 // Primordial function section
-export async function LogInUser({ email, password, navigateTo }) {
-  const { data, error } = await supabase.auth.signIn({
+export async function LogInUser({ email, password, navigate }) {
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
@@ -56,8 +56,8 @@ export async function LogInUser({ email, password, navigateTo }) {
     });
   }
 
-  if (data) {
-    navigateTo();
+  if (data.user) {
+    navigate("/");
   }
 }
 
@@ -113,32 +113,35 @@ export async function SignOutUser() {
 }
 
 export async function GetUser() {
-  const SESSION = supabase.auth.session();
+  const { data: session, error: sessionError } = await supabase.auth.getSession();
 
-  if (SESSION) {
-    const GET_USER = await supabase.auth.api.getUser(SESSION?.access_token);
-    const { email, user_metadata, id } = GET_USER.user;
-    const { access_token, refresh_token } = SESSION;
+  if (sessionError) {
+    MyToast.warning({ message: sessionError.message });
+    return;
+  }
+
+  if (session) {
+    const {
+      data: { user },
+      error: errorGetUser,
+    } = await supabase.auth.getUser(session?.access_token);
+
+    const { access_token, refresh_token } = session;
     const { publicURL } = supabase.storage.from(AVATAR_STORAGE_NAME)
-      .getPublicUrl(`${id}/${id}_avatar.png`);
+      .getPublicUrl(`${user.id}/${user.id}_avatar.png`);
 
-    if (GET_USER.error) {
-      MyToast.warning({
-        message: "Error al cargar datos del usuario",
-      });
-
+    if (errorGetUser) {
+      MyToast.warning({ message: "Error al cargar datos del usuario" });
       return;
     }
-
-    await ReadFavorites({ table: "favorites", userId: id });
+    await ReadFavorites({ table: "favorites", userId: user.id });
     MyDispatch({
       type: UserActions.READ_USER,
       payload: {
-        email,
-        nickname: user_metadata.nickname,
-        id,
+        email: user?.email,
+        nickname: user?.user_metadata.nickname,
+        id: user?.id,
         avatar: publicURL,
-        srcSet: null,
       },
     });
 
