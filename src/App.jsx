@@ -1,7 +1,7 @@
+import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.css";
 import { useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import { useSelector } from "react-redux";
 import { Route, Switch } from "wouter";
 import Home from "./pages/Home";
 import MediaDetails from "./pages/MediaDetails";
@@ -11,24 +11,29 @@ import UserFavorites from "./pages/UserFavorites";
 import UserLogIn from "./pages/UserLogIn";
 import UserRegistration from "./pages/UserRegistration";
 import UserSettings from "./pages/UserSettings";
-import StoreProvider from "./providers/StoreProvider";
-import { ReadResources } from "./services/MediaServices";
 import { AuthStateChange } from "./services/supabase";
+import MediaC from "./superstate/Media";
+import UserC from "./superstate/User";
 import "./utils/styles/App.scss";
 
 // The next blocks of code are written here for a single run to execute the app
 AuthStateChange();
+iziToast.settings({
+  position: "bottomCenter",
+  progressBar: false,
+  messageSize: "17",
+  timeout: 3000,
+  pauseOnHover: false,
+});
+
+const { readMedia } = MediaC;
 
 function App() {
   useEffect(() => {
-    ReadResources();
-
-    return () => {
-      localStorage.removeItem("GLOBAL_STORAGE");
-    };
+    readMedia();
   }, []);
 
-  const SESSION = useSelector((state) => state.user.SESSION);
+  const { SESSION } = UserC.state.now();
 
   return (
     <Switch>
@@ -52,4 +57,4 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<StoreProvider><App /></StoreProvider>);
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);

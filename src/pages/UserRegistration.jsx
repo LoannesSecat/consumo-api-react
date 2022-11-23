@@ -3,9 +3,11 @@ import { useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { SignInUser } from "~/services/UserServices";
+import UserC from "~/superstate/User";
 import FormValidator from "~/utils/FormValidator";
 import styles from "~/utils/styles/user-registration.module.scss";
+
+const { signInUser } = UserC;
 
 export default function UserRegistration() {
   const [showPass, setShowPass] = useState(false);
@@ -30,7 +32,7 @@ export default function UserRegistration() {
         formValues = { ...formValues, nickname: e.target.nickname.value };
       }
 
-      SignInUser(formValues);
+      signInUser(formValues);
     }
   };
 

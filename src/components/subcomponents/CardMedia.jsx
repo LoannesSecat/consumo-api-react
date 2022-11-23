@@ -2,16 +2,13 @@ import { Link } from "wouter";
 import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
 import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
 import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
-import {
-  FilmDetails,
-  MediaType,
-  PersonDetails,
-  SerieDetails
-} from "~/services/MediaServices";
+import MediaC from "~/superstate/Media";
 import styles from "~/utils/styles/card-media.module.scss";
 import Translations from "~/utils/Translations.json";
 import HandleImage from "../HandleImage";
 import SaveFavoriteButton from "./SaveFavoriteButton";
+
+const { mediaDetails, mediaType } = MediaC;
 
 export default function CardMedia({ data }) {
   const {
@@ -19,11 +16,8 @@ export default function CardMedia({ data }) {
   } = data;
 
   const MountDetails = () => {
-    MediaType(media_type);
-
-    if (media_type === "movie") FilmDetails(data);
-    if (media_type === "tv") SerieDetails(data);
-    if (media_type === "person") PersonDetails(data);
+    mediaType(media_type);
+    mediaDetails(data, media_type);
   };
 
   return (

@@ -1,7 +1,7 @@
 {
   "name": "media-platform",
   "private": true,
-  "version": "0.1.51",
+  "version": "0.1.52",
   "homepage": "https://media-platform.vercel.app",
   "description": "This website allow you to see films, series and profile of people that work or worked in the cinema world, also allow save the favorites and see it in your profile (this part of profile is in construction for now)",
   "scripts": {
@@ -20,14 +20,14 @@
     "cy:e2e": "cypress open --browser electron --e2e"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "1.8.4",
     "@supabase/supabase-js": "2.1.0",
+    "@superstate/core": "0.1.0",
+    "@superstate/adapters": "0.1.2",
+    "@superstate/react": "0.1.0",
     "izitoast": "1.4.0",
     "react": "18.2.0",
     "react-cropper": "2.1.8",
     "react-dom": "18.2.0",
-    "react-redux": "8.0.2",
-    "redux": "4.2.0",
     "sass": "1.54.4",
     "vite-plugin-svgr": "2.2.1",
     "wouter": "2.9.0"
@@ -45,7 +45,6 @@
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-react-hooks": "4.3.0",
     "happy-dom": "6.0.4",
-    "redux-devtools": "3.7.0",
     "vite": "3.0.8",
     "vitest": "0.22.0"
   }

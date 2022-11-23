@@ -1,40 +1,41 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { PreResetPasswordUser, UpdateUser } from "~/services/UserServices";
+import UserC from "~/superstate/User";
 import styles from "~/utils/styles/reset-password.module.scss";
+
+const { SESSION } = UserC.state.now();
+const { preResetPasswordUser, updateUser } = UserC;
 
 export default function ResetPassword() {
   const [showPass, setShowPass] = useState(false);
   const [, navigate] = useLocation();
-  const [values, setValues] = useState({ navigateTo: () => navigate("/") });
-  const IS_LOGGED = useSelector((e) => e.user.session);
+  const [values, setValues] = useState({ navigate });
 
   const HandleOnSubmit = (e) => {
     e.preventDefault();
 
-    if (IS_LOGGED) {
-      UpdateUser(values);
+    if (SESSION) {
+      updateUser(values);
     }
 
-    if (!IS_LOGGED) {
-      PreResetPasswordUser(values);
+    if (!SESSION) {
+      preResetPasswordUser(values);
     }
   };
 
   return (
     <main className={styles.reset_password}>
-      {IS_LOGGED ? null : <GoBackButton className={styles.go_back_button} />}
+      {SESSION ? null : <GoBackButton className={styles.go_back_button} />}
 
       <form
         onSubmit={(e) => HandleOnSubmit(e)}
         onChange={(e) => setValues({ ...values, [e.target.name]: e.target.value })}
-        className={IS_LOGGED ? styles.form : null}
+        className={SESSION ? styles.form : null}
       >
-        {IS_LOGGED
+        {SESSION
           ? (
             <label htmlFor="password" className={styles.new_password}>
               <span>Nueva contraseña</span>

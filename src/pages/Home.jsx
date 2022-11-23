@@ -1,26 +1,27 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import HandleLoading from "~/components/HandleLoading";
 import Header from "~/components/Header";
 import Media from "~/components/Media";
 import MediaPagination from "~/components/MediaPagination";
-import { ReadResources } from "~/services/MediaServices";
-import { NewPage, SearchText } from "~/services/ToolServices";
+import MediaC from "~/superstate/Media";
+import ToolC from "~/superstate/Tool";
 import styles from "~/utils/styles/home.module.scss";
 
+const { newPage, searchText } = ToolC;
+const { readMedia } = MediaC;
+
 export default function Home() {
-  const { SEARCH_TEXT } = useSelector((e) => e.tool);
   const [timer, setTimer] = useState(null);
+  const { SEARCH_TEXT } = ToolC.state.now();
 
   const Aux = (text) => {
     const AUX_TEXT = text;
 
-    if (AUX_TEXT !== SEARCH_TEXT) NewPage();
-    SearchText(AUX_TEXT);
+    if (AUX_TEXT !== SEARCH_TEXT) newPage();
+    searchText(AUX_TEXT);
 
     clearTimeout(timer);
     const newTimer = setTimeout(() => {
-      ReadResources();
+      readMedia();
     }, 500);
 
     setTimer(newTimer);
@@ -45,7 +46,7 @@ export default function Home() {
           className={styles.search_input}
         />
       </Header>
-      <HandleLoading Component={Media} />
+      <Media />
       <MediaPagination />
     </>
   );

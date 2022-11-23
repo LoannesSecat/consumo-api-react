@@ -1,12 +1,12 @@
+import { useSuperState } from "@superstate/react";
 import "cropperjs/dist/cropper.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Cropper from "react-cropper";
-import { useSelector } from "react-redux";
 import { useLocation } from "wouter";
 import userSVG from "~/assets/icons/user.svg";
 import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { DeleteAccountUser, DeleteAvatar, UpdateUser, UploadAvatar } from "~/services/UserServices";
+import UserC from "~/superstate/User";
 import $ from "~/utils/QuerySelector";
 import styles from "~/utils/styles/user-settings.module.scss";
 
@@ -15,16 +15,22 @@ const NEW_DATA_STATE = {
     file: null,
     preview: null,
   },
-  avatarInputDOM: null,
-  popupDOM: null,
-  mainDOM: null,
   nickname: null,
   email: null,
   password: null,
 };
 
+const {
+  deleteAvatar,
+  deleteAccountUser,
+  updateUser,
+  uploadAvatar,
+  state,
+} = UserC;
+
 export default function UserSettings() {
-  const { USER_DATA } = useSelector((e) => e.user);
+  useSuperState(UserC.state);
+  const { USER } = state.now();
   const [newData, setNewData] = useState(NEW_DATA_STATE);
   const [cropper, setCropper] = useState();
   const CLEAR_AVATAR = { ...newData, avatar: NEW_DATA_STATE.avatar };
@@ -33,18 +39,9 @@ export default function UserSettings() {
   const CLEAR_EMAIL = { ...newData, email: NEW_DATA_STATE.email };
   const [, navigate] = useLocation();
 
-  useEffect(() => {
-    setNewData({
-      ...newData,
-      avatarInputDOM: $(`.${styles.avatar_file_input}`),
-      popupDOM: $(`.${styles.preview_popup}`),
-      mainDOM: $(`.${styles.user_settings}`),
-    });
-  }, []);
-
   const HandlePopUp = () => {
-    newData.popupDOM.classList.toggle(styles.active);
-    newData.mainDOM.classList.toggle(styles.popup_active);
+    $(`.${styles.preview_popup}`).classList.toggle(styles.active);
+    $(`.${styles.user_settings}`).classList.toggle(styles.popup_active);
   };
 
   const HandleAvatarFile = (evt) => {
@@ -81,7 +78,7 @@ export default function UserSettings() {
               <div className={styles.avatar_group}>
                 <img
                   className={styles.avatar_image}
-                  src={USER_DATA?.avatar}
+                  src={USER?.avatar}
                   alt="Foto de perfil"
                   onError={(evt) => {
                     const { target } = evt;
@@ -89,22 +86,24 @@ export default function UserSettings() {
                   }}
                 />
 
-                {!USER_DATA?.srcSet
-                  ? (
-                    <button
-                      className={styles.button_delete_avatar}
-                      title="Eliminar foto"
-                      onClick={() => DeleteAvatar({ deleteType: "alert" })}
-                    >
-                      <XMark />
-                    </button>
-                  )
-                  : null}
+                {
+                  USER?.avatar
+                    ? (
+                      <button
+                        className={styles.button_delete_avatar}
+                        title="Eliminar foto"
+                        onClick={deleteAvatar}
+                      >
+                        <XMark />
+                      </button>
+                    )
+                    : null
+                }
               </div>
 
               <button
                 onClick={() => {
-                  newData.avatarInputDOM.click();
+                  $(`.${styles.avatar_file_input}`).click();
                 }}
                 className={styles.save_change_button}
               >
@@ -117,7 +116,7 @@ export default function UserSettings() {
             <small className={styles.subtitle}>Nombre de usuario</small>
 
             <div className={styles.content}>
-              <span>{USER_DATA.nickname}</span>
+              <span>{USER?.nickname}</span>
               <input
                 type="text"
                 onChange={(evt) => setNewData({ ...newData, nickname: evt.target.value.trim() })}
@@ -130,7 +129,7 @@ export default function UserSettings() {
             <small className={styles.subtitle}>Correo</small>
 
             <div className={styles.content}>
-              <span>{USER_DATA.email}</span>
+              <span>{USER?.email}</span>
               <input
                 type="email"
                 onChange={(evt) => setNewData({ ...newData, email: evt.target.value.trim() })}
@@ -154,7 +153,7 @@ export default function UserSettings() {
 
           <button
             className={styles.delete_account_button}
-            onClick={() => { DeleteAccountUser({ navigateTo: navigate }); }}
+            onClick={() => { deleteAccountUser({ navigate }); }}
           >
             Eliminar cuenta
           </button>
@@ -167,7 +166,7 @@ export default function UserSettings() {
             ? (
               <button
                 onClick={async () => {
-                  const res = await UpdateUser({
+                  const res = await updateUser({
                     nickname: newData.nickname,
                     email: newData.email,
                     password: newData.password,
@@ -249,7 +248,7 @@ export default function UserSettings() {
                   type: newData.avatar.file.type,
                 });
 
-                UploadAvatar({ file: FILE });
+                uploadAvatar({ file: FILE });
                 HandlePopUp();
               }}
             >

@@ -1,14 +1,18 @@
+import { useSuperState } from "@superstate/react";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useLocation } from "wouter";
 import { ReactComponent as ChevronUp } from "~/assets/icons/chevron-up.svg";
 import { ReactComponent as Cog8Tooth } from "~/assets/icons/cog-8-tooth.svg";
 import userSVG from "~/assets/icons/user.svg";
-import { SignOutUser } from "~/services/UserServices";
+import UserC from "~/superstate/User";
 import styles from "~/utils/styles/user-options.module.scss";
 
+const { signOutUser } = UserC;
+
 export default function UserOpcions() {
-  const { USER_DATA, SESSION } = useSelector((e) => e.user);
+  useSuperState(UserC.state);
+
+  const { USER, SESSION } = UserC.state.now();
   const [location, navigate] = useLocation();
   const [classDropdown, setClassDropdown] = useState(styles.dropdown);
 
@@ -41,15 +45,15 @@ export default function UserOpcions() {
           <>
             <article className={styles.user_info}>
               <img
-                src={USER_DATA?.avatar}
-                alt="Foto de perfil"
+                src={USER?.avatar}
+                alt="Foto"
                 onError={(evt) => {
                   const { target } = evt;
                   target.src = userSVG;
                 }}
               />
 
-              <span>{USER_DATA?.nickname}</span>
+              <span>{USER?.nickname}</span>
             </article>
 
             <article className={styles.dropdown_options}>
@@ -60,7 +64,7 @@ export default function UserOpcions() {
                 {location.includes("favorites")
                   ? null
                   : <a href="/" onClick={(e) => { e.preventDefault(); navigate("favorites"); }}>Favoritos</a>}
-                <a href="/" onClick={(e) => { e.preventDefault(); SignOutUser(); }}>Cerrar sesión</a>
+                <a href="/" onClick={(e) => { e.preventDefault(); signOutUser(); }}>Cerrar sesión</a>
               </div>
             </article>
           </>

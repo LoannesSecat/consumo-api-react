@@ -1,32 +1,36 @@
-import { lazy } from "react";
-import { useSelector } from "react-redux";
-import HandleLoading from "~/components/HandleLoading";
+import { useSuperState } from "@superstate/react";
+import FilmDetails from "~/components/FilmDetails";
+import PersonDetails from "~/components/PersonDetails";
+import SerieDetails from "~/components/SerieDetails";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import SaveFavoriteButton from "~/components/subcomponents/SaveFavoriteButton";
+import MediaC from "~/superstate/Media";
 import styles from "~/utils/styles/media-details.module.scss";
 import Header from "../components/Header";
 
-const FilmDetails = lazy(() => import("~/components/FilmDetails"));
-const PersonDetails = lazy(() => import("~/components/PersonDetails"));
-const SerieDetails = lazy(() => import("~/components/SerieDetails"));
-
 export default function MediaDetails() {
+  scrollTo(0, 0);
+  useSuperState(MediaC.state);
+
   const {
-    FILM_DETAILS, PERSON_DETAILS, SERIE_DETAILS, TYPE_MEDIA,
-  } = useSelector((e) => e.media);
+    FILM_DETAILS,
+    PERSON_DETAILS,
+    SERIE_DETAILS,
+    MEDIA_TYPE,
+  } = MediaC.state.now();
 
   const CASES = {
     tv: {
+      render: <SerieDetails data={SERIE_DETAILS} />,
       data: SERIE_DETAILS,
-      toRender: SerieDetails,
     },
     movie: {
+      render: <FilmDetails data={FILM_DETAILS} />,
       data: FILM_DETAILS,
-      toRender: FilmDetails,
     },
     person: {
+      render: <PersonDetails data={PERSON_DETAILS} />,
       data: PERSON_DETAILS,
-      toRender: PersonDetails,
     },
   };
 
@@ -38,14 +42,11 @@ export default function MediaDetails() {
 
       <section className={styles.media_details}>
         <SaveFavoriteButton
-          mediaData={CASES[TYPE_MEDIA].data}
+          mediaData={CASES[MEDIA_TYPE].data}
           className={styles.save_favorite_button}
         />
 
-        <HandleLoading
-          data={CASES[TYPE_MEDIA].data}
-          Component={CASES[TYPE_MEDIA].toRender}
-        />
+        {CASES[MEDIA_TYPE].render}
       </section>
     </>
   );

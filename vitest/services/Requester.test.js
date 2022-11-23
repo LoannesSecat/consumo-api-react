@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import MediaActions from "~/redux/actions/MediaActions.json";
-import Requester from "~/services/Requester";
+import Requester from "~/services/MyFetch";
 import Parameters from "~/utils/Parameters";
 
 const { TMDb } = Parameters;
