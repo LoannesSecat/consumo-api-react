@@ -24,7 +24,11 @@ export default function CardMedia({ data }) {
     <article className={styles.card_media}>
       <SaveFavoriteButton mediaData={data} />
 
-      <Link href="media-details" onMouseDown={() => MountDetails()} onTouchStart={() => MountDetails()}>
+      <Link
+        href="media-details"
+        onMouseDown={() => MountDetails()}
+        onTouchStart={() => MountDetails()}
+      >
         <HandleImage
           url={poster_path ?? profile_path}
           size="w400"
@@ -32,7 +36,7 @@ export default function CardMedia({ data }) {
             style: styles.poster_img,
             not_found: styles.img_not_found,
           }}
-          loading="lazy"
+          alt={`Poster de ${title ?? name}`}
         />
 
         <footer className={styles.info}>

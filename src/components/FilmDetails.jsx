@@ -42,6 +42,7 @@ export default function FilmDetails({ data } = {}) {
           url={backdrop_path}
           size="w1280"
           className={{ style: styles.film_img, not_found: styles.img_not_found }}
+          alt={`Fondo de la película: ${title}`}
         />
 
         <div className={styles.titles}>

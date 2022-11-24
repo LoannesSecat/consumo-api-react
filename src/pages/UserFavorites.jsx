@@ -95,7 +95,7 @@ export default function UserFavorites() {
                                   style: styles.img_person,
                                   not_found: styles.img_not_found,
                                 }}
-                                loading="lazy"
+                                alt={`Imagen de: ${title}`}
                               />
 
                               <h3 className={styles.name}>{title}</h3>
@@ -120,8 +120,8 @@ export default function UserFavorites() {
                                   not_found: styles.img_not_found,
                                 }}
                                 url={backdrop_path}
-                                loading="lazy"
                                 size="w780"
+                                alt={`Imagen de ${title}`}
                               />
 
                               <div>

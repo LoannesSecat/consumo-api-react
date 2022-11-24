@@ -45,7 +45,6 @@
     position: relative;
 
     >img {
-      width: 100%;
       max-height: 500px;
     }
 
@@ -70,11 +69,13 @@
     }
 
     .titles {
+      @extend %lateral-paddings;
+      @extend %organized-title;
+
       color: Palette.$Ghost_White;
       -webkit-text-stroke: 0.5px Palette.$Royal_Blue_Dark;
       position: absolute;
       bottom: 0;
-      @extend %lateral-paddings;
       padding-bottom: 20px;
 
       >h2,

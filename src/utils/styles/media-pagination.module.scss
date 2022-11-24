@@ -25,9 +25,9 @@
   .next_button {
     @extend %button-ghost-white;
     @extend %button-effect-tufts-blue;
+
     padding: 5px 16px;
     font-size: 0.9rem;
-    flex-grow: auto;
   }
 
   .aux_previous,

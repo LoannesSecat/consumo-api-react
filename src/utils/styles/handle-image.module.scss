@@ -1,0 +1,27 @@
+@use "./General.scss";
+@use "./Palette.scss";
+
+.img,
+.poster_loading,
+.backdrop_loading {
+  @extend %organized-title;
+
+  color: Palette.$Black_Chocolate;
+  text-align: center;
+  background-color: #e2e2e2;
+}
+
+.poster_loading {
+  min-height: 600px;
+  min-width: 400px;
+}
+
+.backdrop_loading {
+  min-height: 500px;
+  min-width: 100%;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+}

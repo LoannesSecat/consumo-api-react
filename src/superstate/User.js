@@ -351,7 +351,4 @@ const UserC = {
   },
 };
 
-UserC.state.subscribe(() => console.log(UserC.state.now()))
-
-
 export default UserC;

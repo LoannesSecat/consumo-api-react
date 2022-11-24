@@ -1,7 +1,7 @@
 {
   "name": "media-platform",
   "private": true,
-  "version": "0.1.52",
+  "version": "0.1.53",
   "homepage": "https://media-platform.vercel.app",
   "description": "This website allow you to see films, series and profile of people that work or worked in the cinema world, also allow save the favorites and see it in your profile (this part of profile is in construction for now)",
   "scripts": {
@@ -21,8 +21,8 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "2.1.0",
-    "@superstate/core": "0.1.0",
     "@superstate/adapters": "0.1.2",
+    "@superstate/core": "0.1.0",
     "@superstate/react": "0.1.0",
     "izitoast": "1.4.0",
     "react": "18.2.0",

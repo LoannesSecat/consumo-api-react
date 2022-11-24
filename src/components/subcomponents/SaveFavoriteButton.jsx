@@ -77,6 +77,7 @@ export default function SaveFavoriteButton({ mediaData, className }) {
         }
       }}
       title={like ? "Eliminar de favoritos" : "Agregar a favoritos"}
+      type="button"
     >
       {like ? <BookmarkSlash /> : <Bookmark />}
     </button>

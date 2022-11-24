@@ -37,7 +37,4 @@ const ToolC = {
   },
 };
 
-ToolC.state.subscribe(() => console.log(ToolC.state.now()))
-
-
 export default ToolC;

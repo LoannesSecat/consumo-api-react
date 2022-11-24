@@ -50,8 +50,8 @@
 
 %button-effect-tufts-blue {
 
-  &:hover,
-  &:active {
+  &:active,
+  &:hover {
     color: Palette.$Ghost_White;
     background-color: Palette.$Tufts_Blue;
     outline: 0.1px solid Palette.$Tufts_Blue;
@@ -100,7 +100,16 @@
 
 %input-effect-cerise {
 
-  &:focus {
+  &:hover,
+  &:active {
     border-bottom: 1px solid Palette.$Cerise;
+  }
+}
+
+%organized-title {
+  text-transform: lowercase;
+
+  &::first-letter {
+    text-transform: uppercase;
   }
 }

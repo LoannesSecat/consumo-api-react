@@ -78,11 +78,11 @@ export default function SerieDetails({ data } = {}) {
         <HandleImage
           url={backdrop_path}
           size="w1280"
-          toShow="backdrop"
           className={{
             style: styles.serie_img,
             not_found: styles.img_not_found,
           }}
+          alt={`Fondo de la serie: ${name}`}
         />
 
         <div className={styles.titles}>

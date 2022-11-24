@@ -24,8 +24,11 @@ const MediaC = {
   })
     .use([ls("MP_MEDIA")])
     .extend({
-      changeStatus({ set, now }, status) {
-        set({ ...now(), ...status });
+      changeStates({ set }, params) {
+        set((prev) => ({
+          ...prev,
+          ...params,
+        }));
       },
     }),
 
@@ -46,6 +49,8 @@ const MediaC = {
         MediaC.state.set((prev) => ({
           ...prev, RESOURCES: data?.results,
         }));
+
+        MediaC.state.changeStates({ SUCCESS: true, LOADING: false });
       });
   },
 
@@ -68,8 +73,5 @@ const MediaC = {
     MediaC.state.set((prev) => ({ ...prev, MEDIA_TYPE: mediaType }));
   },
 };
-
-MediaC.state.subscribe(() => console.log(MediaC.state.now()))
-
 
 export default MediaC;

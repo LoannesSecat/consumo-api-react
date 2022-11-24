@@ -26,8 +26,8 @@ export default function PersonDetails({ data } = {}) {
         <HandleImage
           url={profile_path}
           size="h632"
-          toShow="profile"
           className={{ style: styles.person_img, not_found: styles.img_not_found }}
+          alt={`Imagen de ${name}`}
         />
 
         <div className={styles.titles}>
