@@ -1,10 +1,10 @@
-export default function Homepage({ param }) {
+export default function Homepage({ param, className }) {
   if (param) {
     return (
       <dl>
-        <dt className="subtitle">Sitio web</dt>
+        <dt className={className.sTitle}>Sitio web</dt>
         <a
-          className="subtext homepage"
+          className={`${className.sText} ${className.h}`}
           href={param}
           target="_blank"
           rel="noreferrer noopener"

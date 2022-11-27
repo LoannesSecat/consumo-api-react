@@ -1,15 +1,16 @@
 @use "./Palette.scss";
 @use "./General.scss";
 
-.page-not-found {
+.page_not_found {
   display: grid;
   height: 100vh;
   justify-items: center;
 
-  div {
+  >div {
     font-size: 1.3rem;
     text-align: center;
     word-break: break-word;
+    align-self: flex-end;
     align-self: flex-end;
 
     h2.border {
@@ -24,35 +25,38 @@
     }
   }
 
-  button {
-    background-color: Palette.$Cerise;
-    color: Palette.$Ghost_White;
-    border: Palette.$Ghost_White 1px solid;
-    border-radius: 5px;
+  >button {
+    @extend %button-ghost-white;
+    @extend %button-effect-cerise;
+
     padding: 5px 15px;
     align-self: flex-start;
     margin-top: 50px;
-    @extend %transition-speed;
+    background-color: Palette.$Cerise;
+    color: Palette.$Ghost_White;
+    outline-color: Palette.$Cerise;
 
-    &:active,
-    &:hover {
+    &:hover,
+    &:active {
       background-color: Palette.$Ghost_White;
       color: Palette.$Cerise;
-      border-color: Palette.$Cerise;
     }
   }
 }
 
 @keyframes wave {
 
+
   0%,
   100% {
     clip-path: circle(50% at 0 100%);
   }
 
+
   20% {
     clip-path: circle(35% at 50% 40%);
   }
+
 
   50% {
     clip-path: circle(20% at 100% 100%);

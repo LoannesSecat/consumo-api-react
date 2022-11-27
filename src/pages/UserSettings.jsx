@@ -1,50 +1,47 @@
+import { useSuperState } from "@superstate/react";
 import "cropperjs/dist/cropper.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Cropper from "react-cropper";
-import { useSelector } from "react-redux";
+import { useLocation } from "wouter";
 import userSVG from "~/assets/icons/user.svg";
 import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import {
-  DeleteAvatar, UpdateUser, UploadAvatar,
-} from "~/services/UserServices";
+import UserC from "~/superstate/User";
 import $ from "~/utils/QuerySelector";
-import "~/utils/styles/UserSettings.scss";
+import styles from "~/utils/styles/user-settings.module.scss";
 
 const NEW_DATA_STATE = {
   avatar: {
     file: null,
     preview: null,
   },
-  avatarInputDOM: null,
-  popupDOM: null,
-  mainDOM: null,
   nickname: null,
   email: null,
   password: null,
 };
 
+const {
+  deleteAvatar,
+  deleteAccountUser,
+  updateUser,
+  uploadAvatar,
+  state,
+} = UserC;
+
 export default function UserSettings() {
-  const { USER_DATA } = useSelector((e) => e.user);
+  useSuperState(UserC.state);
+  const { USER } = state.now();
   const [newData, setNewData] = useState(NEW_DATA_STATE);
   const [cropper, setCropper] = useState();
   const CLEAR_AVATAR = { ...newData, avatar: NEW_DATA_STATE.avatar };
   const CLEAR_NICK = { ...newData, nickname: NEW_DATA_STATE.nickname };
   const CLEAR_PASS = { ...newData, password: NEW_DATA_STATE.password };
   const CLEAR_EMAIL = { ...newData, email: NEW_DATA_STATE.email };
-
-  useEffect(() => {
-    setNewData({
-      ...newData,
-      avatarInputDOM: $(".avatar-file-input"),
-      popupDOM: $(".preview-popup"),
-      mainDOM: $(".user-settings"),
-    });
-  }, []);
+  const [, navigate] = useLocation();
 
   const HandlePopUp = () => {
-    newData.popupDOM.classList.toggle("active");
-    newData.mainDOM.classList.toggle("popup-active");
+    $(`.${styles.preview_popup}`).classList.toggle(styles.active);
+    $(`.${styles.user_settings}`).classList.toggle(styles.popup_active);
   };
 
   const HandleAvatarFile = (evt) => {
@@ -52,142 +49,157 @@ export default function UserSettings() {
     const INPUT_FILE = evt.target.files[0];
 
     reader.readAsDataURL(INPUT_FILE);
-    reader.onload = () => {
-      setNewData({
-        ...newData,
-        avatar: {
-          ...newData.avatar,
-          file: INPUT_FILE,
-          preview: reader.result,
-        },
-      });
-    };
+    if (INPUT_FILE) {
+      reader.onload = () => {
+        setNewData({
+          ...newData,
+          avatar: {
+            ...newData.avatar,
+            file: INPUT_FILE,
+            preview: reader.result,
+          },
+        });
+      };
 
-    HandlePopUp();
+      HandlePopUp();
+    }
   };
 
   return (
     <>
-      <main className="user-settings">
-        <GoBackButton />
+      <main className={styles.user_settings}>
+        <GoBackButton className={styles.go_back_button} />
 
-        <article className="avatar">
-          <small className="subtitle">Foto</small>
+        <section className={styles.form_options}>
+          <article className={styles.avatar}>
+            <small className={styles.subtitle}>Foto</small>
 
-          <div className="content">
-            <div className="avatar-group">
-              <img
-                className="avatar-image"
-                src={USER_DATA?.avatar}
-                alt="Foto de perfil"
-                onError={(evt) => {
-                  const { target } = evt;
-                  target.src = userSVG;
+            <div className={styles.content}>
+              <div className={styles.avatar_group}>
+                <img
+                  className={styles.avatar_image}
+                  src={USER?.avatar}
+                  alt="Foto de perfil"
+                  onError={(evt) => {
+                    const { target } = evt;
+                    target.src = userSVG;
+                  }}
+                />
+
+                {
+                  USER?.avatar
+                    ? (
+                      <button
+                        className={styles.button_delete_avatar}
+                        title="Eliminar foto"
+                        onClick={deleteAvatar}
+                        type="button"
+                      >
+                        <XMark />
+                      </button>
+                    )
+                    : null
+                }
+              </div>
+
+              <button
+                onClick={() => {
+                  $(`.${styles.avatar_file_input}`).click();
                 }}
-              />
-
-              {!USER_DATA?.srcSet
-                ? (
-                  <button
-                    className="button-delete-avatar"
-                    title="Eliminar foto"
-                    onClick={() => DeleteAvatar({ deleteType: "alert" })}
-                  >
-                    <XMark />
-                  </button>
-                )
-                : null}
+                className={styles.save_change_button}
+                type="button"
+              >
+                Cambiar foto
+              </button>
             </div>
+          </article>
 
-            <button
-              onClick={() => {
-                newData.avatarInputDOM.click();
-              }}
-              className="save-change-button"
-            >
-              Cambiar foto
-            </button>
-          </div>
-        </article>
+          <article className={styles.nickname}>
+            <small className={styles.subtitle}>Nombre de usuario</small>
 
-        <article className="nickname">
-          <small className="subtitle">Nombre de usuario</small>
+            <div className={styles.content}>
+              <span>{USER?.nickname}</span>
+              <input
+                type="text"
+                onChange={(evt) => setNewData({ ...newData, nickname: evt.target.value.trim() })}
+                value={newData.nickname ? newData.nickname : ""}
+              />
+            </div>
+          </article>
 
-          <div className="content">
-            <span>{USER_DATA.nickname}</span>
-            <input
-              type="text"
-              onChange={(evt) => setNewData({ ...newData, nickname: evt.target.value.trim() })}
-              value={newData.nickname ? newData.nickname : ""}
-            />
-          </div>
-        </article>
+          <article className={styles.email}>
+            <small className={styles.subtitle}>Correo</small>
 
-        <article className="email">
-          <small className="subtitle">Correo</small>
+            <div className={styles.content}>
+              <span>{USER?.email}</span>
+              <input
+                type="email"
+                onChange={(evt) => setNewData({ ...newData, email: evt.target.value.trim() })}
+                value={newData.email ? newData.email : ""}
+              />
+            </div>
+          </article>
 
-          <div className="content">
-            <span>{USER_DATA.email}</span>
-            <input
-              type="email"
-              onChange={(evt) => setNewData({ ...newData, email: evt.target.value.trim() })}
-              value={newData.email ? newData.email : ""}
-            />
-          </div>
-        </article>
+          <article className={styles.password}>
+            <small className={styles.subtitle}>Contraseña</small>
 
-        <article className="password">
-          <small className="subtitle">Contraseña</small>
+            <div className={styles.content}>
+              <span>Nueva contraseña</span>
+              <input
+                type="text"
+                onChange={(evt) => setNewData({ ...newData, password: evt.target.value.trim() })}
+                value={newData.password ? newData.password : ""}
+              />
+            </div>
+          </article>
 
-          <div className="content">
-            <span>Nueva contraseña</span>
-            <input
-              type="text"
-              onChange={(evt) => setNewData({ ...newData, password: evt.target.value.trim() })}
-              value={newData.password ? newData.password : ""}
-            />
-          </div>
-        </article>
+          <button
+            className={styles.delete_account_button}
+            onClick={() => { deleteAccountUser({ navigate }); }}
+          >
+            Eliminar cuenta
+          </button>
+        </section>
 
         {
-        newData.nickname
-        || newData.email
-        || newData.password
-          ? (
-            <button
-              onClick={async () => {
-                const res = await UpdateUser({
-                  nickname: newData.nickname,
-                  email: newData.email,
-                  password: newData.password,
-                });
+          newData.nickname
+            || newData.email
+            || newData.password
+            ? (
+              <button
+                onClick={async () => {
+                  const res = await updateUser({
+                    nickname: newData.nickname,
+                    email: newData.email,
+                    password: newData.password,
+                  });
 
-                if (res) {
-                  setNewData({ CLEAR_NICK, CLEAR_EMAIL, CLEAR_PASS });
-                }
-              }}
-              className="save-changes-button"
-            >
-              Guardar cambios
-            </button>
-          )
-          : null
-          }
+                  if (res) {
+                    setNewData({ CLEAR_NICK, CLEAR_EMAIL, CLEAR_PASS });
+                  }
+                }}
+                className={styles.save_changes_button}
+              >
+                Guardar cambios
+              </button>
+            )
+            : null
+        }
       </main>
 
       <input
         type="file"
         name="avatar"
         accept=".jpg, .jpeg, .png"
-        className="avatar-file-input"
+        className={styles.avatar_file_input}
         onChange={(evt) => {
           HandleAvatarFile(evt);
         }}
       />
 
-      <article className="preview-popup">
-        <div className="preview-popup-container">
-          <div className="preview-avatar-image">
+      <article className={styles.preview_popup}>
+        <div className={styles.preview_popup_container}>
+          <div className={styles.preview_avatar_image}>
             <Cropper
               src={newData?.avatar?.preview}
               initialAspectRatio={1}
@@ -209,7 +221,7 @@ export default function UserSettings() {
           </div>
           <small>Puedes acercar, alejar o mover la imagen</small>
 
-          <div className="preview-popup-buttons">
+          <div className={styles.preview_popup_buttons}>
             <button
               onClick={() => {
                 setNewData({
@@ -223,13 +235,13 @@ export default function UserSettings() {
                 HandlePopUp();
                 setNewData(CLEAR_AVATAR);
               }}
-              className="preview-delete-button"
+              className={styles.preview_delete_button}
             >
               Volver
             </button>
 
             <button
-              className="preview-save-button"
+              className={styles.preview_save_button}
               onClick={async () => {
                 const IMG_DATA = cropper.getCroppedCanvas().toDataURL();
                 const BASE64 = await fetch(IMG_DATA);
@@ -238,9 +250,10 @@ export default function UserSettings() {
                   type: newData.avatar.file.type,
                 });
 
-                UploadAvatar({ file: FILE });
+                uploadAvatar({ file: FILE });
                 HandlePopUp();
               }}
+              type="button"
             >
               Guardar
             </button>

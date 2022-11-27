@@ -1,7 +1,7 @@
 @use "./General.scss";
 @use "./Palette.scss";
 
-.user-registration {
+.user_log_in {
   @extend %lateral-paddings;
   height: 100vh;
   display: grid;
@@ -18,61 +18,56 @@
     }
   }
 
-  .registration-form {
+  .log_in_form {
+    @extend %transition-speed;
+
     width: 50%;
     justify-self: center;
     align-self: flex-start;
     display: grid;
-    @extend %transition-speed;
 
-    label {
-      span {
+    >label {
+      >span {
         font-weight: 500;
         font-size: 1.1rem;
       }
 
-      input {
+      >input,
+      div>input {
         @extend %input-bottom-line;
         @extend %input-effect-cerise;
 
-        padding: 5px 0px 1px;
         width: 100%;
+        padding: 3px 0px 3px;
       }
     }
 
-    label[for="email"],
-    label[for="password"] {
-      margin-top: 30px;
-    }
+    >label[for="password"] {
+      margin-top: 35px;
 
-    label[for="password"] {
-      div {
+      >div {
         display: flex;
-        align-items: center;
-        margin: 0;
-        padding: 0;
         justify-content: center;
         gap: 10px;
 
-        button {
+        >button {
           margin: 0;
           padding: 0;
-          color: Palette.$Black_Chocolate;
           background: transparent;
           border: none;
           opacity: 50%;
 
-          svg {
-            transition: 5s;
+          >svg {
             width: 40px;
             height: 30px;
             display: block;
+            color: Palette.$Black_Chocolate;
           }
         }
       }
     }
 
-    .submit-registration-button {
+    .submit_log_in_button {
       @extend %button-tufts-blue;
       @extend %button-effect-cerise;
       padding: 8px 10px;
@@ -85,12 +80,19 @@
       margin-top: 80px;
     }
 
-    @media only screen and (max-width: 600px) {
+    @media (max-width: 600px) {
       width: 100%;
 
-      .submit-registration-button {
+      .submit-log-in-button {
         width: 100%;
       }
     }
+  }
+
+  >a {
+    justify-self: center;
+    align-self: flex-start;
+    text-decoration: none;
+    color: Palette.$Royal_Blue_Dark;
   }
 }

@@ -1,26 +1,27 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import HandleLoading from "~/components/HandleLoading";
+import { useState } from "react";
 import Header from "~/components/Header";
 import Media from "~/components/Media";
-import { ReadResources } from "~/services/MediaServices";
-import { NewPage, SearchText } from "~/services/ToolServices";
-import $ from "~/utils/QuerySelector";
-import "~/utils/styles/Home.scss";
+import MediaPagination from "~/components/MediaPagination";
+import MediaC from "~/superstate/Media";
+import ToolC from "~/superstate/Tool";
+import styles from "~/utils/styles/home.module.scss";
+
+const { newPage, searchText } = ToolC;
+const { readMedia } = MediaC;
 
 export default function Home() {
-  const { SEARCH_TEXT } = useSelector((e) => e.tool);
   const [timer, setTimer] = useState(null);
+  const { SEARCH_TEXT } = ToolC.state.now();
 
   const Aux = (text) => {
     const AUX_TEXT = text;
 
-    if (AUX_TEXT !== SEARCH_TEXT) NewPage();
-    SearchText(AUX_TEXT);
+    if (AUX_TEXT !== SEARCH_TEXT) newPage();
+    searchText(AUX_TEXT);
 
     clearTimeout(timer);
     const newTimer = setTimeout(() => {
-      ReadResources();
+      readMedia();
     }, 500);
 
     setTimer(newTimer);
@@ -34,23 +35,19 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    $(".search-input").focus();
-  }, []);
-
   return (
     <>
-      <Header>
+      <Header className={styles.header}>
         <input
           type="search"
           onChange={(e) => { HandleSearch(e.target.value); }}
           value={SEARCH_TEXT}
           placeholder="Ej: Los guardianes de la galaxia"
-          className="search-input"
+          className={styles.search_input}
         />
       </Header>
-
-      <HandleLoading Component={Media} />
+      <Media />
+      <MediaPagination />
     </>
   );
 }

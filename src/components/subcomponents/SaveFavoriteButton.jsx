@@ -1,14 +1,17 @@
+import { useSuperState } from "@superstate/react";
+import iziToast from "izitoast";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { ReactComponent as BookmarkSlash } from "~/assets/icons/bookmark-slash.svg";
 import { ReactComponent as Bookmark } from "~/assets/icons/bookmark.svg";
-import { ManipulateFavorites } from "~/services/UserServices";
-import MyToast from "~/utils/MyToast";
-import "~/utils/styles/SaveFavoriteButton.scss";
+import UserC from "~/superstate/User";
+import styles from "~/utils/styles/save-favorite-button.module.scss";
 
-export default function SaveFavoriteButton({ mediaData }) {
+const { manipulateFavorites, state } = UserC;
+
+export default function SaveFavoriteButton({ mediaData, className }) {
+  useSuperState(UserC.state);
+  const { SESSION, FAVORITES } = state.now();
   const [like, setLike] = useState(false);
-  const { SESSION, FAVORITES } = useSelector((state) => state.user);
   const {
     id,
     media_type,
@@ -24,28 +27,31 @@ export default function SaveFavoriteButton({ mediaData }) {
     profile_path,
   } = mediaData;
 
-  const IS_IN_FAVORITES = Object.values(FAVORITES)?.some((elm) => elm.id === id);
-  const SAVED_FAV = Object.values(FAVORITES).find((elm) => id === elm.id);
+  const SAVED_FAV = Object.values(FAVORITES)?.find((elm) => id === elm?.id);
 
   useEffect(() => {
-    if (IS_IN_FAVORITES) {
+    const IS_IN_FAVORITES = Object.values(FAVORITES)?.some((elm) => elm?.id === id);
+
+    if (IS_IN_FAVORITES && SESSION) {
       setLike(true);
+    } else {
+      setLike(false);
     }
   }, [FAVORITES]);
 
   return (
     <button
-      className="save-favorite-button"
+      className={`${styles.save_favorite_button} ${className ?? ""}`.trim()}
       onClick={() => {
         if (SESSION) {
           if (like) {
-            ManipulateFavorites({ type: "delete", data: SAVED_FAV });
+            manipulateFavorites({ type: "delete", mediaData: SAVED_FAV });
           }
 
           if (!like) {
-            ManipulateFavorites({
+            manipulateFavorites({
               type: "create",
-              data: {
+              mediaData: {
                 id,
                 media_type,
                 title: title ?? name,
@@ -65,12 +71,13 @@ export default function SaveFavoriteButton({ mediaData }) {
         }
 
         if (!SESSION) {
-          MyToast.info({
+          iziToast.info({
             message: `Debes iniciar sesión para agregar <b>${title ?? name}</b> a favoritos`,
           });
         }
       }}
       title={like ? "Eliminar de favoritos" : "Agregar a favoritos"}
+      type="button"
     >
       {like ? <BookmarkSlash /> : <Bookmark />}
     </button>

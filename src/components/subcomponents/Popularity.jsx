@@ -1,9 +1,9 @@
-export default function Popularity({ param }) {
+export default function Popularity({ param, className }) {
   if (param) {
     return (
       <dl>
-        <dt className="subtitle">Popularidad</dt>
-        <dd className="subtext">{param}</dd>
+        <dt className={className.sTitle}>Popularidad</dt>
+        <dd className={className.sText}>{param}</dd>
       </dl>
     );
   }

@@ -1,0 +1,216 @@
+@use "./General.scss";
+@use "./Palette.scss";
+
+.user_settings {
+  @extend %lateral-paddings;
+
+  display: grid;
+  filter: blur(0);
+  transition: .1s ease all;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  grid-auto-rows: min-content;
+  gap: 32px;
+
+  .go_back_button {
+    @extend %button-effect-tufts-blue;
+    @extend %button-ghost-white;
+
+    align-self: start;
+    justify-self: start;
+  }
+
+  .form_options {
+    display: grid;
+    grid-auto-rows: min-content;
+    gap: 24px;
+
+    .subtitle {
+      position: relative;
+      font-weight: bold;
+      color: Palette.$Royal_Blue_Dark;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: Palette.$Royal_Blue_Dark;
+        top: 100%;
+        left: 0;
+        padding-right: 15px;
+        border-radius: 5px;
+      }
+    }
+
+    .avatar,
+    .nickname,
+    .email,
+    .password {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+
+      .content {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+
+        span {
+          background-color: rgb(226, 226, 226);
+          color: grey;
+          border: 0.2px solid grey;
+          padding: 2px 10px;
+          border-radius: 6px;
+        }
+
+        input {
+          @extend %input-bottom-line;
+          @extend %input-effect-cerise;
+
+          padding-left: 0;
+        }
+      }
+    }
+
+    .avatar {
+      .content {
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        .avatar_group {
+          display: flex;
+
+          .avatar_image {
+            border-radius: 5px;
+            background-color: rgb(226, 226, 226);
+            height: 150px;
+            width: 150px;
+            border: 0.3px solid black;
+          }
+
+          .button_delete_avatar {
+            border: none;
+            outline: transparent;
+            border-radius: 5px;
+            background-color: red;
+            padding: 0;
+            transition: .3s all ease;
+            position: absolute;
+
+            >svg {
+              height: 20px;
+              width: 20px;
+              display: block;
+              color: Palette.$Ghost_White;
+              margin: 3.5px;
+            }
+
+            &:hover,
+            &:active {
+              >svg {
+                color: red;
+              }
+
+              background-color: Palette.$Ghost_White;
+              outline: red 0.1px solid;
+            }
+          }
+        }
+      }
+    }
+
+    .save_change_button {
+      @extend %button-tufts-blue;
+      margin-top: 15px;
+      justify-self: center;
+    }
+
+    .delete_account_button {
+      @extend %button-ghost-white;
+      @extend %button-effect-cerise;
+
+      justify-self: start;
+      color: red;
+      outline-color: red;
+
+      &:hover {
+        background-color: red;
+        outline-color: red
+      }
+
+      &:active {
+        background-color: Palette.$Ghost_White
+      }
+    }
+  }
+
+  .save_changes_button {
+    @extend %button-ghost-white;
+    @extend %button-effect-cerise;
+
+    justify-self: end;
+    align-self: end;
+  }
+}
+
+.avatar_file_input {
+  display: none;
+}
+
+.preview_popup {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+
+  .preview_popup_container {
+    padding: 30px;
+    background-color: Palette.$Ghost_White;
+    border-radius: 5px;
+    border: #e2e2e2 solid 0.3px;
+    display: grid;
+    place-items: center;
+
+    .preview_avatar_image {
+      background-color: grey;
+
+      >div {
+        width: 250px;
+        height: 250px;
+      }
+    }
+
+    .preview_popup_buttons {
+      margin-top: 15px;
+
+      .preview_delete_button,
+      .preview_save_button {
+        @extend %button-tufts-blue;
+      }
+
+      .preview_delete_button {
+        background-color: red;
+        margin-right: 30px;
+      }
+    }
+  }
+}
+
+.preview_popup.active {
+  visibility: visible;
+}
+
+.user_settings.popup_active {
+  filter: blur(20px);
+}

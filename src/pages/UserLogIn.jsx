@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { LogInUser } from "~/services/UserServices";
+import UserC from "~/superstate/User";
 import FormValidator from "~/utils/FormValidator";
-import "~/utils/styles/UserLogIn.scss";
+import styles from "~/utils/styles/user-login.module.scss";
+
+const { logInUser } = UserC;
 
 export default function UserLogIn() {
   const [showPass, setShowPass] = useState(false);
-  const navigate = useNavigate();
+  const [, navigate] = useLocation();
 
   const HandleShowPass = (e) => {
     e.preventDefault();
@@ -22,22 +24,22 @@ export default function UserLogIn() {
     const formValues = {
       email: e.target.email.value,
       password: e.target.pass.value,
-      navigateTo: () => navigate("/"),
+      navigate,
     };
 
     if (FormValidator(formValues)) {
-      LogInUser(formValues);
+      logInUser(formValues);
     }
   };
 
   return (
-    <main className="user-log-in">
+    <main className={styles.user_log_in}>
       <div>
         <GoBackButton />
-        <button className="go-to-registration" onClick={() => { navigate("registration"); }}>Registrarme</button>
+        <button className={styles.go_to_registration} onClick={() => { navigate("registration"); }} type="button">Registrarme</button>
       </div>
 
-      <form onSubmit={(e) => HandleOnSubmit(e)} className="log-in-form">
+      <form onSubmit={(e) => HandleOnSubmit(e)} className={styles.log_in_form}>
         <label htmlFor="email">
           <span>Correo</span>
           <br />
@@ -50,14 +52,14 @@ export default function UserLogIn() {
           <br />
           <div>
             <input type={showPass ? "text" : "password"} name="pass" autoComplete="true" />
-            <button onClick={(e) => HandleShowPass(e)}>{!showPass ? <Eye /> : <EyeSlash />}</button>
+            <button onClick={(e) => HandleShowPass(e)} type="button">{!showPass ? <Eye /> : <EyeSlash />}</button>
           </div>
         </label>
 
-        <button type="submit" className="submit-log-in-button">Iniciar sesión</button>
+        <button type="submit" className={styles.submit_log_in_button}>Iniciar sesión</button>
       </form>
 
-      <Link to="reset-password">Reiniciar contraseña</Link>
+      <Link href="reset-password">Reiniciar contraseña</Link>
     </main>
   );
 }

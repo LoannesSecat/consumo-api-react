@@ -1,14 +1,16 @@
 @use "./General.scss";
 @use "./Palette.scss";
 
-.user-favorites {
+.user_favorites {
   .header {
-    .input-search {
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+
+    .input_search {
       @extend %input-bottom-line;
       @extend %input-effect-cerise;
 
-      flex-grow: 1;
-      align-self: center;
+      flex-grow: 0.5;
 
       &::-webkit-search-cancel-button {
         -webkit-appearance: none;
@@ -20,9 +22,13 @@
         cursor: pointer;
       }
     }
+
+    @media (max-width: 480px) {
+      justify-content: center;
+    }
   }
 
-  .favorites-media {
+  .favorites_media {
     @extend %lateral-paddings;
 
     padding-top: 32px;
@@ -36,28 +42,25 @@
       border: 1px solid rgb(226, 226, 226);
       word-break: break-word;
       display: grid;
-      border-radius: 6px;
       padding: 12px;
       gap: 6px;
+      border-radius: 6px;
 
-      .save-favorite-button {
+      >img {
+        border-radius: 6px;
+        width: 100%;
+      }
+
+      .save_favorite_button {
         justify-self: end;
         align-self: start;
         margin: 0;
       }
 
-      .no-found {
+      .img_not_found {
         @extend %no-image-style;
         height: 400px;
         align-self: start;
-      }
-
-      .no-found,
-      .img-person,
-      .img-tv,
-      .img-movie {
-        border-radius: 6px;
-        width: 100%;
       }
 
       .name,
@@ -65,15 +68,15 @@
         margin: 0;
       }
 
-      .media-type {
+      .media_type {
         color: Palette.$Cerise;
         font-weight: 600;
       }
 
       .popularity,
-      .statistics .popularity,
-      .statistics .vote-average,
-      .statistics .vote-count {
+      .popularity,
+      .vote_average,
+      .vote_count {
         display: flex;
         align-items: center;
         gap: 6px;
@@ -81,7 +84,7 @@
         border-radius: 6px;
         padding: 3px 6px;
 
-        svg {
+        >svg {
           width: 20px;
           height: 20px;
         }
@@ -93,14 +96,14 @@
         gap: 6px;
         margin-top: 16px;
 
-        .vote-average {
-          svg {
+        .vote_average {
+          >svg {
             color: yellow;
           }
         }
 
-        .vote-count {
-          svg {
+        .vote_count {
+          >svg {
             color: red;
           }
         }
@@ -112,9 +115,9 @@
       justify-items: center;
       align-self: start;
 
-      .img-person {
+      .img_person {
         height: 400px;
-        object-fit: contain;
+        object-fit: cover;
         justify-self: center;
       }
 
@@ -133,11 +136,11 @@
       }
     }
 
-    @media all and (max-width: 1024px) {
+    @media (max-width: 1024px) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @media all and (max-width: 700px) {
+    @media (max-width: 700px) {
       grid-template-columns: none;
 
       .tv,

@@ -1,10 +1,11 @@
 import { MyDate } from "~/utils/Converter";
+import styles from "~/utils/styles/media-details.module.scss";
 import HandleImage from "./HandleImage";
 import Homepage from "./subcomponents/Homepage";
 import Paragraph from "./subcomponents/Paragraph";
 import Popularity from "./subcomponents/Popularity";
 
-export default function PersonDetails({ data } = {}) {
+export default function PersonDetails({ data } = {} = {}) {
   const {
     profile_path,
     name,
@@ -21,27 +22,27 @@ export default function PersonDetails({ data } = {}) {
 
   return (
     <>
-      <article className="banner">
+      <article className={styles.banner}>
         <HandleImage
           url={profile_path}
           size="h632"
-          toShow="profile"
-          className="person-img"
+          className={{ style: styles.person_img, not_found: styles.img_not_found }}
+          alt={`Imagen de ${name}`}
         />
 
-        <div className="titles">
+        <div className={styles.titles}>
           <h2>{name}</h2>
         </div>
       </article>
 
-      <article className="info">
+      <article className={styles.info}>
         <Paragraph param={biography} />
 
         {also_known_as?.length ? (
           <dl>
-            <dt className="subtitle">Conocido también cómo</dt>
+            <dt className={styles.subtitle}>Conocido también cómo</dt>
             {also_known_as.map((e, i) => (
-              <dd className="subtext" key={i}>
+              <dd className={styles.subtext} key={i}>
                 {e}
               </dd>
             ))}
@@ -50,44 +51,54 @@ export default function PersonDetails({ data } = {}) {
 
         {known_for_department ? (
           <dl>
-            <dt className="subtitle">Conocido por el campo de</dt>
-            <dd className="subtext">{known_for_department}</dd>
+            <dt className={styles.subtitle}>Conocido por el campo de</dt>
+            <dd className={styles.subtext}>{known_for_department}</dd>
           </dl>
         ) : null}
 
         {known_for?.length ? (
           <dl>
-            <dt className="subtitle">Conocid@ por</dt>
+            <dt className={styles.subtitle}>Conocid@ por</dt>
             {known_for.map((element) => (
-              <dd className="subtext" key={element.id}>
+              <dd className={styles.subtext} key={element.id}>
                 {element.name ?? element.title}
               </dd>
             ))}
           </dl>
         ) : null}
 
-        <Popularity param={popularity} />
+        <Popularity
+          param={popularity}
+          className={{ sTitle: styles.subtitle, sText: styles.subtext }}
+        />
 
         {place_of_birth ? (
           <dl>
-            <dt className="subtitle">Lugar de nacimiento</dt>
-            <dd className="subtext">{place_of_birth}</dd>
+            <dt className={styles.subtitle}>Lugar de nacimiento</dt>
+            <dd className={styles.subtext}>{place_of_birth}</dd>
           </dl>
         ) : null}
 
         <dl>
-          <dt className="subtitle">Fecha de nacimiento</dt>
-          <dd className="subtext">{MyDate(birthday)}</dd>
+          <dt className={styles.subtitle}>Fecha de nacimiento</dt>
+          <dd className={styles.subtext}>{MyDate(birthday)}</dd>
         </dl>
 
         {deathday ? (
           <dl>
-            <dt className="subtitle">Fecha de fallecimiento</dt>
-            <dd className="subtext">{deathday}</dd>
+            <dt className={styles.subtitle}>Fecha de fallecimiento</dt>
+            <dd className={styles.subtext}>{deathday}</dd>
           </dl>
         ) : null}
 
-        <Homepage param={homepage} />
+        <Homepage
+          param={homepage}
+          className={{
+            sTitle: styles.subtitle,
+            sText: styles.subtext,
+            h: styles.homepage,
+          }}
+        />
       </article>
     </>
   );

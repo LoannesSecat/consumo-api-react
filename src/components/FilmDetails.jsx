@@ -1,4 +1,5 @@
 import { Currency, MyDate } from "~/utils/Converter";
+import styles from "~/utils/styles/media-details.module.scss";
 import HandleImage from "./HandleImage";
 import Genres from "./subcomponents/Genres";
 import Homepage from "./subcomponents/Homepage";
@@ -11,7 +12,7 @@ import ProductionCountries from "./subcomponents/ProductionCountries";
 import SpokenLanguages from "./subcomponents/SpokenLanguages";
 import Status from "./subcomponents/Status";
 
-export default function FilmDetails({ data } = {}) {
+export default function FilmDetails({ data } = {} = {}) {
   const {
     backdrop_path,
     title,
@@ -36,54 +37,73 @@ export default function FilmDetails({ data } = {}) {
 
   return (
     <>
-      <article className="banner">
+      <article className={styles.banner}>
         <HandleImage
           url={backdrop_path}
           size="w1280"
-          className="film-img"
+          className={{ style: styles.film_img, not_found: styles.img_not_found }}
+          alt={`Fondo de la película: ${title}`}
         />
 
-        <div className="titles">
+        <div className={styles.titles}>
           <h2>{title}</h2>
           {tagline && tagline?.length > 0 ? <h3>{tagline}</h3> : null}
         </div>
       </article>
 
-      <article className="info">
-        <Genres param={genres} />
+      <article className={styles.info}>
+        <Genres param={genres} className={styles.genres} />
         <Paragraph param={overview} />
-        <OriginalLanguage param={original_language} />
-        <OriginalTitle param={original_title} />
-        <Popularity param={popularity} />
-        <ProductionCompanies param={production_companies} />
-        <ProductionCountries param={production_countries} />
-        <SpokenLanguages param={spoken_languages} />
+        <OriginalLanguage
+          param={original_language}
+          className={{ sTitle: styles.subtitle, sText: styles.subtext }}
+        />
+        <OriginalTitle
+          param={original_title}
+          className={{ sTitle: styles.subtitle, sText: styles.subtext }}
+        />
+        <Popularity
+          param={popularity}
+          className={{ sTitle: styles.subtitle, sText: styles.subtext }}
+        />
+        <ProductionCompanies
+          param={production_companies}
+          className={{ sTitle: styles.subtitle, sText: styles.subtext }}
+        />
+        <ProductionCountries
+          param={production_countries}
+          className={{ sTitle: styles.subtitle, sText: styles.subtext }}
+        />
+        <SpokenLanguages
+          param={spoken_languages}
+          className={{ sTitle: styles.subtitle, sText: styles.subtext }}
+        />
 
         {budget ? (
           <dl>
-            <dt className="subtitle">Presupuesto</dt>
-            <dd className="subtext">{Currency(budget)}</dd>
+            <dt className={styles.subtitle}>Presupuesto</dt>
+            <dd className={styles.subtext}>{Currency(budget)}</dd>
           </dl>
         ) : null}
 
         {revenue ? (
           <dl>
-            <dt className="subtitle">Ingresos</dt>
-            <dd className="subtext">{Currency(revenue)}</dd>
+            <dt className={styles.subtitle}>Ingresos</dt>
+            <dd className={styles.subtext}>{Currency(revenue)}</dd>
           </dl>
         ) : null}
 
-        <Status param={status} />
+        <Status param={status} className={{ sTitle: styles.subtitle, sText: styles.subtext }} />
 
         <dl>
-          <dt className="subtitle">Fecha de publicación</dt>
-          <dd className="subtext">{MyDate(release_date)}</dd>
+          <dt className={styles.subtitle}>Fecha de publicación</dt>
+          <dd className={styles.subtext}>{MyDate(release_date)}</dd>
         </dl>
 
         {runtime ? (
           <dl>
-            <dt className="subtitle">Duración</dt>
-            <dd className="subtext">
+            <dt className={styles.subtitle}>Duración</dt>
+            <dd className={styles.subtext}>
               {runtime}
               {" "}
               Minutos
@@ -93,19 +113,26 @@ export default function FilmDetails({ data } = {}) {
 
         {vote_average ? (
           <dl>
-            <dt className="subtitle">Votación promedio</dt>
-            <dd className="subtext">{vote_average}</dd>
+            <dt className={styles.subtitle}>Votación promedio</dt>
+            <dd className={styles.subtext}>{vote_average}</dd>
           </dl>
         ) : null}
 
         {vote_count ? (
           <dl>
-            <dt className="subtitle">Votaciones</dt>
-            <dd className="subtext">{vote_count}</dd>
+            <dt className={styles.subtitle}>Votaciones</dt>
+            <dd className={styles.subtext}>{vote_count}</dd>
           </dl>
         ) : null}
 
-        <Homepage param={homepage} />
+        <Homepage
+          param={homepage}
+          className={{
+            sTitle: styles.subtitle,
+            sText: styles.subtext,
+            h: styles.homepage,
+          }}
+        />
       </article>
     </>
   );

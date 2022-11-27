@@ -1,11 +1,10 @@
 import { url } from "../fixtures/vite.json";
 
 describe("Searching", () => {
-  let title = "";
+  let title = "";;
 
   it("Initial state of home page", () => {
     cy.visit(url.preview);
-    cy.get(".search-input").should("be.focused");
   });
 
   it("A movie", () => {

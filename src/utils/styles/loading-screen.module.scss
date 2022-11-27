@@ -1,6 +1,6 @@
 @use "./Palette";
 
-.loading-screen {
+.loading_screen {
   height: 100%;
   width: 100%;
   display: flex;
@@ -8,7 +8,7 @@
   justify-content: center;
   position: fixed;
 
-  div {
+  >div {
     border: 3px solid transparent;
     border-top-color: Palette.$Cerise;
     height: 30px;

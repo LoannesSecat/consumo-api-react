@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import { SignInUser } from "~/services/UserServices";
+import UserC from "~/superstate/User";
 import FormValidator from "~/utils/FormValidator";
-import "~/utils/styles/UserRegistration.scss";
+import styles from "~/utils/styles/user-registration.module.scss";
+
+const { signInUser } = UserC;
 
 export default function UserRegistration() {
   const [showPass, setShowPass] = useState(false);
-  const navigate = useNavigate();
+  const [, navigate] = useLocation();
 
   const HandleShowPass = (e) => {
     e.preventDefault();
@@ -30,18 +32,18 @@ export default function UserRegistration() {
         formValues = { ...formValues, nickname: e.target.nickname.value };
       }
 
-      SignInUser(formValues);
+      signInUser(formValues);
     }
   };
 
   return (
-    <main className="user-registration">
+    <main className={styles.user_registration}>
       <div>
         <GoBackButton />
-        <button className="go-to-log-in" onClick={() => navigate("login")}>Iniciar sesión</button>
+        <button className={styles.go_to_log_in} onClick={() => navigate("login")} type="button">Iniciar sesión</button>
       </div>
 
-      <form onSubmit={HandleOnSubmit} className="registration-form">
+      <form onSubmit={HandleOnSubmit} className={styles.registration_form}>
         <label htmlFor="nickname">
           <span>Nombre de usuario</span>
           <br />
@@ -73,7 +75,7 @@ export default function UserRegistration() {
           </div>
         </label>
 
-        <button type="submit" className="submit-registration-button">Registrarme</button>
+        <button type="submit" className={styles.submit_registration_button}>Registrarme</button>
       </form>
     </main>
   );

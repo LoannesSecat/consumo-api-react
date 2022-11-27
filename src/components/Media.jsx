@@ -1,17 +1,17 @@
-import { useSelector } from "react-redux";
-import "~/utils/styles/Media.scss";
+import { useSuperState } from "@superstate/react";
+import MediaC from "~/superstate/Media";
+import styles from "~/utils/styles/media.module.scss";
 import Empty from "./Empty";
-import MediaPagination from "./MediaPagination";
 import CardMedia from "./subcomponents/CardMedia";
 
 export default function Media() {
-  const RESOURCES = useSelector((e) => e.media.RESOURCES);
+  useSuperState(MediaC.state);
+  const { RESOURCES } = MediaC.state.now();
 
-  if (Object.keys(RESOURCES).length) {
+  if (Object?.keys(RESOURCES)?.length) {
     return (
-      <>
-        <main className="media">
-          {
+      <main className={styles.media}>
+        {
           Object.values(RESOURCES)?.map((element) => (
             <CardMedia
               key={element.id}
@@ -19,10 +19,7 @@ export default function Media() {
             />
           ))
         }
-        </main>
-
-        <MediaPagination />
-      </>
+      </main>
     );
   }
 

@@ -1,7 +1,7 @@
 @use "./Palette.scss";
 @use "./General.scss";
 
-.user-options {
+.user_options {
   @extend %transition-speed;
   align-items: center;
   display: flex;
@@ -9,28 +9,14 @@
   flex-wrap: wrap;
   justify-content: flex-end;
 
-  button {
-    background-color: transparent;
-    border: none;
-    color: Palette.$Ghost_White;
-    font-weight: 500;
-    padding: 3px 5px;
-    border-radius: 5px;
-    @extend %transition-speed;
-
-    &:hover {
-      background-color: Palette.$Royal_Blue_Dark;
-    }
-  }
-
-  .user-info {
+  .user_info {
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    img {
+    >img {
       border-radius: 5px;
       width: 40px;
       height: 40px;
@@ -38,14 +24,24 @@
     }
   }
 
-  .dropdown-options {
-    button {
+  .dropdown_options {
+    .dropdown_button {
       display: flex;
       border: none;
+      background-color: transparent;
+      color: Palette.$Ghost_White;
+      font-weight: 500;
+      padding: 3px 5px;
+      border-radius: 5px;
+      @extend %transition-speed;
 
-      svg {
+      >svg {
         height: 20px;
         width: 20px;
+      }
+
+      &:hover {
+        background-color: Palette.$Royal_Blue_Dark;
       }
     }
 
@@ -58,7 +54,7 @@
       right: 20px;
       overflow: hidden;
 
-      a {
+      >a {
         color: Palette.$Black_Chocolate;
         text-decoration: none;
         padding: 5px 10px;
@@ -77,6 +73,24 @@
       display: flex;
       flex-direction: column;
       position: absolute;
+      align-items: center;
+    }
+  }
+
+  .log_in_button,
+  .sign_up_button {
+    border: none;
+    background-color: transparent;
+    color: Palette.$Black_Chocolate;
+    -webkit-text-stroke: 0.1px Palette.$Ghost_White;
+    font-weight: 600;
+    padding: 3px 5px;
+    border-radius: 6px;
+    @extend %transition-speed;
+
+    &:hover {
+      background-color: Palette.$Royal_Blue_Dark;
+      color: Palette.$Ghost_White;
     }
   }
 }

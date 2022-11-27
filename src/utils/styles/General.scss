@@ -1,8 +1,8 @@
 @use "./Palette.scss";
 
 %lateral-paddings {
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
 %no-image-style {
@@ -14,13 +14,17 @@
   transition: .5s;
 }
 
+%transition-effect-buttons {
+  transition: all .3s ease;
+}
+
 // Button styles
 %button-tufts-blue {
   border: none;
-  outline: none;
+  outline: transparent;
   background-color: Palette.$Tufts_Blue;
   color: Palette.$Ghost_White;
-  transition: .1s;
+  @extend %transition-effect-buttons;
   border-radius: 6px;
   padding: 2px 10px;
 }
@@ -29,7 +33,7 @@
   border: none;
   outline: 0.1px solid Palette.$Black_Chocolate;
   background-color: Palette.$Ghost_White;
-  transition: .1s;
+  @extend %transition-effect-buttons;
   border-radius: 6px;
   padding: 2px 10px;
 }
@@ -38,7 +42,7 @@
   border: none;
   outline: 0.3px solid Palette.$Ghost_White;
   background-color: transparent;
-  transition: .1s;
+  @extend %transition-effect-buttons;
   border-radius: 6px;
   padding: 2px 10px;
   color: Palette.$Ghost_White;
@@ -46,11 +50,11 @@
 
 %button-effect-tufts-blue {
 
-  &:hover,
-  &:active {
+  &:active,
+  &:hover {
     color: Palette.$Ghost_White;
     background-color: Palette.$Tufts_Blue;
-    outline: none;
+    outline: 0.1px solid Palette.$Tufts_Blue;
   }
 }
 
@@ -60,7 +64,7 @@
   &:active {
     color: Palette.$Ghost_White;
     background-color: Palette.$Cerise;
-    outline: none;
+    outline: 0.1px solid Palette.$Cerise;
   }
 }
 
@@ -70,7 +74,7 @@
   &:active {
     color: Palette.$Ghost_White;
     background-color: Palette.$Black_Chocolate;
-    outline: none;
+    outline: 0.1px solid Palette.$Black_Chocolate;
   }
 }
 
@@ -78,9 +82,9 @@
 
   &:hover,
   &:active {
-    color: Palette.$Black_Chocolate;
-    background-color: Palette.$Ghost_White;
-    outline: 0.3px solid Palette.$Black_Chocolate;
+    color: Palette.$Ghost_White;
+    background-color: transparent;
+    outline: 0.1px solid Palette.$Ghost_White;
   }
 }
 
@@ -92,11 +96,22 @@
   padding: 2px 6px;
   @extend %transition-speed;
   background-color: Palette.$Ghost_White;
+  @extend %transition-effect-buttons;
+  padding: 2px 10px;
 }
 
 %input-effect-cerise {
 
-  &:focus {
+  &:hover,
+  &:active {
     border-bottom: 1px solid Palette.$Cerise;
+  }
+}
+
+%organized-title {
+  text-transform: lowercase;
+
+  &::first-letter {
+    text-transform: uppercase;
   }
 }

@@ -1,5 +1,5 @@
+import { useSuperState } from "@superstate/react";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
 import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
 import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
@@ -8,11 +8,13 @@ import HandleImage from "~/components/HandleImage";
 import Header from "~/components/Header";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import SaveFavoriteButton from "~/components/subcomponents/SaveFavoriteButton";
-import "~/utils/styles/UserFavorites.scss";
+import UserC from "~/superstate/User";
+import styles from "~/utils/styles/user-favorites.module.scss";
 import Translations from "~/utils/Translations.json";
 
 export default function UserFavorites() {
-  const { FAVORITES } = useSelector((state) => state.user);
+  useSuperState(UserC.state);
+  const { FAVORITES } = UserC.state.now();
   const [filterData, setFilterData] = useState(FAVORITES);
 
   const KnownFor = (value) => {
@@ -48,21 +50,21 @@ export default function UserFavorites() {
   }, [FAVORITES]);
 
   return (
-    <main className="user-favorites">
-      <Header>
+    <main className={styles.user_favorites}>
+      <Header className={styles.header}>
         <GoBackButton />
 
         <input
           type="search"
-          className="input-search"
+          className={styles.input_search}
           onChange={HandleOnChange}
         />
       </Header>
 
       {
-        Object.keys(filterData).length
+        filterData.length
           ? (
-            <section className="favorites-media">
+            <section className={styles.favorites_media}>
               {
                 Object.values(filterData).map((elm) => {
                   const {
@@ -79,8 +81,9 @@ export default function UserFavorites() {
                   } = elm;
 
                   return (
-                    <article key={id} className={`card ${elm.media_type}`}>
-                      <SaveFavoriteButton mediaData={elm} />
+                    <article key={id} className={`${styles.card} ${styles[elm.media_type]}`}>
+                      <SaveFavoriteButton mediaData={elm} className={styles.save_favorite_button} />
+
                       {
                         media_type === "person"
                           ? (
@@ -88,19 +91,22 @@ export default function UserFavorites() {
                               <HandleImage
                                 size="w400"
                                 url={profile_path}
-                                className="img-person"
-                                loading="lazy"
+                                className={{
+                                  style: styles.img_person,
+                                  not_found: styles.img_not_found,
+                                }}
+                                alt={`Imagen de: ${title}`}
                               />
 
-                              <h3 className="name">{title}</h3>
+                              <h3 className={styles.name}>{title}</h3>
 
-                              <span className="known">
+                              <span className={styles.known}>
                                 Conocido por el campo de la
                                 {" "}
                                 {KnownFor(known_for_department)}
                               </span>
 
-                              <div className="popularity" title="Popularidad">
+                              <div className={styles.popularity} title="Popularidad">
                                 <UserGroup />
                                 {popularity}
                               </div>
@@ -109,23 +115,32 @@ export default function UserFavorites() {
                           : (
                             <>
                               <HandleImage
-                                className={`img-${elm.media_type}`}
+                                className={{
+                                  style: styles[`img_${elm.media_type}`],
+                                  not_found: styles.img_not_found,
+                                }}
                                 url={backdrop_path}
-                                loading="lazy"
                                 size="w780"
+                                alt={`Imagen de ${title}`}
                               />
 
                               <div>
-                                <h3 className="title">{title}</h3>
-                                <small className="media-type">{Translations.MediaType[media_type]}</small>
+                                <h3 className={styles.title}>{title}</h3>
+                                <small className={styles.media_type}>
+                                  {Translations.MediaType[media_type]}
+                                </small>
                               </div>
 
-                              {overview?.length ? <p className="overview">{overview}</p> : null}
+                              {
+                                overview?.length
+                                  ? <p className={styles.overview}>{overview}</p>
+                                  : null
+                              }
 
-                              <div className="statistics">
+                              <div className={styles.statistics}>
                                 {popularity
                                   ? (
-                                    <div title="Popularidad" className="popularity">
+                                    <div title="Popularidad" className={styles.popularity}>
                                       <UserGroup />
                                       <span>{popularity}</span>
                                     </div>
@@ -134,7 +149,7 @@ export default function UserFavorites() {
 
                                 {vote_average
                                   ? (
-                                    <div title="Votación promedio" className="vote-average">
+                                    <div title="Votación promedio" className={styles.vote_average}>
                                       <Sparkles />
                                       <span>{vote_average}</span>
                                     </div>
@@ -143,7 +158,7 @@ export default function UserFavorites() {
 
                                 {vote_count
                                   ? (
-                                    <div title="Me gusta" className="vote-count">
+                                    <div title="Me gusta" className={styles.vote_count}>
                                       <Heart />
                                       <span>{vote_count}</span>
                                     </div>
