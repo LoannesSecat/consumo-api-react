@@ -96,6 +96,8 @@
   padding: 2px 6px;
   @extend %transition-speed;
   background-color: Palette.$Ghost_White;
+  @extend %transition-effect-buttons;
+  padding: 2px 10px;
 }
 
 %input-effect-cerise {

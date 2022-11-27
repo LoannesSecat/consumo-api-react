@@ -19,6 +19,19 @@ lerna-debug.log*
 *.sw?
 
 /node_modules
+dist
+dist-ssr
+*.local
+.env
+cypress/screenshots
+cypress/videos
+.env
+cypress/screenshots
+cypress/videos
+/coverage
+yarn.lock
+
+/node_modules
 /dist
 dist-ssr
 *.local

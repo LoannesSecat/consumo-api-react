@@ -34,29 +34,32 @@ function App() {
     readMedia();
   }, []);
 
-  const { SESSION } = UserC.state.now();
   useSuperState(UserC.state);
 
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/login" component={UserLogIn} />
-      <Route path="/registration" component={UserRegistration} />
-      <Route path="/media-details" component={MediaDetails} />
-      <Route path="/reset-password" component={ResetPassword} />
-      {
-        SESSION
-          ? (
-            <>
-              <Route path="/settings" component={UserSettings} />
-              <Route path="/favorites" component={UserFavorites} />
-            </>
-          )
-          : null
-      }
-      <Route path="/:path" component={PageNotFound} />
-    </Switch>
-  );
+  if (UserC.state.now().SESSION) {
+    return (
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/media-details" component={MediaDetails} />
+        <Route path="/settings" component={UserSettings} />
+        <Route path="/favorites" component={UserFavorites} />
+        <Route path="/:path" component={PageNotFound} />
+      </Switch>
+    );
+  }
+
+  if (!UserC.state.now().SESSION) {
+    return (
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/login" component={UserLogIn} />
+        <Route path="/registration" component={UserRegistration} />
+        <Route path="/media-details" component={MediaDetails} />
+        <Route path="/reset-password" component={ResetPassword} />
+        <Route path="/:path" component={PageNotFound} />
+      </Switch>
+    );
+  }
 }
 
 ReactDOM

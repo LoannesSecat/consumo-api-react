@@ -5,10 +5,10 @@ import Empty from "./Empty";
 import CardMedia from "./subcomponents/CardMedia";
 
 export default function Media() {
-  const { RESOURCES } = MediaC.state.now();
   useSuperState(MediaC.state);
+  const { RESOURCES } = MediaC.state.now();
 
-  if (Object.keys(RESOURCES).length) {
+  if (Object?.keys(RESOURCES)?.length) {
     return (
       <main className={styles.media}>
         {

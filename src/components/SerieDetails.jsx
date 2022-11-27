@@ -12,7 +12,7 @@ import ProductionCountries from "./subcomponents/ProductionCountries";
 import SpokenLanguages from "./subcomponents/SpokenLanguages";
 import Status from "./subcomponents/Status";
 
-export default function SerieDetails({ data } = {}) {
+export default function SerieDetails({ data } = {} = {}) {
   const {
     backdrop_path,
     name,

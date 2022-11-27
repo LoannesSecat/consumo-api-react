@@ -28,7 +28,7 @@ export default function HandleImage({
     },
     {
       root: null,
-      rootMargin: "0px",
+      rootMargin: "300px",
       threshold: 0,
     },
   );

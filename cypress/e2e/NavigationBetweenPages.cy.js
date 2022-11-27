@@ -14,11 +14,11 @@ it("Navigation between pages", () => {
 
   cy.get("button").contains("Siguiente").dblclick().dblclick();
 
-  cy.wait(1000);
-  cy.get("@NumPages").should("be.visible").contains("7");
+  cy.wait(1000);;
+  cy.get("@NumPages").should("be.visible").should("be.visible").contains("7");;
 
   cy.get("button").contains("Anterior").dblclick().click();
 
-  cy.wait(1000);
-  cy.get("@NumPages").should("be.visible").contains("4");
-});
+  cy.wait(1000);;
+  cy.get("@NumPages").should("be.visible").should("be.visible").contains("4");;
+});;

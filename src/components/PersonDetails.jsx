@@ -5,7 +5,7 @@ import Homepage from "./subcomponents/Homepage";
 import Paragraph from "./subcomponents/Paragraph";
 import Popularity from "./subcomponents/Popularity";
 
-export default function PersonDetails({ data } = {}) {
+export default function PersonDetails({ data } = {} = {}) {
   const {
     profile_path,
     name,

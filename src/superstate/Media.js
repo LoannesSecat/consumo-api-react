@@ -30,6 +30,14 @@ const MediaC = {
           ...params,
         }));
       },
+      resetMediaDetails({ set }) {
+        set((prev) => ({
+          ...prev,
+          FILM_DETAILS: {},
+          PERSON_DETAILS: {},
+          SERIE_DETAILS: {},
+        }));
+      },
     }),
 
   readMedia: () => {
@@ -49,8 +57,6 @@ const MediaC = {
         MediaC.state.set((prev) => ({
           ...prev, RESOURCES: data?.results,
         }));
-
-        MediaC.state.changeStates({ SUCCESS: true, LOADING: false });
       });
   },
 
@@ -66,6 +72,8 @@ const MediaC = {
           ...prev,
           [TYPES[mediaType].state]: { ...extra, ...data },
         }));
+
+        MediaC.state.changeStates({ SUCCESS: true, LOADING: false });
       });
   },
 
