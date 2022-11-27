@@ -57,7 +57,7 @@ export default function UserOpcions() {
             </article>
 
             <article className={styles.dropdown_options}>
-              <button className={styles.dropdown_button} onClick={ChangeClass}>{BUTTON_SVG}</button>
+              <button className={styles.dropdown_button} onClick={ChangeClass} type="button">{BUTTON_SVG}</button>
 
               <div className={classDropdown}>
                 <a href="/" onClick={(e) => { e.preventDefault(); navigate("settings"); }}>Ajustes</a>
@@ -74,6 +74,7 @@ export default function UserOpcions() {
             <button
               className={styles.log_in_button}
               onClick={() => { navigate("login"); }}
+              type="button"
             >
               Iniciar sesión
             </button>
@@ -81,6 +82,7 @@ export default function UserOpcions() {
             <button
               className={styles.sign_up_button}
               onClick={() => { navigate("registration"); }}
+              type="button"
             >
               Registrarme
             </button>

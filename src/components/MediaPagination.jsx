@@ -17,6 +17,7 @@ export default function MediaPagination() {
         scrollTo(0, 0);
       }}
       className={styles.previous_button}
+      type="button"
     >
       Anterior
     </button>
@@ -31,6 +32,7 @@ export default function MediaPagination() {
         scrollTo(0, 0);
       }}
       className={styles.next_button}
+      type="button"
     >
       Siguiente
     </button>

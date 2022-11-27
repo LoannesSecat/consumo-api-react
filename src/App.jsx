@@ -1,3 +1,4 @@
+import { useSuperState } from "@superstate/react";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.css";
 import { useEffect } from "react";
@@ -34,6 +35,7 @@ function App() {
   }, []);
 
   const { SESSION } = UserC.state.now();
+  useSuperState(UserC.state);
 
   return (
     <Switch>
@@ -57,4 +59,6 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+ReactDOM
+  .createRoot(document.getElementById("root"))
+  .render(<App />);

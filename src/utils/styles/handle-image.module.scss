@@ -14,11 +14,13 @@
 .poster_loading {
   min-height: 600px;
   min-width: 400px;
+  aspect-ratio: 2 / 3;
 }
 
 .backdrop_loading {
   min-height: 500px;
   min-width: 100%;
+  aspect-ratio: 12 / 5;
 }
 
 .img {

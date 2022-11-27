@@ -40,7 +40,7 @@ export default function UserRegistration() {
     <main className={styles.user_registration}>
       <div>
         <GoBackButton />
-        <button className={styles.go_to_log_in} onClick={() => navigate("login")}>Iniciar sesión</button>
+        <button className={styles.go_to_log_in} onClick={() => navigate("login")} type="button">Iniciar sesión</button>
       </div>
 
       <form onSubmit={HandleOnSubmit} className={styles.registration_form}>

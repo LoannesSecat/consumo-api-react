@@ -26,7 +26,7 @@ export default function PageNotFound({ params }) {
         </h2>
       </div>
 
-      <button onClick={() => { navigate("/"); }}>Volver al inicio</button>
+      <button onClick={() => { navigate("/"); }} type="button">Volver al inicio</button>
     </main>
   );
 }

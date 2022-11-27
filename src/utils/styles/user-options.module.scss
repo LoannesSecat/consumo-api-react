@@ -81,14 +81,16 @@
   .sign_up_button {
     border: none;
     background-color: transparent;
-    color: Palette.$Ghost_White;
-    font-weight: 500;
+    color: Palette.$Black_Chocolate;
+    -webkit-text-stroke: 0.1px Palette.$Ghost_White;
+    font-weight: 600;
     padding: 3px 5px;
     border-radius: 6px;
     @extend %transition-speed;
 
     &:hover {
       background-color: Palette.$Royal_Blue_Dark;
+      color: Palette.$Ghost_White;
     }
   }
 }

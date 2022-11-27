@@ -47,7 +47,7 @@ export default function ResetPassword() {
                   autoComplete="true"
                 />
 
-                <button onClick={(e) => { e.preventDefault(); setShowPass(!showPass); }}>
+                <button onClick={(e) => { e.preventDefault(); setShowPass(!showPass); }} type="button">
                   {!showPass ? <Eye /> : <EyeSlash />}
                 </button>
               </div>

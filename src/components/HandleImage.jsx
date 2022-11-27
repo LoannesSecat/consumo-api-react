@@ -46,11 +46,13 @@ export default function HandleImage({
     });
   }, [OBSERVER]);
 
+  const sizeNum = parseInt(size.substring(1));
+
   return (
     <img
       data-src={URL}
       className={
-        parseInt(size.substring(1)) > 1000
+        sizeNum > 1000
           ? styles.backdrop_loading
           : styles.poster_loading
       }

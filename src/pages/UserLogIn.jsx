@@ -36,7 +36,7 @@ export default function UserLogIn() {
     <main className={styles.user_log_in}>
       <div>
         <GoBackButton />
-        <button className={styles.go_to_registration} onClick={() => { navigate("registration"); }}>Registrarme</button>
+        <button className={styles.go_to_registration} onClick={() => { navigate("registration"); }} type="button">Registrarme</button>
       </div>
 
       <form onSubmit={(e) => HandleOnSubmit(e)} className={styles.log_in_form}>
@@ -52,7 +52,7 @@ export default function UserLogIn() {
           <br />
           <div>
             <input type={showPass ? "text" : "password"} name="pass" autoComplete="true" />
-            <button onClick={(e) => HandleShowPass(e)}>{!showPass ? <Eye /> : <EyeSlash />}</button>
+            <button onClick={(e) => HandleShowPass(e)} type="button">{!showPass ? <Eye /> : <EyeSlash />}</button>
           </div>
         </label>
 

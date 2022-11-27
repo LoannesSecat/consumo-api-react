@@ -7,6 +7,22 @@ export default function GoBackButton({ onClick, children, className }) {
   const customText = children ?? "Volver";
 
   return history.length > 1
-    ? <button className={`${styles.go_back_button} ${className ?? ""}`.trim()} onClick={customOnClick}>{customText}</button>
-    : <button className={`${styles.go_back_button} ${className ?? ""}`.trim()} onClick={() => navigate("/")}>Volver al inicio</button>;
+    ? (
+      <button
+        className={`${styles.go_back_button} ${className ?? ""}`.trim()}
+        onClick={customOnClick}
+        type="button"
+      >
+        {customText}
+      </button>
+    )
+    : (
+      <button
+        className={`${styles.go_back_button} ${className ?? ""}`.trim()}
+        onClick={() => navigate("/")}
+        type="button"
+      >
+        Volver al inicio
+      </button>
+    );
 }

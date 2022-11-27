@@ -93,6 +93,7 @@ export default function UserSettings() {
                         className={styles.button_delete_avatar}
                         title="Eliminar foto"
                         onClick={deleteAvatar}
+                        type="button"
                       >
                         <XMark />
                       </button>
@@ -106,6 +107,7 @@ export default function UserSettings() {
                   $(`.${styles.avatar_file_input}`).click();
                 }}
                 className={styles.save_change_button}
+                type="button"
               >
                 Cambiar foto
               </button>
@@ -251,6 +253,7 @@ export default function UserSettings() {
                 uploadAvatar({ file: FILE });
                 HandlePopUp();
               }}
+              type="button"
             >
               Guardar
             </button>
