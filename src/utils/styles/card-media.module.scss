@@ -13,13 +13,18 @@
     overflow: hidden;
     position: relative;
 
+    .poster_img,
+    .img_not_found {
+      width: 100%;
+    }
+
     .poster_img {
       object-fit: contain;
+      height: auto;
     }
 
     .img_not_found {
       @extend %no-image-style;
-      width: 400px;
       height: 600px;
     }
 
@@ -53,6 +58,8 @@
       .statistics {
         display: flex;
         justify-content: space-evenly;
+        flex-wrap: wrap;
+        gap: 8px;
 
         .popularity,
         .vote_average,

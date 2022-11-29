@@ -4,6 +4,7 @@ import Media from "~/components/Media";
 import MediaPagination from "~/components/MediaPagination";
 import MediaC from "~/superstate/Media";
 import ToolC from "~/superstate/Tool";
+import UserC from "~/superstate/User";
 import styles from "~/utils/styles/home.module.scss";
 
 const { newPage, searchText } = ToolC;
@@ -12,6 +13,7 @@ const { readMedia } = MediaC;
 export default function Home() {
   const [timer, setTimer] = useState(null);
   const { SEARCH_TEXT } = ToolC.state.now();
+  const { SESSION } = UserC.state.now();
 
   const Aux = (text) => {
     const AUX_TEXT = text;
@@ -37,7 +39,7 @@ export default function Home() {
 
   return (
     <>
-      <Header className={styles.header}>
+      <Header className={SESSION ? styles.in_session_header : styles.header}>
         <input
           type="search"
           onChange={(e) => { HandleSearch(e.target.value); }}

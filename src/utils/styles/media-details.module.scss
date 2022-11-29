@@ -44,17 +44,25 @@
   .banner {
     position: relative;
 
-    >img {
-      max-height: 500px;
+    .person_img,
+    .film_img,
+    .serie_img,
+    .img_not_found {
+      width: 100%;
     }
 
     .person_img {
       object-fit: contain;
+      height: 400px;
     }
 
     .film_img,
-    .serie_img {
+    .serie_img,
+    .img_not_found {
       object-fit: cover;
+      width: 100%;
+      height: auto;
+      max-height: 500px;
     }
 
     .img_not_found {

@@ -34,33 +34,22 @@ export default function HandleImage({
   );
 
   useEffect(() => {
-    const POSTER = document.querySelectorAll(`.${styles.poster_loading}`);
-    const BACKDROP = document.querySelectorAll(`.${styles.backdrop_loading}`);
+    const IMG = document.querySelectorAll(`.${styles.img}`);
 
-    POSTER.forEach((elm) => {
-      OBSERVER.observe(elm);
-    });
-
-    BACKDROP.forEach((elm) => {
+    IMG.forEach((elm) => {
       OBSERVER.observe(elm);
     });
   }, [OBSERVER]);
 
-  const sizeNum = parseInt(size.substring(1));
-
   return (
     <img
       data-src={URL}
-      className={
-        sizeNum > 1000
-          ? styles.backdrop_loading
-          : styles.poster_loading
-      }
+      className={`${styles.img}`}
       alt={alt || "Imagen"}
       onLoad={(evt) => {
         const { target } = evt;
 
-        target.className = `${CLASSNAME} ${styles.img}`;
+        target.className = CLASSNAME;
       }}
     />
   );

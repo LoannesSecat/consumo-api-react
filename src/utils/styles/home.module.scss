@@ -1,7 +1,8 @@
 @use "./Palette";
 @use "./General";
 
-.header {
+.header,
+.in_session_header {
   flex-wrap: wrap-reverse;
   justify-content: space-between;
 
@@ -22,7 +23,15 @@
       cursor: pointer;
     }
   }
+}
 
+.header {
+  @media (max-width: 580px) {
+    justify-content: center;
+  }
+}
+
+.in_session_header {
   @media (max-width: 460px) {
     justify-content: center;
   }
