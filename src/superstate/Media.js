@@ -40,41 +40,39 @@ const MediaC = {
       },
     }),
 
-  readMedia: () => {
+  readMedia: async () => {
     const { SEARCH_TEXT, PAGE, TOTAL_PAGES } = ToolC.state.now();
     const QUERY = SEARCH_TEXT || "a";
     const URL = `${TMDb.url_v3}${TMDb.multi_search}?${TMDb.key}&${TMDb.query}${QUERY}&${TMDb.page}${PAGE}&${TMDb.language}&${TMDb.include_adult}`;
 
-    MyFetch({ path: URL })
-      .then((res) => {
-        const { data } = res;
+    const { data, response } = await MyFetch({ path: URL });
 
-        if (TOTAL_PAGES !== data?.total_pages) {
-          ToolC.totalPages(data?.total_pages);
-          ToolC.newPage();
-        }
+    if (response.ok) {
+      if (TOTAL_PAGES !== data?.total_pages) {
+        ToolC.totalPages(data?.total_pages);
+        ToolC.newPage();
+      }
 
-        MediaC.state.set((prev) => ({
-          ...prev, RESOURCES: data?.results,
-        }));
-      });
+      MediaC.state.set((prev) => ({
+        ...prev, RESOURCES: data?.results,
+      }));
+    }
   },
 
-  mediaDetails: (extra, mediaType) => {
+  mediaDetails: async (extra, mediaType) => {
     const { id } = extra;
     const URL = `${TMDb.url_v3}${TYPES[mediaType].url}${id}?${TMDb.key}&${TMDb.language}`;
 
-    MyFetch({ path: URL })
-      .then((res) => {
-        const { data } = res;
+    const { data, response } = await MyFetch({ path: URL });
 
-        MediaC.state.set((prev) => ({
-          ...prev,
-          [TYPES[mediaType].state]: { ...extra, ...data },
-        }));
+    if (response.ok) {
+      MediaC.state.set((prev) => ({
+        ...prev,
+        [TYPES[mediaType].state]: { ...extra, ...data },
+      }));
 
-        MediaC.state.changeStates({ SUCCESS: true, LOADING: false });
-      });
+      MediaC.state.changeStates({ SUCCESS: true, LOADING: false });
+    }
   },
 
   mediaType: (mediaType) => {
