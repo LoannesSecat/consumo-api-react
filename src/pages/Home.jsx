@@ -2,23 +2,18 @@ import { useState } from "react";
 import Header from "~/components/Header";
 import Media from "~/components/Media";
 import MediaPagination from "~/components/MediaPagination";
-import MediaC from "~/superstate/Media";
-import ToolC from "~/superstate/Tool";
-import UserC from "~/superstate/User";
+import store from "~/store";
 import styles from "~/utils/styles/home.module.scss";
-
-const { newPage, searchText } = ToolC;
-const { readMedia } = MediaC;
 
 export default function Home() {
   const [timer, setTimer] = useState(null);
-  const { SEARCH_TEXT } = ToolC.state.now();
-  const { SESSION } = UserC.state.now();
+  const { SEARCH_TEXT, readMedia, searchText, data, page, totalPages, changePage } = store.media();
+  const { SESSION } = store.user();
 
   const Aux = (text) => {
     const AUX_TEXT = text;
 
-    if (AUX_TEXT !== SEARCH_TEXT) newPage();
+    if (AUX_TEXT !== SEARCH_TEXT) changePage();
     searchText(AUX_TEXT);
 
     clearTimeout(timer);
@@ -48,8 +43,8 @@ export default function Home() {
           className={styles.search_input}
         />
       </Header>
-      <Media />
-      <MediaPagination />
+      <Media {...{ data, page, readMedia }} />
+      <MediaPagination {...{ page, totalPages, changePage }} />
     </>
   );
 }

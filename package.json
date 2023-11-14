@@ -2,8 +2,6 @@
   "name": "media-platform",
   "private": true,
   "version": "0.1.53",
-  "homepage": "https://media-platform.vercel.app",
-  "description": "This website allow you to see films, series and profile of people that work or worked in the cinema world, also allow save the favorites and see it in your profile (this part of profile is in construction for now)",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -20,17 +18,15 @@
     "cy:e2e": "cypress open --browser electron --e2e"
   },
   "dependencies": {
-    "@supabase/supabase-js": "2.1.0",
-    "@superstate/adapters": "0.1.2",
-    "@superstate/core": "0.1.0",
-    "@superstate/react": "0.1.0",
+    "@supabase/supabase-js": "2.38.4",
     "izitoast": "1.4.0",
     "react": "18.2.0",
     "react-cropper": "2.1.8",
     "react-dom": "18.2.0",
     "sass": "1.54.4",
     "vite-plugin-svgr": "2.2.1",
-    "wouter": "2.9.0"
+    "wouter": "2.9.0",
+    "zustand": "4.4.6"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "2.0.1",

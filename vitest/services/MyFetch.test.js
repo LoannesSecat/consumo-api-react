@@ -1,8 +1,6 @@
 import { describe, expect, test } from "vitest";
 import MyFetch from "~/services/MyFetch";
-import Parameters from "~/utils/Parameters";
-
-const { TMDb } = Parameters;
+import { TMDb } from "~/utils/Parameters";
 
 describe.concurrent("Check the actions of MyFetch file", () => {
   test("Request", async () => {

@@ -2,15 +2,15 @@ import { Link } from "wouter";
 import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
 import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
 import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
-import MediaC from "~/superstate/Media";
-import styles from "~/utils/styles/card-media.module.scss";
+import store from "~/store";
 import Translations from "~/utils/Translations.json";
+import styles from "~/utils/styles/card-media.module.scss";
 import HandleImage from "../HandleImage";
 import SaveFavoriteButton from "./SaveFavoriteButton";
 
-const { mediaDetails, mediaType } = MediaC;
 
 export default function CardMedia({ data }) {
+  const { mediaDetails, mediaType } = store.media();
   const {
     profile_path, poster_path, title, name, media_type, popularity, vote_average, vote_count,
   } = data;

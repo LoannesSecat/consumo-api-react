@@ -1,19 +1,13 @@
-import { useSuperState } from "@superstate/react";
-import ToolC from "~/superstate/Tool";
 import styles from "~/utils/styles/media-pagination.module.scss";
 
-const { nextMediaPage, previousMediaPage } = ToolC;
+export default function MediaPagination({ page, totalPages, changePage }) {
 
-export default function MediaPagination() {
-  const { PAGE, MIN_PAGE, TOTAL_PAGES } = ToolC.state.now();
-  useSuperState(ToolC.state);
-
-  const BUTTON_PREVIOUS = PAGE <= MIN_PAGE ? (
+  const BUTTON_PREVIOUS = page <= 1 ? (
     <div className={styles.aux_previous} />
   ) : (
     <button
       onClick={() => {
-        previousMediaPage();
+        changePage(page - 1);
         scrollTo(0, 0);
       }}
       className={styles.previous_button}
@@ -23,12 +17,12 @@ export default function MediaPagination() {
     </button>
   );
 
-  const BUTTON_NEXT = PAGE >= TOTAL_PAGES ? (
+  const BUTTON_NEXT = page >= totalPages ? (
     <div className={styles.aux_next} />
   ) : (
     <button
       onClick={() => {
-        nextMediaPage();
+        changePage(page + 1);
         scrollTo(0, 0);
       }}
       className={styles.next_button}
@@ -38,14 +32,14 @@ export default function MediaPagination() {
     </button>
   );
 
-  if (TOTAL_PAGES > 0) {
+  if (totalPages > 0) {
     return (
       <footer className={styles.media_pagination}>
         {BUTTON_PREVIOUS}
         <span>
-          {PAGE}
+          {page}
           /
-          {TOTAL_PAGES}
+          {totalPages}
         </span>
         {BUTTON_NEXT}
       </footer>

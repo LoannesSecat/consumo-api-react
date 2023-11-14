@@ -1,23 +1,25 @@
-import { useSuperState } from "@superstate/react";
-import MediaC from "~/superstate/Media";
+import { useEffect } from "react";
 import styles from "~/utils/styles/media.module.scss";
 import Empty from "./Empty";
 import CardMedia from "./subcomponents/CardMedia";
 
-export default function Media() {
-  useSuperState(MediaC.state);
-  const { RESOURCES } = MediaC.state.now();
+export default function Media({ data, page, readMedia }) {
+  useEffect(() => {
+    readMedia();
+  }, [page])
 
-  if (Object?.keys(RESOURCES)?.length) {
+  if (data?.length) {
     return (
       <main className={styles.media}>
         {
-          Object.values(RESOURCES)?.map((element) => (
-            <CardMedia
-              key={element.id}
-              data={element}
-            />
-          ))
+          data.map((element) => {
+            return (
+              <CardMedia
+                key={element.id}
+                data={element}
+              />
+            )
+          })
         }
       </main>
     );

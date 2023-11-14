@@ -1,7 +1,5 @@
 import { describe, expect, test } from "vitest";
-import Parameters from "~/utils/Parameters";
-
-const { OMDb, TMDb, SUPABASE } = Parameters;
+import { OMDb, SUPABASE, TMDb } from "~/utils/Parameters";
 
 describe.concurrent("Test API on use", () => {
   test.concurrent("The Movie Database API", async () => {

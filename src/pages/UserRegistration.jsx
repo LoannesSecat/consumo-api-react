@@ -3,13 +3,12 @@ import { useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import UserC from "~/superstate/User";
+import store from "~/store";
 import FormValidator from "~/utils/FormValidator";
 import styles from "~/utils/styles/user-registration.module.scss";
 
-const { signInUser } = UserC;
-
 export default function UserRegistration() {
+  const { signInUser } = store.user();
   const [showPass, setShowPass] = useState(false);
   const [, navigate] = useLocation();
 

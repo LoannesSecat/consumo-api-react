@@ -1,4 +1,3 @@
-import { useSuperState } from "@superstate/react";
 import { useEffect, useState } from "react";
 import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
 import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
@@ -8,13 +7,12 @@ import HandleImage from "~/components/HandleImage";
 import Header from "~/components/Header";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import SaveFavoriteButton from "~/components/subcomponents/SaveFavoriteButton";
-import UserC from "~/superstate/User";
+import store from "~/store";
 import styles from "~/utils/styles/user-favorites.module.scss";
 import Translations from "~/utils/Translations.json";
 
 export default function UserFavorites() {
-  useSuperState(UserC.state);
-  const { FAVORITES } = UserC.state.now();
+  const { FAVORITES } = store.user();
   const [filterData, setFilterData] = useState(FAVORITES);
 
   const KnownFor = (value) => {

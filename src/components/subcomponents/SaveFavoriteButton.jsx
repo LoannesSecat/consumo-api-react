@@ -1,16 +1,12 @@
-import { useSuperState } from "@superstate/react";
 import iziToast from "izitoast";
 import { useEffect, useState } from "react";
 import { ReactComponent as BookmarkSlash } from "~/assets/icons/bookmark-slash.svg";
 import { ReactComponent as Bookmark } from "~/assets/icons/bookmark.svg";
-import UserC from "~/superstate/User";
+import store from "~/store";
 import styles from "~/utils/styles/save-favorite-button.module.scss";
 
-const { manipulateFavorites, state } = UserC;
-
 export default function SaveFavoriteButton({ mediaData, className }) {
-  useSuperState(UserC.state);
-  const { SESSION, FAVORITES } = state.now();
+  const { manipulateFavorites, session, FAVORITES } = store.user();
   const [like, setLike] = useState(false);
   const {
     id,
@@ -32,7 +28,7 @@ export default function SaveFavoriteButton({ mediaData, className }) {
   useEffect(() => {
     const IS_IN_FAVORITES = Object.values(FAVORITES)?.some((elm) => elm?.id === id);
 
-    if (IS_IN_FAVORITES && SESSION) {
+    if (IS_IN_FAVORITES && session) {
       setLike(true);
     } else {
       setLike(false);
@@ -43,7 +39,7 @@ export default function SaveFavoriteButton({ mediaData, className }) {
     <button
       className={`${styles.save_favorite_button} ${className ?? ""}`.trim()}
       onClick={() => {
-        if (SESSION) {
+        if (session) {
           if (like) {
             manipulateFavorites({ type: "delete", mediaData: SAVED_FAV });
           }
@@ -70,7 +66,7 @@ export default function SaveFavoriteButton({ mediaData, className }) {
           setLike(!like);
         }
 
-        if (!SESSION) {
+        if (!session) {
           iziToast.info({
             message: `Debes iniciar sesión para agregar <b>${title ?? name}</b> a favoritos`,
           });

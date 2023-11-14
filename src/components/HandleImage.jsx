@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import photo from "~/assets/icons/photo.svg";
-import Parameters from "~/utils/Parameters";
+import { TMDb } from "~/utils/Parameters";
 import styles from "~/utils/styles/handle-image.module.scss";
-
-const { TMDb } = Parameters;
 
 export default function HandleImage({
   url, size, className, alt,

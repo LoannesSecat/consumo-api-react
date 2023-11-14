@@ -1,4 +1,3 @@
-import { useSuperState } from "@superstate/react";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.css";
 import { useEffect } from "react";
@@ -13,8 +12,7 @@ import UserLogIn from "./pages/UserLogIn";
 import UserRegistration from "./pages/UserRegistration";
 import UserSettings from "./pages/UserSettings";
 import { AuthStateChange } from "./services/supabase";
-import MediaC from "./superstate/Media";
-import UserC from "./superstate/User";
+import store from "./store";
 import "./utils/styles/App.scss";
 
 // The next blocks of code are written here for a single run to execute the app
@@ -27,16 +25,15 @@ iziToast.settings({
   pauseOnHover: false,
 });
 
-const { readMedia } = MediaC;
-
 function App() {
+  const { readMedia } = store.media()
+  const { SESSION } = store.user()
+
   useEffect(() => {
     readMedia();
   }, []);
 
-  useSuperState(UserC.state);
-
-  if (UserC.state.now().SESSION) {
+  if (SESSION) {
     return (
       <Switch>
         <Route path="/" component={Home} />
@@ -48,16 +45,18 @@ function App() {
     );
   }
 
-  if (!UserC.state.now().SESSION) {
+  if (!SESSION) {
     return (
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/login" component={UserLogIn} />
-        <Route path="/registration" component={UserRegistration} />
-        <Route path="/media-details" component={MediaDetails} />
-        <Route path="/reset-password" component={ResetPassword} />
-        <Route path="/:path" component={PageNotFound} />
-      </Switch>
+      <>
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/login" component={UserLogIn} />
+          <Route path="/registration" component={UserRegistration} />
+          <Route path="/media-details" component={MediaDetails} />
+          <Route path="/reset-password" component={ResetPassword} />
+          <Route path="/:path" component={PageNotFound} />
+        </Switch>
+      </>
     );
   }
 }

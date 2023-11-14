@@ -3,15 +3,14 @@ import { Link, useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import UserC from "~/superstate/User";
+import store from "~/store";
 import FormValidator from "~/utils/FormValidator";
 import styles from "~/utils/styles/user-login.module.scss";
-
-const { logInUser } = UserC;
 
 export default function UserLogIn() {
   const [showPass, setShowPass] = useState(false);
   const [, navigate] = useLocation();
+  const { logIn } = store.user();
 
   const HandleShowPass = (e) => {
     e.preventDefault();
@@ -28,7 +27,7 @@ export default function UserLogIn() {
     };
 
     if (FormValidator(formValues)) {
-      logInUser(formValues);
+      logIn(formValues);
     }
   };
 

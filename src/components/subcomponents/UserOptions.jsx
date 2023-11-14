@@ -1,21 +1,15 @@
-import { useSuperState } from "@superstate/react";
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { ReactComponent as ChevronUp } from "~/assets/icons/chevron-up.svg";
 import { ReactComponent as Cog8Tooth } from "~/assets/icons/cog-8-tooth.svg";
 import userSVG from "~/assets/icons/user.svg";
-import UserC from "~/superstate/User";
+import store from "~/store";
 import styles from "~/utils/styles/user-options.module.scss";
 
-const { signOutUser } = UserC;
-
-export default function UserOpcions() {
-  useSuperState(UserC.state);
-
-  const { USER, SESSION } = UserC.state.now();
+export default function UserOptions() {
+  const { session, signOutUser, logOut, user } = store.user();
   const [location, navigate] = useLocation();
   const [classDropdown, setClassDropdown] = useState(styles.dropdown);
-
   const BUTTON_SVG = classDropdown === styles.dropdown ? <Cog8Tooth /> : <ChevronUp />;
 
   const ChangeClass = () => {
@@ -38,14 +32,19 @@ export default function UserOpcions() {
     });
   }, []);
 
+  useEffect(() => {
+  }, [session])
+
   return (
     <section className={styles.user_options}>
-      {SESSION
-        ? (
+      <button onClick={logOut}>LogOut</button>
+      {Object.keys(session) && Object.keys(session)?.length
+        ?
+        (
           <>
             <article className={styles.user_info}>
               <img
-                src={USER?.avatar}
+                src={""}
                 alt="Foto"
                 onError={(evt) => {
                   const { target } = evt;
@@ -53,7 +52,7 @@ export default function UserOpcions() {
                 }}
               />
 
-              <span>{USER?.nickname}</span>
+              <span>{user?.nickname}</span>
             </article>
 
             <article className={styles.dropdown_options}>
@@ -69,7 +68,8 @@ export default function UserOpcions() {
             </article>
           </>
         )
-        : (
+        :
+        (
           <>
             <button
               className={styles.log_in_button}
@@ -87,7 +87,8 @@ export default function UserOpcions() {
               Registrarme
             </button>
           </>
-        )}
+        )
+      }
     </section>
   );
 }

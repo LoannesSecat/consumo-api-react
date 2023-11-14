@@ -1,4 +1,3 @@
-import { useSuperState } from "@superstate/react";
 import "cropperjs/dist/cropper.css";
 import { useState } from "react";
 import Cropper from "react-cropper";
@@ -6,7 +5,7 @@ import { useLocation } from "wouter";
 import userSVG from "~/assets/icons/user.svg";
 import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import UserC from "~/superstate/User";
+import store from "~/store";
 import $ from "~/utils/QuerySelector";
 import styles from "~/utils/styles/user-settings.module.scss";
 
@@ -20,17 +19,14 @@ const NEW_DATA_STATE = {
   password: null,
 };
 
-const {
-  deleteAvatar,
-  deleteAccountUser,
-  updateUser,
-  uploadAvatar,
-  state,
-} = UserC;
-
 export default function UserSettings() {
-  useSuperState(UserC.state);
-  const { USER } = state.now();
+  const {
+    deleteAvatar,
+    deleteAccountUser,
+    updateUser,
+    uploadAvatar,
+    user,
+  } = store.user();
   const [newData, setNewData] = useState(NEW_DATA_STATE);
   const [cropper, setCropper] = useState();
   const CLEAR_AVATAR = { ...newData, avatar: NEW_DATA_STATE.avatar };
@@ -78,7 +74,7 @@ export default function UserSettings() {
               <div className={styles.avatar_group}>
                 <img
                   className={styles.avatar_image}
-                  src={USER?.avatar}
+                  src={user?.avatar}
                   alt="Foto de perfil"
                   onError={(evt) => {
                     const { target } = evt;
@@ -87,7 +83,7 @@ export default function UserSettings() {
                 />
 
                 {
-                  USER?.avatar
+                  user?.avatar
                     ? (
                       <button
                         className={styles.button_delete_avatar}
@@ -118,7 +114,7 @@ export default function UserSettings() {
             <small className={styles.subtitle}>Nombre de usuario</small>
 
             <div className={styles.content}>
-              <span>{USER?.nickname}</span>
+              <span>{user?.nickname}</span>
               <input
                 type="text"
                 onChange={(evt) => setNewData({ ...newData, nickname: evt.target.value.trim() })}
@@ -131,7 +127,7 @@ export default function UserSettings() {
             <small className={styles.subtitle}>Correo</small>
 
             <div className={styles.content}>
-              <span>{USER?.email}</span>
+              <span>{user?.email}</span>
               <input
                 type="email"
                 onChange={(evt) => setNewData({ ...newData, email: evt.target.value.trim() })}

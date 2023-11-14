@@ -6,7 +6,11 @@ export default async function MyFetch({ path }) {
   }
 
   if (navigator.onLine) {
-    const initialRes = await fetch(path)
+    const initialRes = await fetch(path, {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_TMDB_KEY}`
+      }
+    })
       .then((res) => {
         if (!res.ok) iziToast.error({ message: "Estado de la petición no OK" });
 

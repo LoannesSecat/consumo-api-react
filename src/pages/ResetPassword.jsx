@@ -3,13 +3,11 @@ import { useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import UserC from "~/superstate/User";
+import store from "~/store";
 import styles from "~/utils/styles/reset-password.module.scss";
 
-const { SESSION } = UserC.state.now();
-const { preResetPasswordUser, updateUser } = UserC;
-
 export default function ResetPassword() {
+  const { SESSION, preResetPasswordUser, updateUser } = store.user();
   const [showPass, setShowPass] = useState(false);
   const [, navigate] = useLocation();
   const [values, setValues] = useState({ navigate });
