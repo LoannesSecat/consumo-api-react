@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ReactComponent as BookmarkSlash } from "~/assets/icons/bookmark-slash.svg";
 import { ReactComponent as Bookmark } from "~/assets/icons/bookmark.svg";
 import store from "~/store";
-import styles from "~/utils/styles/save-favorite-button.module.scss";
+import styles from "./save-favorite-button.module.scss";
 
 export default function SaveFavoriteButton({ mediaData, className }) {
   const { manipulateFavorites, session, FAVORITES } = store.user();

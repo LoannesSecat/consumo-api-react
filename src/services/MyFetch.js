@@ -1,27 +1,37 @@
 import iziToast from "izitoast";
+import { envVars } from "~/utils/constants";
 
 export default async function MyFetch({ path }) {
-  if (!navigator.onLine) {
-    iziToast.error({ message: "No hay conexión a Internet" });
+  try {
+    const res = await fetch(path, {
+      headers: {
+        Authorization: `Bearer ${envVars.VITE_TMDB_KEY}`
+      }
+    });
+
+    const json = await res.json();
+
+    return { response: res, data: json };
   }
 
-  if (navigator.onLine) {
-    const initialRes = await fetch(path, {
-      headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_TMDB_KEY}`
-      }
-    })
-      .then((res) => {
-        if (!res.ok) iziToast.error({ message: "Estado de la petición no OK" });
+  catch (error) {
+    let msg = null;
 
-        return res;
-      })
-      .catch((error) => {
-        iziToast.error({ message: `Problemas al realizar la petición - ${error}` });
-      });
+    if (!navigator.onLine) {
+      msg = "No hay conexión a Internet";
+    }
 
-    const dataRes = await initialRes.json();
+    if (navigator.onLine) {
+      msg = error.message;
+    }
 
-    return { response: initialRes, data: dataRes };
+    iziToast.error({ message: msg });
+
+    return {
+      response: {
+        ok: false
+      },
+      data: []
+    }
   }
 }

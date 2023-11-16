@@ -6,7 +6,7 @@ import userSVG from "~/assets/icons/user.svg";
 import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import store from "~/store";
-import $ from "~/utils/QuerySelector";
+import { $ } from "~/utils/functions.js";
 import styles from "~/utils/styles/user-settings.module.scss";
 
 const NEW_DATA_STATE = {

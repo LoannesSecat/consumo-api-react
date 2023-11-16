@@ -5,19 +5,19 @@ import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
 import Empty from "~/components/Empty";
 import HandleImage from "~/components/HandleImage";
 import Header from "~/components/Header";
+import SaveFavoriteButton from "~/components/save-favorite-button";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
-import SaveFavoriteButton from "~/components/subcomponents/SaveFavoriteButton";
 import store from "~/store";
+import { mediaTranslations } from "~/utils/constants.js";
 import styles from "~/utils/styles/user-favorites.module.scss";
-import Translations from "~/utils/Translations.json";
 
 export default function UserFavorites() {
   const { FAVORITES } = store.user();
   const [filterData, setFilterData] = useState(FAVORITES);
 
   const KnownFor = (value) => {
-    if (value && Translations.knownForDepartment[value]) {
-      return Translations.knownForDepartment[value].toLowerCase();
+    if (value && mediaTranslations.knownForDepartment[value]) {
+      return mediaTranslations.knownForDepartment[value].toLowerCase();
     }
 
     return value;
@@ -125,7 +125,7 @@ export default function UserFavorites() {
                               <div>
                                 <h3 className={styles.title}>{title}</h3>
                                 <small className={styles.media_type}>
-                                  {Translations.MediaType[media_type]}
+                                  {mediaTranslations.mediaType[media_type]}
                                 </small>
                               </div>
 

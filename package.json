@@ -1,7 +1,7 @@
 {
   "name": "media-platform",
   "private": true,
-  "version": "0.1.53",
+  "version": "0.1.56",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -15,7 +15,8 @@
     "vitest:coverage": "vitest run --coverage",
     "vitest:ui": "vitest --ui",
     "cy:run": "cypress run",
-    "cy:e2e": "cypress open --browser electron --e2e"
+    "cy:e2e": "cypress open --browser electron --e2e",
+    "dev:host": "vite --host"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.38.4",

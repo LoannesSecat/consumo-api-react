@@ -1,20 +1,18 @@
-import { MyDate } from "~/utils/Converter";
-import styles from "~/utils/styles/media-details.module.scss";
-import HandleImage from "./HandleImage";
-import Genres from "./subcomponents/Genres";
-import Homepage from "./subcomponents/Homepage";
-import OriginalLanguage from "./subcomponents/OriginalLanguage";
-import OriginalTitle from "./subcomponents/OriginalTitle";
-import Paragraph from "./subcomponents/Paragraph";
-import Popularity from "./subcomponents/Popularity";
-import ProductionCompanies from "./subcomponents/ProductionCompanies";
-import ProductionCountries from "./subcomponents/ProductionCountries";
-import SpokenLanguages from "./subcomponents/SpokenLanguages";
-import Status from "./subcomponents/Status";
+import { MyDate } from "~/utils/functions.js";
+import Genres from "../../../components/subcomponents/Genres";
+import Homepage from "../../../components/subcomponents/Homepage";
+import OriginalLanguage from "../../../components/subcomponents/OriginalLanguage";
+import OriginalTitle from "../../../components/subcomponents/OriginalTitle";
+import Paragraph from "../../../components/subcomponents/Paragraph";
+import Popularity from "../../../components/subcomponents/Popularity";
+import ProductionCompanies from "../../../components/subcomponents/ProductionCompanies";
+import ProductionCountries from "../../../components/subcomponents/ProductionCountries";
+import SpokenLanguages from "../../../components/subcomponents/SpokenLanguages";
+import Status from "../../../components/subcomponents/Status";
+import styles from "../media-details.module.scss";
 
-export default function SerieDetails({ data } = {} = {}) {
+export default function SerieDetails({ data } = {}) {
   const {
-    backdrop_path,
     name,
     tagline,
     genres,
@@ -35,6 +33,7 @@ export default function SerieDetails({ data } = {} = {}) {
     homepage,
     in_production,
     type,
+    backdrop_url,
   } = data;
 
   const lastEpisodeText = (
@@ -74,22 +73,18 @@ export default function SerieDetails({ data } = {} = {}) {
 
   return (
     <>
-      <article className={styles.banner}>
-        <HandleImage
-          url={backdrop_path}
-          size="w1280"
-          className={{
-            style: styles.serie_img,
-            not_found: styles.img_not_found,
-          }}
+      <picture className={styles.banner}>
+        <img
+          src={backdrop_url}
           alt={`Fondo de la serie: ${name}`}
+          className={styles.serie_img}
         />
 
         <div className={styles.titles}>
           <h2>{name}</h2>
           {tagline && tagline.length > 0 ? <h3>{tagline}</h3> : null}
         </div>
-      </article>
+      </picture>
 
       <article className={styles.info}>
         <Genres param={genres} className={styles.genres} />

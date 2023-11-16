@@ -1,0 +1,55 @@
+@use "../../../utils/styles/Palette.scss";
+@use "../../../utils/styles/General.scss";
+
+.media_pagination {
+  @extend %lateral-paddings;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: space-between;
+  background-color: Palette.$Ghost_White;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.10);
+  padding-top: 16px;
+  padding-bottom: 16px;
+  z-index: 1;
+  align-self: end;
+
+  >span {
+    display: flex;
+    column-gap: 4px;
+    row-gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    >input {
+      width: 48px;
+      padding: 2px;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        width: 8px;
+      }
+    }
+  }
+
+  .previous_button,
+  .next_button {
+    padding: 5px 16px;
+    font-size: 0.9rem;
+
+    @extend %button-ghost-white;
+
+    &:not(&:disabled) {
+      @extend %button-effect-tufts-blue;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+    }
+  }
+}

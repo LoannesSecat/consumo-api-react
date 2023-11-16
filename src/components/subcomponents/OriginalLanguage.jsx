@@ -1,4 +1,4 @@
-import { Languages } from "~/utils/Converter";
+import { Languages } from "~/utils/functions.js";
 
 export default function OriginalLanguage({ param, className }) {
   if (param) {

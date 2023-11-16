@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
 import MyFetch from "~/services/MyFetch";
-import { TMDb } from "~/utils/Parameters";
+import { TMDB } from "~/utils/constants.js";
 
 describe.concurrent("Check the actions of MyFetch file", () => {
   test("Request", async () => {
-    const URL = `${TMDb.url_v3}${TMDb.tv}${89393}?${TMDb.key}&${TMDb.language}`;
+    const URL = `${TMDB.url_v3}${TMDB.tv}${89393}?${TMDB.key}&${TMDB.language}`;
     const RES = await MyFetch({ path: URL });
 
     expect(Object.entries(RES)).toHaveLength(2);

@@ -1,7 +1,7 @@
 import iziToast from "izitoast";
 import supabase from "~/services/supabase";
-import { SUPABASE } from "~/utils/Parameters";
-import { getStore } from "~/utils/constants";
+import { SUPABASE } from "~/utils/constants.js";
+import { getStore } from "~/utils/functions.js";
 
 const initialState = {
   session: {},

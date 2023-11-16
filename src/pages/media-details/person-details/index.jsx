@@ -1,13 +1,11 @@
-import { MyDate } from "~/utils/Converter";
-import styles from "~/utils/styles/media-details.module.scss";
-import HandleImage from "./HandleImage";
-import Homepage from "./subcomponents/Homepage";
-import Paragraph from "./subcomponents/Paragraph";
-import Popularity from "./subcomponents/Popularity";
+import { MyDate } from "~/utils/functions.js";
+import Homepage from "../../../components/subcomponents/Homepage";
+import Paragraph from "../../../components/subcomponents/Paragraph";
+import Popularity from "../../../components/subcomponents/Popularity";
+import styles from "../media-details.module.scss";
 
 export default function PersonDetails({ data } = {} = {}) {
   const {
-    profile_path,
     name,
     also_known_as,
     biography,
@@ -18,22 +16,22 @@ export default function PersonDetails({ data } = {} = {}) {
     deathday,
     place_of_birth,
     popularity,
+    backdrop_url,
   } = data;
 
   return (
     <>
-      <article className={styles.banner}>
-        <HandleImage
-          url={profile_path}
-          size="h632"
-          className={{ style: styles.person_img, not_found: styles.img_not_found }}
+      <picture className={styles.banner}>
+        <img
+          src={backdrop_url}
+          className={styles.person_img}
           alt={`Imagen de ${name}`}
         />
 
         <div className={styles.titles}>
           <h2>{name}</h2>
         </div>
-      </article>
+      </picture>
 
       <article className={styles.info}>
         <Paragraph param={biography} />

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import {
   CapitalizeText, Countries, Languages, MyDate,
-} from "../../src/utils/Converter";
+} from "../../src/utils/functions.js";
 
 describe.concurrent("Test the functions of Converter file", () => {
   test("Capitalize function. Expect 'Hola mundo'", () => expect(CapitalizeText("hola mundo")).toBe("Hola mundo"));

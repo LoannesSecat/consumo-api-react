@@ -1,5 +1,5 @@
-@use "./Palette";
-@use "./General";
+@use "../../utils/styles/Palette";
+@use "../../utils/styles/General";
 
 .header {
   justify-content: space-between;
@@ -22,10 +22,12 @@
 .media_details {
   word-break: break-word;
   display: grid;
+  position: relative;
 
   .save_favorite_button {
     justify-self: end;
     align-self: start;
+    position: absolute;
   }
 
   .subtitle {
@@ -46,8 +48,7 @@
 
     .person_img,
     .film_img,
-    .serie_img,
-    .img_not_found {
+    .serie_img {
       width: 100%;
     }
 
@@ -57,23 +58,12 @@
     }
 
     .film_img,
-    .serie_img,
-    .img_not_found {
+    .serie_img {
       object-fit: cover;
       width: 100%;
-      height: auto;
-      max-height: 500px;
-    }
-
-    .img_not_found {
-      @extend %no-image-style;
-    }
-
-    >svg {
       height: 500px;
-      width: 100%;
-      @extend %no-image-style;
-      opacity: 10%;
+      aspect-ratio: 1280 / 1;
+      display: block;
     }
 
     .titles {

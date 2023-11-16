@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import photo from "~/assets/icons/photo.svg";
-import { TMDb } from "~/utils/Parameters";
+import { TMDB } from "~/utils/constants.js";
 import styles from "~/utils/styles/handle-image.module.scss";
+
+const { url_img } = TMDB
 
 export default function HandleImage({
   url, size, className, alt,
 }) {
-  const URL = url ? `${TMDb.url_img}${size}${url}` : photo;
+  const URL = url ? `${url_img}${size}${url}` : photo;
   const CLASSNAME = url ? className.style : className.not_found;
 
   const OBSERVER = new IntersectionObserver(

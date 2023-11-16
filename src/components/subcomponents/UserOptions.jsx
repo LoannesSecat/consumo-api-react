@@ -7,7 +7,7 @@ import store from "~/store";
 import styles from "~/utils/styles/user-options.module.scss";
 
 export default function UserOptions() {
-  const { session, signOutUser, logOut, user } = store.user();
+  const { session, signOutUser, user } = store.user();
   const [location, navigate] = useLocation();
   const [classDropdown, setClassDropdown] = useState(styles.dropdown);
   const BUTTON_SVG = classDropdown === styles.dropdown ? <Cog8Tooth /> : <ChevronUp />;
@@ -37,7 +37,6 @@ export default function UserOptions() {
 
   return (
     <section className={styles.user_options}>
-      <button onClick={logOut}>LogOut</button>
       {Object.keys(session) && Object.keys(session)?.length
         ?
         (
