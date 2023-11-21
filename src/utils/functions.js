@@ -1,3 +1,4 @@
+import iziToast from "izitoast";
 import store from "~/store";
 
 export const getStore = (name = "") => {
@@ -62,4 +63,14 @@ export const customTimeOut = ({ fn = () => { }, miliseconds = 1000 }) => {
   timer = setTimeout(() => {
     fn();
   }, miliseconds);
+}
+
+export const toastInicializer = () => {
+  iziToast.settings({
+    position: "bottomCenter",
+    progressBar: false,
+    messageSize: "16",
+    timeout: 3000,
+    pauseOnHover: false,
+  });
 }

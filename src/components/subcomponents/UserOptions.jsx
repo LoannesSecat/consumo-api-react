@@ -32,9 +32,6 @@ export default function UserOptions() {
     });
   }, []);
 
-  useEffect(() => {
-  }, [session])
-
   return (
     <section className={styles.user_options}>
       {Object.keys(session).length
@@ -59,10 +56,20 @@ export default function UserOptions() {
 
               <div className={classDropdown}>
                 <a href="/" onClick={(e) => { e.preventDefault(); navigate("settings"); }}>Ajustes</a>
+
                 {location.includes("favorites")
                   ? null
                   : <a href="/" onClick={(e) => { e.preventDefault(); navigate("favorites"); }}>Favoritos</a>}
-                <a href="/" onClick={async (e) => { e.preventDefault(); await logOut(); }}>Cerrar sesión</a>
+
+                <a
+                  href="/"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await logOut({ navigate: navigate("/") });
+                  }}
+                >
+                  Cerrar sesión
+                </a>
               </div>
             </article>
           </>

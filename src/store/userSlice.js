@@ -165,7 +165,7 @@ const userSlice = (set) => ({
     }
   },
 
-  logOut: async () => {
+  logOut: async ({ navigate }) => {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
@@ -174,6 +174,7 @@ const userSlice = (set) => ({
     }
 
     set(initialState);
+    if (navigate) navigate();
     iziToast.success({ message: "Sesión cerrada", timeout: 1500 });
   },
 
