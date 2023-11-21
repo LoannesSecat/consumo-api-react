@@ -37,7 +37,7 @@ export default function MediaDetails() {
       </Header>
 
       <main className={styles.media_details}>
-        <SaveFavoriteButton mediaData={details} className={styles.save_favorite_button} />
+        <SaveFavoriteButton dataToSave={details} className={styles.save_favorite_button} />
 
         {mediaSelectedType === "tv" && (<SerieDetails data={details} />)}
         {mediaSelectedType === "movie" && (<FilmDetails data={details} />)}

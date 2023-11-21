@@ -22,8 +22,6 @@ export default function MediaList() {
           if (target.getAttribute("data-src")) {
             target.setAttribute("src", target.getAttribute("data-src"));
             target.removeAttribute("data-src");
-            target.removeAttribute("width");
-            target.removeAttribute("height");
           }
 
           observer.unobserve(target);
@@ -64,7 +62,7 @@ export default function MediaList() {
 
             return (
               <article className={styles.card_media} key={id}>
-                <SaveFavoriteButton mediaData={data} className={styles.favorite_button} />
+                <SaveFavoriteButton dataToSave={item} className={styles.favorite_button} />
 
                 <Link
                   href="media-details"
@@ -126,8 +124,8 @@ export default function MediaList() {
                     </div>
 
                     {
-                      mediaTranslations.mediaType[media_type]
-                        ? <span className={styles.media_type}>{mediaTranslations.mediaType[media_type]}</span>
+                      mediaTranslations[media_type]
+                        ? <span className={styles.media_type}>{mediaTranslations[media_type]}</span>
                         : null
                     }
                   </footer>

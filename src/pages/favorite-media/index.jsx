@@ -1,51 +1,47 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
+import photoSVG from "~/assets/icons/photo.svg";
 import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
 import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
 import Empty from "~/components/Empty";
-import HandleImage from "~/components/HandleImage";
 import Header from "~/components/Header";
 import SaveFavoriteButton from "~/components/save-favorite-button";
 import GoBackButton from "~/components/subcomponents/GoBackButton";
 import store from "~/store";
-import { mediaTranslations } from "~/utils/constants.js";
-import styles from "~/utils/styles/user-favorites.module.scss";
+import { TMDB, mediaTranslations } from "~/utils/constants.js";
+import styles from "./user-favorites.module.scss";
 
-export default function UserFavorites() {
-  const { FAVORITES } = store.user();
-  const [filterData, setFilterData] = useState(FAVORITES);
+const { url_img } = TMDB;
 
-  const KnownFor = (value) => {
-    if (value && mediaTranslations.knownForDepartment[value]) {
-      return mediaTranslations.knownForDepartment[value].toLowerCase();
-    }
+export default function FavoriteMedia() {
+  const { favoriteMedia } = store.user();
+  const [auxData, setAuxData] = useState(favoriteMedia);
 
-    return value;
-  };
+  const HandleInputChange = (evt) => {
+    const text = evt.target.value.trim();
+    const inputTextValue = text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/([aeio])\u0301|(u)[\u0301\u0308]/gi, "$1$2")
+      .normalize();
 
-  const HandleOnChange = (evt) => {
-    const TEXT = evt.target.value.trim();
-    const DATA = Object.values(FAVORITES).filter((elm) => {
-      const TITLE = elm.title
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/([aeio])\u0301|(u)[\u0301\u0308]/gi, "$1$2")
-        .normalize();
-      const INPUT_TEXT = TEXT
+    const newFavoriteMedia = favoriteMedia.filter(({ title, name }) => {
+      const titleValue = (title ?? name)
         .toLowerCase()
         .normalize("NFD")
         .replace(/([aeio])\u0301|(u)[\u0301\u0308]/gi, "$1$2")
         .normalize();
 
-      return TITLE.includes(INPUT_TEXT);
+      return titleValue.includes(inputTextValue);
     });
 
-    setFilterData(DATA);
+    setAuxData(newFavoriteMedia);
   };
 
   useEffect(() => {
-    setFilterData(FAVORITES);
-  }, [FAVORITES]);
+    setAuxData(favoriteMedia);
+    scroll(0, 0);
+  }, [favoriteMedia]);
 
   return (
     <main className={styles.user_favorites}>
@@ -55,16 +51,16 @@ export default function UserFavorites() {
         <input
           type="search"
           className={styles.input_search}
-          onChange={HandleOnChange}
+          onChange={HandleInputChange}
         />
       </Header>
 
       {
-        filterData.length
+        auxData.length
           ? (
             <section className={styles.favorites_media}>
               {
-                Object.values(filterData).map((elm) => {
+                auxData.map((elm) => {
                   const {
                     vote_average,
                     media_type,
@@ -76,33 +72,37 @@ export default function UserFavorites() {
                     overview,
                     vote_count,
                     id,
+                    name,
                   } = elm;
 
+                  const newClassName = [
+                    styles.card,
+                    styles[elm.media_type]
+                  ].join(" ")
+
                   return (
-                    <article key={id} className={`${styles.card} ${styles[elm.media_type]}`}>
-                      <SaveFavoriteButton mediaData={elm} className={styles.save_favorite_button} />
+                    <article key={id} className={newClassName}>
+                      <SaveFavoriteButton dataToSave={elm} className={styles.save_favorite_button} />
 
                       {
                         media_type === "person"
                           ? (
                             <>
-                              <HandleImage
-                                size="w400"
-                                url={profile_path}
-                                className={{
-                                  style: styles.img_person,
-                                  not_found: styles.img_not_found,
-                                }}
+                              <img
+                                src={profile_path ? `${url_img}/w400${profile_path}` : photoSVG}
+                                className={styles.img_person}
                                 alt={`Imagen de: ${title}`}
                               />
 
                               <h3 className={styles.name}>{title}</h3>
 
-                              <span className={styles.known}>
-                                Conocido por el campo de la
-                                {" "}
-                                {KnownFor(known_for_department)}
-                              </span>
+                              {
+                                mediaTranslations[known_for_department] && (
+                                  <span className={styles.known}>
+                                    Conocido por el campo de la {mediaTranslations[known_for_department]}
+                                  </span>
+                                )
+                              }
 
                               <div className={styles.popularity} title="Popularidad">
                                 <UserGroup />
@@ -112,20 +112,16 @@ export default function UserFavorites() {
                           )
                           : (
                             <>
-                              <HandleImage
-                                className={{
-                                  style: styles[`img_${elm.media_type}`],
-                                  not_found: styles.img_not_found,
-                                }}
-                                url={backdrop_path}
-                                size="w780"
-                                alt={`Imagen de ${title}`}
+                              <img
+                                src={backdrop_path ? `${url_img}/w780${backdrop_path}` : photoSVG}
+                                className={styles[`img_${elm.media_type}`]}
+                                alt={`Imagen de: ${title}`}
                               />
 
                               <div>
-                                <h3 className={styles.title}>{title}</h3>
+                                <h3 className={styles.title}>{title ?? name}</h3>
                                 <small className={styles.media_type}>
-                                  {mediaTranslations.mediaType[media_type]}
+                                  {mediaTranslations[media_type]}
                                 </small>
                               </div>
 

@@ -1,7 +1,7 @@
 {
   "name": "media-platform",
   "private": true,
-  "version": "0.1.56",
+  "version": "0.1.57",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -19,7 +19,7 @@
     "dev:host": "vite --host"
   },
   "dependencies": {
-    "@supabase/supabase-js": "2.38.4",
+    "@supabase/supabase-js": "2.1.0",
     "izitoast": "1.4.0",
     "react": "18.2.0",
     "react-cropper": "2.1.8",

@@ -5,18 +5,15 @@ import ReactDOM from "react-dom/client";
 import { Route, Switch } from "wouter";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
-import ResetPassword from "./pages/ResetPassword";
-import UserFavorites from "./pages/UserFavorites";
 import UserLogIn from "./pages/UserLogIn";
-import UserRegistration from "./pages/UserRegistration";
-import UserSettings from "./pages/UserSettings";
+import FavoriteMedia from "./pages/favorite-media";
 import MediaDetails from "./pages/media-details";
-import { AuthStateChange } from "./services/supabase";
 import store from "./store";
+import { getStore } from "./utils/functions";
 import "./utils/styles/App.scss";
 
 // The next blocks of code are written here for a single run to execute the app
-AuthStateChange();
+getStore("user").authStateChange();
 iziToast.settings({
   position: "bottomCenter",
   progressBar: false,
@@ -33,32 +30,30 @@ function App() {
     readMedia();
   }, []);
 
-  if (SESSION) {
-    return (
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/media-details" component={MediaDetails} />
-        <Route path="/settings" component={UserSettings} />
-        <Route path="/favorites" component={UserFavorites} />
-        <Route path="/:path" component={PageNotFound} />
-      </Switch>
+  // if (SESSION) {
+  return (
+    <Switch>
+      <Route path="/" component={Home} />
+      <Route path="/media-details" component={MediaDetails} />
+      {/* <Route path="/settings" component={UserSettings} /> */}
+      <Route path="/favorites" component={FavoriteMedia} />
+      {/* <Route path="/:path" component={PageNotFound} /> */}
+      {/*       </Switch>
     );
   }
 
   if (!SESSION) {
     return (
-      <>
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/login" component={UserLogIn} />
-          <Route path="/registration" component={UserRegistration} />
-          <Route path="/media-details" component={MediaDetails} />
-          <Route path="/reset-password" component={ResetPassword} />
-          <Route path="/:path" component={PageNotFound} />
-        </Switch>
-      </>
-    );
-  }
+        <Switch> */}
+      {/* <Route path="/" component={Home} /> */}
+      <Route path="/login" component={UserLogIn} />
+      {/* <Route path="/registration" component={UserRegistration} /> */}
+      {/* <Route path="/media-details" component={MediaDetails} /> */}
+      {/* <Route path="/reset-password" component={ResetPassword} /> */}
+      <Route path="/:path" component={PageNotFound} />
+    </Switch>
+  );
+  // }
 }
 
 ReactDOM

@@ -20,23 +20,17 @@ export const SUPABASE = {
 }
 
 export const mediaTranslations = {
-  mediaStatus: {
-    "Rumored": "Rumoreada",
-    "Planned": "Planificada",
-    "In production": "En producción",
-    "Post production": "En pos producción",
-    "Released": "Publicada",
-    "Canceled": "Cancelada",
-    "Returning Series": "Regresará más adelante",
-    "Ended": "Finalizada"
-  },
-  knownForDepartment: {
-    "Acting": "Actuación",
-    "Production": "Producción",
-    "Lighting": "Iluminación"
-  },
-  mediaType: {
-    "movie": "Película",
-    "tv": "Serie"
-  }
+  "Rumored": "Rumoreada",
+  "Planned": "Planificada",
+  "In production": "En producción",
+  "Post production": "En pos producción",
+  "Released": "Publicada",
+  "Canceled": "Cancelada",
+  "Returning Series": "Regresará más adelante",
+  "Ended": "Finalizada",
+  "Acting": "Actuación",
+  "Production": "Producción",
+  "Lighting": "Iluminación",
+  "movie": "Película",
+  "tv": "Serie",
 }

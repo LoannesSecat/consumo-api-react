@@ -1,7 +1,7 @@
 import { mediaTranslations } from "~/utils/constants";
 
 export default function Status({ param, className }) {
-  const TEXT_TRANSLATED = mediaTranslations.mediaStatus[param];
+  const TEXT_TRANSLATED = mediaTranslations[param];
 
   if (param) {
     return (

@@ -6,38 +6,106 @@ import { getStore } from "~/utils/functions.js";
 const initialState = {
   session: {},
   user: {},
-  FAVORITES: [],
+  favoriteMedia: [],
 }
+
+let readFavoritesChannel = null;
 
 const userSlice = (set) => ({
   ...initialState,
 
-  avatarPath: () => {
-    const { user } = user.getState()
-
-    return `${user?.id}/${user?.id}_avatar.png`;
-  },
-
-  readFavorites: async () => {
-    const { user } = user.getState()
-
-    const { data, error } = await supabase
-      .from(FAV_TABLE_NAME)
-      .select("favorite")
-      .match({ user_id: user.id });
+  isSessionActive: async () => {
+    const { data, error } = await supabase.auth.getSession();
+    const { session } = data;
 
     if (error) {
-      iziToast.error({ message: error.message });
+      iziToast.error({ message: "Ha ocurrido un problema al verificar la sesión" });
       return;
     }
 
-    if (data) {
-      set((prev) => ({ ...prev, FAVORITES: data[0]?.favorite ?? data }));
-    }
+    return session && Object.keys(session).length ? true : false;
   },
 
-  reset: () => {
-    set(initialState);
+  saveFavoriteMedia: async (mediaData = {}) => {
+    const { favoriteMedia: mediaFav, user } = getStore("user");
+    const { name, title } = mediaData;
+
+    if (mediaFav.length) {
+      await supabase
+        .from("favorites")
+        .update({ data: mediaFav.concat(mediaData) })
+        .eq("user_id", user.id);
+    }
+
+    if (!mediaFav.length) {
+      await supabase
+        .from("favorites")
+        .insert({ data: [mediaData], user_id: user.id });
+    }
+
+    iziToast.success({ message: `Se agregó <strong>${title ?? name}</strong> a favoritos` });
+  },
+
+  deleteFavoriteMedia: async (mediaId = 0) => {
+    const { favoriteMedia, user } = getStore("user");
+    const auxData = favoriteMedia.find((elm) => elm.id === mediaId);
+    const newFavoriteMedia = favoriteMedia.filter((elm) => elm.id !== Number(mediaId));
+
+    const { error } = await supabase
+      .from("favorites")
+      .update({ data: newFavoriteMedia })
+      .eq("user_id", user.id);
+
+    if (error) {
+      iziToast.error({ message: `Ha ocurrido un error al eliminar de favoritos` });
+      return;
+    }
+
+    const { title, name } = auxData;
+    iziToast.info({ message: `Se eliminó <strong>${title ?? name}</strong> de favoritos` });
+  },
+
+  readFavorites: () => {
+    readFavoritesChannel = supabase
+      .channel("read_favorites")
+      .on("postgres_changes", { event: "*", schema: "public", table: "favorites" }, (payload) => {
+        const { new: { data } } = payload;
+
+        if (!data) {
+          set((state) => ({ ...state, favoriteMedia: [] }))
+          return;
+        }
+
+        set((state) => ({ ...state, favoriteMedia: data }))
+      })
+      .subscribe()
+  },
+
+  stopReadFavorites: async () => {
+    supabase.removeChannel(readFavoritesChannel);
+    readFavoritesChannel = null;
+  },
+
+  authStateChange: () => {
+    supabase.auth.onAuthStateChange((event) => {
+      const { readFavorites, stopReadFavorites } = getStore("user");
+
+      if (event === "SIGNED_IN") {
+        readFavorites();
+      }
+
+      if (event === "SIGNED_OUT") {
+        stopReadFavorites();
+      }
+    });
+  },
+
+
+
+  avatarPath: () => {
+    const { user } = getStore("user");
+
+    return `${user?.id}/${user?.id}_avatar.png`;
   },
 
   changeAvatar: (pathAvatar) => {
@@ -50,45 +118,34 @@ const userSlice = (set) => ({
     }));
   },
 
-  getUser: async () => {
-    const { data/* : { session } */, error } = await supabase.auth.getSession();
-
-    if (error) {
-      iziToast.warning({ message: error.message });
-      return;
-    }
-
-    // if (session) {
-    //   const { access_token, refresh_token, user } = session;
-    //   const { data: { publicUrl } } = supabase.storage.from(AVATAR_STORAGE_NAME)
-    //     .getPublicUrl(`${user.id}/${user.id}_avatar.png`);
-
-    //   set((prev) => ({
-    //     ...prev,
-    //     USER: {
-    //       email: user?.email,
-    //       nickname: user?.user_metadata?.nickname,
-    //       id: user?.id,
-    //       avatar: publicUrl,
-    //     },
-    //     TOKEN: { access_token, refresh_token },
-    //     SESSION: true,
-    //   }));
-
-    //   await user.getState().readFavorites();
-    // }
-    return data
-  },
-
   logIn: async ({ email, password, navigate }) => {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const resLogIn = await supabase.auth.signInWithPassword({ email, password });
 
-    if (error) {
+    if (resLogIn.error) {
       iziToast.warning({ message: ErrorMessage[error.message] });
       return;
     }
 
-    set((state) => ({ ...state, ...data }))
+    const { user, session } = resLogIn.data;
+    const resFavMedia = await supabase
+      .from("favorites")
+      .select("data")
+      .eq("user_id", user.id);
+
+    if (resFavMedia.error) {
+      iziToast.error({ message: "Ha ocurrido un problema al obtener favoritos" });
+      return;
+    }
+
+    const dbFav = resFavMedia?.data?.at(0)?.data;
+
+    set((state) => ({
+      ...state,
+      session,
+      user,
+      ...(dbFav ? { favoriteMedia: dbFav } : {})
+    }));
+
     navigate("/");
   },
 
@@ -116,7 +173,7 @@ const userSlice = (set) => ({
       return;
     }
 
-    getStore("user").reset();
+    set(initialState);
     iziToast.success({ message: "Sesión cerrada", timeout: 1500 });
   },
 
@@ -209,73 +266,6 @@ const userSlice = (set) => ({
     }
   },
 
-  manipulateFavorites: async ({ mediaData = {}, type = "" }) => {
-    const { FAVORITES, user } = user.getState()
-
-    if (type === "create") {
-      if (FAVORITES.length > 0) {
-        const updateRes = await supabase
-          .from(FAV_TABLE_NAME)
-          .update({ favorite: [...FAVORITES, mediaData] })
-          .eq("user_id", user.id)
-          .select();
-
-        if (updateRes.error) {
-          iziToast.error({ message: updateRes.error.message });
-          return;
-        }
-
-        if (updateRes.data) {
-          set((prev) => ({
-            ...prev, FAVORITES: updateRes.data[0].favorite,
-          }));
-          iziToast.info({ message: `<b>${mediaData.title}</b> ha sido agregado a favoritos` });
-        }
-      }
-
-      if (FAVORITES.length === 0) {
-        const insertRes = await supabase
-          .from(FAV_TABLE_NAME)
-          .insert({ favorite: [mediaData], user_id: user.id })
-          .select();
-
-        if (insertRes.error) {
-          iziToast.error({ message: insertRes.error.message });
-          return;
-        }
-
-        if (insertRes.data) {
-          set((prev) => ({
-            ...prev, FAVORITES: insertRes.data[0].favorite,
-          }));
-          iziToast.info({ message: `<b>${mediaData.title}</b> ha sido agregado a favoritos` });
-        }
-      }
-    }
-
-    if (type === "delete") {
-      const filterData = FAVORITES?.filter((el) => el.id !== mediaData.id);
-
-      const deleteRes = await supabase
-        .from(FAV_TABLE_NAME)
-        .update({ favorite: filterData })
-        .eq("user_id", user.id)
-        .select();
-
-      if (deleteRes.error) {
-        iziToast.error({ message: deleteRes.error.message });
-        return;
-      }
-
-      if (deleteRes.data) {
-        set((prev) => ({
-          ...prev, FAVORITES: deleteRes.data[0].favorite,
-        }));
-        iziToast.info({ message: `Eliminaste <b>${mediaData.title}</b> de favoritos` });
-      }
-    }
-  },
-
   deleteAccountUser: ({ navigate }) => {
     iziToast.question({
       timeout: false,
@@ -312,7 +302,7 @@ const userSlice = (set) => ({
               return;
             }
 
-            user.getState().signOutUser();
+            user.getState().logOut();
             navigate("/");
             iziToast.success({ message: "Cuenta eliminada exitosamente" });
           },

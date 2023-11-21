@@ -1,5 +1,5 @@
-@use "./General.scss";
-@use "./Palette.scss";
+@use "../../utils/styles/General.scss";
+@use "../../utils/styles/Palette.scss";
 
 .user_favorites {
   .header {
@@ -30,13 +30,11 @@
 
   .favorites_media {
     @extend %lateral-paddings;
-
     padding-top: 32px;
     padding-bottom: 32px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-flow: dense;
-    gap: 32px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
 
     .card {
       border: 1px solid rgb(226, 226, 226);
@@ -45,6 +43,7 @@
       padding: 12px;
       gap: 6px;
       border-radius: 6px;
+      position: relative;
 
       >img {
         border-radius: 6px;
@@ -54,7 +53,7 @@
       .save_favorite_button {
         justify-self: end;
         align-self: start;
-        margin: 0;
+        position: absolute;
       }
 
       .img_not_found {
@@ -111,41 +110,39 @@
     }
 
     .person {
-      grid-column: 1 span;
       justify-items: center;
       align-self: start;
+      max-width: 400px;
 
       .img_person {
         height: 400px;
         object-fit: cover;
         justify-self: center;
+        aspect-ratio: 2 / 3;
       }
 
       .known {
         text-align: center;
+        text-transform: lowercase;
+
+        &::first-letter {
+          text-transform: uppercase;
+        }
       }
     }
 
     .tv,
     .movie {
-      grid-column: span 2;
       align-self: start;
+      max-width: 780px;
+
+      >img {
+        object-fit: contain;
+        aspect-ratio: 78 / 43;
+      }
 
       .overview {
         margin-bottom: 0;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @media (max-width: 700px) {
-      grid-template-columns: none;
-
-      .tv,
-      .movie {
-        grid-column: 1 span;
       }
     }
   }
