@@ -4,7 +4,7 @@ import { ReactComponent as ChevronUp } from "~/assets/icons/chevron-up.svg";
 import { ReactComponent as Cog8Tooth } from "~/assets/icons/cog-8-tooth.svg";
 import userSVG from "~/assets/icons/user.svg";
 import store from "~/store";
-import styles from "~/utils/styles/user-options.module.scss";
+import styles from "./user-options.module.scss";
 
 export default function UserOptions() {
   const { session, user, logOut } = store.user();

@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import photoSVG from '~/assets/icons/photo.svg';
+import GoBackButton from "~/components/go-back-button";
 import SaveFavoriteButton from "~/components/save-favorite-button";
-import GoBackButton from "~/components/subcomponents/GoBackButton";
 import store from "~/store";
 import { TMDB } from "~/utils/constants";
-import Header from "../../components/Header";
+import Header from "../../components/header";
 import FilmDetails from "./film-details";
 import styles from "./media-details.module.scss";
 import PersonDetails from "./person-details";

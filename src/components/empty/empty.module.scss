@@ -1,16 +1,17 @@
-@use "Palette";
+@use "../../styles/Palette.scss";
 
 .empty {
   display: grid;
   height: -webkit-fill-available;
-  width: -webkit-fill-available;
+  width: 100%;
   place-content: center;
-  position: fixed;
 
-  >h1 {
+  & .text_advice {
     font-weight: 600;
     word-break: break-word;
     color: Palette.$Black_Chocolate;
     text-align: center;
+    font-size: clamp(1.5rem, 3vw, 2.75rem);
+    margin: 0;
   }
 }

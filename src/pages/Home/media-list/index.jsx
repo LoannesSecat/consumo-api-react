@@ -4,7 +4,7 @@ import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
 import photoSVG from "~/assets/icons/photo.svg";
 import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
 import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
-import Empty from "~/components/Empty";
+import Empty from "~/components/empty";
 import SaveFavoriteButton from "~/components/save-favorite-button";
 import store from "~/store";
 import { TMDB, mediaTranslations } from "~/utils/constants.js";
@@ -52,7 +52,7 @@ export default function MediaList() {
   }
 
   useEffect(() => {
-    if (pageRef.current !== page || filterTextRef.current !== filterText) {
+    if (pageRef.current !== page || filterTextRef.current !== filterText || !data.length) {
       readMedia();
 
       pageRef.current = page;

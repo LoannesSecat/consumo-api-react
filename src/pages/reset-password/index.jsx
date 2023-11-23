@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
-import GoBackButton from "~/components/subcomponents/GoBackButton";
+import GoBackButton from "~/components/go-back-button";
 import store from "~/store";
-import styles from "~/utils/styles/reset-password.module.scss";
+import styles from "./reset-password.module.scss";
 
 export default function ResetPassword() {
   const { SESSION, preResetPasswordUser, updateUser } = store.user();

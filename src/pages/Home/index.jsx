@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import Header from "~/components/Header";
+import Header from "~/components/header";
 import store from "~/store";
 import { customTimeOut } from "~/utils/functions.js";
 import styles from "./home.module.scss";

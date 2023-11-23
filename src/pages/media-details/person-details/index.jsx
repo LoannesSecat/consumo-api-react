@@ -1,7 +1,7 @@
 import { MyDate } from "~/utils/functions.js";
-import Homepage from "../../../components/subcomponents/Homepage";
-import Paragraph from "../../../components/subcomponents/Paragraph";
-import Popularity from "../../../components/subcomponents/Popularity";
+import Homepage from "../../../components/Homepage";
+import Paragraph from "../../../components/Paragraph";
+import Popularity from "../../../components/Popularity";
 import styles from "../media-details.module.scss";
 
 export default function PersonDetails({ data } = {} = {}) {

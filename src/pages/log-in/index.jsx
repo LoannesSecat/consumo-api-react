@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
-import GoBackButton from "~/components/subcomponents/GoBackButton";
+import GoBackButton from "~/components/go-back-button";
 import store from "~/store";
-import FormValidator from "~/utils/FormValidator";
-import styles from "~/utils/styles/user-login.module.scss";
+import { formValidator } from "~/utils/functions.js";
+import styles from "./user-login.module.scss";
 
 export default function UserLogIn() {
   const [showPass, setShowPass] = useState(false);
@@ -26,7 +26,7 @@ export default function UserLogIn() {
       navigate,
     };
 
-    if (FormValidator(formValues)) {
+    if (formValidator(formValues)) {
       logIn(formValues);
     }
   };

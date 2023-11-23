@@ -1,14 +1,14 @@
 import { Currency, MyDate } from "~/utils/functions.js";
-import Genres from "../../../components/subcomponents/Genres";
-import Homepage from "../../../components/subcomponents/Homepage";
-import OriginalLanguage from "../../../components/subcomponents/OriginalLanguage";
-import OriginalTitle from "../../../components/subcomponents/OriginalTitle";
-import Paragraph from "../../../components/subcomponents/Paragraph";
-import Popularity from "../../../components/subcomponents/Popularity";
-import ProductionCompanies from "../../../components/subcomponents/ProductionCompanies";
-import ProductionCountries from "../../../components/subcomponents/ProductionCountries";
-import SpokenLanguages from "../../../components/subcomponents/SpokenLanguages";
-import Status from "../../../components/subcomponents/Status";
+import Genres from "../../../components/Genres";
+import Homepage from "../../../components/Homepage";
+import OriginalLanguage from "../../../components/OriginalLanguage";
+import OriginalTitle from "../../../components/OriginalTitle";
+import Paragraph from "../../../components/Paragraph";
+import Popularity from "../../../components/Popularity";
+import ProductionCompanies from "../../../components/ProductionCompanies";
+import ProductionCountries from "../../../components/ProductionCountries";
+import SpokenLanguages from "../../../components/SpokenLanguages";
+import Status from "../../../components/Status";
 import styles from "../media-details.module.scss";
 
 export default function FilmDetails({ data } = {}) {

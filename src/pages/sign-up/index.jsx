@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
 import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
-import GoBackButton from "~/components/subcomponents/GoBackButton";
+import GoBackButton from "~/components/go-back-button";
 import store from "~/store";
-import FormValidator from "~/utils/FormValidator";
-import styles from "~/utils/styles/user-registration.module.scss";
+import { formValidator } from "~/utils/functions.js";
+import styles from "./user-registration.module.scss";
 
 export default function UserRegistration() {
   const { signInUser } = store.user();
@@ -26,7 +26,7 @@ export default function UserRegistration() {
       navigateTo: () => navigate("/"),
     };
 
-    if (FormValidator(formValues)) {
+    if (formValidator(formValues)) {
       if (e.target.nickname.value) {
         formValues = { ...formValues, nickname: e.target.nickname.value };
       }

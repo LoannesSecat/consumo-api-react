@@ -1,5 +1,5 @@
-@use "./General.scss";
-@use "./Palette.scss";
+@use "../../styles/General.scss";
+@use "../../styles/Palette.scss";
 
 .img {
   @extend %organized-title;

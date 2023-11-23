@@ -1,5 +1,5 @@
-import styles from "~/utils/styles/header.module.scss";
-import UserOptions from "./subcomponents/UserOptions";
+import UserOptions from "./../user-options";
+import styles from "./header.module.scss";
 
 export default function Header({ children, className }) {
   return (

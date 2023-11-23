@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import photo from "~/assets/icons/photo.svg";
 import { TMDB } from "~/utils/constants.js";
-import styles from "~/utils/styles/handle-image.module.scss";
+import styles from "./handle-image.module.scss";
 
 const { url_img } = TMDB
 

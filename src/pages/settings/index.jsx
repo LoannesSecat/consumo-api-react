@@ -4,10 +4,10 @@ import Cropper from "react-cropper";
 import { useLocation } from "wouter";
 import userSVG from "~/assets/icons/user.svg";
 import { ReactComponent as XMark } from "~/assets/icons/x-mark.svg";
-import GoBackButton from "~/components/subcomponents/GoBackButton";
+import GoBackButton from "~/components/go-back-button";
 import store from "~/store";
 import { $ } from "~/utils/functions.js";
-import styles from "~/utils/styles/user-settings.module.scss";
+import styles from "./user-settings.module.scss";
 
 const NEW_DATA_STATE = {
   avatar: {
