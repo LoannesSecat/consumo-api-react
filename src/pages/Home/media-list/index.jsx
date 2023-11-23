@@ -59,9 +59,10 @@ export default function MediaList() {
             const { profile_path, poster_path, title, name, media_type, popularity, vote_average, vote_count, id } = item;
             const imageName = media_type.includes("profile") ? profile_path : poster_path;
             const url = `${url_img}/w400${imageName}`;
+            const itemkey = `${id}-${(title ?? name).replaceAll(" ", "_")}`;
 
             return (
-              <article className={styles.card_media} key={id}>
+              <article className={styles.card_media} key={itemkey}>
                 <SaveFavoriteButton dataToSave={item} className={styles.favorite_button} />
 
                 <Link

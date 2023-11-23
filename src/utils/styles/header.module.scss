@@ -6,8 +6,10 @@
   padding-top: 16px;
   padding-bottom: 16px;
   background-color: Palette.$Tufts_Blue;
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
   z-index: 2;
   display: flex;
   gap: 25px;
