@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
 import photoSVG from "~/assets/icons/photo.svg";
@@ -14,7 +14,10 @@ const { url_img } = TMDB;
 
 export default function MediaList() {
   const { data, page, readMedia, filterText, readMediaDetails } = store.media();
+  const pageRef = useRef(page);
+  const filterTextRef = useRef(filterText);
 
+  // Intersection observer section ---
   const intersectionObserver = new IntersectionObserver(
     (entries, observer) => {
       entries.forEach(({ isIntersecting, target }) => {
@@ -35,14 +38,6 @@ export default function MediaList() {
     },
   )
 
-  const handleMediaDetails = (values) => {
-    readMediaDetails(values);
-  }
-
-  useEffect(() => {
-    readMedia();
-  }, [page, filterText]);
-
   useEffect(() => {
     const img = document.querySelectorAll(`.${styles.poster}`);
 
@@ -50,6 +45,20 @@ export default function MediaList() {
       intersectionObserver.observe(elm);
     });
   }, [intersectionObserver]);
+  // ---
+
+  const handleMediaDetails = (values) => {
+    readMediaDetails(values);
+  }
+
+  useEffect(() => {
+    if (pageRef.current !== page || filterTextRef.current !== filterText) {
+      readMedia();
+
+      pageRef.current = page;
+      filterTextRef.current = filterText;
+    }
+  }, [page, filterText]);
 
   if (data?.length) {
     return (
