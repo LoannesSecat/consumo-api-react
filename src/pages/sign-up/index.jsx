@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { ReactComponent as EyeSlash } from "~/assets/icons/eye-slash.svg";
-import { ReactComponent as Eye } from "~/assets/icons/eye.svg";
 import GoBackButton from "~/components/go-back-button";
+import EyeSlash from "~/icons/eye-slash.svg?react";
+import Eye from "~/icons/eye.svg?react";
 import store from "~/store";
 import { formValidator } from "~/utils/functions.js";
 import styles from "./user-registration.module.scss";

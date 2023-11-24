@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
-import { ReactComponent as ChevronUp } from "~/assets/icons/chevron-up.svg";
-import { ReactComponent as Cog8Tooth } from "~/assets/icons/cog-8-tooth.svg";
-import userSVG from "~/assets/icons/user.svg";
+import ChevronUp from "~/icons/chevron-up.svg?react";
+import Cog8Tooth from "~/icons/cog-8-tooth.svg?react";
+import userSVG from "~/icons/user.svg";
 import store from "~/store";
 import styles from "./user-options.module.scss";
 

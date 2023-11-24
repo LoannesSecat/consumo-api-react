@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
-import photoSVG from "~/assets/icons/photo.svg";
-import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
-import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
 import Empty from "~/components/empty";
 import GoBackButton from "~/components/go-back-button";
 import Header from "~/components/header";
 import SaveFavoriteButton from "~/components/save-favorite-button";
+import Heart from "~/icons/heart.svg?react";
+import photoSVG from "~/icons/photo.svg";
+import Sparkles from "~/icons/sparkles.svg?react";
+import UserGroup from "~/icons/user-group.svg?react";
 import store from "~/store";
 import { TMDB, mediaTranslations } from "~/utils/constants.js";
 import styles from "./user-favorites.module.scss";

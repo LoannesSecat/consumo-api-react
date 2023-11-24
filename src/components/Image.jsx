@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import photoSVG from "~/assets/icons/photo.svg";
+import photoSVG from "~/icons/photo.svg";
 
 const isUrlValid = (url) => {
   try {

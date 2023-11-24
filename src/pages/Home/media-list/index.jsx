@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
-import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
-import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
-import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
 import Image from "~/components/Image";
 import Empty from "~/components/empty";
 import SaveFavoriteButton from "~/components/save-favorite-button";
+import Heart from "~/icons/heart.svg?react";
+import Sparkles from "~/icons/sparkles.svg?react";
+import UserGroup from "~/icons/user-group.svg?react";
 import store from "~/store";
 import { TMDB, mediaTranslations } from "~/utils/constants.js";
 import styles from "./media-list.module.scss";

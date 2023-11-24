@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import photoSVG from '~/assets/icons/photo.svg';
 import GoBackButton from "~/components/go-back-button";
 import SaveFavoriteButton from "~/components/save-favorite-button";
+import photoSVG from '~/icons/photo.svg';
 import store from "~/store";
 import { TMDB } from "~/utils/constants";
 import Header from "../../components/header";

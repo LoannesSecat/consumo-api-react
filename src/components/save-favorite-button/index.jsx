@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { ReactComponent as BookmarkSlash } from "~/assets/icons/bookmark-slash.svg";
-import { ReactComponent as Bookmark } from "~/assets/icons/bookmark.svg";
+import BookmarkSlash from "~/icons/bookmark-slash.svg?react";
+import Bookmark from "~/icons/bookmark.svg?react";
 import store from "~/store";
 import { useToast } from "~/utils/functions";
 import styles from "./save-favorite-button.module.scss";
