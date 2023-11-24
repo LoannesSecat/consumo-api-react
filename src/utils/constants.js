@@ -14,8 +14,6 @@ export const TMDB = {
 }
 
 export const SUPABASE = {
-  url: envVars.VITE_SUPABASE_URL,
-  key: envVars.VITE_SUPABASE_KEY,
   url_storage: `${envVars.VITE_SUPABASE_URL}/storage/v1/object/public/`,
 }
 
@@ -33,4 +31,16 @@ export const mediaTranslations = {
   "Lighting": "Iluminación",
   "movie": "Película",
   "tv": "Serie",
+}
+
+export const errorMsg = {
+  "Email not confirmed": "La cuenta de correo no ha sido verificada",
+  "Invalid login credentials": "Las credenciales son inválidas",
+  "Password recovery requires an email": "Se requiere el correo registrado para recuperar la contraseña",
+  "For security purposes, you can only request this once every 60 seconds": "Solo puedes hacer una petición de cambio de contraseña cada 60 segundos",
+  "User already registered": "El correo ya está en uso",
+  "duplicate key value violates unique constraint \"bucketid_objname\"": "El nombre del archivo ya está registrado",
+  "A user with this email address has already been registered": "Un usuario ya se ha registrado con este correo",
+  "Unable to validate email address: invalid format": "Formato de correo inválido",
+  "Password should be at least 6 characters": "La contraseña debe tener más de 6 caracteres"
 }

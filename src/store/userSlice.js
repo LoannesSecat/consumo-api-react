@@ -1,5 +1,5 @@
-import supabase from "~/services/supabase";
-import { SUPABASE } from "~/utils/constants.js";
+import clients from "~/services/clients.js";
+import { SUPABASE, errorMsg } from "~/utils/constants.js";
 import { getStore, useToast } from "~/utils/functions.js";
 
 const initialState = {
@@ -14,7 +14,7 @@ const userSlice = (set) => ({
   ...initialState,
 
   isSessionActive: async () => {
-    const { data, error } = await supabase.auth.getSession();
+    const { data, error } = await clients.supabase.auth.getSession();
     const { session } = data;
 
     if (error) {
@@ -50,7 +50,7 @@ const userSlice = (set) => ({
     const auxData = favoriteMedia.find((elm) => elm.id === mediaId);
     const newFavoriteMedia = favoriteMedia.filter((elm) => elm.id !== Number(mediaId));
 
-    const { error } = await supabase
+    const { error } = await clients.supabase
       .from("favorites")
       .update({ data: newFavoriteMedia })
       .eq("user_id", user.id);
@@ -65,7 +65,7 @@ const userSlice = (set) => ({
   },
 
   readFavorites: () => {
-    readFavoritesChannel = supabase
+    readFavoritesChannel = clients.supabase
       .channel("read_favorites")
       .on("postgres_changes", { event: "*", schema: "public", table: "favorites" }, (payload) => {
         const { new: { data } } = payload;
@@ -81,12 +81,12 @@ const userSlice = (set) => ({
   },
 
   stopReadFavorites: async () => {
-    supabase.removeChannel(readFavoritesChannel);
+    clients.supabase.removeChannel(readFavoritesChannel);
     readFavoritesChannel = null;
   },
 
   authStateChange: () => {
-    supabase.auth.onAuthStateChange((event) => {
+    clients.supabase.auth.onAuthStateChange((event) => {
       const { readFavorites, stopReadFavorites } = getStore("user");
 
       if (event === "SIGNED_IN") {
@@ -118,15 +118,15 @@ const userSlice = (set) => ({
   },
 
   logIn: async ({ email, password, navigate }) => {
-    const resLogIn = await supabase.auth.signInWithPassword({ email, password });
+    const resLogIn = await clients.supabase.auth.signInWithPassword({ email, password });
 
     if (resLogIn.error) {
-      useToast.warning({ message: ErrorMessage[error.message] });
+      useToast.warning({ message: errorMsg[resLogIn.error.message] });
       return;
     }
 
     const { user, session } = resLogIn.data;
-    const resFavMedia = await supabase
+    const resFavMedia = await clients.supabase
       .from("favorites")
       .select("data")
       .eq("user_id", user.id);
@@ -149,13 +149,13 @@ const userSlice = (set) => ({
   },
 
   signInUser: async ({ email, password, nickname = "Anónimo", navigateTo, }) => {
-    const { data, error } = await supabase.auth.signUp(
+    const { data, error } = await clients.supabase.auth.signUp(
       { email, password },
       { data: { nickname } },
     );
 
     if (error) {
-      useToast.warning({ message: ErrorMessage[error.message] });
+      useToast.warning({ message: errorMsg[error.message] });
     }
 
     if (data) {
@@ -165,10 +165,10 @@ const userSlice = (set) => ({
   },
 
   logOut: async ({ navigate }) => {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await clients.supabase.auth.signOut();
 
     if (error) {
-      useToast.warning({ message: ErrorMessage[error.message] });
+      useToast.warning({ message: errorMsg[error.message] });
       return;
     }
 
@@ -184,7 +184,7 @@ const userSlice = (set) => ({
     if (nickname) dataUser = { ...dataUser, data: { nickname } };
     if (email) dataUser = { ...dataUser, email };
 
-    const { data, error } = await supabase.auth.updateUser(dataUser);
+    const { data, error } = await clients.supabase.auth.updateUser(dataUser);
 
     if (data) {
       const { user } = data;
@@ -206,14 +206,14 @@ const userSlice = (set) => ({
     }
 
     if (error) {
-      useToast.warning({ message: ErrorMessage[error.message] });
+      useToast.warning({ message: errorMsg[error.message] });
 
       return false;
     }
   },
 
   preResetPasswordUser: async ({ email, navigateTo }) => {
-    const { data, error } = await supabase.auth.api.resetPasswordForEmail(
+    const { data, error } = await clients.supabase.auth.api.resetPasswordForEmail(
       email,
       { redirectTo: `${location.origin}${location.pathname}` },
     );
@@ -227,12 +227,12 @@ const userSlice = (set) => ({
     }
 
     if (error) {
-      useToast.warning({ message: ErrorMessage[error.message] });
+      useToast.warning({ message: errorMsg[error.message] });
     }
   },
 
   deleteAvatar: async () => {
-    const { data, error } = await supabase.storage.from(AVATAR_STORAGE_NAME)
+    const { data, error } = await clients.supabase.storage.from(AVATAR_STORAGE_NAME)
       .remove([user.getState().avatarPath()]);
 
     if (error) {
@@ -247,7 +247,7 @@ const userSlice = (set) => ({
   },
 
   uploadAvatar: async ({ file }) => {
-    const { error, data } = await supabase.storage.from(AVATAR_STORAGE_NAME)
+    const { error, data } = await clients.supabase.storage.from(AVATAR_STORAGE_NAME)
       .upload(user.getState().avatarPath(), file, {
         cacheControl: "3600",
         upsert: false,
@@ -295,10 +295,12 @@ const userSlice = (set) => ({
               return;
             }
 
-            const deleteRes = await supabase.from("favorites").delete().eq("user_id", user.id);
+            const deleteRes = await clients.supabase.from("favorites").delete().eq("user_id", user.id);
 
             if (deleteRes.error) {
-              useToast.warning({ message: error.message });
+              const { error: { message } } = deleteRes;
+
+              useToast.warning({ message });
               return;
             }
 
