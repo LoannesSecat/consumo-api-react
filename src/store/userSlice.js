@@ -1,7 +1,6 @@
-import iziToast from "izitoast";
 import supabase from "~/services/supabase";
 import { SUPABASE } from "~/utils/constants.js";
-import { getStore } from "~/utils/functions.js";
+import { getStore, useToast } from "~/utils/functions.js";
 
 const initialState = {
   session: {},
@@ -19,7 +18,7 @@ const userSlice = (set) => ({
     const { session } = data;
 
     if (error) {
-      iziToast.error({ message: "Ha ocurrido un problema al verificar la sesión" });
+      useToast.error({ message: "Ha ocurrido un problema al verificar la sesión" });
       return;
     }
 
@@ -43,7 +42,7 @@ const userSlice = (set) => ({
         .insert({ data: [mediaData], user_id: user.id });
     }
 
-    iziToast.success({ message: `Se agregó <strong>${title ?? name}</strong> a favoritos` });
+    useToast.success({ message: `Se agregó <strong>${title ?? name}</strong> a favoritos` });
   },
 
   deleteFavoriteMedia: async (mediaId = 0) => {
@@ -57,12 +56,12 @@ const userSlice = (set) => ({
       .eq("user_id", user.id);
 
     if (error) {
-      iziToast.error({ message: `Ha ocurrido un error al eliminar de favoritos` });
+      useToast.error({ message: `Ha ocurrido un error al eliminar de favoritos` });
       return;
     }
 
     const { title, name } = auxData;
-    iziToast.info({ message: `Se eliminó <strong>${title ?? name}</strong> de favoritos` });
+    useToast.info({ message: `Se eliminó <strong>${title ?? name}</strong> de favoritos` });
   },
 
   readFavorites: () => {
@@ -122,7 +121,7 @@ const userSlice = (set) => ({
     const resLogIn = await supabase.auth.signInWithPassword({ email, password });
 
     if (resLogIn.error) {
-      iziToast.warning({ message: ErrorMessage[error.message] });
+      useToast.warning({ message: ErrorMessage[error.message] });
       return;
     }
 
@@ -133,7 +132,7 @@ const userSlice = (set) => ({
       .eq("user_id", user.id);
 
     if (resFavMedia.error) {
-      iziToast.error({ message: "Ha ocurrido un problema al obtener favoritos" });
+      useToast.error({ message: "Ha ocurrido un problema al obtener favoritos" });
       return;
     }
 
@@ -156,11 +155,11 @@ const userSlice = (set) => ({
     );
 
     if (error) {
-      iziToast.warning({ message: ErrorMessage[error.message] });
+      useToast.warning({ message: ErrorMessage[error.message] });
     }
 
     if (data) {
-      iziToast.success({ message: "Te has registrado" });
+      useToast.success({ message: "Te has registrado" });
       navigateTo();
     }
   },
@@ -169,13 +168,13 @@ const userSlice = (set) => ({
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      iziToast.warning({ message: ErrorMessage[error.message] });
+      useToast.warning({ message: ErrorMessage[error.message] });
       return;
     }
 
     set(initialState);
     if (navigate) navigate();
-    iziToast.success({ message: "Sesión cerrada", timeout: 1500 });
+    useToast.success({ message: "Sesión cerrada", timeout: 1500 });
   },
 
   updateUser: async ({ password, nickname, email, navigate, }) => {
@@ -201,13 +200,13 @@ const userSlice = (set) => ({
 
       localStorage.removeItem("EVENT");
       if (navigate) navigate("/");
-      iziToast.success({ message: "Datos actualizados" });
+      useToast.success({ message: "Datos actualizados" });
 
       return true;
     }
 
     if (error) {
-      iziToast.warning({ message: ErrorMessage[error.message] });
+      useToast.warning({ message: ErrorMessage[error.message] });
 
       return false;
     }
@@ -220,7 +219,7 @@ const userSlice = (set) => ({
     );
 
     if (data) {
-      iziToast.info({
+      useToast.info({
         message: `Se ha enviado un mensaje de confirmación al correo <b>${email}</b>`,
       });
       navigateTo();
@@ -228,7 +227,7 @@ const userSlice = (set) => ({
     }
 
     if (error) {
-      iziToast.warning({ message: ErrorMessage[error.message] });
+      useToast.warning({ message: ErrorMessage[error.message] });
     }
   },
 
@@ -237,13 +236,13 @@ const userSlice = (set) => ({
       .remove([user.getState().avatarPath()]);
 
     if (error) {
-      iziToast.error({ message: "Ocurrió un error al eliminar la foto" });
+      useToast.error({ message: "Ocurrió un error al eliminar la foto" });
       return;
     }
 
     if (data) {
       user.getState().changeAvatar(null);
-      iziToast.success({ message: "Foto eliminada", timeout: 2000 });
+      useToast.success({ message: "Foto eliminada", timeout: 2000 });
     }
   },
 
@@ -257,18 +256,18 @@ const userSlice = (set) => ({
 
     if (error) {
       user.getState().changeAvatar(null);
-      iziToast.error({ message: "Ocurrió un error al guardar la foto" });
+      useToast.error({ message: "Ocurrió un error al guardar la foto" });
       return;
     }
 
     if (data) {
       user.getState().changeAvatar(`${SUPABASE.url_storage}${data.Key}`);
-      iziToast.success({ message: "Foto guardada", timeout: 2000 });
+      useToast.success({ message: "Foto guardada", timeout: 2000 });
     }
   },
 
   deleteAccountUser: ({ navigate }) => {
-    iziToast.question({
+    useToast.question({
       timeout: false,
       close: true,
       overlay: true,
@@ -292,20 +291,20 @@ const userSlice = (set) => ({
             const { error } = await s.auth.api.deleteUser(user.id);
 
             if (error) {
-              iziToast.warning({ message: error.message });
+              useToast.warning({ message: error.message });
               return;
             }
 
             const deleteRes = await supabase.from("favorites").delete().eq("user_id", user.id);
 
             if (deleteRes.error) {
-              iziToast.warning({ message: error.message });
+              useToast.warning({ message: error.message });
               return;
             }
 
             user.getState().logOut();
             navigate("/");
-            iziToast.success({ message: "Cuenta eliminada exitosamente" });
+            useToast.success({ message: "Cuenta eliminada exitosamente" });
           },
         ],
         ["<button><b>No</b></button>", (instance, toast) => {

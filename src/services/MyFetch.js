@@ -1,5 +1,5 @@
-import iziToast from "izitoast";
 import { envVars } from "~/utils/constants";
+import { useToast } from "~/utils/functions";
 
 export default async function MyFetch({ path }) {
   try {
@@ -25,7 +25,7 @@ export default async function MyFetch({ path }) {
       msg = error.message;
     }
 
-    iziToast.error({ message: msg });
+    useToast.error({ message: msg });
 
     return {
       response: {

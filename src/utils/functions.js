@@ -65,8 +65,10 @@ export const customTimeOut = ({ fn = () => { }, miliseconds = 1000 }) => {
   }, miliseconds);
 }
 
+export const useToast = iziToast;
+
 export const toastInicializer = () => {
-  iziToast.settings({
+  useToast.settings({
     position: "bottomCenter",
     progressBar: false,
     messageSize: "16",
@@ -79,7 +81,7 @@ export const formValidator = ({ email, password }) => {
   const EMAIL_REG_EX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   if (email.trim() === "") {
-    iziToast.warning({
+    useToast.warning({
       message: "Te falta el correo",
     });
 
@@ -87,7 +89,7 @@ export const formValidator = ({ email, password }) => {
   }
 
   if (!EMAIL_REG_EX.test(email)) {
-    iziToast.warning({
+    useToast.warning({
       message: "Escriba un correo con el formato correcto",
     });
 
@@ -95,7 +97,7 @@ export const formValidator = ({ email, password }) => {
   }
 
   if (password === "") {
-    iziToast.warning({
+    useToast.warning({
       message: "Te falta la contraseña",
     });
 
@@ -103,7 +105,7 @@ export const formValidator = ({ email, password }) => {
   }
 
   if (password.length < 6) {
-    iziToast.warning({
+    useToast.warning({
       message: "La contraseña debe tener más de 6 caracteres",
     });
 
