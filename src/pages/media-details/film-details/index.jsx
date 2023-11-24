@@ -1,3 +1,4 @@
+import Image from "~/components/Image";
 import { Currency, MyDate } from "~/utils/functions.js";
 import Genres from "../../../components/Genres";
 import Homepage from "../../../components/Homepage";
@@ -37,7 +38,7 @@ export default function FilmDetails({ data } = {}) {
   return (
     <>
       <picture className={styles.banner}>
-        <img
+        <Image
           src={backdrop_url}
           alt={`Fondo de la película: ${title}`}
           className={styles.film_img}

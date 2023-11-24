@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { ReactComponent as Heart } from "~/assets/icons/heart.svg";
-import photoSVG from "~/assets/icons/photo.svg";
 import { ReactComponent as Sparkles } from "~/assets/icons/sparkles.svg";
 import { ReactComponent as UserGroup } from "~/assets/icons/user-group.svg";
+import Image from "~/components/Image";
 import Empty from "~/components/empty";
 import SaveFavoriteButton from "~/components/save-favorite-button";
 import store from "~/store";
@@ -16,36 +16,6 @@ export default function MediaList() {
   const { data, page, readMedia, filterText, readMediaDetails } = store.media();
   const pageRef = useRef(page);
   const filterTextRef = useRef(filterText);
-
-  // Intersection observer section ---
-  const intersectionObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach(({ isIntersecting, target }) => {
-        if (isIntersecting) {
-          if (target.getAttribute("data-src")) {
-            target.setAttribute("src", target.getAttribute("data-src"));
-            target.removeAttribute("data-src");
-          }
-
-          observer.unobserve(target);
-        }
-      });
-    },
-    {
-      root: null,
-      rootMargin: "300px 0px",
-      threshold: 0,
-    },
-  )
-
-  useEffect(() => {
-    const img = document.querySelectorAll(`.${styles.poster}`);
-
-    img.forEach((elm) => {
-      intersectionObserver.observe(elm);
-    });
-  }, [intersectionObserver]);
-  // ---
 
   const handleMediaDetails = (values) => {
     readMediaDetails(values);
@@ -79,16 +49,8 @@ export default function MediaList() {
                   onMouseDown={() => handleMediaDetails(item)}
                   onTouchStart={() => handleMediaDetails(item)}
                 >
-
-                  <img
-                    {...(
-                      imageName
-                        ? { "data-src": url }
-                        : {
-                          src: photoSVG,
-                          style: { background: "rgb(0 0 0 / 5%)" }
-                        }
-                    )}
+                  <Image
+                    data-src={url}
                     width="400"
                     height="600"
                     alt={`Poster de ${title ?? name}`}

@@ -1,3 +1,4 @@
+import Image from "~/components/Image";
 import { MyDate } from "~/utils/functions.js";
 import Homepage from "../../../components/Homepage";
 import Paragraph from "../../../components/Paragraph";
@@ -22,7 +23,7 @@ export default function PersonDetails({ data } = {} = {}) {
   return (
     <>
       <picture className={styles.banner}>
-        <img
+        <Image
           src={backdrop_url}
           className={styles.person_img}
           alt={`Imagen de ${name}`}

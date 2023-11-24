@@ -1,3 +1,4 @@
+import Image from "~/components/Image";
 import { MyDate } from "~/utils/functions.js";
 import Genres from "../../../components/Genres";
 import Homepage from "../../../components/Homepage";
@@ -74,7 +75,7 @@ export default function SerieDetails({ data } = {}) {
   return (
     <>
       <picture className={styles.banner}>
-        <img
+        <Image
           src={backdrop_url}
           alt={`Fondo de la serie: ${name}`}
           className={styles.serie_img}
