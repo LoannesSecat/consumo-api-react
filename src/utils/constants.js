@@ -42,5 +42,6 @@ export const errorMsg = {
   "duplicate key value violates unique constraint \"bucketid_objname\"": "El nombre del archivo ya está registrado",
   "A user with this email address has already been registered": "Un usuario ya se ha registrado con este correo",
   "Unable to validate email address: invalid format": "Formato de correo inválido",
-  "Password should be at least 6 characters": "La contraseña debe tener más de 6 caracteres"
+  "Password should be at least 6 characters": "La contraseña debe tener más de 6 caracteres",
+  "New password should be different from the old password.": "La nueva contraseña debe ser diferente a la anterior",
 }

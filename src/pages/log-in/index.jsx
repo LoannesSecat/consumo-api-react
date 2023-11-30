@@ -58,7 +58,7 @@ export default function UserLogIn() {
         <button type="submit" className={styles.submit_log_in_button}>Iniciar sesión</button>
       </form>
 
-      <Link href="reset-password">Reiniciar contraseña</Link>
+      <Link href="request-reset-password">Cambiar contraseña</Link>
     </main>
   );
 }

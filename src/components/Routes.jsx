@@ -5,9 +5,10 @@ import FavoriteMedia from "~/pages/favorite-media";
 import UserLogIn from "~/pages/log-in";
 import MediaDetails from "~/pages/media-details";
 import PageNotFound from "~/pages/page-not-found";
-import ResetPassword from "~/pages/reset-password";
+import RequestResetPassword from "~/pages/request-reset-password";
 import UserSettings from "~/pages/settings";
 import UserRegistration from "~/pages/sign-up";
+import UpdatePassword from "~/pages/update-password";
 import store from "~/store";
 
 export default function Routes() {
@@ -20,28 +21,32 @@ export default function Routes() {
     })();
   }, [session]);
 
-  if (isLoggedIn) {
-    return (
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/media-details" component={MediaDetails} />
-        <Route path="/settings" component={UserSettings} />
-        <Route path="/favorites" component={FavoriteMedia} />
-        <Route path="/:path" component={PageNotFound} />
-      </Switch>
-    );
-  }
+  return (
+    <Switch>
+      <Route path="/" component={Home} />
+      {
+        isLoggedIn && (
+          <>
+            <Route path="/media-details" component={MediaDetails} />
+            <Route path="/settings" component={UserSettings} />
+            <Route path="/favorites" component={FavoriteMedia} />
+            <Route path="/update-password" component={UpdatePassword} />
+          </>
+        )
+      }
 
-  if (!isLoggedIn) {
-    return (
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/login" component={UserLogIn} />
-        <Route path="/signup" component={UserRegistration} />
-        <Route path="/media-details" component={MediaDetails} />
-        <Route path="/reset-password" component={ResetPassword} />
-        <Route path="/:path" component={PageNotFound} />
-      </Switch>
-    );
-  }
+      {
+        !isLoggedIn && (
+          <>
+            <Route path="/login" component={UserLogIn} />
+            <Route path="/signup" component={UserRegistration} />
+            <Route path="/media-details" component={MediaDetails} />
+            <Route path="/request-reset-password" component={RequestResetPassword} />
+          </>
+        )
+      }
+
+      <Route path="/:path" component={PageNotFound} />
+    </Switch>
+  );
 }

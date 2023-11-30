@@ -114,3 +114,11 @@ export const formValidator = ({ email, password }) => {
 
   return true;
 }
+
+export const formValuesExtractor = ({ event = {} }) => {
+  const target = event.currentTarget;
+  const formData = new FormData(target);
+  const valuesObject = Object.fromEntries(formData.entries());
+
+  return valuesObject;
+}

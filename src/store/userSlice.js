@@ -99,6 +99,48 @@ const userSlice = (set) => ({
     });
   },
 
+  updateUserData: async (values = { password, nickname, email, navigate: () => { } }) => {
+    const { navigate, ...valuesToChange } = values;
+    const resUpdateUser = await clients.supabase.auth.updateUser(valuesToChange);
+    const resGetSession = await clients.supabase.auth.getSession();
+
+    if (resUpdateUser.error) {
+      const { error } = resUpdateUser;
+      useToast.warning({ message: errorMsg[error.message] });
+      return;
+    }
+
+    if (resGetSession.error) {
+      const { error } = resGetSession;
+      useToast.warning({ message: errorMsg[error.message] });
+      return;
+    }
+
+    const { user } = resUpdateUser.data;
+    const { session } = resGetSession.data;
+
+    set((state) => ({ ...state, user, session }));
+
+    if (navigate) navigate();
+    useToast.success({ message: "Datos actualizados" });
+  },
+
+  requestResetPassword: async ({ email }) => {
+    const { error } = await clients.supabase.auth.resetPasswordForEmail(
+      email,
+      { redirectTo: `${location.origin}/update-password` },
+    );
+
+    if (error) {
+      useToast.warning({ message: errorMsg[error.message] });
+      return;
+    }
+
+    useToast.info({
+      message: `Se ha enviado un correo de confirmación a <strong>${email}</strong>`,
+    });
+  },
+
 
 
   avatarPath: () => {
@@ -175,60 +217,6 @@ const userSlice = (set) => ({
     set(initialState);
     if (navigate) navigate();
     useToast.success({ message: "Sesión cerrada", timeout: 1500 });
-  },
-
-  updateUser: async ({ password, nickname, email, navigate, }) => {
-    let dataUser = {};
-
-    if (password) dataUser = { ...dataUser, password };
-    if (nickname) dataUser = { ...dataUser, data: { nickname } };
-    if (email) dataUser = { ...dataUser, email };
-
-    const { data, error } = await clients.supabase.auth.updateUser(dataUser);
-
-    if (data) {
-      const { user } = data;
-
-      set((prev) => ({
-        ...prev,
-        session: {
-          ...prev.session,
-          email: user?.email,
-          nickname: user?.user_metadata?.nickname,
-        },
-      }));
-
-      localStorage.removeItem("EVENT");
-      if (navigate) navigate("/");
-      useToast.success({ message: "Datos actualizados" });
-
-      return true;
-    }
-
-    if (error) {
-      useToast.warning({ message: errorMsg[error.message] });
-
-      return false;
-    }
-  },
-
-  preResetPasswordUser: async ({ email, navigateTo }) => {
-    const { data, error } = await clients.supabase.auth.api.resetPasswordForEmail(
-      email,
-      { redirectTo: `${location.origin}${location.pathname}` },
-    );
-
-    if (data) {
-      useToast.info({
-        message: `Se ha enviado un mensaje de confirmación al correo <b>${email}</b>`,
-      });
-      navigateTo();
-      return;
-    }
-
-    if (error) {
-      useToast.warning({ message: errorMsg[error.message] });
-    }
   },
 
   deleteAvatar: async () => {
