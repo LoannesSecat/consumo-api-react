@@ -87,7 +87,7 @@ export default function UserOptions() {
 
             <button
               className={styles.sign_up_button}
-              onClick={() => { navigate("registration"); }}
+              onClick={() => { navigate("/signup"); }}
               type="button"
             >
               Registrarme

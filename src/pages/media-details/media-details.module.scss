@@ -67,26 +67,31 @@
     }
 
     .titles {
-      @extend %lateral-paddings;
-      @extend %organized-title;
-
       color: Palette.$Ghost_White;
-      -webkit-text-stroke: 0.5px Palette.$Royal_Blue_Dark;
       position: absolute;
       bottom: 0;
-      padding-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      @extend %lateral-paddings;
+      padding-bottom: 16px;
+      padding-top: 16px;
+      -webkit-text-stroke: 0.5px Palette.$Royal_Blue_Dark;
+      background: linear-gradient(90deg, rgb(0 0 0 / 50%), transparent);
 
-      >h2,
-      h3 {
-        margin: 0;
+      & .media_title,
+      .media_subtitle {
+        margin: 0px;
       }
 
-      >h2 {
-        font-size: 1.8rem;
+      & .media_title {
+        font-family: "GeneralSans-Bold";
+        -webkit-text-stroke: 0.5px Palette.$Royal_Blue_Dark;
+        font-size: 32px;
       }
 
-      >h3 {
-        margin-top: 5px;
+      & .media_subtitle {
+        font-family: "GeneralSans-Semibold";
+        font-size: 20px;
       }
     }
   }
@@ -128,9 +133,8 @@
       }
     }
 
-    .homepage {
+    & .homepage {
       margin-inline-start: 40px;
-      text-decoration: none;
       display: initial;
 
       &:hover {

@@ -45,8 +45,8 @@ export default function FilmDetails({ data } = {}) {
         />
 
         <div className={styles.titles}>
-          <h2>{title}</h2>
-          {tagline && tagline?.length > 0 ? <h3>{tagline}</h3> : null}
+          <h1 className={styles.media_title}>{title}</h1>
+          {tagline && tagline?.length > 0 ? <h2 className={styles.media_subtitle}>{tagline}</h2> : null}
         </div>
       </picture>
 

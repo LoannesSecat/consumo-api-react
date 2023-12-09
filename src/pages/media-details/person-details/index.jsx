@@ -30,7 +30,7 @@ export default function PersonDetails({ data } = {} = {}) {
         />
 
         <div className={styles.titles}>
-          <h2>{name}</h2>
+          <h1 className={styles.media_title}>{name}</h1>
         </div>
       </picture>
 

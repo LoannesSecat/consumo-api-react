@@ -58,7 +58,7 @@ export default function MediaList() {
                   />
 
                   <footer className={styles.info}>
-                    <h2>{title ?? name}</h2>
+                    <h2 className={styles.info_title}>{title ?? name}</h2>
 
                     <div className={styles.statistics}>
                       {

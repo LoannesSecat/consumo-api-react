@@ -37,41 +37,6 @@ export default function SerieDetails({ data } = {}) {
     backdrop_url,
   } = data;
 
-  const lastEpisodeText = (
-    <>
-      Episodio N°
-      {last_episode_to_air?.episode_number}
-      {" "}
-      de la temporada
-      {" "}
-      {last_episode_to_air?.season_number}
-      {" "}
-      <small>
-        (
-        {last_episode_to_air?.air_date}
-        )
-      </small>
-    </>
-  );
-
-  const nextEpisodeText = (
-    <>
-      Episodio N°
-      {" "}
-      {next_episode_to_air?.episode_number}
-      {" "}
-      de la temporada
-      {" "}
-      {last_episode_to_air?.season_number}
-      {" "}
-      <small>
-        (
-        {last_episode_to_air?.air_date}
-        )
-      </small>
-    </>
-  );
-
   return (
     <>
       <picture className={styles.banner}>
@@ -82,8 +47,8 @@ export default function SerieDetails({ data } = {}) {
         />
 
         <div className={styles.titles}>
-          <h2>{name}</h2>
-          {tagline && tagline.length > 0 ? <h3>{tagline}</h3> : null}
+          <h1 className={styles.media_title}>{name}</h1>
+          {tagline && tagline.length > 0 ? <h2 className={styles.media_subtitle}>{tagline}</h2> : null}
         </div>
       </picture>
 
@@ -144,7 +109,8 @@ export default function SerieDetails({ data } = {}) {
           <dl>
             <dt className={styles.subtitle}>Último episodio al aire</dt>
             <dd className={styles.subtext}>
-              {lastEpisodeText}
+              {`Episodio N° ${last_episode_to_air?.episode_number} de la temporada ${last_episode_to_air?.season_number} `}
+              (<small>{last_episode_to_air?.air_date}</small>)
             </dd>
           </dl>
         ) : null}
@@ -153,7 +119,8 @@ export default function SerieDetails({ data } = {}) {
           <dl>
             <dt className={styles.subtitle}>Siguiente episodio al aire</dt>
             <dd className={styles.subtext}>
-              {nextEpisodeText}
+              {`Episodio N° ${next_episode_to_air?.episode_number} de la temporada ${last_episode_to_air?.season_number} `}
+              (<small>{last_episode_to_air?.air_date}</small>)
             </dd>
           </dl>
         ) : null}

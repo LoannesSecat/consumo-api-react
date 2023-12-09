@@ -2,55 +2,27 @@
 @use "./Normalize.scss";
 
 @font-face {
-  font-family: "Fredoka";
-  font-style: normal;
-  font-weight: 300;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url("./../fonts/fredoka/Fredoka-Light.ttf");
+  font-family: "GeneralSans-Regular";
+  src: url("./../fonts/general-sans/GeneralSans-Regular.woff2") format("woff2"),
+    url("./../fonts/general-sans/GeneralSans-Regular.woff") format("woff");
 }
 
 @font-face {
-  font-family: 'Fredoka';
-  font-style: normal;
-  font-weight: 400;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url("./../fonts/fredoka/Fredoka-Regular.ttf");
+  font-family: "GeneralSans-Semibold";
+  src: url("./../fonts/general-sans/GeneralSans-Semibold.woff2") format("woff2"),
+    url("./../fonts/general-sans/GeneralSans-Semibold.woff") format("woff");
 }
 
 @font-face {
-  font-family: 'Fredoka';
-  font-style: normal;
-  font-weight: 500;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url("./../fonts/fredoka/Fredoka-Medium.ttf");
-}
-
-@font-face {
-  font-family: 'Fredoka';
-  font-style: normal;
-  font-weight: 600;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url("./../fonts/fredoka/Fredoka-SemiBold.ttf");
-}
-
-@font-face {
-  font-family: 'Fredoka';
-  font-style: normal;
-  font-weight: 700;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url("./../fonts/fredoka/Fredoka-Bold.ttf");
+  font-family: "GeneralSans-Bold";
+  src: url("./../fonts/general-sans/GeneralSans-bold.woff2") format("woff2"),
+    url("./../fonts/general-sans/GeneralSans-bold.woff") format("woff");
 }
 
 html {
   box-sizing: border-box;
 
   & * {
-    font-family: "Fredoka", "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif;
 
     & ::after,
     ::before {
@@ -60,6 +32,7 @@ html {
 
   & body {
     background-color: Palette.$Ghost_White;
+    font-family: "GeneralSans-Regular", "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif;
 
     & #root {
       height: 100vh;
