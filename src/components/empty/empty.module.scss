@@ -1,10 +1,11 @@
 @use "../../styles/Palette.scss";
 
 .empty {
-  display: grid;
-  height: -webkit-fill-available;
+  display: flex;
+  height: calc(100vh - 64px);
   width: 100%;
-  place-content: center;
+  justify-content: center;
+  align-items: center;
 
   & .text_advice {
     font-weight: 600;
@@ -13,5 +14,6 @@
     text-align: center;
     font-size: clamp(1.5rem, 3vw, 2.75rem);
     margin: 0;
+    height: min-content;
   }
 }

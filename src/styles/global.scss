@@ -34,9 +34,12 @@ html {
     background-color: Palette.$Ghost_White;
     font-family: "GeneralSans-Regular", "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif;
 
-    & #root {
-      height: 100vh;
-      overflow: scroll;
+    #root {
+
+      & ::after,
+      ::before {
+        box-sizing: inherit;
+      }
     }
   }
 }

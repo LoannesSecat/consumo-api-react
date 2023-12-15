@@ -3,21 +3,18 @@
 
 .media_pagination {
   @extend %lateral-paddings;
-  position: fixed;
+  position: sticky;
   bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
   align-items: center;
   gap: 24px;
   row-gap: 16px;
   justify-content: space-between;
   background-color: Palette.$Ghost_White;
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.10);
+  box-shadow: 0px 0px 30px 0px rgb(0 0 0 / 10%);
   padding-top: 16px;
   padding-bottom: 16px;
   z-index: 1;
-  align-self: end;
   flex-wrap: wrap;
 
   @media (width <=640px) {

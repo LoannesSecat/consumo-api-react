@@ -21,11 +21,7 @@ const mediaSlice = (set) => ({
   ...initialState,
 
   readMedia: async () => {
-    const { filterText, page, totalPages } = getStore("media");
-
-    if (!page || page > totalPages) {
-      return;
-    }
+    const { filterText, page } = getStore("media");
 
     set((state) => ({ ...state, isLoading: true, data: [] }));
 

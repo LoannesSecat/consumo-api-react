@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "~/components/header";
 import store from "~/store";
 import { customTimeOut } from "~/utils/functions.js";
@@ -28,7 +28,7 @@ export default function Home() {
   }, [text])
 
   return (
-    <Fragment>
+    <>
       <Header className={session ? styles.in_session_header : styles.header}>
         <input
           type="search"
@@ -42,6 +42,6 @@ export default function Home() {
       <MediaList />
 
       <MediaPagination />
-    </Fragment>
+    </>
   );
 }

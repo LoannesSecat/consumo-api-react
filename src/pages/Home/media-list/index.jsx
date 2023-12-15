@@ -22,7 +22,7 @@ export default function MediaList() {
   }
 
   useEffect(() => {
-    if (pageRef.current !== page || filterTextRef.current !== filterText || !data.length) {
+    if (pageRef.current !== page || filterTextRef.current !== filterText || !data?.length) {
       readMedia();
 
       pageRef.current = page;
@@ -34,7 +34,7 @@ export default function MediaList() {
     return (
       <main className={styles.media}>
         {
-          data.map((item) => {
+          data?.map((item) => {
             const { profile_path, poster_path, title, name, media_type, popularity, vote_average, vote_count, id } = item;
             const imageName = media_type.includes("profile") ? profile_path : poster_path;
             const url = `${url_img}/w400${imageName}`;

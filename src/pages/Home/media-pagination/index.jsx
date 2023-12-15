@@ -45,16 +45,22 @@ export default function MediaPagination() {
           <input
             onChange={(evt) => {
               const { target } = evt;
-              const value = Number(target?.value);
+              let value = Number(target?.value);
 
               if (value < 1) {
                 target.setCustomValidity("El valor debe ser mayor o igual a 1");
                 target.reportValidity();
+                value = 1;
+
+                return;
               }
 
               if (value > totalPages) {
                 target.setCustomValidity(`El valor debe ser menor o igual a ${totalPages}`);
                 target.reportValidity();
+                value = totalPages;
+
+                return;
               }
 
               customTimeOut({
