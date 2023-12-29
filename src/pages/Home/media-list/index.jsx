@@ -23,6 +23,7 @@ export default function MediaList() {
 
   useEffect(() => {
     if (pageRef.current !== page || filterTextRef.current !== filterText || !data?.length) {
+      if (!page) { return; }
       readMedia();
 
       pageRef.current = page;
