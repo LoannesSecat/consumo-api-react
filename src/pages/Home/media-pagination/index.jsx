@@ -25,6 +25,43 @@ export default function MediaPagination() {
     }
   }, [isLoading, totalResults])
 
+  useEffect(() => {
+    inputPageRef.current.focus();
+  }, [isLoading])
+
+  const handleLocalPage = (event) => {
+    const { target } = event;
+    const value = Number(target?.value);
+
+    target.setCustomValidity("");
+    setLocalPage(value);
+
+    customTimeOut({
+      fn: () => {
+
+        if (value < 1) {
+          target.setCustomValidity("El valor debe ser mayor o igual a 1");
+          target.reportValidity();
+          setLocalPage(1);
+
+          return;
+        }
+
+        if (value > totalPages) {
+          target.setCustomValidity(`El valor debe ser menor o igual a ${totalPages}`);
+          target.reportValidity();
+          setLocalPage(totalPages);
+
+          return;
+        }
+
+        changePage(value);
+      },
+      miliseconds: 500
+    })
+
+  }
+
   if (totalResults) {
     return (
       <footer className={styles.media_pagination}>
@@ -43,33 +80,7 @@ export default function MediaPagination() {
           Página
 
           <input
-            onChange={(evt) => {
-              const { target } = evt;
-              let value = Number(target?.value);
-
-              if (value < 1) {
-                target.setCustomValidity("El valor debe ser mayor o igual a 1");
-                target.reportValidity();
-                value = 1;
-
-                return;
-              }
-
-              if (value > totalPages) {
-                target.setCustomValidity(`El valor debe ser menor o igual a ${totalPages}`);
-                target.reportValidity();
-                value = totalPages;
-
-                return;
-              }
-
-              customTimeOut({
-                fn: () => {
-                  changePage(value);
-                },
-                miliseconds: 500
-              })
-            }}
+            onChange={handleLocalPage}
             type="number"
             value={localPage}
             ref={inputPageRef}

@@ -1,4 +1,5 @@
 import Image from "~/components/Image";
+import { mediaTranslations } from "~/utils/constants";
 import { MyDate } from "~/utils/functions.js";
 import Genres from "../../../components/Genres";
 import Homepage from "../../../components/Homepage";
@@ -88,18 +89,22 @@ export default function SerieDetails({ data } = {}) {
           <dt className={styles.subtitle}>En producción actualmente</dt>
           <dd className={styles.subtext}>{in_production ? "Si" : "No"}</dd>
         </dl>
+
         <dl>
           <dt className={styles.subtitle}>Tipo de serie</dt>
-          <dd className={styles.subtext}>{type}</dd>
+          <dd className={styles.subtext}>{mediaTranslations[type] || type}</dd>
         </dl>
+
         <dl>
           <dt className={styles.subtitle}>Número total de episodios</dt>
           <dd className={styles.subtext}>{number_of_episodes}</dd>
         </dl>
+
         <dl>
           <dt className={styles.subtitle}>Fecha de primera emisión</dt>
           <dd className={styles.subtext}>{MyDate(first_air_date)}</dd>
         </dl>
+
         <dl>
           <dt className={styles.subtitle}>Fecha de última emisión</dt>
           <dd className={styles.subtext}>{MyDate(last_air_date)}</dd>

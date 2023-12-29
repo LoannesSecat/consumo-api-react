@@ -31,6 +31,7 @@ export const mediaTranslations = {
   "Lighting": "Iluminación",
   "movie": "Película",
   "tv": "Serie",
+  "Scripted": "Escrita (guión)",
 }
 
 export const errorMsg = {
