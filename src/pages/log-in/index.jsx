@@ -39,21 +39,21 @@ export default function UserLogIn() {
       </div>
 
       <form onSubmit={(e) => HandleOnSubmit(e)} className={styles.log_in_form}>
-        <label>
-          <span>Correo</span>
-          <br />
-          <input type="email" name="email" placeholder="ejemplo@gmail.com" autoComplete="true" />
-        </label>
-        <br />
+        <div className={styles.inputs_container}>
+          <label>
+            <span>Correo</span>
+            <input type="email" name="email" placeholder="ejemplo@gmail.com" autoComplete="true" />
+          </label>
 
-        <label className={styles.password_container}>
-          <span>Contraseña</span>
-          <br />
-          <div>
-            <input type={showPass ? "text" : "password"} name="pass" autoComplete="true" />
-            <button onClick={(e) => HandleShowPass(e)} type="button">{!showPass ? <Eye /> : <EyeSlash />}</button>
-          </div>
-        </label>
+          <label className={styles.password_container}>
+            <span>Contraseña</span>
+
+            <div>
+              <input type={showPass ? "text" : "password"} name="pass" autoComplete="true" />
+              <button onClick={(e) => HandleShowPass(e)} type="button">{!showPass ? <Eye /> : <EyeSlash />}</button>
+            </div>
+          </label>
+        </div>
 
         <button type="submit" className={styles.submit_log_in_button}>Iniciar sesión</button>
       </form>

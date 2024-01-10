@@ -6,7 +6,7 @@
   height: 100vh;
   display: grid;
 
-  >div {
+  & .top_buttons_container {
     display: flex;
     justify-content: space-between;
     margin-top: 24px;
@@ -25,49 +25,50 @@
     display: grid;
     @extend %transition-speed;
 
-    >label {
-      >span {
-        font-weight: 600;
-        font-size: 1.1rem;
+    & .inputs_container {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+
+      >label {
+        >span {
+          font-weight: 600;
+          font-size: 1.1rem;
+        }
+
+        >input,
+        >div>input {
+          @extend %input-bottom-line;
+          @extend %input-effect-cerise;
+
+          padding: 5px 0px 1px;
+          width: 100%;
+        }
       }
 
-      >input,
-      >div>input {
-        @extend %input-bottom-line;
-        @extend %input-effect-cerise;
-
-        padding: 5px 0px 1px;
-        width: 100%;
-      }
-    }
-
-    label[for="email"],
-    label[for="password"] {
-      margin-top: 30px;
-    }
-
-    label[for="password"] {
-      >div {
-        display: flex;
-        align-items: center;
-        margin: 0;
-        padding: 0;
-        justify-content: center;
-        gap: 10px;
-
-        >button {
+      & .password_container {
+        >div {
+          display: flex;
+          align-items: center;
           margin: 0;
           padding: 0;
-          color: Palette.$Black_Chocolate;
-          background: transparent;
-          border: none;
-          opacity: 50%;
+          justify-content: center;
+          gap: 10px;
 
-          >svg {
-            transition: 5s;
-            width: 40px;
-            height: 30px;
-            display: block;
+          >button {
+            margin: 0;
+            padding: 0;
+            color: Palette.$Black_Chocolate;
+            background: transparent;
+            border: none;
+            opacity: 50%;
+
+            >svg {
+              transition: 5s;
+              width: 40px;
+              height: 30px;
+              display: block;
+            }
           }
         }
       }

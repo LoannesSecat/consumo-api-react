@@ -37,42 +37,43 @@ export default function UserRegistration() {
 
   return (
     <main className={styles.user_registration}>
-      <div>
+      <header className={styles.top_buttons_container}>
         <GoBackButton />
         <button className={styles.go_to_log_in} onClick={() => navigate("login")} type="button">Iniciar sesión</button>
-      </div>
+      </header>
 
       <form onSubmit={HandleOnSubmit} className={styles.registration_form}>
-        <label htmlFor="nickname">
-          <span>Nombre de usuario</span>
-          <br />
-          <input
-            type="text"
-            name="nickname"
-            placeholder="Opcional"
-          />
-        </label>
-        <br />
+        <div className={styles.inputs_container}>
+          <label className={styles.nickname_container}>
+            <span>Nombre de usuario</span>
 
-        <label htmlFor="email">
-          <span>Correo</span>
-          <br />
-          <input
-            type="email"
-            name="email"
-            placeholder="ejemplo@yahoo.com"
-            autoComplete="true"
-          />
-        </label>
-        <br />
+            <input
+              type="text"
+              name="nickname"
+              placeholder="Opcional"
+            />
+          </label>
 
-        <label htmlFor="password">
-          <span>Contraseña</span>
-          <div>
-            <input type={showPass ? "text" : "password"} name="pass" autoComplete="true" />
-            <button onClick={(e) => HandleShowPass(e)}>{!showPass ? <Eye /> : <EyeSlash />}</button>
-          </div>
-        </label>
+          <label className={styles.email_container}>
+            <span>Correo</span>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="ejemplo@yahoo.com"
+              autoComplete="true"
+            />
+          </label>
+
+          <label className={styles.password_container}>
+            <span>Contraseña</span>
+
+            <div>
+              <input type={showPass ? "text" : "password"} name="pass" autoComplete="true" />
+              <button onClick={(e) => HandleShowPass(e)}>{!showPass ? <Eye /> : <EyeSlash />}</button>
+            </div>
+          </label>
+        </div>
 
         <button type="submit" className={styles.submit_registration_button}>Registrarme</button>
       </form>
