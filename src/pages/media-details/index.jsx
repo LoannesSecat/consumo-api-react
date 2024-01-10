@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import GoBackButton from "~/components/go-back-button";
+import Loading from "~/components/loading";
 import SaveFavoriteButton from "~/components/save-favorite-button";
 import photoSVG from '~/icons/photo.svg';
 import store from "~/store";
@@ -13,7 +14,7 @@ import SerieDetails from "./serie-details";
 const { url_img } = TMDB;
 
 export default function MediaDetails() {
-  const { details, mediaSelectedType } = store.media();
+  const { details, mediaSelectedType, readMediaDetails, auxMediaDetails, isLoading, isDone } = store.media();
   const { profile_path, backdrop_path } = details;
 
   let backdrop_url = (mediaSelectedType === "person")
@@ -28,6 +29,7 @@ export default function MediaDetails() {
 
   useEffect(() => {
     scrollTo(0, 0);
+    readMediaDetails(auxMediaDetails);
   }, [])
 
   return (
@@ -36,13 +38,23 @@ export default function MediaDetails() {
         <GoBackButton />
       </Header>
 
-      <main className={styles.media_details}>
-        <SaveFavoriteButton dataToSave={details} className={styles.save_favorite_button} />
+      {
+        isLoading && !isDone && (
+          <Loading />
+        )
+      }
 
-        {mediaSelectedType === "tv" && (<SerieDetails data={details} />)}
-        {mediaSelectedType === "movie" && (<FilmDetails data={details} />)}
-        {mediaSelectedType === "person" && (<PersonDetails data={details} />)}
-      </main>
+      {
+        Object.keys(details).length && isDone && (
+          <main className={styles.media_details}>
+            <SaveFavoriteButton dataToSave={details} className={styles.save_favorite_button} />
+
+            {mediaSelectedType === "tv" && (<SerieDetails data={details} />)}
+            {mediaSelectedType === "movie" && (<FilmDetails data={details} />)}
+            {mediaSelectedType === "person" && (<PersonDetails data={details} />)}
+          </main>
+        )
+      }
     </>
   );
 }

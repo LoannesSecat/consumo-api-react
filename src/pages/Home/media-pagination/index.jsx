@@ -25,10 +25,6 @@ export default function MediaPagination() {
     }
   }, [isLoading, totalResults])
 
-  useEffect(() => {
-    inputPageRef.current.focus();
-  }, [isLoading])
-
   const handleLocalPage = (event) => {
     const { target } = event;
     const value = Number(target?.value);
@@ -38,20 +34,15 @@ export default function MediaPagination() {
 
     customTimeOut({
       fn: () => {
-
         if (value < 1) {
           target.setCustomValidity("El valor debe ser mayor o igual a 1");
           target.reportValidity();
-          setLocalPage(1);
-
           return;
         }
 
         if (value > totalPages) {
           target.setCustomValidity(`El valor debe ser menor o igual a ${totalPages}`);
           target.reportValidity();
-          setLocalPage(totalPages);
-
           return;
         }
 

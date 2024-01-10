@@ -5,18 +5,21 @@
   font-family: "GeneralSans-Regular";
   src: url("./../fonts/general-sans/GeneralSans-Regular.woff2") format("woff2"),
     url("./../fonts/general-sans/GeneralSans-Regular.woff") format("woff");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "GeneralSans-Semibold";
   src: url("./../fonts/general-sans/GeneralSans-Semibold.woff2") format("woff2"),
     url("./../fonts/general-sans/GeneralSans-Semibold.woff") format("woff");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "GeneralSans-Bold";
   src: url("./../fonts/general-sans/GeneralSans-bold.woff2") format("woff2"),
     url("./../fonts/general-sans/GeneralSans-bold.woff") format("woff");
+  font-display: swap;
 }
 
 html {
@@ -32,9 +35,9 @@ html {
 
   & body {
     background-color: Palette.$Ghost_White;
-    font-family: "GeneralSans-Regular", "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif;
 
     #root {
+      height: 100vh;
 
       & ::after,
       ::before {
@@ -42,4 +45,8 @@ html {
       }
     }
   }
+}
+
+* {
+  font-family: "GeneralSans-Regular", "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif;
 }

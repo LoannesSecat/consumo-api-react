@@ -15,6 +15,7 @@ const initialState = {
   totalPages: 1,
   filterText: "",
   totalResults: 0,
+  auxMediaDetails: null,
 }
 
 const mediaSlice = (set) => ({
@@ -23,7 +24,7 @@ const mediaSlice = (set) => ({
   readMedia: async () => {
     const { filterText, page } = getStore("media");
 
-    set((state) => ({ ...state, isLoading: true, data: [] }));
+    set((state) => ({ ...state, isLoading: true, data: [], isDone: false }));
 
     const URL = filterText.length
       ? `${url_v3}${multi_search}?${query}${filterText}&${TMDB.page}${page}&${language}&${include_adult}`
@@ -44,7 +45,7 @@ const mediaSlice = (set) => ({
       return;
     }
 
-    set((state) => ({ ...state, isLoading: true, mediaSelectedType: media_type, details: {} }))
+    set((state) => ({ ...state, isLoading: true, mediaSelectedType: media_type, details: {}, isDone: false }))
 
     const URL = `${url_v3}/${media_type}/${id}?${language}`;
     const { data, response } = await MyFetch({ path: URL });
@@ -67,6 +68,10 @@ const mediaSlice = (set) => ({
   changeSearchText: (text = "") => {
     set((prev) => ({ ...prev, filterText: text || "" }));
   },
+
+  changeAuxMediaDetails: (data) => {
+    set((state) => ({ ...state, auxMediaDetails: data }));
+  }
 });
 
 export default mediaSlice

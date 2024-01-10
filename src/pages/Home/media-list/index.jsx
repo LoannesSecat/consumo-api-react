@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import Image from "~/components/Image";
 import Empty from "~/components/empty";
+import Loading from "~/components/loading";
 import SaveFavoriteButton from "~/components/save-favorite-button";
 import Heart from "~/icons/heart.svg?react";
 import Sparkles from "~/icons/sparkles.svg?react";
@@ -13,13 +14,9 @@ import styles from "./media-list.module.scss";
 const { url_img } = TMDB;
 
 export default function MediaList() {
-  const { data, page, readMedia, filterText, readMediaDetails } = store.media();
+  const { data, page, readMedia, filterText, isLoading, changeAuxMediaDetails } = store.media();
   const pageRef = useRef(page);
   const filterTextRef = useRef(filterText);
-
-  const handleMediaDetails = (values) => {
-    readMediaDetails(values);
-  }
 
   useEffect(() => {
     if (pageRef.current !== page || filterTextRef.current !== filterText || !data?.length) {
@@ -31,7 +28,7 @@ export default function MediaList() {
     }
   }, [page, filterText]);
 
-  if (data?.length) {
+  if (data?.length && !isLoading) {
     return (
       <main className={styles.media}>
         {
@@ -46,9 +43,10 @@ export default function MediaList() {
                 <SaveFavoriteButton dataToSave={item} className={styles.favorite_button} />
 
                 <Link
-                  href="media-details"
-                  onMouseDown={() => handleMediaDetails(item)}
-                  onTouchStart={() => handleMediaDetails(item)}
+                  href="/media-details"
+                  onPointerUp={() => {
+                    changeAuxMediaDetails(item);
+                  }}
                 >
                   <Image
                     data-src={url}
@@ -107,8 +105,12 @@ export default function MediaList() {
             )
           })
         }
-      </main>
+      </main >
     );
+  }
+
+  if (isLoading) {
+    return <Loading />
   }
 
   return <Empty />;

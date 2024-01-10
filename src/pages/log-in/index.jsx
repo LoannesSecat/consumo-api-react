@@ -39,14 +39,14 @@ export default function UserLogIn() {
       </div>
 
       <form onSubmit={(e) => HandleOnSubmit(e)} className={styles.log_in_form}>
-        <label htmlFor="email">
+        <label>
           <span>Correo</span>
           <br />
           <input type="email" name="email" placeholder="ejemplo@gmail.com" autoComplete="true" />
         </label>
         <br />
 
-        <label htmlFor="password">
+        <label className={styles.password_container}>
           <span>Contraseña</span>
           <br />
           <div>

@@ -26,18 +26,20 @@ const userSlice = (set) => ({
   },
 
   saveFavoriteMedia: async (mediaData = {}) => {
+    useToast.info({ message: "<strong>Cargando...</strong>" });
+
     const { favoriteMedia: mediaFav, user } = getStore("user");
     const { name, title } = mediaData;
 
     if (mediaFav.length) {
-      await supabase
+      await clients.supabase
         .from("favorites")
         .update({ data: mediaFav.concat(mediaData) })
         .eq("user_id", user.id);
     }
 
     if (!mediaFav.length) {
-      await supabase
+      await clients.supabase
         .from("favorites")
         .insert({ data: [mediaData], user_id: user.id });
     }
@@ -152,7 +154,7 @@ const userSlice = (set) => ({
   changeAvatar: (pathAvatar) => {
     set((prev) => ({
       ...prev,
-      USER: {
+      user: {
         ...prev.USER,
         avatar: pathAvatar,
       },
@@ -160,9 +162,12 @@ const userSlice = (set) => ({
   },
 
   logIn: async ({ email, password, navigate }) => {
+    useToast.info({ message: "<strong>Cargando...</strong>" });
+
     const resLogIn = await clients.supabase.auth.signInWithPassword({ email, password });
 
     if (resLogIn.error) {
+      set((state) => ({ ...state, isLoading: false, isDone: true, isError: true }));
       useToast.warning({ message: errorMsg[resLogIn.error.message] });
       return;
     }
@@ -188,6 +193,7 @@ const userSlice = (set) => ({
     }));
 
     navigate("/");
+    useToast.destroy();
   },
 
   signInUser: async ({ email, password, nickname = "Anónimo", navigateTo, }) => {
@@ -207,6 +213,8 @@ const userSlice = (set) => ({
   },
 
   logOut: async ({ navigate }) => {
+    useToast.info({ message: "<strong>Cargando...</strong>" });
+
     const { error } = await clients.supabase.auth.signOut();
 
     if (error) {
