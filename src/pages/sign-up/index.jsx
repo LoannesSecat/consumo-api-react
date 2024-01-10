@@ -38,7 +38,7 @@ export default function UserRegistration() {
   return (
     <main className={styles.user_registration}>
       <div>
-        <GoBackButton onClick={() => { navigate("/"); }} />
+        <GoBackButton />
         <button className={styles.go_to_log_in} onClick={() => navigate("login")} type="button">Iniciar sesión</button>
       </div>
 
