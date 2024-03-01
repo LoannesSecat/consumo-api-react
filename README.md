@@ -2,6 +2,8 @@
 
 Esta plataforma te permite explorar series, películas o personas relacionadas al mundo cinematográfico y guardarlas si así lo deseas.
 
+<br>
+
 > [!TIP]
 > ### Características:
 > - Puedes ver y buscar series, películas o personas sin necesidad de registrarte.
