@@ -1,5 +1,4 @@
 @use "../../styles/General.scss";
-@use "../../styles/Palette.scss";
 
 .user_favorites {
   .header {
@@ -18,7 +17,7 @@
         height: 18px;
         margin-left: 1px;
         margin-right: 0;
-        background-image: url("../../assets/icons/x-mark.svg");
+        background-image: url("../../icons/x-mark.svg");
         cursor: pointer;
       }
     }
@@ -68,7 +67,7 @@
       }
 
       .media_type {
-        color: Palette.$Cerise;
+        color: var(--cerise);
         font-weight: 600;
       }
 

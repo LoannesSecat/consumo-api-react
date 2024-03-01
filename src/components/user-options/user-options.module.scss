@@ -1,4 +1,3 @@
-@use "../../styles/Palette.scss";
 @use "../../styles/General.scss";
 
 .user_options {
@@ -29,7 +28,7 @@
       display: flex;
       border: none;
       background-color: transparent;
-      color: Palette.$Ghost_White;
+      color: var(--ghost-white);
       font-weight: 500;
       padding: 3px 5px;
       border-radius: 5px;
@@ -41,21 +40,21 @@
       }
 
       &:hover {
-        background-color: Palette.$Royal_Blue_Dark;
+        background-color: var(--royal-blue-dark);
       }
     }
 
     .dropdown {
       display: none;
-      background-color: Palette.$Ghost_White;
+      background-color: var(--ghost-white);
       top: 80px;
       border-radius: 5px;
-      border: .1px solid Palette.$Royal_Blue_Dark;
+      border: .1px solid var(--royal-blue-dark);
       right: 20px;
       overflow: hidden;
 
       >a {
-        color: Palette.$Black_Chocolate;
+        color: var(--black-chocolate);
         text-decoration: none;
         padding: 5px 10px;
         text-align: center;
@@ -63,8 +62,8 @@
 
         &:hover,
         &:active {
-          color: Palette.$Ghost_White;
-          background-color: Palette.$Cerise;
+          color: var(--ghost-white);
+          background-color: var(--cerise);
         }
       }
     }
@@ -77,19 +76,19 @@
     }
   }
 
-  .log_in_button,
-  .sign_up_button {
+  & .log_in_button,
+  & .sign_up_button {
     border: none;
     background-color: transparent;
-    color: Palette.$Black_Chocolate;
-    font-weight: 600;
-    padding: 3px 5px;
+    color: var(--black-chocolate);
+    font-family: "General Sans Semibold";
+    padding: 6px 12px;
     border-radius: 6px;
     @extend %transition-speed;
 
     &:hover {
-      background-color: Palette.$Royal_Blue_Dark;
-      color: Palette.$Ghost_White;
+      background-color: color-mix(in srgb, transparent, var(--royal-blue-dark) 60%);
+      color: var(--ghost-white);
     }
   }
 }

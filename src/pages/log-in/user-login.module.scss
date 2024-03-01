@@ -1,5 +1,5 @@
 @use "../../styles/General.scss";
-@use "../../styles/Palette.scss";
+
 
 .user_log_in {
   @extend %lateral-paddings;
@@ -67,7 +67,7 @@
               width: 40px;
               height: 30px;
               display: block;
-              color: Palette.$Black_Chocolate;
+              color: var(--black-chocolate);
             }
           }
         }
@@ -99,6 +99,6 @@
   >a {
     justify-self: center;
     align-self: flex-start;
-    color: Palette.$Royal_Blue_Dark;
+    color: var(--royal-blue-dark);
   }
 }

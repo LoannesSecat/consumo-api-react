@@ -1,5 +1,4 @@
 @use "../../../styles/General.scss";
-@use "../../../styles/Palette.scss";
 
 .media {
   @extend %lateral-paddings;
@@ -35,7 +34,7 @@
       .info {
         bottom: 0;
         position: absolute;
-        color: Palette.$Ghost_White;
+        color: var(--ghost-white);
         backdrop-filter: blur(64px);
         width: 100%;
         text-align: center;
@@ -47,10 +46,10 @@
 
         .info_title {
           @extend %organized-title;
-          -webkit-text-stroke: 0.5px Palette.$Black_Chocolate;
+          -webkit-text-stroke: 0.5px var(--black-chocolate);
           margin: 0px;
           word-break: break-word;
-          font-family: GeneralSans-Bold;
+          font-family: "General Sans Bold";
         }
 
         .statistics {
@@ -95,7 +94,7 @@
 
         .media_type {
           display: block;
-          -webkit-text-stroke: 0.1px Palette.$Black_Chocolate;
+          -webkit-text-stroke: 0.1px var(--black-chocolate);
           font-size: 18px;
           letter-spacing: 1.5px;
         }

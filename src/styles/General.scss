@@ -1,12 +1,10 @@
-@use "./Palette.scss";
-
 %lateral-paddings {
   padding-left: 32px;
   padding-right: 32px;
 }
 
 %no-image-style {
-  color: Palette.$Ghost_White;
+  color: var(--ghost-white);
   background-color: rgb(226, 226, 226);
 }
 
@@ -22,16 +20,16 @@
 %button-tufts-blue {
   border: none;
   outline: transparent;
-  background-color: Palette.$Tufts_Blue;
-  color: Palette.$Ghost_White;
+  background-color: var(--tufts-blue);
+  color: var(--ghost-white);
   @extend %transition-effect-buttons;
   border-radius: 6px;
   padding: 2px 10px;
 }
 
 %button-ghost-white {
-  border: 0.1px solid Palette.$Black_Chocolate;
-  background-color: Palette.$Ghost_White;
+  border: 0.1px solid var(--black-chocolate);
+  background-color: var(--ghost-white);
   @extend %transition-effect-buttons;
   border-radius: 6px;
   padding: 2px 10px;
@@ -39,21 +37,21 @@
 
 %button-border-ghost-white {
   border: none;
-  outline: 0.3px solid Palette.$Ghost_White;
+  outline: 0.3px solid var(--ghost-white);
   background-color: transparent;
   @extend %transition-effect-buttons;
   border-radius: 6px;
   padding: 2px 10px;
-  color: Palette.$Ghost_White;
+  color: var(--ghost-white);
 }
 
 %button-effect-tufts-blue {
 
   &:active,
   &:hover {
-    color: Palette.$Ghost_White;
-    background-color: Palette.$Tufts_Blue;
-    border: 0.1px solid Palette.$Tufts_Blue;
+    color: var(--ghost-white);
+    background-color: var(--tufts-blue);
+    border: 0.1px solid var(--tufts-blue);
   }
 }
 
@@ -61,9 +59,9 @@
 
   &:hover,
   &:active {
-    color: Palette.$Ghost_White;
-    background-color: Palette.$Cerise;
-    outline: 0.1px solid Palette.$Cerise;
+    color: var(--ghost-white);
+    background-color: var(--cerise);
+    outline: 0.1px solid var(--cerise);
   }
 }
 
@@ -71,9 +69,9 @@
 
   &:hover,
   &:active {
-    color: Palette.$Ghost_White;
-    background-color: Palette.$Black_Chocolate;
-    outline: 0.1px solid Palette.$Black_Chocolate;
+    color: var(--ghost-white);
+    background-color: var(--black-chocolate);
+    outline: 0.1px solid var(--black-chocolate);
   }
 }
 
@@ -81,9 +79,9 @@
 
   &:hover,
   &:active {
-    color: Palette.$Ghost_White;
+    color: var(--ghost-white);
     background-color: transparent;
-    outline: 0.1px solid Palette.$Ghost_White;
+    outline: 0.1px solid var(--ghost-white);
   }
 }
 
@@ -91,10 +89,10 @@
 %input-bottom-line {
   outline: none;
   border: none;
-  border-bottom: 1px solid Palette.$Black_Chocolate;
+  border-bottom: 1px solid var(--black-chocolate);
   padding: 2px 6px;
   @extend %transition-speed;
-  background-color: Palette.$Ghost_White;
+  background-color: var(--ghost-white);
   @extend %transition-effect-buttons;
   padding: 2px 10px;
 }
@@ -103,7 +101,7 @@
 
   &:hover,
   &:active {
-    border-bottom: 1px solid Palette.$Cerise;
+    border-bottom: 1px solid var(--cerise);
   }
 }
 

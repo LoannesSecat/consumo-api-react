@@ -1,5 +1,3 @@
-@use "../../styles/Palette.scss";
-
 .loading_screen {
   display: grid;
   place-content: center;
@@ -7,7 +5,7 @@
 
   &>svg {
     &>circle {
-      stroke: Palette.$Tufts_Blue;
+      stroke: var(--tufts-blue);
     }
   }
 }

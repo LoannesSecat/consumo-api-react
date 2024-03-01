@@ -1,5 +1,5 @@
 @use "../../styles/General.scss";
-@use "../../styles/Palette.scss";
+
 
 .user_registration {
   @extend %lateral-paddings;
@@ -58,7 +58,7 @@
           >button {
             margin: 0;
             padding: 0;
-            color: Palette.$Black_Chocolate;
+            color: var(--black-chocolate);
             background: transparent;
             border: none;
             opacity: 50%;

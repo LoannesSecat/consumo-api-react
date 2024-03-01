@@ -1,5 +1,4 @@
-@use "../../styles/Palette";
-@use "../../styles/General";
+@use "../../styles/General.scss";
 
 .header {
   justify-content: space-between;
@@ -39,7 +38,7 @@
   .subtitle,
   .subtext,
   .seasons_subtitle {
-    color: Palette.$Black_Chocolate;
+    color: var(--black-chocolate);
     font-size: 1rem;
   }
 
@@ -67,7 +66,7 @@
     }
 
     .titles {
-      color: Palette.$Ghost_White;
+      color: var(--ghost-white);
       position: absolute;
       bottom: 0;
       display: flex;
@@ -75,7 +74,7 @@
       @extend %lateral-paddings;
       padding-bottom: 16px;
       padding-top: 16px;
-      -webkit-text-stroke: 0.5px Palette.$Royal_Blue_Dark;
+      -webkit-text-stroke: 0.5px var(--royal-blue-dark);
       background: linear-gradient(90deg, rgb(0 0 0 / 50%), transparent);
 
       & .media_title,
@@ -84,13 +83,13 @@
       }
 
       & .media_title {
-        font-family: "GeneralSans-Bold";
-        -webkit-text-stroke: 0.5px Palette.$Royal_Blue_Dark;
+        font-family: "General Sans Bold";
+        -webkit-text-stroke: 0.5px var(--royal-blue-dark);
         font-size: 32px;
       }
 
       & .media_subtitle {
-        font-family: "GeneralSans-Semibold";
+        font-family: "General Sans Semibold";
         font-size: 20px;
       }
     }
@@ -106,9 +105,9 @@
       flex-wrap: wrap;
 
       >small {
-        background-color: Palette.$Ghost_White;
-        color: Palette.$Cerise;
-        border: 1px solid Palette.$Cerise;
+        background-color: var(--ghost-white);
+        color: var(--cerise);
+        border: 1px solid var(--cerise);
         padding: 3px 7px;
         border-radius: 5px;
         white-space: nowrap;
@@ -138,7 +137,7 @@
       display: initial;
 
       &:hover {
-        color: Palette.$Royal_Blue_Dark;
+        color: var(--royal-blue-dark);
       }
     }
   }
