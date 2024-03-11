@@ -1,40 +1,45 @@
-module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
   },
-  extends: [
+  "extends": [
     "plugin:react/recommended",
     "airbnb",
     "plugin:react/jsx-runtime",
     "plugin:cypress/recommended",
   ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
     },
-    ecmaVersion: "latest",
-    sourceType: "module",
+    "ecmaVersion": "latest",
+    "sourceType": "module",
   },
-  plugins: [
+  "plugins": [
     "react",
   ],
-  rules: {
+  "rules": {
     "linebreak-style": 0,
-    quotes: [
+    "quotes": [
       "error",
       "double",
     ],
     "react/button-has-type": "off",
     "react/prop-types": "off",
-    "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
     "cypress/no-unnecessary-waiting": "off",
     "default-param-last": "off",
     "no-restricted-globals": "off", // Global environment variables of the web like scrollTo()
     "import/no-unresolved": "off",
     "import/extensions": "off",
-    camelcase: "off",
+    "camelcase": "off",
     "import/no-cycle": "off",
     "consistent-return": "off",
   },
-};
+}

@@ -5,16 +5,14 @@ export default async function MyFetch({ path }) {
   try {
     const res = await fetch(path, {
       headers: {
-        Authorization: `Bearer ${envVars.VITE_TMDB_KEY}`
-      }
+        Authorization: `Bearer ${envVars.VITE_TMDB_KEY}`,
+      },
     });
 
     const json = await res.json();
 
     return { response: res, data: json };
-  }
-
-  catch (error) {
+  } catch (error) {
     let msg = null;
 
     if (!navigator.onLine) {
@@ -29,9 +27,9 @@ export default async function MyFetch({ path }) {
 
     return {
       response: {
-        ok: false
+        ok: false,
       },
-      data: []
-    }
+      data: [],
+    };
   }
 }

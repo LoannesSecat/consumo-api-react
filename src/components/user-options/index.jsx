@@ -48,7 +48,7 @@ export default function UserOptions() {
                 }}
               />
 
-              <span>{user?.nickname}</span>
+              <span>{user?.user_metadata.nickname}</span>
             </article>
 
             <article className={styles.dropdown_options}>
@@ -65,7 +65,7 @@ export default function UserOptions() {
                   href="/"
                   onClick={async (e) => {
                     e.preventDefault();
-                    await logOut({ navigate: navigate("/") });
+                    await logOut({ navigate: () => navigate("/") });
                   }}
                 >
                   Cerrar sesión

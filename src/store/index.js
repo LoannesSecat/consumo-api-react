@@ -5,5 +5,5 @@ import userSlice from "./userSlice";
 
 export default {
   media: create(persist(mediaSlice, { name: "media" })),
-  user: create(persist(userSlice, { name: "user" }))
-}
+  user: create(persist(userSlice, { name: "user" })),
+};

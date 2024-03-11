@@ -3,7 +3,7 @@ import { credentials, url } from "../fixtures/vite.json";
 const nameMedia = "Cyberpunk: Edgerunners";
 
 it("Checks is the favorites pages works good", () => {
-  cy.visit(url.preview);
+  cy.visit(url);
   cy.wait(1000);
 
   cy.get("main>article>button").first().click();
@@ -28,9 +28,10 @@ it("Checks is the favorites pages works good", () => {
 
   cy.get("main>section>article>button").first().click();
   cy.wait(1000);
-  cy.get("h1").contains("No hay nada para mostrar").should("be.visible");
+  cy.get("p").contains("No hay nada para mostrar").should("be.visible");
 
   cy.get("header>section>article:nth-child(2)>button").click();
   cy.get("header>section>article:nth-child(2)>div").should("be.visible").contains("Cerrar sesión", { matchCase: false }).click();
+  cy.wait(1000);
   cy.get(".iziToast-wrapper").contains("sesión cerrada", { matchCase: false }).should("be.visible");
 });

@@ -1,25 +1,19 @@
 import iziToast from "izitoast";
 import store from "~/store";
 
-export const getStore = (name = "") => {
-  return store[name].getState();
-}
+export const getStore = (name = "") => store[name].getState();
 
 export const useStore = (storeName = "") => {
   if (!storeName || !storeName.length) {
-    return store.getState()
+    return store.getState();
   }
 
-  return store[storeName]
-}
+  return store[storeName];
+};
 
-export const $ = (nameElement) => {
-  return document.querySelector(nameElement);
-}
+export const $ = (nameElement) => document.querySelector(nameElement);
 
-export const CapitalizeText = (text) => {
-  return text[0].toUpperCase() + text.slice(1);
-}
+export const CapitalizeText = (text) => text[0].toUpperCase() + text.slice(1);
 
 export const Languages = (lan) => {
   if (lan) {
@@ -28,19 +22,15 @@ export const Languages = (lan) => {
   }
 };
 
-export const Countries = (name) => {
-  return new Intl.DisplayNames(["es"], { type: "region" }).of(name);
-};
+export const Countries = (name) => new Intl.DisplayNames(["es"], { type: "region" }).of(name);
 
-export const Currency = (value) => {
-  return new Intl
-    .NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 0,
-    })
-    .format(value);
-}
+export const Currency = (value) => new Intl
+  .NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+  })
+  .format(value);
 
 export const MyDate = (value) => {
   if (value && value.length) {
@@ -63,7 +53,7 @@ export const customTimeOut = ({ fn = () => { }, miliseconds = 1000 }) => {
   timer = setTimeout(() => {
     fn();
   }, miliseconds);
-}
+};
 
 export const useToast = iziToast;
 
@@ -75,7 +65,7 @@ export const toastInicializer = () => {
     timeout: 3000,
     pauseOnHover: false,
   });
-}
+};
 
 export const formValidator = ({ email, password }) => {
   const EMAIL_REG_EX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -113,7 +103,7 @@ export const formValidator = ({ email, password }) => {
   }
 
   return true;
-}
+};
 
 export const formValuesExtractor = ({ event = {} }) => {
   const target = event.currentTarget;
@@ -121,4 +111,4 @@ export const formValuesExtractor = ({ event = {} }) => {
   const valuesObject = Object.fromEntries(formData.entries());
 
   return valuesObject;
-}
+};

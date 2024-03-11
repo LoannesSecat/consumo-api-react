@@ -6,7 +6,7 @@ const initialState = {
   session: {},
   user: {},
   favoriteMedia: [],
-}
+};
 
 let readFavoritesChannel = null;
 
@@ -22,7 +22,7 @@ const userSlice = (set) => ({
       return;
     }
 
-    return session && Object.keys(session).length ? true : false;
+    return !!(session && Object.keys(session).length);
   },
 
   saveFavoriteMedia: async (mediaData = {}) => {
@@ -30,8 +30,9 @@ const userSlice = (set) => ({
 
     const { favoriteMedia: mediaFav, user } = getStore("user");
     const { name, title } = mediaData;
+    const userHasFavorites = await clients.supabase.from("favorites").select("data").eq("user_id", user.id);
 
-    if (mediaFav.length) {
+    if (mediaFav.length && userHasFavorites) {
       await clients.supabase
         .from("favorites")
         .update({ data: mediaFav.concat(mediaData) })
@@ -58,7 +59,7 @@ const userSlice = (set) => ({
       .eq("user_id", user.id);
 
     if (error) {
-      useToast.error({ message: `Ha ocurrido un error al eliminar de favoritos` });
+      useToast.error({ message: "Ha ocurrido un error al eliminar de favoritos" });
       return;
     }
 
@@ -73,13 +74,13 @@ const userSlice = (set) => ({
         const { new: { data } } = payload;
 
         if (!data) {
-          set((state) => ({ ...state, favoriteMedia: [] }))
+          set((state) => ({ ...state, favoriteMedia: [] }));
           return;
         }
 
-        set((state) => ({ ...state, favoriteMedia: data }))
+        set((state) => ({ ...state, favoriteMedia: data }));
       })
-      .subscribe()
+      .subscribe();
   },
 
   stopReadFavorites: async () => {
@@ -101,21 +102,30 @@ const userSlice = (set) => ({
     });
   },
 
-  updateUserData: async (values = { password, nickname, email, navigate: () => { } }) => {
-    const { navigate, ...valuesToChange } = values;
+  updateUserData: async (values = {
+    password, nickname, email, navigate: () => { },
+  }) => {
+    const { navigate, password, nickname, email } = values;
+    const valuesToChange = {
+      email,
+      password,
+      data: {
+        nickname
+      }
+    }
     const resUpdateUser = await clients.supabase.auth.updateUser(valuesToChange);
     const resGetSession = await clients.supabase.auth.getSession();
 
     if (resUpdateUser.error) {
       const { error } = resUpdateUser;
       useToast.warning({ message: errorMsg[error.message] });
-      return;
+      return false;
     }
 
     if (resGetSession.error) {
       const { error } = resGetSession;
       useToast.warning({ message: errorMsg[error.message] });
-      return;
+      return false;
     }
 
     const { user } = resUpdateUser.data;
@@ -125,6 +135,7 @@ const userSlice = (set) => ({
 
     if (navigate) navigate();
     useToast.success({ message: "Datos actualizados" });
+    return true;
   },
 
   requestResetPassword: async ({ email }) => {
@@ -142,8 +153,6 @@ const userSlice = (set) => ({
       message: `Se ha enviado un correo de confirmación a <strong>${email}</strong>`,
     });
   },
-
-
 
   avatarPath: () => {
     const { user } = getStore("user");
@@ -167,7 +176,9 @@ const userSlice = (set) => ({
     const resLogIn = await clients.supabase.auth.signInWithPassword({ email, password });
 
     if (resLogIn.error) {
-      set((state) => ({ ...state, isLoading: false, isDone: true, isError: true }));
+      set((state) => ({
+        ...state, isLoading: false, isDone: true, isError: true,
+      }));
       useToast.warning({ message: errorMsg[resLogIn.error.message] });
       return;
     }
@@ -189,14 +200,16 @@ const userSlice = (set) => ({
       ...state,
       session,
       user,
-      ...(dbFav ? { favoriteMedia: dbFav } : {})
+      ...(dbFav ? { favoriteMedia: dbFav } : {}),
     }));
 
     navigate("/");
     useToast.destroy();
   },
 
-  signInUser: async ({ email, password, nickname = "Anónimo", navigateTo, }) => {
+  signInUser: async ({
+    email, password, nickname = "Anónimo", navigateTo,
+  }) => {
     const { data, error } = await clients.supabase.auth.signUp(
       { email, password },
       { data: { nickname } },
@@ -213,15 +226,12 @@ const userSlice = (set) => ({
   },
 
   logOut: async ({ navigate }) => {
-    useToast.info({ message: "<strong>Cargando...</strong>" });
-
     const { error } = await clients.supabase.auth.signOut();
 
     if (error) {
       useToast.warning({ message: errorMsg[error.message] });
       return;
     }
-
     set(initialState);
     if (navigate) navigate();
     useToast.success({ message: "Sesión cerrada", timeout: 1500 });
@@ -310,7 +320,7 @@ const userSlice = (set) => ({
         }],
       ],
     });
-  }
-})
+  },
+});
 
-export default userSlice
+export default userSlice;

@@ -3,7 +3,7 @@ import { credentials, url } from "../fixtures/vite.json";
 const matchCase = { matchCase: false };
 
 it("Check if the user settings page is visible", () => {
-  cy.visit(url.preview);
+  cy.visit(url);
 
   cy.get("button").contains("Iniciar sesión", { matchCase: false }).click();
   cy.get("input[type='email'").clear().type(credentials.email);

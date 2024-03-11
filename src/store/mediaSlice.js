@@ -1,8 +1,10 @@
-import MyFetch from "~/services/MyFetch";
+import MyFetch from "~/services/my-fetch";
 import { TMDB } from "~/utils/constants.js";
 import { getStore } from "~/utils/functions.js";
 
-const { url_v3, multi_search, query, language, include_adult } = TMDB
+const {
+  url_v3, multi_search, query, language, include_adult,
+} = TMDB;
 const initialState = {
   data: [],
   details: {},
@@ -16,7 +18,7 @@ const initialState = {
   filterText: "",
   totalResults: 0,
   auxMediaDetails: null,
-}
+};
 
 const mediaSlice = (set) => ({
   ...initialState,
@@ -24,20 +26,26 @@ const mediaSlice = (set) => ({
   readMedia: async () => {
     const { filterText, page } = getStore("media");
 
-    set((state) => ({ ...state, isLoading: true, data: [], isDone: false }));
+    set((state) => ({
+      ...state, isLoading: true, data: [], isDone: false,
+    }));
 
-    const URL = filterText.length
+    const url = filterText.length
       ? `${url_v3}${multi_search}?${query}${filterText}&${TMDB.page}${page}&${language}&${include_adult}`
-      : `${url_v3}/trending/all/day?&${TMDB.page}${page}&${language}&${include_adult}`
-    const { data, response } = await MyFetch({ path: URL });
+      : `${url_v3}/trending/all/day?&${TMDB.page}${page}&${language}&${include_adult}`;
+    const { data, response } = await MyFetch({ path: url });
 
     if (response.ok) {
       const { results, total_pages, total_results } = data;
 
-      set((prev) => ({ ...prev, data: results, totalPages: total_pages, totalResults: total_results }))
+      set((prev) => ({
+        ...prev, data: results, totalPages: total_pages, totalResults: total_results,
+      }));
     }
 
-    set((state) => ({ ...state, isLoading: false, isDone: true, isSuccess: true }));
+    set((state) => ({
+      ...state, isLoading: false, isDone: true, isSuccess: true,
+    }));
   },
 
   readMediaDetails: async ({ id, media_type }) => {
@@ -45,7 +53,9 @@ const mediaSlice = (set) => ({
       return;
     }
 
-    set((state) => ({ ...state, isLoading: true, mediaSelectedType: media_type, details: {}, isDone: false }))
+    set((state) => ({
+      ...state, isLoading: true, mediaSelectedType: media_type, details: {}, isDone: false,
+    }));
 
     const URL = `${url_v3}/${media_type}/${id}?${language}`;
     const { data, response } = await MyFetch({ path: URL });
@@ -56,7 +66,7 @@ const mediaSlice = (set) => ({
         details: data,
         isSuccess: true,
         isLoading: false,
-        isDone: true
+        isDone: true,
       }));
     }
   },
@@ -71,7 +81,7 @@ const mediaSlice = (set) => ({
 
   changeAuxMediaDetails: (data) => {
     set((state) => ({ ...state, auxMediaDetails: data }));
-  }
+  },
 });
 
-export default mediaSlice
+export default mediaSlice;

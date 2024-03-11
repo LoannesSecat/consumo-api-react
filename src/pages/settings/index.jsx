@@ -23,7 +23,7 @@ export default function UserSettings() {
   const {
     deleteAvatar,
     deleteAccountUser,
-    updateUser,
+    updateUserData,
     uploadAvatar,
     user,
   } = store.user();
@@ -114,7 +114,7 @@ export default function UserSettings() {
             <small className={styles.subtitle}>Nombre de usuario</small>
 
             <div className={styles.content}>
-              <span>{user?.nickname}</span>
+              <span>{user?.user_metadata.nickname}</span>
               <input
                 type="text"
                 onChange={(evt) => setNewData({ ...newData, nickname: evt.target.value.trim() })}
@@ -164,7 +164,7 @@ export default function UserSettings() {
             ? (
               <button
                 onClick={async () => {
-                  const res = await updateUser({
+                  const res = await updateUserData({
                     nickname: newData.nickname,
                     email: newData.email,
                     password: newData.password,

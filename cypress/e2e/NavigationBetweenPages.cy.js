@@ -1,24 +1,24 @@
 import { url } from "../fixtures/vite.json";
 
 it("Navigation between pages", () => {
-  cy.visit(url.preview);
+  cy.visit(url);
 
-  cy.get("footer>span").as("NumPages");
+  cy.get("input[type='number']").as("page-number");
   cy.get("body").find("main").children("article");
-  cy.get("@NumPages").should("be.visible").contains("1");
+  cy.get("@page-number").should("contain.value", "1");
 
-  cy.get("button").contains("Siguiente").dblclick();
+  cy.get("button").contains("Siguiente").click().click();
 
   cy.wait(1000);
-  cy.get("@NumPages").should("be.visible").contains("3");
+  cy.get("@page-number").should("contain.value", "3");
 
-  cy.get("button").contains("Siguiente").dblclick().dblclick();
+  cy.get("button").contains("Siguiente").click().click().click().click();
 
-  cy.wait(1000);;
-  cy.get("@NumPages").should("be.visible").should("be.visible").contains("7");;
+  cy.wait(1000);
+  cy.get("@page-number").should("contain.value", "7");
 
-  cy.get("button").contains("Anterior").dblclick().click();
+  cy.get("button").contains("Anterior").click().click().click();
 
-  cy.wait(1000);;
-  cy.get("@NumPages").should("be.visible").should("be.visible").contains("4");;
-});;
+  cy.wait(1000);
+  cy.get("@page-number").should("contain.value", "4");
+});

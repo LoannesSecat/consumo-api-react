@@ -1,8 +1,5 @@
 {
-  "url": {
-    "preview": "http://localhost:4173",
-    "dev": "http://127.0.0.1:5173"
-  },
+  "url": "http://localhost:5173",
   "credentials": {
     "email": "sebastianCO1999@gmail.com",
     "password": "162534",

@@ -1,14 +1,14 @@
 Cypress.Commands.add("title_validation", (title) => {
   const matchCase = { matchCase: false };
-  cy.get("header>input").as("HomeInput");
+  cy.get("input").as("home-input");
 
-  cy.get("@HomeInput").type(title);
+  cy.get("@home-input").type(title);
   cy.wait(800);
 
   cy.get("article>a").should("be.visible").contains(title, matchCase).click();
   cy.wait(500);
 
-  cy.get("h2").contains(title, matchCase);
+  cy.get("h1").contains(title, matchCase);
   cy.get("button").contains("Volver").click();
-  cy.get("header>input").clear();
+  cy.get("@home-input").clear();
 });

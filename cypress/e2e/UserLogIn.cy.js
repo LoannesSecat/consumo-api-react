@@ -1,7 +1,7 @@
 import { credentials, url } from "../fixtures/vite.json";
 
 it("Simple user log in", () => {
-  cy.visit(url.preview);
+  cy.visit(url);
   cy.wait(1000);
 
   cy.get("main>article:nth-child(4)").click();
