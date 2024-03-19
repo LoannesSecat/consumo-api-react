@@ -1,5 +1,5 @@
 import clients from "~/services/clients.js";
-import { SUPABASE, errorMsg } from "~/utils/constants.js";
+import { errorMsg } from "~/utils/constants.js";
 import { getStore, useToast } from "~/utils/functions.js";
 
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
 };
 
 let readFavoritesChannel = null;
+const bucketName = "avatars";
 
 const userSlice = (set) => ({
   ...initialState,
@@ -154,12 +155,6 @@ const userSlice = (set) => ({
     });
   },
 
-  avatarPath: () => {
-    const { user } = getStore("user");
-
-    return `${user?.id}/${user?.id}_avatar.png`;
-  },
-
   changeAvatar: (pathAvatar) => {
     set((prev) => ({
       ...prev,
@@ -174,6 +169,7 @@ const userSlice = (set) => ({
     useToast.info({ message: "<strong>Cargando...</strong>" });
 
     const resLogIn = await clients.supabase.auth.signInWithPassword({ email, password });
+    const { retrievelAvatarUrl } = getStore("user");
 
     if (resLogIn.error) {
       set((state) => ({
@@ -202,6 +198,8 @@ const userSlice = (set) => ({
       user,
       ...(dbFav ? { favoriteMedia: dbFav } : {}),
     }));
+
+    retrievelAvatarUrl({ path: `${user.id}/avatar` })
 
     navigate("/");
     useToast.destroy();
@@ -232,14 +230,16 @@ const userSlice = (set) => ({
       useToast.warning({ message: errorMsg[error.message] });
       return;
     }
+
     set(initialState);
     if (navigate) navigate();
     useToast.success({ message: "Sesión cerrada", timeout: 1500 });
   },
 
   deleteAvatar: async () => {
-    const { data, error } = await clients.supabase.storage.from(AVATAR_STORAGE_NAME)
-      .remove([user.getState().avatarPath()]);
+    const { user } = getStore("user");
+    const { data, error } = await clients.supabase.storage.from(bucketName)
+      .remove([`${user.id}/avatar`]);
 
     if (error) {
       useToast.error({ message: "Ocurrió un error al eliminar la foto" });
@@ -247,29 +247,79 @@ const userSlice = (set) => ({
     }
 
     if (data) {
-      user.getState().changeAvatar(null);
+      set((state) => { return { ...state, user: { ...user, avatar: null } } });
       useToast.success({ message: "Foto eliminada", timeout: 2000 });
     }
   },
 
   uploadAvatar: async ({ file }) => {
-    const { error, data } = await clients.supabase.storage.from(AVATAR_STORAGE_NAME)
-      .upload(user.getState().avatarPath(), file, {
-        cacheControl: "3600",
-        upsert: false,
-        contentType: file?.type,
+    const { user, retrievelAvatarUrl } = getStore("user");
+    const avatarPath = `${user.id}/avatar`;
+    let dataRes = null;
+
+    const { data, error } = await clients.supabase
+      .storage
+      .from(bucketName)
+      .list(`${user.id}`, {
+        search: "avatar"
       });
 
     if (error) {
-      user.getState().changeAvatar(null);
       useToast.error({ message: "Ocurrió un error al guardar la foto" });
       return;
     }
 
-    if (data) {
-      user.getState().changeAvatar(`${SUPABASE.url_storage}${data.Key}`);
-      useToast.success({ message: "Foto guardada", timeout: 2000 });
+    if (!data.length) {
+      const uploadRes = await clients.supabase.storage.from(bucketName)
+        .upload(avatarPath, file, {
+          upsert: false,
+          contentType: file.type,
+        });
+
+      if (uploadRes.error) {
+        useToast.error({ message: "Ocurrió un error al guardar la foto" });
+        return;
+      }
+
+      dataRes = uploadRes.data.path
     }
+
+    if (data.length) {
+      const updateRes = await clients.supabase
+        .storage
+        .from(bucketName)
+        .update(avatarPath, file, {
+          upsert: true
+        });
+
+      if (updateRes.error) {
+        useToast.error({ message: "Ocurrió un error al guardar la foto" });
+        return;
+      }
+
+      dataRes = updateRes.data.path;
+    }
+
+    retrievelAvatarUrl({ path: dataRes });
+    useToast.success({ message: "Foto guardada", timeout: 2000 });
+  },
+
+  retrievelAvatarUrl: ({ path }) => {
+    const { user } = getStore("user");
+    const { data } = clients.supabase
+      .storage
+      .from(bucketName)
+      .getPublicUrl(path, {
+        transform: {
+          format: "webp",
+          height: "100",
+          width: "100"
+        }
+      })
+
+    const parsedUrl = data.publicUrl.replace("/render/image", "/object"); // Fix to can see the avatar publicly
+
+    set((state) => { return { ...state, user: { ...user, avatar: parsedUrl } } });
   },
 
   deleteAccountUser: ({ navigate }) => {

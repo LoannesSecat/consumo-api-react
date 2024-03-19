@@ -9,9 +9,9 @@ it("Simple user log in", () => {
   cy.get("input[type='email']").type(credentials.email);
   cy.get("input[type='password']").type(credentials.password);
   cy.get("button").contains("iniciar", { matchCase: false }).click();
-  cy.get("header>section>article:nth-child(1)>span").should("be.visible").contains(credentials.nickname);
-  cy.get("header>section>article:nth-child(2)>button").click();
-  cy.get("header>section>article:nth-child(2)>div").should("be.visible").contains("cerrar sesión", { matchCase: false }).click();
+  cy.get("header>section>figure").should("be.visible").contains(credentials.nickname);
+  cy.get("header>section>article").click();
+  cy.get("header>section>article").should("be.visible").contains("cerrar sesión", { matchCase: false }).click();
   cy.wait(500);
 
   cy.get("header>section").children().contains("registrarme", { matchCase: false }).should("be.visible");

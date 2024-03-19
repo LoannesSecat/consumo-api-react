@@ -3,7 +3,7 @@ import { useState } from "react";
 import Cropper from "react-cropper";
 import { useLocation } from "wouter";
 import GoBackButton from "~/components/go-back-button";
-import userSVG from "~/icons/user.svg";
+import userSvg from "~/icons/user.svg";
 import XMark from "~/icons/x-mark.svg?react";
 import store from "~/store";
 import { $ } from "~/utils/functions.js";
@@ -74,27 +74,26 @@ export default function UserSettings() {
               <div className={styles.avatar_group}>
                 <img
                   className={styles.avatar_image}
-                  src={user?.avatar}
+                  src={user.avatar}
                   alt="Foto de perfil"
-                  onError={(evt) => {
-                    const { target } = evt;
-                    target.src = userSVG;
+                  onError={(event) => {
+                    event.target.src = userSvg;
                   }}
                 />
 
                 {
-                  user?.avatar
-                    ? (
-                      <button
-                        className={styles.button_delete_avatar}
-                        title="Eliminar foto"
-                        onClick={deleteAvatar}
-                        type="button"
-                      >
-                        <XMark />
-                      </button>
-                    )
-                    : null
+                  user?.avatar && (
+                    <button
+                      className={styles.button_delete_avatar}
+                      title="Eliminar foto"
+                      onClick={() => {
+                        deleteAvatar();
+                      }}
+                      type="button"
+                    >
+                      <XMark />
+                    </button>
+                  )
                 }
               </div>
 
