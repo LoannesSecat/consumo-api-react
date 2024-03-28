@@ -62,6 +62,12 @@ export default function UserSettings() {
     setAvatarPopover($("#avatar-popover"));
   }, []);
 
+  const areThereAnyChanges = useMemo(() => {
+    const { avatar, ...rest } = state;
+
+    return Boolean(Object.keys(rest).length);
+  }, [state]);
+
   return (
     <main className={styles.user_settings}>
       <GoBackButton className={styles.go_back_button} />
@@ -219,7 +225,7 @@ export default function UserSettings() {
           </button>
 
           {
-            Boolean(Object.keys(state).length) && (
+            areThereAnyChanges && (
               <button
                 className={styles.save_changes_button}
                 type="submit"
