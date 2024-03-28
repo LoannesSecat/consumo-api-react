@@ -23,7 +23,7 @@ export default function UserRegistration() {
     let formValues = {
       email: e.target.email.value,
       password: e.target.pass.value,
-      navigateTo: () => navigate("/"),
+      navigate: () => navigate("/"),
     };
 
     if (formValidator(formValues)) {

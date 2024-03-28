@@ -46,7 +46,7 @@ const userSlice = (set) => ({
         .insert({ data: [mediaData], user_id: user.id });
     }
 
-    useToast.success({ message: `Se agregó <strong>${title ?? name}</strong> a favoritos` });
+    useToast.success({ message: `Se agregó <strong>"${title ?? name}"</strong> a favoritos` });
   },
 
   deleteFavoriteMedia: async (mediaId = 0) => {
@@ -106,6 +106,9 @@ const userSlice = (set) => ({
   updateUserData: async (values = {
     password, nickname, email, navigate: () => { },
   }) => {
+    const toast = document.querySelector('.iziToast');
+    useToast.info({ message: "<strong>Cargando...</strong>" }, toast);
+
     const { navigate, password, nickname, email } = values;
     const valuesToChange = {
       email,
@@ -132,11 +135,14 @@ const userSlice = (set) => ({
     const { user } = resUpdateUser.data;
     const { session } = resGetSession.data;
 
-    set((state) => ({ ...state, user, session }));
+    set((state) => {
+      return {
+        ...state, user: { ...state.user, ...user }, session
+      };
+    });
 
     if (navigate) navigate();
-    useToast.success({ message: "Datos actualizados" });
-    return true;
+    useToast.success({ message: "Dato(s) actualizado(s)", timeout: 2000 }, toast);
   },
 
   requestResetPassword: async ({ email }) => {
@@ -206,21 +212,30 @@ const userSlice = (set) => ({
   },
 
   signInUser: async ({
-    email, password, nickname = "Anónimo", navigateTo,
+    email, password, nickname = "Anónimo", navigate,
   }) => {
-    const { data, error } = await clients.supabase.auth.signUp(
-      { email, password },
-      { data: { nickname } },
-    );
+    const { data, error } = await clients.supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          nickname,
+        },
+      },
+    });
 
     if (error) {
       useToast.warning({ message: errorMsg[error.message] });
+      return;
     }
 
-    if (data) {
-      useToast.success({ message: "Te has registrado" });
-      navigateTo();
-    }
+    set((state) => {
+      const { session, user } = data;
+
+      return { ...state, user, session, }
+    });
+    useToast.success({ message: "Te has registrado" });
+    navigate();
   },
 
   logOut: async ({ navigate }) => {
@@ -253,9 +268,13 @@ const userSlice = (set) => ({
   },
 
   uploadAvatar: async ({ file }) => {
+    const toast = document.querySelector('.iziToast');
+    useToast.info({ message: "<strong>Cargando...</strong>" }, toast);
+
     const { user, retrievelAvatarUrl } = getStore("user");
     const avatarPath = `${user.id}/avatar`;
     let dataRes = null;
+    let message = null;
 
     const { data, error } = await clients.supabase
       .storage
@@ -281,7 +300,8 @@ const userSlice = (set) => ({
         return;
       }
 
-      dataRes = uploadRes.data.path
+      dataRes = uploadRes.data.path;
+      message = "Foto guardada";
     }
 
     if (data.length) {
@@ -289,7 +309,8 @@ const userSlice = (set) => ({
         .storage
         .from(bucketName)
         .update(avatarPath, file, {
-          upsert: true
+          upsert: false,
+          contentType: file.type
         });
 
       if (updateRes.error) {
@@ -298,10 +319,11 @@ const userSlice = (set) => ({
       }
 
       dataRes = updateRes.data.path;
+      message = "Foto actualizada";
     }
 
     retrievelAvatarUrl({ path: dataRes });
-    useToast.success({ message: "Foto guardada", timeout: 2000 });
+    useToast.success({ message, timeout: 2000 }, toast);
   },
 
   retrievelAvatarUrl: ({ path }) => {
@@ -336,22 +358,29 @@ const userSlice = (set) => ({
       buttons: [
         [
           "<button><b>Si</b></button>", async (instance, toast) => {
-            const { user } = user.getState();
-            const s = createClient(
-              import.meta.env.VITE_SUPABASE_URL,
-              import.meta.env.VITE_SSR,
-            );
+            const { user } = getStore("user");
+            const auxUserId = user.id;
 
-            instance.hide({ transitionOut: "fadeOut" }, toast, "button");
+            // user sign out locally
+            const signOutRes = await clients.supabase.auth.signOut();
 
-            const { error } = await s.auth.api.deleteUser(user.id);
+            if (signOutRes.error) {
+              const { error: { message } } = signOutRes;
+
+              useToast.warning({ message: errorMsg[message] });
+              return;
+            }
+
+            // user deletion
+            const { error } = await clients.supabase.rpc('delete_user', { user_id: auxUserId }); // function that delete the user in db
 
             if (error) {
               useToast.warning({ message: error.message });
               return;
             }
 
-            const deleteRes = await clients.supabase.from("favorites").delete().eq("user_id", user.id);
+            // user favorite media deletion
+            const deleteRes = await clients.supabase.from("favorites").delete().eq("user_id", auxUserId);
 
             if (deleteRes.error) {
               const { error: { message } } = deleteRes;
@@ -360,9 +389,10 @@ const userSlice = (set) => ({
               return;
             }
 
-            user.getState().logOut();
-            navigate("/");
+            set(initialState);
+            if (navigate) navigate();
             useToast.success({ message: "Cuenta eliminada exitosamente" });
+            instance.hide({ transitionOut: "fadeOut" }, toast, "button");
           },
         ],
         ["<button><b>No</b></button>", (instance, toast) => {

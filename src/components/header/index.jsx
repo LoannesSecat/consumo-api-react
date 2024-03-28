@@ -44,7 +44,7 @@ export default function Header({ children, className }) {
           <section className={styles.logged_user_options}>
             <figure className={styles.user_info}>
               <img
-                src={user.avatar}
+                src={user.avatar ?? userSvg}
                 alt="Avatar del usuario"
                 onError={(event) => {
                   event.target.src = userSvg;

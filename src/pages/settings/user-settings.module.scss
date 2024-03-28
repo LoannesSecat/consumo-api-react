@@ -1,216 +1,205 @@
 @use "../../styles/General.scss";
 
-
 .user_settings {
   @extend %lateral-paddings;
-
   display: grid;
-  filter: blur(0);
-  transition: .1s ease all;
   padding-top: 24px;
   padding-bottom: 24px;
-  grid-auto-rows: min-content;
-  gap: 32px;
+  box-sizing: border-box;
+  gap: 64px;
+  align-content: baseline;
 
-  .go_back_button {
+  & .go_back_button {
     @extend %button-effect-tufts-blue;
     @extend %button-ghost-white;
-
     align-self: start;
     justify-self: start;
   }
 
-  .form_options {
-    display: grid;
-    grid-auto-rows: min-content;
-    gap: 24px;
+  & .form {
+    display: flex;
+    gap: 32px;
+    flex-direction: column;
+    --padding-button: 4px 12px;
 
-    .subtitle {
-      position: relative;
-      font-weight: bold;
-      color: var(--royal-blue-dark);
-
-      &::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 1px;
-        background-color: var(--royal-blue-dark);
-        top: 100%;
-        left: 0;
-        padding-right: 15px;
-        border-radius: 5px;
-      }
-    }
-
-    .avatar,
-    .nickname,
-    .email,
-    .password {
+    &>:is(label, div) {
       display: flex;
-      justify-content: center;
       flex-direction: column;
-      align-items: flex-start;
       gap: 8px;
+      width: 100%;
 
-      .content {
+      &>span {
+        color: var(--royal-blue-dark);
+        font-weight: bold;
+        position: relative;
+        width: fit-content;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          background-color: var(--royal-blue-dark);
+          bottom: 0px;
+          left: 0px;
+        }
+      }
+
+      &>div {
         display: flex;
         gap: 8px;
         flex-wrap: wrap;
 
-        span {
-          background-color: rgb(226, 226, 226);
-          color: grey;
-          border: 0.2px solid grey;
+        &>span {
+          background-color: color-mix(in srgb, transparent, var(--black-chocolate) 20%);
+          border: 1px solid color-mix(in srgb, transparent, var(--black-chocolate) 50%);
           padding: 2px 10px;
           border-radius: 6px;
+          word-break: break-all;
         }
+      }
 
-        input {
-          @extend %input-bottom-line;
-          @extend %input-effect-cerise;
-
-          padding-left: 0;
-        }
+      & input:not([type="file"]) {
+        @extend %input-bottom-line;
+        @extend %input-effect-cerise;
+        padding-left: 0;
+        max-width: 400px;
+        width: 100%;
       }
     }
 
-    .avatar {
-      .content {
-        text-align: center;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
+    &>div:has(input[type="file"]) {
+      &>picture {
+        width: fit-content;
+        position: relative;
+        align-self: center;
 
-        .avatar_group {
+        &>img {
+          height: 200px;
+          width: 200px;
+          height: auto;
+          background-color: color-mix(in srgb, transparent, var(--black-chocolate) 10%);
+          border: 0.3px solid black;
+          border-radius: 5px;
+        }
+
+        & .button_delete_avatar {
+          border: 1px solid red;
+          border-radius: 5px;
+          background-color: color-mix(in srgb, transparent, red 20%);
+          padding: 0px;
+          position: absolute;
+          left: 0px;
+          margin-top: 4px;
+          margin-left: 4px;
+
+          &>svg {
+            height: 20px;
+            width: 20px;
+            display: block;
+            color: red;
+            padding: 4px;
+          }
+        }
+      }
+
+      &>label {
+        transition: .3s filter ease;
+        align-self: center;
+        margin-top: 15px;
+        width: fit-content;
+        background-color: var(--tufts-blue);
+        color: white;
+        padding: var(--padding-button);
+        border-radius: 6px;
+        line-height: normal;
+
+        &:hover {
+          filter: brightness(0.9);
+        }
+      }
+
+      & .avatar_popover {
+        &::backdrop {
+          backdrop-filter: blur(8px);
+          background-color: color-mix(in srgb, transparent, var(--black-chocolate) 50%);
+        }
+
+        &:popover-open {
+          border-color: transparent;
+          padding: 24px;
+          flex-direction: column;
+          gap: 32px;
           display: flex;
 
-          .avatar_image {
-            border-radius: 5px;
-            background-color: rgb(226, 226, 226);
-            height: 150px;
-            width: 150px;
-            border: 0.3px solid black;
+          &>section {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 12px;
+
+            & .cropper_container {
+              height: 400px;
+              max-width: 400px;
+
+              & .cropper {
+                background-color: color-mix(in srgb, transparent, var(--black-chocolate) 15%);
+                width: 100%;
+                height: 100%;
+              }
+            }
           }
 
-          .button_delete_avatar {
-            border: none;
-            outline: transparent;
-            border-radius: 5px;
-            background-color: red;
-            padding: 0;
-            transition: .3s all ease;
-            position: absolute;
+          &>footer {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
 
-            >svg {
-              height: 20px;
-              width: 20px;
-              display: block;
-              color: var(--ghost-white);
-              margin: 3.5px;
+            &>button {
+              padding: var(--padding-button);
+              @extend %button-tufts-blue;
+              transition: .3s filter ease;
+
+              &:hover,
+              &:active {
+                filter: brightness(0.9);
+              }
             }
 
-            &:hover,
-            &:active {
-              >svg {
-                color: red;
-              }
-
-              background-color: var(--ghost-white);
-              outline: red 0.1px solid;
+            & .delete_button {
+              background-color: red;
             }
           }
         }
       }
     }
 
-    .save_change_button {
-      @extend %button-tufts-blue;
-      margin-top: 15px;
-      justify-self: center;
+    & button {
+      width: fit-content;
     }
 
-    .delete_account_button {
+    & .delete_account_button {
+      transition: .3s filter ease;
+      border: 1px solid red;
+      border-radius: 6px;
+      padding: var(--padding-button);
+      background-color: red;
+      color: white;
+
+      &:hover,
+      &:active {
+        filter: brightness(0.9);
+      }
+    }
+
+    & .save_changes_button {
       @extend %button-ghost-white;
       @extend %button-effect-cerise;
-
-      justify-self: start;
-      color: red;
-      outline-color: red;
-
-      &:hover {
-        background-color: red;
-        outline-color: red
-      }
-
-      &:active {
-        background-color: var(--ghost-white)
-      }
+      align-self: end;
+      padding: var(--padding-button);
+      position: sticky;
+      bottom: 16px;
     }
   }
-
-  .save_changes_button {
-    @extend %button-ghost-white;
-    @extend %button-effect-cerise;
-
-    justify-self: end;
-    align-self: end;
-  }
-}
-
-.avatar_file_input {
-  display: none;
-}
-
-.preview_popup {
-  visibility: hidden;
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: grid;
-  place-items: center;
-
-  .preview_popup_container {
-    padding: 30px;
-    background-color: var(--ghost-white);
-    border-radius: 5px;
-    border: #e2e2e2 solid 0.3px;
-    display: grid;
-    place-items: center;
-
-    .preview_avatar_image {
-      background-color: grey;
-
-      >div {
-        width: 250px;
-        height: 250px;
-      }
-    }
-
-    .preview_popup_buttons {
-      margin-top: 15px;
-
-      .preview_delete_button,
-      .preview_save_button {
-        @extend %button-tufts-blue;
-      }
-
-      .preview_delete_button {
-        background-color: red;
-        margin-right: 30px;
-      }
-    }
-  }
-}
-
-.preview_popup.active {
-  visibility: visible;
-}
-
-.user_settings.popup_active {
-  filter: blur(20px);
 }

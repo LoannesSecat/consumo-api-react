@@ -14,13 +14,13 @@ it("Check if the user settings page is visible", () => {
   cy.get("header>section>article:nth-child(2)>button").click();
   cy.get("header>section>article").should("be.visible").contains("ajustes", { matchCase: false }).click();
 
-  cy.get("article").contains("Foto", matchCase).should("be.visible");
-  cy.get("article").contains("Nombre de usuario", matchCase).should("be.visible");
-  cy.get("article").contains("Correo", matchCase).should("be.visible");
-  cy.get("article").contains("Contraseña", matchCase).should("be.visible");
+  cy.get("label").contains("Foto", matchCase).should("be.visible");
+  cy.get("label").contains("Nombre de usuario", matchCase).should("be.visible");
+  cy.get("label").contains("Correo", matchCase).should("be.visible");
+  cy.get("label").contains("Contraseña", matchCase).should("be.visible");
   cy.get("button").contains("Eliminar cuenta", matchCase).should("be.visible");
 
-  cy.get("article>div>input").first().type("a");
+  cy.get("label").contains("Nombre de usuario", matchCase).click().type("a");
   cy.get("button").contains("Guardar cambios", matchCase).should("be.visible");
 
   cy.get("button").contains("Volver").click();

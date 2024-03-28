@@ -1,23 +1,13 @@
 import "cropperjs/dist/cropper.css";
-import { useState } from "react";
-import Cropper from "react-cropper";
-import { useLocation } from "wouter";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Cropper } from "react-cropper";
+import { navigate } from "wouter/use-browser-location";
 import GoBackButton from "~/components/go-back-button";
 import userSvg from "~/icons/user.svg";
 import XMark from "~/icons/x-mark.svg?react";
 import store from "~/store";
-import { $ } from "~/utils/functions.js";
+import { $ } from "~/utils/functions";
 import styles from "./user-settings.module.scss";
-
-const NEW_DATA_STATE = {
-  avatar: {
-    file: null,
-    preview: null,
-  },
-  nickname: null,
-  email: null,
-  password: null,
-};
 
 export default function UserSettings() {
   const {
@@ -27,234 +17,219 @@ export default function UserSettings() {
     uploadAvatar,
     user,
   } = store.user();
-  const [newData, setNewData] = useState(NEW_DATA_STATE);
-  const [cropper, setCropper] = useState();
-  const CLEAR_AVATAR = { ...newData, avatar: NEW_DATA_STATE.avatar };
-  const CLEAR_NICK = { ...newData, nickname: NEW_DATA_STATE.nickname };
-  const CLEAR_PASS = { ...newData, password: NEW_DATA_STATE.password };
-  const CLEAR_EMAIL = { ...newData, email: NEW_DATA_STATE.email };
-  const [, navigate] = useLocation();
+  const [state, setState] = useState({});
+  const [avatarPopover, setAvatarPopover] = useState(null);
+  const cropperRef = useRef(null);
+  const formRef = useRef(null);
 
-  const HandlePopUp = () => {
-    $(`.${styles.preview_popup}`).classList.toggle(styles.active);
-    $(`.${styles.user_settings}`).classList.toggle(styles.popup_active);
-  };
+  const handlerOnSubmit = (event) => {
+    event.preventDefault();
 
-  const HandleAvatarFile = (evt) => {
-    const reader = new FileReader();
-    const INPUT_FILE = evt.target.files[0];
+    const { avatar, ...valueToChange } = state;
 
-    reader.readAsDataURL(INPUT_FILE);
-    if (INPUT_FILE) {
-      reader.onload = () => {
-        setNewData({
-          ...newData,
-          avatar: {
-            ...newData.avatar,
-            file: INPUT_FILE,
-            preview: reader.result,
-          },
-        });
-      };
+    (async () => {
+      await updateUserData(valueToChange);
 
-      HandlePopUp();
+      formRef.current.reset();
+    })();
+  }
+
+  const handlerOnhange = (event) => {
+    const formData = new FormData(event.currentTarget);
+    const { avatar, ...values } = Object.fromEntries(formData.entries());
+    let newValues = {};
+
+    // Parse state values ---
+    for (const index in values) {
+      const objValue = values[index].trim();
+
+      if (objValue.length) {
+        Object.assign(newValues, { [index]: objValue });
+      }
     }
-  };
+    // ---
+
+    setState({ avatar, ...newValues });
+  }
+
+  const srcCropper = useMemo(() => {
+    if (state?.avatar?.size) {
+      return URL.createObjectURL(state.avatar);
+    }
+  }, [state.avatar]);
+
+  useEffect(() => {
+    setAvatarPopover($("#avatar-popover"));
+  }, []);
 
   return (
-    <>
-      <main className={styles.user_settings}>
-        <GoBackButton className={styles.go_back_button} />
+    <main className={styles.user_settings}>
+      <GoBackButton className={styles.go_back_button} />
 
-        <section className={styles.form_options}>
-          <article className={styles.avatar}>
-            <small className={styles.subtitle}>Foto</small>
+      <section className={styles.options_container}>
+        <form
+          onSubmit={(evt) => { handlerOnSubmit(evt); }}
+          className={styles.form}
+          onChange={(evt) => { handlerOnhange(evt); }}
+          ref={formRef}
+        >
+          <div>
+            <span>Foto</span>
 
-            <div className={styles.content}>
-              <div className={styles.avatar_group}>
-                <img
-                  className={styles.avatar_image}
-                  src={user.avatar}
-                  alt="Foto de perfil"
-                  onError={(event) => {
-                    event.target.src = userSvg;
-                  }}
-                />
-
-                {
-                  user?.avatar && (
-                    <button
-                      className={styles.button_delete_avatar}
-                      title="Eliminar foto"
-                      onClick={() => {
-                        deleteAvatar();
-                      }}
-                      type="button"
-                    >
-                      <XMark />
-                    </button>
-                  )
-                }
-              </div>
-
-              <button
-                onClick={() => {
-                  $(`.${styles.avatar_file_input}`).click();
+            <picture>
+              <img
+                src={user.avatar ?? userSvg}
+                alt="Foto de perfil"
+                onError={(event) => {
+                  event.target.src = userSvg;
                 }}
-                className={styles.save_change_button}
-                type="button"
-              >
-                Cambiar foto
-              </button>
-            </div>
-          </article>
+                height="200"
+                width="200"
+              />
 
-          <article className={styles.nickname}>
-            <small className={styles.subtitle}>Nombre de usuario</small>
+              {
+                user?.avatar?.length && (
+                  <button
+                    className={styles.button_delete_avatar}
+                    onClick={() => {
+                      (async () => {
+                        await deleteAvatar();
+                      })();
+                    }}
+                    type="button"
+                  >
+                    <XMark />
+                  </button>
+                )
+              }
 
-            <div className={styles.content}>
+            </picture>
+
+            <label
+              htmlFor="avatar-input"
+            >
+              {user.avatar?.length ? "Cambiar foto" : "Subir foto"}
+            </label>
+
+            <input
+              type="file"
+              name="avatar"
+              accept="image/*"
+              id="avatar-input"
+              hidden
+              onChange={(event) => {
+                if (event.target.files.length) {
+                  avatarPopover.showPopover();
+                }
+              }}
+              onClick={(event) => {
+                event.currentTarget.value = null; // Clean the inpt value to allow the "onChange" event works even when the same file is selected
+              }}
+            />
+
+            <section id="avatar-popover" popover="manual" className={styles.avatar_popover}>
+              <section>
+                <div className={styles.cropper_container}>
+                  <Cropper
+                    src={srcCropper}
+                    initialAspectRatio={1}
+                    guides={false}
+                    dragMode="move"
+                    responsive
+                    restore
+                    center
+                    minCropBoxWidth={100}
+                    minCropBoxHeight={100}
+                    minCanvasWidth={200}
+                    minCanvasHeight={200}
+                    cropBoxResizable={true}
+                    className={styles.cropper}
+                    ref={cropperRef}
+                  />
+                </div>
+
+                <span>Puedes acercar, alejar o mover la imagen</span>
+              </section>
+
+              <footer>
+                <button
+                  onClick={() => {
+                    avatarPopover.hidePopover();
+                  }}
+                  className={styles.delete_button}
+                  type="button"
+                >
+                  Volver
+                </button>
+
+                <button
+                  className={styles.save_button}
+                  onClick={() => {
+                    const cropperValue = cropperRef.current.cropper.getCroppedCanvas().toDataURL();
+                    const { name: nameFile, type: typeFile } = state.avatar;
+
+                    (async () => {
+                      const res = await fetch(cropperValue);
+                      const blob = await res.blob();
+                      const file = new File([blob], nameFile, { type: typeFile });
+
+                      uploadAvatar({ file });
+                      avatarPopover.hidePopover();
+                    })();
+                  }}
+                  type="button"
+                >
+                  Guardar
+                </button>
+              </footer>
+            </section>
+          </div>
+
+          <label>
+            <span>Nombre de usuario</span>
+
+            <div>
               <span>{user?.user_metadata.nickname}</span>
-              <input
-                type="text"
-                onChange={(evt) => setNewData({ ...newData, nickname: evt.target.value.trim() })}
-                value={newData.nickname ? newData.nickname : ""}
-              />
+              <input type="text" name="nickname" autoComplete="given-name" />
             </div>
-          </article>
+          </label>
 
-          <article className={styles.email}>
-            <small className={styles.subtitle}>Correo</small>
+          <label>
+            <span>Correo</span>
 
-            <div className={styles.content}>
+            <div>
               <span>{user?.email}</span>
-              <input
-                type="email"
-                onChange={(evt) => setNewData({ ...newData, email: evt.target.value.trim() })}
-                value={newData.email ? newData.email : ""}
-              />
+              <input type="email" name="email" autoComplete="email" />
             </div>
-          </article>
+          </label>
 
-          <article className={styles.password}>
-            <small className={styles.subtitle}>Contraseña</small>
-
-            <div className={styles.content}>
-              <span>Nueva contraseña</span>
-              <input
-                type="text"
-                onChange={(evt) => setNewData({ ...newData, password: evt.target.value.trim() })}
-                value={newData.password ? newData.password : ""}
-              />
-            </div>
-          </article>
+          <label>
+            <span>Contraseña</span>
+            <input type="password" name="password" autoComplete="current-password" />
+          </label>
 
           <button
             className={styles.delete_account_button}
-            onClick={() => { deleteAccountUser({ navigate }); }}
+            onClick={() => {
+              deleteAccountUser({ navigate: () => navigate("/") });
+            }}
+            type="button"
           >
             Eliminar cuenta
           </button>
-        </section>
 
-        {
-          newData.nickname
-            || newData.email
-            || newData.password
-            ? (
+          {
+            Boolean(Object.keys(state).length) && (
               <button
-                onClick={async () => {
-                  const res = await updateUserData({
-                    nickname: newData.nickname,
-                    email: newData.email,
-                    password: newData.password,
-                  });
-
-                  if (res) {
-                    setNewData({ CLEAR_NICK, CLEAR_EMAIL, CLEAR_PASS });
-                  }
-                }}
                 className={styles.save_changes_button}
+                type="submit"
               >
                 Guardar cambios
               </button>
             )
-            : null
-        }
-      </main>
-
-      <input
-        type="file"
-        name="avatar"
-        accept=".jpg, .jpeg, .png"
-        className={styles.avatar_file_input}
-        onChange={(evt) => {
-          HandleAvatarFile(evt);
-        }}
-      />
-
-      <article className={styles.preview_popup}>
-        <div className={styles.preview_popup_container}>
-          <div className={styles.preview_avatar_image}>
-            <Cropper
-              src={newData?.avatar?.preview}
-              initialAspectRatio={1}
-              guides={false}
-              zoomTo={0.5}
-              onInitialized={(instance) => {
-                setCropper(instance);
-              }}
-              dragMode="move"
-              responsive
-              restore
-              center
-              minCropBoxWidth={150}
-              minCropBoxHeight={150}
-              minCanvasWidth={150}
-              minCanvasHeight={150}
-              cropBoxResizable={false}
-            />
-          </div>
-          <small>Puedes acercar, alejar o mover la imagen</small>
-
-          <div className={styles.preview_popup_buttons}>
-            <button
-              onClick={() => {
-                setNewData({
-                  ...newData,
-                  avatar: {
-                    ...newData.avatar,
-                    preview: null,
-                  },
-                });
-
-                HandlePopUp();
-                setNewData(CLEAR_AVATAR);
-              }}
-              className={styles.preview_delete_button}
-            >
-              Volver
-            </button>
-
-            <button
-              className={styles.preview_save_button}
-              onClick={async () => {
-                const IMG_DATA = cropper.getCroppedCanvas().toDataURL();
-                const BASE64 = await fetch(IMG_DATA);
-                const BLOB = await BASE64.blob();
-                const FILE = new File([BLOB], newData.avatar.file.name, {
-                  type: newData.avatar.file.type,
-                });
-
-                uploadAvatar({ file: FILE });
-                HandlePopUp();
-              }}
-              type="button"
-            >
-              Guardar
-            </button>
-          </div>
-        </div>
-      </article>
-    </>
+          }
+        </form>
+      </section>
+    </main>
   );
 }

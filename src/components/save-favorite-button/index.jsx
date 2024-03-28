@@ -23,23 +23,25 @@ export default function SaveFavoriteButton({ dataToSave, ...restOfProps }) {
   return (
     <button
       className={newClassName}
-      onClick={async () => {
-        if (!await isSessionActive()) {
-          const { title, name } = dataToSave;
+      onClick={() => {
+        (async () => {
+          if (!await isSessionActive()) {
+            const { title, name } = dataToSave;
 
-          useToast.info({
-            message: `Debes iniciar sesión para agregar <strong>${title ?? name}</strong> a favoritos`,
-          });
-          return;
-        }
+            useToast.info({
+              message: `Debes iniciar sesión para agregar <strong>"${title ?? name}"</strong> a favoritos`,
+            });
+            return;
+          }
 
-        if (!isSaved) {
-          await saveFavoriteMedia(dataToSave);
-        }
+          if (!isSaved) {
+            await saveFavoriteMedia(dataToSave);
+          }
 
-        if (isSaved) {
-          await deleteFavoriteMedia(dataToSave.id);
-        }
+          if (isSaved) {
+            await deleteFavoriteMedia(dataToSave.id);
+          }
+        })();
       }}
       title={isSaved ? "Eliminar de favoritos" : "Agregar a favoritos"}
       type="button"

@@ -13,26 +13,24 @@
 }
 
 %transition-effect-buttons {
-  transition: all .3s ease;
+  transition: .3s ease;
+  transition-property: border-color, background-color, color;
 }
 
 // Button styles
 %button-tufts-blue {
-  border: none;
-  outline: transparent;
+  border: 1px solid transparent;
   background-color: var(--tufts-blue);
   color: var(--ghost-white);
   @extend %transition-effect-buttons;
   border-radius: 6px;
-  padding: 2px 10px;
 }
 
 %button-ghost-white {
-  border: 0.1px solid var(--black-chocolate);
+  border: 1px solid var(--black-chocolate);
   background-color: var(--ghost-white);
   @extend %transition-effect-buttons;
   border-radius: 6px;
-  padding: 2px 10px;
 }
 
 %button-border-ghost-white {
@@ -61,7 +59,7 @@
   &:active {
     color: var(--ghost-white);
     background-color: var(--cerise);
-    outline: 0.1px solid var(--cerise);
+    border: 1px solid var(--cerise);
   }
 }
 
