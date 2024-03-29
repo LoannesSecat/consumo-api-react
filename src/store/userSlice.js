@@ -29,34 +29,38 @@ const userSlice = (set) => ({
   saveFavoriteMedia: async (mediaData = {}) => {
     useToast.info({ message: "<strong>Cargando...</strong>" });
 
-    const { favoriteMedia: mediaFav, user } = getStore("user");
+    const { user } = getStore("user");
     const { name, title } = mediaData;
-    const userHasFavorites = await clients.supabase.from("favorites").select("data").eq("user_id", user.id);
+    const { data } = await clients.supabase.from("favorites").select("favorites_array").eq("user_id", user.id);
 
-    if (mediaFav.length && userHasFavorites) {
+    if (data.length) {
+      const favorites = data.at(0).favorites_array;
+
       await clients.supabase
         .from("favorites")
-        .update({ data: mediaFav.concat(mediaData) })
+        .update({ favorites_array: favorites.concat(mediaData) })
         .eq("user_id", user.id);
     }
 
-    if (!mediaFav.length) {
+    if (!data.length) {
       await clients.supabase
         .from("favorites")
-        .insert({ data: [mediaData], user_id: user.id });
+        .insert({ favorites_array: [mediaData], user_id: user.id });
     }
 
     useToast.success({ message: `Se agregó <strong>"${title ?? name}"</strong> a favoritos` });
   },
 
-  deleteFavoriteMedia: async (mediaId = 0) => {
+  deleteFavoriteMedia: async (favorite = {}) => {
+    useToast.info({ message: "<strong>Cargando...</strong>" });
+
     const { favoriteMedia, user } = getStore("user");
-    const auxData = favoriteMedia.find((elm) => elm.id === mediaId);
-    const newFavoriteMedia = favoriteMedia.filter((elm) => elm.id !== Number(mediaId));
+    const { title, name, id } = favorite;
+    const filteredFavorites = favoriteMedia.filter((elm) => elm.id !== Number(id));
 
     const { error } = await clients.supabase
       .from("favorites")
-      .update({ data: newFavoriteMedia })
+      .update({ favorites_array: filteredFavorites })
       .eq("user_id", user.id);
 
     if (error) {
@@ -64,22 +68,21 @@ const userSlice = (set) => ({
       return;
     }
 
-    const { title, name } = auxData;
-    useToast.info({ message: `Se eliminó <strong>${title ?? name}</strong> de favoritos` });
+    useToast.success({ message: `Se eliminó <strong>${title ?? name}</strong> de favoritos` });
   },
 
   readFavorites: () => {
     readFavoritesChannel = clients.supabase
       .channel("read_favorites")
       .on("postgres_changes", { event: "*", schema: "public", table: "favorites" }, (payload) => {
-        const { new: { data } } = payload;
+        const { new: { favorites_array } } = payload;
 
-        if (!data) {
+        if (!favorites_array) {
           set((state) => ({ ...state, favoriteMedia: [] }));
           return;
         }
 
-        set((state) => ({ ...state, favoriteMedia: data }));
+        set((state) => ({ ...state, favoriteMedia: favorites_array }));
       })
       .subscribe();
   },
@@ -188,7 +191,7 @@ const userSlice = (set) => ({
     const { user, session } = resLogIn.data;
     const resFavMedia = await clients.supabase
       .from("favorites")
-      .select("data")
+      .select("favorites_array")
       .eq("user_id", user.id);
 
     if (resFavMedia.error) {
@@ -196,7 +199,7 @@ const userSlice = (set) => ({
       return;
     }
 
-    const dbFav = resFavMedia?.data?.at(0)?.data;
+    const dbFav = resFavMedia?.data?.at(0)?.favorites_array;
 
     set((state) => ({
       ...state,

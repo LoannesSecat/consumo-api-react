@@ -39,7 +39,7 @@ export default function SaveFavoriteButton({ dataToSave, ...restOfProps }) {
           }
 
           if (isSaved) {
-            await deleteFavoriteMedia(dataToSave.id);
+            await deleteFavoriteMedia(dataToSave);
           }
         })();
       }}
