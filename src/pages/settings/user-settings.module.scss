@@ -9,12 +9,17 @@
   gap: 64px;
   align-content: baseline;
 
-  & .go_back_button {
-    @extend %button-effect-tufts-blue;
-    @extend %button-ghost-white;
-    align-self: start;
-    justify-self: start;
+  & .user_settings_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &>button {
+      @extend %button-effect-tufts-blue;
+      @extend %button-ghost-white;
+    }
   }
+
 
   & .form {
     display: flex;

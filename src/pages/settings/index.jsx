@@ -1,7 +1,7 @@
 import "cropperjs/dist/cropper.css";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Cropper } from "react-cropper";
-import { navigate } from "wouter/use-browser-location";
+import { useLocation } from "wouter";
 import GoBackButton from "~/components/go-back-button";
 import userSvg from "~/icons/user.svg";
 import XMark from "~/icons/x-mark.svg?react";
@@ -16,11 +16,13 @@ export default function UserSettings() {
     updateUserData,
     uploadAvatar,
     user,
+    logOut
   } = store.user();
   const [state, setState] = useState({});
   const [avatarPopover, setAvatarPopover] = useState(null);
   const cropperRef = useRef(null);
   const formRef = useRef(null);
+  const [, navigate] = useLocation();
 
   const handlerOnSubmit = (event) => {
     event.preventDefault();
@@ -70,7 +72,16 @@ export default function UserSettings() {
 
   return (
     <main className={styles.user_settings}>
-      <GoBackButton className={styles.go_back_button} />
+      <header className={styles.user_settings_header}>
+        <GoBackButton className={styles.go_back_button} />
+        <button
+          onClick={() => {
+            (async () => { logOut({ navigate: navigate("/") }); })();
+          }}
+        >
+          Cerrar sesión
+        </button>
+      </header>
 
       <section className={styles.options_container}>
         <form
