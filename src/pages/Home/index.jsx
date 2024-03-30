@@ -29,7 +29,7 @@ export default function Home() {
 
   return (
     <>
-      <Header className={session ? styles.in_session_header : styles.header}>
+      <Header className={styles.header}>
         <input
           type="search"
           onChange={(e) => { setText(e.target.value); }}

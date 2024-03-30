@@ -1,7 +1,7 @@
 .loading_screen {
-  display: grid;
-  place-content: center;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &>svg {
     &>circle {

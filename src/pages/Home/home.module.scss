@@ -1,9 +1,12 @@
 @use "../../styles/General.scss";
 
-.header,
-.in_session_header {
+.header {
   flex-wrap: wrap-reverse;
   justify-content: space-between;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
 
   .search_input {
     flex-grow: 0.5;
@@ -31,13 +34,7 @@
 }
 
 .header {
-  @media (max-width: 580px) {
-    justify-content: center;
-  }
-}
-
-.in_session_header {
-  @media (max-width: 460px) {
+  @media (width <=640px) {
     justify-content: center;
   }
 }

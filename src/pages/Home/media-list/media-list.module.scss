@@ -3,10 +3,9 @@
 .media {
   @extend %lateral-paddings;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 396px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
   gap: 32px;
-  padding-top: 96px;
-  padding-bottom: 96px;
+  padding-block: 12rem;
 
   .card_media {
     justify-self: center;
@@ -27,8 +26,8 @@
       .poster {
         object-fit: cover;
         width: 100%;
-        display: block;
-        aspect-ratio: 2 / 3;
+        max-width: 400px;
+        aspect-ratio: 400 / 600;
       }
 
       .info {

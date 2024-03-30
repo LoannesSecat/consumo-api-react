@@ -1,143 +1,150 @@
 @use "../../styles/General.scss";
 
-.header {
-  justify-content: space-between;
-  flex-wrap: wrap-reverse;
-
-  .user-options {
-    flex-grow: 1;
-  }
-
-  .go-back-button {
-    @extend %button-border-ghost-white;
-    @extend %button-effect-ghost-white;
-  }
-
-  @media (max-width: 280px) {
-    justify-content: center;
-  }
-}
-
-.media_details {
-  word-break: break-word;
+.media_details_container {
   display: grid;
-  position: relative;
+  align-items: baseline;
 
-  .save_favorite_button {
-    justify-self: end;
-    align-self: start;
-    position: absolute;
+  & .header {
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+    position: sticky;
+    top: 0px;
+
+    .user-options {
+      flex-grow: 1;
+    }
+
+    .go-back-button {
+      @extend %button-border-ghost-white;
+      @extend %button-effect-ghost-white;
+    }
+
+    @media (max-width: 280px) {
+      justify-content: center;
+    }
   }
 
-  .subtitle {
-    font-weight: 600;
-    opacity: 90%;
-    font-size: 1.15rem;
-  }
-
-  .subtitle,
-  .subtext,
-  .seasons_subtitle {
-    color: var(--black-chocolate);
-    font-size: 1rem;
-  }
-
-  .banner {
+  & .media_details {
+    word-break: break-word;
+    display: grid;
     position: relative;
 
-    .person_img,
-    .film_img,
-    .serie_img {
-      width: 100%;
-    }
-
-    .person_img {
-      object-fit: contain;
-      height: 400px;
-    }
-
-    .film_img,
-    .serie_img {
-      object-fit: cover;
-      width: 100%;
-      height: 500px;
-      aspect-ratio: 1280 / 1;
-      display: block;
-    }
-
-    .titles {
-      color: var(--ghost-white);
+    .save_favorite_button {
+      justify-self: end;
+      align-self: start;
       position: absolute;
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-      @extend %lateral-paddings;
-      padding-bottom: 16px;
-      padding-top: 16px;
-      -webkit-text-stroke: 0.5px var(--royal-blue-dark);
-      background: linear-gradient(90deg, rgb(0 0 0 / 50%), transparent);
+    }
 
-      & .media_title,
-      .media_subtitle {
-        margin: 0px;
+    .subtitle {
+      font-weight: 600;
+      opacity: 90%;
+      font-size: 1.15rem;
+    }
+
+    .subtitle,
+    .subtext,
+    .seasons_subtitle {
+      color: var(--black-chocolate);
+      font-size: 1rem;
+    }
+
+    .banner {
+      position: relative;
+
+      .person_img,
+      .film_img,
+      .serie_img {
+        width: 100%;
       }
 
-      & .media_title {
-        font-family: "General Sans Bold";
+      .person_img {
+        object-fit: contain;
+        height: 400px;
+      }
+
+      .film_img,
+      .serie_img {
+        object-fit: cover;
+        width: 100%;
+        height: 500px;
+        aspect-ratio: 1280 / 1;
+        display: block;
+      }
+
+      .titles {
+        color: var(--ghost-white);
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        @extend %lateral-paddings;
+        padding-bottom: 16px;
+        padding-top: 16px;
         -webkit-text-stroke: 0.5px var(--royal-blue-dark);
-        font-size: 32px;
-      }
+        background: linear-gradient(90deg, rgb(0 0 0 / 50%), transparent);
 
-      & .media_subtitle {
-        font-family: "General Sans Semibold";
-        font-size: 20px;
-      }
-    }
-  }
+        & .media_title,
+        .media_subtitle {
+          margin: 0px;
+        }
 
-  .info {
-    @extend %lateral-paddings;
-    padding-top: 16px;
+        & .media_title {
+          font-family: "General Sans Bold";
+          -webkit-text-stroke: 0.5px var(--royal-blue-dark);
+          font-size: 32px;
+        }
 
-    .genres {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-
-      >small {
-        background-color: var(--ghost-white);
-        color: var(--cerise);
-        border: 1px solid var(--cerise);
-        padding: 3px 7px;
-        border-radius: 5px;
-        white-space: nowrap;
-        font-size: 0.85rem;
-      }
-    }
-
-    >p {
-      margin-bottom: 0;
-      font-size: 1.2rem;
-    }
-
-    .seasons {
-      margin-block-start: 0;
-
-      >li {
-        margin-block-start: 0.5em;
-
-        >ul {
-          list-style: none;
+        & .media_subtitle {
+          font-family: "General Sans Semibold";
+          font-size: 20px;
         }
       }
     }
 
-    & .homepage {
-      margin-inline-start: 40px;
-      display: initial;
+    .info {
+      @extend %lateral-paddings;
+      padding-top: 16px;
 
-      &:hover {
-        color: var(--royal-blue-dark);
+      .genres {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+
+        >small {
+          background-color: var(--ghost-white);
+          color: var(--cerise);
+          border: 1px solid var(--cerise);
+          padding: 3px 7px;
+          border-radius: 5px;
+          white-space: nowrap;
+          font-size: 0.85rem;
+        }
+      }
+
+      >p {
+        margin-bottom: 0;
+        font-size: 1.2rem;
+      }
+
+      .seasons {
+        margin-block-start: 0;
+
+        >li {
+          margin-block-start: 0.5em;
+
+          >ul {
+            list-style: none;
+          }
+        }
+      }
+
+      & .homepage {
+        margin-inline-start: 40px;
+        display: initial;
+
+        &:hover {
+          color: var(--royal-blue-dark);
+        }
       }
     }
   }

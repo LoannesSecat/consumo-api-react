@@ -33,7 +33,7 @@ export default function MediaDetails() {
   }, [])
 
   return (
-    <>
+    <main className={styles.media_details_container}>
       <Header className={styles.header}>
         <GoBackButton />
       </Header>
@@ -46,15 +46,15 @@ export default function MediaDetails() {
 
       {
         Object.keys(details).length && isDone && (
-          <main className={styles.media_details}>
+          <section className={styles.media_details}>
             <SaveFavoriteButton dataToSave={details} className={styles.save_favorite_button} />
 
             {mediaSelectedType === "tv" && (<SerieDetails data={details} />)}
             {mediaSelectedType === "movie" && (<FilmDetails data={details} />)}
             {mediaSelectedType === "person" && (<PersonDetails data={details} />)}
-          </main>
+          </section>
         )
       }
-    </>
+    </main>
   );
 }

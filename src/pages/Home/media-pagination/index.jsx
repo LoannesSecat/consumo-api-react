@@ -4,7 +4,7 @@ import { customTimeOut } from "~/utils/functions";
 import styles from "./media-pagination.module.scss";
 
 export default function MediaPagination() {
-  const { page, totalResults, totalPages, changePage, isLoading } = store.media();
+  const { page, totalResults, totalPages, changePage, isLoading, data } = store.media();
   const [localPage, setLocalPage] = useState(page);
   const prevButtonRef = useRef();
   const nextButtonRef = useRef();

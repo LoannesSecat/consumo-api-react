@@ -26,7 +26,7 @@ it("Checks is the favorites pages works good", () => {
   cy.get("header>section>article").should("be.visible").contains("Favoritos", { matchCase: false }).click();
   cy.get("main>section>article").contains(nameMedia).should("be.visible");
 
-  cy.get("main>section>article>button").first().click();
+  cy.get("main>section>article:first-child>button").first().click();
   cy.wait(1000);
   cy.get("p").contains("No hay nada para mostrar").should("be.visible");
 

@@ -1,9 +1,14 @@
 @use "../../styles/General.scss";
 
 .user_favorites {
+  display: grid;
+  align-items: baseline;
+
   .header {
     justify-content: space-between;
     flex-wrap: wrap-reverse;
+    position: sticky;
+    top: 0px;
 
     .input_search {
       @extend %input-bottom-line;

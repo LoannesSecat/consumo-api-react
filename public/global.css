@@ -44,10 +44,13 @@ html {
 
   & body {
     background-color: var(--ghost-white);
-    margin: 0;
+    margin: 0px;
 
     & #root {
-      height: 100vh;
+      display: grid;
+      width: 100%;
+      height: 100dvh;
+      position: relative;
 
       & ::after,
       ::before {

@@ -44,42 +44,74 @@
 }
 
 %button-effect-tufts-blue {
+  @media(pointer: fine) {
+    &:hover {
+      color: var(--ghost-white);
+      background-color: var(--tufts-blue);
+      border: 0.1px solid var(--tufts-blue);
+    }
+  }
 
-  &:active,
-  &:hover {
-    color: var(--ghost-white);
-    background-color: var(--tufts-blue);
-    border: 0.1px solid var(--tufts-blue);
+  @media (pointer: coarse) {
+    &:active {
+      color: var(--ghost-white);
+      background-color: var(--tufts-blue);
+      border: 0.1px solid var(--tufts-blue);
+    }
   }
 }
 
 %button-effect-cerise {
+  @media(pointer: fine) {
+    &:hover {
+      color: var(--ghost-white);
+      background-color: var(--cerise);
+      border: 1px solid var(--cerise);
+    }
+  }
 
-  &:hover,
-  &:active {
-    color: var(--ghost-white);
-    background-color: var(--cerise);
-    border: 1px solid var(--cerise);
+  @media (pointer: coarse) {
+    &:active {
+      color: var(--ghost-white);
+      background-color: var(--cerise);
+      border: 1px solid var(--cerise);
+    }
   }
 }
 
 %button-effect-black-chocolate {
+  @media(pointer: fine) {
+    &:hover {
+      color: var(--ghost-white);
+      background-color: var(--black-chocolate);
+      outline: 0.1px solid var(--black-chocolate);
+    }
+  }
 
-  &:hover,
-  &:active {
-    color: var(--ghost-white);
-    background-color: var(--black-chocolate);
-    outline: 0.1px solid var(--black-chocolate);
+  @media (pointer: coarse) {
+    &:active {
+      color: var(--ghost-white);
+      background-color: var(--black-chocolate);
+      outline: 0.1px solid var(--black-chocolate);
+    }
   }
 }
 
 %button-effect-ghost-white {
+  @media(pointer: fine) {
+    &:hover {
+      color: var(--ghost-white);
+      background-color: transparent;
+      outline: 0.1px solid var(--ghost-white);
+    }
+  }
 
-  &:hover,
-  &:active {
-    color: var(--ghost-white);
-    background-color: transparent;
-    outline: 0.1px solid var(--ghost-white);
+  @media (pointer: coarse) {
+    &:active {
+      color: var(--ghost-white);
+      background-color: transparent;
+      outline: 0.1px solid var(--ghost-white);
+    }
   }
 }
 
