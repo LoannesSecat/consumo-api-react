@@ -1,10 +1,8 @@
-import store from "~/store";
+import { requestResetPassword } from "~/services/user-services";
 import { formValuesExtractor } from "~/utils/functions";
 import styles from "./request-reset-password.module.scss";
 
 export default function RequestResetPassword() {
-  const { requestResetPassword } = store.user();
-
   const HandleOnSubmit = (event) => {
     event.preventDefault();
 

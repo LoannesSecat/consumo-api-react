@@ -31,6 +31,22 @@ const retrievelAvatarUrl = ({ path }) => {
   setState((state) => { return { ...state, user: { ...user, avatar: parsedUrl } } });
 }
 
+const readFavorites = () => {
+  readFavoritesChannel = supabase
+    .channel("read_favorites")
+    .on("postgres_changes", { event: "*", schema: "public", table: "favorites" }, (payload) => {
+      const { new: { favorites_array } } = payload;
+
+      if (!favorites_array) {
+        setState((state) => ({ ...state, favoriteMedia: [] }));
+        return;
+      }
+
+      setState((state) => ({ ...state, favoriteMedia: favorites_array }));
+    })
+    .subscribe();
+}
+
 // Services
 export const isSessionActive = async () => {
   const { data, error } = await supabase.auth.getSession();
@@ -87,22 +103,6 @@ export const deleteFavoriteMedia = async (favorite = {}) => {
   }
 
   useToast.success({ message: `Se eliminó <strong>${title ?? name}</strong> de favoritos` });
-}
-
-export const readFavorites = () => {
-  readFavoritesChannel = supabase
-    .channel("read_favorites")
-    .on("postgres_changes", { event: "*", schema: "public", table: "favorites" }, (payload) => {
-      const { new: { favorites_array } } = payload;
-
-      if (!favorites_array) {
-        setState((state) => ({ ...state, favoriteMedia: [] }));
-        return;
-      }
-
-      setState((state) => ({ ...state, favoriteMedia: favorites_array }));
-    })
-    .subscribe();
 }
 
 export const authStateChange = () => {

@@ -5,7 +5,7 @@ import { useLocation } from "wouter";
 import GoBackButton from "~/components/go-back-button";
 import userSvg from "~/icons/user.svg";
 import XMark from "~/icons/x-mark.svg?react";
-import { deleteAvatar, signOut, updateUserData, uploadAvatar } from "~/services/user-services";
+import { deleteAccountUser, deleteAvatar, signOut, updateUserData, uploadAvatar } from "~/services/user-services";
 import store from "~/store";
 import { $ } from "~/utils/functions";
 import styles from "./user-settings.module.scss";
