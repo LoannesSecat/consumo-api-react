@@ -45,6 +45,7 @@ html {
   & body {
     background-color: var(--ghost-white);
     margin: 0px;
+    font-family: inherit;
 
     & #root {
       display: grid;
@@ -56,6 +57,10 @@ html {
       ::before {
         box-sizing: inherit;
       }
+    }
+
+    & .iziToast-body {
+      font-family: var(--regular-font);
     }
   }
 }

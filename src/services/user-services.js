@@ -9,8 +9,10 @@ const bucketName = "avatars";
 
 // Auxiliary functions
 const stopReadFavorites = async () => {
-  supabase.removeChannel(readFavoritesChannel);
-  readFavoritesChannel = null;
+  if (readFavoritesChannel) {
+    supabase.removeChannel(readFavoritesChannel);
+    readFavoritesChannel = null;
+  }
 }
 
 const retrievelAvatarUrl = ({ path }) => {
