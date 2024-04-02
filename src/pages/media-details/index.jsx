@@ -3,6 +3,7 @@ import GoBackButton from "~/components/go-back-button";
 import Loading from "~/components/loading";
 import SaveFavoriteButton from "~/components/save-favorite-button";
 import photoSVG from '~/icons/photo.svg';
+import { readMediaDetails } from "~/services/media-services";
 import store from "~/store";
 import { TMDB } from "~/utils/constants";
 import Header from "../../components/header";
@@ -14,7 +15,7 @@ import SerieDetails from "./serie-details";
 const { url_img } = TMDB;
 
 export default function MediaDetails() {
-  const { details, mediaSelectedType, readMediaDetails, auxMediaDetails, isLoading, isDone } = store.media();
+  const { details, mediaSelectedType, auxMediaDetails, isLoading, isDone } = store.media();
   const { profile_path, backdrop_path } = details;
 
   let backdrop_url = (mediaSelectedType === "person")
@@ -45,7 +46,7 @@ export default function MediaDetails() {
       }
 
       {
-        Object.keys(details).length && isDone && (
+        !isLoading && isDone && (
           <section className={styles.media_details}>
             <SaveFavoriteButton dataToSave={details} className={styles.save_favorite_button} />
 

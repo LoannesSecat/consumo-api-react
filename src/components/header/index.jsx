@@ -3,11 +3,12 @@ import { Link, useLocation } from "wouter";
 import ChevronUp from "~/icons/chevron-up.svg?react";
 import Cog8Tooth from "~/icons/cog-8-tooth.svg?react";
 import userSvg from "~/icons/user.svg";
+import { isSessionActive, signOut } from "~/services/user-services";
 import store from "~/store";
 import styles from "./header.module.scss";
 
 export default function Header({ children, className }) {
-  const { isSessionActive, user, logOut, session } = store.user();
+  const { user, session } = store.user();
   const [location, navigate] = useLocation();
   const [optionsAreDisplayed, setOptionsAreDisplayed] = useState(false);
   const [isUserLogged, setIsUserLogged] = useState(false);
@@ -80,7 +81,7 @@ export default function Header({ children, className }) {
                       type="button"
                       onClick={() => {
                         (async () => {
-                          await logOut({ navigate: () => navigate("/") });
+                          await signOut({ navigate: () => navigate("/") });
                         })();
                       }}
                     >

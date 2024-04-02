@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import BookmarkSlash from "~/icons/bookmark-slash.svg?react";
 import Bookmark from "~/icons/bookmark.svg?react";
+import { deleteFavoriteMedia, isSessionActive, saveFavoriteMedia } from "~/services/user-services";
 import store from "~/store";
 import { useToast } from "~/utils/functions";
 import styles from "./save-favorite-button.module.scss";
 
 export default function SaveFavoriteButton({ dataToSave, ...restOfProps }) {
-  const { favoriteMedia, isSessionActive, saveFavoriteMedia, deleteFavoriteMedia } = store.user();
+  const { favoriteMedia } = store.user();
   const [isSaved, setIsSaved] = useState(false);
   const { className } = restOfProps;
 

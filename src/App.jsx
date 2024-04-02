@@ -1,9 +1,8 @@
 import "izitoast/dist/css/iziToast.css";
 import ReactDOM from "react-dom/client";
 import Routes from "./components/Routes";
-import { getStore, toastInicializer } from "./utils/functions";
+import { toastInicializer } from "./utils/functions";
 
-getStore("user").authStateChange();
 toastInicializer();
 
 function App() {

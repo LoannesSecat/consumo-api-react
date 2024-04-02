@@ -7,6 +7,7 @@ import SaveFavoriteButton from "~/components/save-favorite-button";
 import Heart from "~/icons/heart.svg?react";
 import Sparkles from "~/icons/sparkles.svg?react";
 import UserGroup from "~/icons/user-group.svg?react";
+import { readMedia } from "~/services/media-services";
 import store from "~/store";
 import { TMDB, mediaTranslations } from "~/utils/constants.js";
 import styles from "./media-list.module.scss";
@@ -14,17 +15,22 @@ import styles from "./media-list.module.scss";
 const { url_img } = TMDB;
 
 export default function MediaList() {
-  const { data, page, readMedia, filterText, isLoading, changeAuxMediaDetails } = store.media();
+  const { data, page, filterText, isLoading, changeAuxMediaDetails } = store.media();
   const pageRef = useRef(page);
   const filterTextRef = useRef(filterText);
 
   useEffect(() => {
     if (pageRef.current !== page || filterTextRef.current !== filterText || !data?.length) {
-      if (!page) { return; }
-      readMedia();
+      if (!page) {
+        return;
+      }
 
-      pageRef.current = page;
-      filterTextRef.current = filterText;
+      (async () => {
+        await readMedia();
+
+        pageRef.current = page;
+        filterTextRef.current = filterText;
+      })();
     }
   }, [page, filterText]);
 

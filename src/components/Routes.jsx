@@ -9,10 +9,13 @@ import RequestResetPassword from "~/pages/request-reset-password";
 import UserSettings from "~/pages/settings";
 import UserRegistration from "~/pages/sign-up";
 import UpdatePassword from "~/pages/update-password";
+import { authStateChange, isSessionActive } from "~/services/user-services";
 import store from "~/store";
 
+authStateChange();
+
 export default function Routes() {
-  const { session, isSessionActive } = store.user()
+  const { session } = store.user()
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {

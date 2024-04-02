@@ -1,14 +1,12 @@
 import iziToast from "izitoast";
 import store from "~/store";
 
-export const getStore = (name = "") => store[name].getState();
-
-export const useStore = (storeName = "") => {
-  if (!storeName || !storeName.length) {
-    return store.getState();
+export const getStore = (storeName = "") => {
+  if (storeName || storeName.length) {
+    return store[storeName].getState();
   }
 
-  return store[storeName];
+  return store;
 };
 
 export const $ = (nameElement) => document.querySelector(nameElement);

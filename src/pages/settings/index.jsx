@@ -5,19 +5,13 @@ import { useLocation } from "wouter";
 import GoBackButton from "~/components/go-back-button";
 import userSvg from "~/icons/user.svg";
 import XMark from "~/icons/x-mark.svg?react";
+import { deleteAvatar, signOut, updateUserData, uploadAvatar } from "~/services/user-services";
 import store from "~/store";
 import { $ } from "~/utils/functions";
 import styles from "./user-settings.module.scss";
 
 export default function UserSettings() {
-  const {
-    deleteAvatar,
-    deleteAccountUser,
-    updateUserData,
-    uploadAvatar,
-    user,
-    logOut
-  } = store.user();
+  const { user } = store.user();
   const [state, setState] = useState({});
   const [avatarPopover, setAvatarPopover] = useState(null);
   const cropperRef = useRef(null);
@@ -76,7 +70,7 @@ export default function UserSettings() {
         <GoBackButton className={styles.go_back_button} />
         <button
           onClick={() => {
-            (async () => { logOut({ navigate: navigate("/") }); })();
+            (async () => { signOut({ navigate: navigate("/") }); })();
           }}
         >
           Cerrar sesión
