@@ -4,7 +4,7 @@ import { customTimeOut } from "~/utils/functions";
 import styles from "./media-pagination.module.scss";
 
 export default function MediaPagination() {
-  const { page, totalResults, totalPages, changePage, isLoading, data } = store.media();
+  const { page, totalResults, totalPages, changePage, isLoading } = store.media();
   const [localPage, setLocalPage] = useState(page);
   const prevButtonRef = useRef();
   const nextButtonRef = useRef();
@@ -56,40 +56,42 @@ export default function MediaPagination() {
   if (totalResults) {
     return (
       <footer className={styles.media_pagination}>
-        <button
-          onClick={() => {
-            changePage(page - 1);
-          }}
-          className={styles.previous_button}
-          type="button"
-          ref={prevButtonRef}
-        >
-          Anterior
-        </button>
+        <div className={styles.container}>
+          <button
+            onClick={() => {
+              changePage(page - 1);
+            }}
+            className={styles.previous_button}
+            type="button"
+            ref={prevButtonRef}
+          >
+            Anterior
+          </button>
 
-        <span>
-          Página
+          <span>
+            Página
 
-          <input
-            onChange={handleLocalPage}
-            type="number"
-            value={localPage}
-            ref={inputPageRef}
-          />
+            <input
+              onChange={handleLocalPage}
+              type="number"
+              value={localPage}
+              ref={inputPageRef}
+            />
 
-          de <strong>{totalPages}</strong>
-        </span>
+            de <strong>{totalPages}</strong>
+          </span>
 
-        <button
-          onClick={() => {
-            changePage(page + 1);
-          }}
-          className={styles.next_button}
-          type="button"
-          ref={nextButtonRef}
-        >
-          Siguiente
-        </button>
+          <button
+            onClick={() => {
+              changePage(page + 1);
+            }}
+            className={styles.next_button}
+            type="button"
+            ref={nextButtonRef}
+          >
+            Siguiente
+          </button>
+        </div>
       </footer>
     );
   }

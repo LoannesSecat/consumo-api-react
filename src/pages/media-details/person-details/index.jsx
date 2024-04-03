@@ -29,12 +29,12 @@ export default function PersonDetails({ data } = {} = {}) {
           alt={`Imagen de ${name}`}
         />
 
-        <div className={styles.titles}>
+        <hgroup className={styles.titles}>
           <h1 className={styles.media_title}>{name}</h1>
-        </div>
+        </hgroup>
       </picture>
 
-      <article className={styles.info}>
+      <section className={styles.info}>
         <Paragraph param={biography} />
 
         {also_known_as?.length ? (
@@ -98,7 +98,7 @@ export default function PersonDetails({ data } = {} = {}) {
             h: styles.homepage,
           }}
         />
-      </article>
+      </section>
     </>
   );
 }

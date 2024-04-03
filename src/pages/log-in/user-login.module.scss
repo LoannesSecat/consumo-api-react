@@ -5,6 +5,9 @@
   @extend %lateral-paddings;
   height: 100vh;
   display: grid;
+  max-width: var(--maximum-width);
+  margin-inline: auto;
+  width: 100%;
 
   >div {
     display: flex;
@@ -18,14 +21,12 @@
     }
   }
 
-  .log_in_form {
+  & .log_in_form {
     @extend %transition-speed;
-
     width: 50%;
     justify-self: center;
     align-self: flex-start;
     display: grid;
-
 
     & .inputs_container {
       display: flex;

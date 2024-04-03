@@ -6,69 +6,72 @@
   bottom: 0px;
   left: 0px;
   right: 0px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  row-gap: 16px;
-  justify-content: space-between;
   background-color: var(--ghost-white);
   box-shadow: 0px 0px 30px 0px rgb(0 0 0 / 10%);
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-block: 1rem;
   z-index: 1;
-  flex-wrap: wrap;
   align-self: self-end;
 
-  @media (width <=640px) {
+  & .container {
+    max-width: var(--maximum-width);
+    display: flex;
+    align-items: center;
+    column-gap: 24px;
+    row-gap: 16px;
+    justify-content: space-between;
+    margin-inline: auto;
+    flex-wrap: wrap;
 
-    & span {
-      width: 100%;
-      order: 1;
+    @media (width <=640px) {
+      & span {
+        width: 100%;
+        order: 1;
+      }
+
+      & button {
+        flex-grow: 1;
+      }
+
+      & .previous_button {
+        order: 2;
+      }
+
+      & .next_button {
+        order: 3;
+      }
+    }
+
+    &>span {
+      display: flex;
+      column-gap: 4px;
+      row-gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+
+      &>input {
+        width: 48px;
+        padding: 2px;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          width: 8px;
+        }
+      }
     }
 
     & button {
-      flex-grow: 1;
-    }
+      padding: 5px 16px;
+      font-size: 0.9rem;
+      @extend %button-ghost-white;
 
-    & .previous_button {
-      order: 2;
-    }
-
-    & .next_button {
-      order: 3;
-    }
-  }
-
-  &>span {
-    display: flex;
-    column-gap: 4px;
-    row-gap: 6px;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-
-    &>input {
-      width: 48px;
-      padding: 2px;
-
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        width: 8px;
+      &:not(&:disabled) {
+        @extend %button-effect-tufts-blue;
       }
-    }
-  }
 
-  & button {
-    padding: 5px 16px;
-    font-size: 0.9rem;
-    @extend %button-ghost-white;
-
-    &:not(&:disabled) {
-      @extend %button-effect-tufts-blue;
-    }
-
-    &:disabled {
-      opacity: 0.3;
+      &:disabled {
+        opacity: 0.3;
+      }
     }
   }
 }

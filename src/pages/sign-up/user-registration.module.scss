@@ -5,6 +5,9 @@
   @extend %lateral-paddings;
   height: 100vh;
   display: grid;
+  max-width: var(--maximum-width);
+  margin-inline: auto;
+  width: 100%;
 
   & .top_buttons_container {
     display: flex;

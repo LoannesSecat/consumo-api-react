@@ -13,7 +13,6 @@
     .input_search {
       @extend %input-bottom-line;
       @extend %input-effect-cerise;
-
       flex-grow: 0.5;
 
       &::-webkit-search-cancel-button {
@@ -39,6 +38,9 @@
     display: flex;
     gap: 24px;
     flex-wrap: wrap;
+    max-width: var(--maximum-width);
+    margin-inline: auto;
+    width: 100%;
 
     .card {
       border: 1px solid rgb(226, 226, 226);

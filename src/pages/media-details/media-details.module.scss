@@ -2,7 +2,8 @@
 
 .media_details_container {
   display: grid;
-  align-items: baseline;
+  height: 100dvh;
+  grid-template-rows: auto 1fr;
 
   & .header {
     justify-content: space-between;
@@ -28,8 +29,12 @@
     word-break: break-word;
     display: grid;
     position: relative;
+    max-width: var(--maximum-width);
+    margin-inline: auto;
+    height: 100%;
+    align-content: baseline;
 
-    .save_favorite_button {
+    & .save_favorite_button {
       justify-self: end;
       align-self: start;
       position: absolute;
@@ -50,6 +55,7 @@
 
     .banner {
       position: relative;
+      height: fit-content;
 
       .person_img,
       .film_img,
@@ -74,7 +80,7 @@
       .titles {
         color: var(--ghost-white);
         position: absolute;
-        bottom: 0;
+        bottom: 0px;
         display: flex;
         flex-direction: column;
         @extend %lateral-paddings;
@@ -82,6 +88,7 @@
         padding-top: 16px;
         -webkit-text-stroke: 0.5px var(--royal-blue-dark);
         background: linear-gradient(90deg, rgb(0 0 0 / 50%), transparent);
+        width: fit-content;
 
         & .media_title,
         .media_subtitle {

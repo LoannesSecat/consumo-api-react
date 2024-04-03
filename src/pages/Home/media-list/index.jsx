@@ -56,7 +56,7 @@ export default function MediaList() {
                 >
                   <Image
                     data-src={url}
-                    width="400"
+                    width="auto"
                     height="600"
                     alt={`Poster de ${title ?? name}`}
                     className={styles.poster}

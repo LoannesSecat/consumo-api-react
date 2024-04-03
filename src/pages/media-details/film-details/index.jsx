@@ -44,13 +44,13 @@ export default function FilmDetails({ data } = {}) {
           className={styles.film_img}
         />
 
-        <div className={styles.titles}>
+        <hgroup className={styles.titles}>
           <h1 className={styles.media_title}>{title}</h1>
-          {tagline && tagline?.length > 0 ? <h2 className={styles.media_subtitle}>{tagline}</h2> : null}
-        </div>
+          {Boolean(tagline?.length) && <h2 className={styles.media_subtitle}>{tagline}</h2>}
+        </hgroup>
       </picture>
 
-      <article className={styles.info}>
+      <section className={styles.info}>
         <Genres param={genres} className={styles.genres} />
         <Paragraph param={overview} />
         <OriginalLanguage
@@ -132,7 +132,7 @@ export default function FilmDetails({ data } = {}) {
             h: styles.homepage,
           }}
         />
-      </article>
+      </section>
     </>
   );
 }
