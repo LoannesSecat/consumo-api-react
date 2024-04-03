@@ -50,7 +50,7 @@ export default function FavoriteMedia() {
 
         <input
           type="search"
-          className={styles.input_search}
+          className={`${styles.input_search} input-search`}
           onChange={HandleInputChange}
         />
       </Header>

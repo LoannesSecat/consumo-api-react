@@ -11,19 +11,7 @@
     top: 0px;
 
     .input_search {
-      @extend %input-bottom-line;
-      @extend %input-effect-cerise;
       flex-grow: 0.5;
-
-      &::-webkit-search-cancel-button {
-        -webkit-appearance: none;
-        width: 18px;
-        height: 18px;
-        margin-left: 1px;
-        margin-right: 0;
-        background-image: url("../../icons/x-mark.svg");
-        cursor: pointer;
-      }
     }
 
     @media (max-width: 480px) {

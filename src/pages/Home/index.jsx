@@ -35,7 +35,7 @@ export default function Home() {
           onChange={(e) => { setText(e.target.value); }}
           value={text}
           placeholder="Ej: Los guardianes de la galaxia"
-          className={styles.search_input}
+          className={`${styles.search_input} input-search`}
         />
       </Header>
 
