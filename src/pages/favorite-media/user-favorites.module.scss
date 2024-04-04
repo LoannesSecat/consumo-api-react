@@ -2,15 +2,15 @@
 
 .user_favorites {
   display: grid;
-  align-items: baseline;
+  grid-template-rows: auto 1fr;
 
-  .header {
+  & .header {
     justify-content: space-between;
     flex-wrap: wrap-reverse;
     position: sticky;
     top: 0px;
 
-    .input_search {
+    & .input_search {
       flex-grow: 0.5;
     }
 
@@ -19,103 +19,68 @@
     }
   }
 
-  .favorites_media {
+  & .favorites_media {
+    --gap-masonry: 1.5rem;
     @extend %lateral-paddings;
-    padding-top: 32px;
-    padding-bottom: 32px;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
+    padding-block: 32px;
     max-width: var(--maximum-width);
     margin-inline: auto;
     width: 100%;
+    box-sizing: border-box;
+    column-width: 15rem;
+    column-count: auto;
+    gap: var(--gap-masonry);
 
-    .card {
+    & .card:not(:first-child) {
+      margin-top: var(--gap-masonry);
+    }
+
+    & .card {
+      --padding: 16px;
       border: 1px solid rgb(226, 226, 226);
       word-break: break-word;
       display: grid;
-      padding: 12px;
+      padding: var(--padding);
       gap: 6px;
       border-radius: 6px;
-      position: relative;
+      width: fit-content;
+      height: fit-content;
+      break-inside: avoid;
+      max-width: 20rem;
 
-      >img {
+      &>.media_image {
         border-radius: 6px;
+        display: block;
+        margin-bottom: 2rem;
         width: 100%;
-      }
-
-      .save_favorite_button {
-        justify-self: end;
-        align-self: start;
-        position: absolute;
-      }
-
-      .img_not_found {
-        @extend %no-image-style;
-        height: 400px;
-        align-self: start;
-      }
-
-      .name,
-      .title {
-        margin: 0;
-      }
-
-      .media_type {
-        color: var(--cerise);
-        font-weight: 600;
-      }
-
-      .popularity,
-      .popularity,
-      .vote_average,
-      .vote_count {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        background-color: rgb(226, 226, 226);
-        border-radius: 6px;
-        padding: 3px 6px;
-
-        >svg {
-          width: 20px;
-          height: 20px;
-        }
-      }
-
-      .statistics {
-        align-self: start;
-        display: flex;
-        gap: 6px;
-        margin-top: 16px;
-
-        .vote_average {
-          >svg {
-            color: yellow;
-          }
-        }
-
-        .vote_count {
-          >svg {
-            color: red;
-          }
-        }
-      }
-    }
-
-    .person {
-      justify-items: center;
-      align-self: start;
-      max-width: 400px;
-
-      .img_person {
-        height: 400px;
         object-fit: cover;
-        justify-self: center;
-        aspect-ratio: 2 / 3;
       }
 
-      .known {
+      & .title_group {
+        width: 100%;
+
+        &>div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+
+          & .media_title {
+            margin: 0;
+            font-size: x-large;
+            font-weight: bold;
+            -webkit-text-stroke: 1px currentColor;
+          }
+        }
+
+        & .type {
+          color: var(--cerise);
+          font-weight: normal;
+          font-size: large;
+        }
+      }
+
+      & .known {
         text-align: center;
         text-transform: lowercase;
 
@@ -123,20 +88,51 @@
           text-transform: uppercase;
         }
       }
-    }
 
-    .tv,
-    .movie {
-      align-self: start;
-      max-width: 780px;
-
-      >img {
-        object-fit: contain;
-        aspect-ratio: 78 / 43;
+      & .overview {
+        text-wrap: pretty;
+        margin-top: 0.5rem;
       }
 
-      .overview {
-        margin-bottom: 0;
+      & .popularity,
+      & .vote_average,
+      & .vote_count {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background-color: rgb(226, 226, 226);
+        border-radius: 6px;
+        padding: 4px 6px;
+        width: fit-content;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        &>svg {
+          width: 1rem;
+          height: 1rem;
+        }
+
+        &>span {
+          text-wrap: nowrap;
+        }
+      }
+
+      & .statistics {
+        align-self: start;
+        display: flex;
+        gap: 6px;
+
+        & .vote_average {
+          >svg {
+            color: yellow;
+          }
+        }
+
+        & .vote_count {
+          &>svg {
+            color: red;
+          }
+        }
       }
     }
   }

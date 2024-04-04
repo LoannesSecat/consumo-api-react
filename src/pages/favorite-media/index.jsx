@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Image from "~/components/Image";
 import Empty from "~/components/empty";
 import GoBackButton from "~/components/go-back-button";
 import Header from "~/components/header";
@@ -61,7 +62,7 @@ export default function FavoriteMedia() {
             <section className={styles.favorites_media}>
               {
                 auxData.map((elm) => {
-                  const {
+                  let {
                     vote_average,
                     media_type,
                     profile_path,
@@ -75,99 +76,84 @@ export default function FavoriteMedia() {
                     name,
                   } = elm;
 
-                  const newClassName = [
-                    styles.card,
-                    styles[elm.media_type]
-                  ].join(" ")
+                  let imgPath = photoSVG;
+
+                  if (profile_path) {
+                    imgPath = `${url_img}/w185${profile_path}`;
+                  }
+
+                  if (backdrop_path) {
+                    imgPath = `${url_img}/w300${backdrop_path}`;
+                  }
 
                   return (
-                    <article key={id} className={newClassName}>
-                      <SaveFavoriteButton dataToSave={elm} className={styles.save_favorite_button} />
+                    <article key={id} className={styles.card}>
+                      <Image
+                        data-src={imgPath}
+                        className={styles.media_image}
+                        alt={`Imagen de: ${title}`}
+                        height={(media_type === "person" || !media_type) ? "278" : "142"}
+                        width="auto"
+                      />
+
+                      <hgroup className={styles.title_group}>
+                        <div>
+                          <h3 className={styles.media_title}>{title ?? name}</h3>
+                          <SaveFavoriteButton dataToSave={elm} className={styles.save_favorite_button} />
+                        </div>
+
+                        {
+                          media_type?.length && <span className={styles.type}>{mediaTranslations[media_type]}</span>
+                        }
+                      </hgroup>
 
                       {
-                        media_type === "person"
-                          ? (
-                            <>
-                              <img
-                                src={profile_path ? `${url_img}/w400${profile_path}` : photoSVG}
-                                className={styles.img_person}
-                                alt={`Imagen de: ${title}`}
-                              />
-
-                              <h3 className={styles.name}>{title}</h3>
-
-                              {
-                                mediaTranslations[known_for_department] && (
-                                  <span className={styles.known}>
-                                    Conocido por el campo de la {mediaTranslations[known_for_department]}
-                                  </span>
-                                )
-                              }
-
-                              <div className={styles.popularity} title="Popularidad">
-                                <UserGroup />
-                                {popularity}
-                              </div>
-                            </>
-                          )
-                          : (
-                            <>
-                              <img
-                                src={backdrop_path ? `${url_img}/w780${backdrop_path}` : photoSVG}
-                                className={styles[`img_${elm.media_type}`]}
-                                alt={`Imagen de: ${title}`}
-                              />
-
-                              <div>
-                                <h3 className={styles.title}>{title ?? name}</h3>
-                                <small className={styles.media_type}>
-                                  {mediaTranslations[media_type]}
-                                </small>
-                              </div>
-
-                              {
-                                overview?.length
-                                  ? <p className={styles.overview}>{overview}</p>
-                                  : null
-                              }
-
-                              <div className={styles.statistics}>
-                                {popularity
-                                  ? (
-                                    <div title="Popularidad" className={styles.popularity}>
-                                      <UserGroup />
-                                      <span>{popularity}</span>
-                                    </div>
-                                  )
-                                  : null}
-
-                                {vote_average
-                                  ? (
-                                    <div title="Votación promedio" className={styles.vote_average}>
-                                      <Sparkles />
-                                      <span>{vote_average}</span>
-                                    </div>
-                                  )
-                                  : null}
-
-                                {vote_count
-                                  ? (
-                                    <div title="Me gusta" className={styles.vote_count}>
-                                      <Heart />
-                                      <span>{vote_count}</span>
-                                    </div>
-                                  )
-                                  : null}
-                              </div>
-                            </>
-                          )
+                        mediaTranslations[known_for_department] && (
+                          <p className={styles.known}>
+                            Conocido por el campo de la {mediaTranslations[known_for_department]}
+                          </p>
+                        )
                       }
+
+                      {
+                        overview?.length && <p className={styles.overview}>{overview}</p>
+                      }
+
+                      <div className={styles.statistics}>
+                        {
+                          popularity && (
+                            <div title="Popularidad" className={styles.popularity}>
+                              <UserGroup />
+                              <span>{popularity}</span>
+                            </div>
+                          )
+                        }
+
+                        {
+                          vote_average && (
+                            <div title="Votación promedio" className={styles.vote_average}>
+                              <Sparkles />
+                              <span>{vote_average}</span>
+                            </div>
+                          )
+                        }
+
+                        {
+                          vote_count && (
+                            <div title="Me gusta" className={styles.vote_count}>
+                              <Heart />
+                              <span>{vote_count}</span>
+                            </div>
+                          )
+                        }
+                      </div>
                     </article>
                   );
                 })
               }
             </section>
           )
+
           : (<Empty />)
       }
     </main>
