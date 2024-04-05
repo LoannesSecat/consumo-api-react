@@ -98,12 +98,12 @@ export default function FavoriteMedia() {
 
                       <hgroup className={styles.title_group}>
                         <div>
-                          <h3 className={styles.media_title}>{title ?? name}</h3>
+                          <h1 className={styles.media_title}>{title ?? name}</h1>
                           <SaveFavoriteButton dataToSave={elm} className={styles.save_favorite_button} />
                         </div>
 
                         {
-                          media_type?.length && <span className={styles.type}>{mediaTranslations[media_type]}</span>
+                          media_type?.length && <h2 className={styles.type}>{mediaTranslations[media_type]}</h2>
                         }
                       </hgroup>
 

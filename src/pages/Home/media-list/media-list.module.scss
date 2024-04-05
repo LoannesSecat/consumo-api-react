@@ -18,10 +18,13 @@
     height: min-content;
     border-radius: 6px;
     break-inside: avoid;
-    margin-top: var(--gap-masonry);
     width: fit-content;
     overflow: hidden;
     margin-inline: auto;
+
+    &:not(:first-child) {
+      margin-top: var(--gap-masonry);
+    }
 
     & .favorite_button {
       position: absolute;

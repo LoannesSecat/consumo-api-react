@@ -31,10 +31,6 @@
     column-count: auto;
     gap: var(--gap-masonry);
 
-    & .card:not(:first-child) {
-      margin-top: var(--gap-masonry);
-    }
-
     & .card {
       --padding: 16px;
       border: 1px solid rgb(226, 226, 226);
@@ -47,6 +43,10 @@
       height: fit-content;
       break-inside: avoid;
       max-width: 20rem;
+
+      &:not(:first-child) {
+        margin-top: var(--gap-masonry);
+      }
 
       &>.media_image {
         border-radius: 6px;
@@ -77,6 +77,7 @@
           color: var(--cerise);
           font-weight: normal;
           font-size: large;
+          margin: 0px;
         }
       }
 
