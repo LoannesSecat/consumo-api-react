@@ -1,19 +1,17 @@
 .save_favorite_button {
   z-index: 1;
-  background-color: transparent;
-  border: none;
-  outline: none;
+  border: 1px solid transparent;
   transition: 0.3s;
   padding: 0;
+  border-radius: var(--border-radius-x2);
+  background-color: var(--black-chocolate);
 
   >svg {
     --size: 1.5rem;
     height: var(--size);
     width: var(--size);
     display: block;
-    background-color: var(--black-chocolate);
     color: var(--ghost-white);
     padding: 6px;
-    border-radius: 6px;
   }
 }

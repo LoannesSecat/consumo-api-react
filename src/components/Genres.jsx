@@ -1,11 +1,11 @@
 export default function Genres({ param, className }) {
   if (param?.length) {
     return (
-      <div className={className}>
+      <ul className={className}>
         {param?.map((element) => (
-          <small key={element.id}>{element.name}</small>
+          <li key={element.id}>{element.name}</li>
         ))}
-      </div>
+      </ul>
     );
   }
 

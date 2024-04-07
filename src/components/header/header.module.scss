@@ -38,7 +38,7 @@
         margin: 0px;
 
         &>img {
-          border-radius: 5px;
+          border-radius: var(--border-radius-x1);
           width: 48px;
           height: 48px;
           border: 1px solid black;
@@ -51,12 +51,11 @@
 
       & .settings_container {
         --bg-button-color: color-mix(in srgb, transparent, var(--royal-blue-dark) 60%);
-        --border-radius: 5px;
 
         & .settings_switch_button {
           @extend %transition-speed;
           padding: 6px;
-          border-radius: var(--border-radius);
+          border-radius: var(--border-radius-x2);
           width: fit-content;
           border: 1px solid var(--bg-button-color);
           background-color: transparent;
@@ -81,7 +80,7 @@
         & .list_container {
           background-color: var(--ghost-white);
           border: 1px solid var(--royal-blue-dark);
-          border-radius: var(--border-radius);
+          border-radius: var(--border-radius-x1);
           padding: 0px;
           top: var(--vertical-axis);
           left: var(--horizontal-axis);
@@ -132,7 +131,7 @@
         color: var(--black-chocolate);
         font-family: "General Sans Semibold";
         padding: 6px 12px;
-        border-radius: 6px;
+        border-radius: var(--border-radius-x3);
         @extend %transition-speed;
 
         &:hover {

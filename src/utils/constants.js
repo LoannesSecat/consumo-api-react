@@ -37,7 +37,7 @@ export const mediaTranslations = {
 
 export const errorMsg = {
   "Email not confirmed": "La cuenta de correo no ha sido verificada",
-  "Invalid login credentials": "Las credenciales son inválidas",
+  "Invalid login credentials": "Las credenciales no son válidas",
   "Password recovery requires an email": "Se requiere el correo registrado para recuperar la contraseña",
   "For security purposes, you can only request this once every 60 seconds": "Solo puedes hacer una petición de cambio de contraseña cada 60 segundos",
   "User already registered": "El correo ya está en uso",

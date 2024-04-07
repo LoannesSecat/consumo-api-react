@@ -16,7 +16,7 @@
   .card_media {
     position: relative;
     height: min-content;
-    border-radius: 6px;
+    border-radius: var(--border-radius-x1);
     break-inside: avoid;
     width: fit-content;
     overflow: hidden;
@@ -67,9 +67,9 @@
         & .statistics {
           display: flex;
           flex-wrap: wrap;
-          column-gap: 12px;
-          row-gap: 8px;
-          justify-content: space-evenly;
+          column-gap: 8px;
+          row-gap: 6px;
+          justify-content: center;
 
           & .popularity,
           & .vote_average,
@@ -80,13 +80,13 @@
             border-width: 1px;
             border-style: solid;
             padding: 6px 12px;
-            border-radius: 12px;
+            border-radius: var(--border-radius-x2);
             background: rgb(0 0 0 / 20%);
             align-items: center;
 
             &>svg {
-              width: 24px;
-              height: 24px;
+              width: 1.25rem;
+              height: 1.25rem;
             }
 
             & .heartSVG {
@@ -106,9 +106,10 @@
 
         & .media_type {
           display: block;
-          -webkit-text-stroke: 0.1px var(--black-chocolate);
-          font-size: 18px;
+          -webkit-text-stroke: 1px var(--black-chocolate);
           letter-spacing: 1.5px;
+          font-family: "General Sans Bold";
+          font-size: 18px;
         }
       }
     }

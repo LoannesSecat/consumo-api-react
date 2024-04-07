@@ -177,8 +177,10 @@ export const signIn = async ({ email, password, navigate }) => {
   const resSignIn = await supabase.auth.signInWithPassword({ email, password });
 
   if (resSignIn.error) {
+    console.log(resSignIn);
+    const { error: { message } } = resSignIn;
     setState((state) => ({ ...state, isLoading: false, isDone: true, isError: true }));
-    useToast.warning({ message: errorMsg[resSignIn.error.message] });
+    useToast.warning({ message: errorMsg[message] });
     return;
   }
 

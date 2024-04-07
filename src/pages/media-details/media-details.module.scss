@@ -109,21 +109,24 @@
       }
     }
 
-    .info {
+    & .info {
       @extend %lateral-paddings;
       padding-top: 16px;
 
-      .genres {
+      & .genres {
         display: flex;
         gap: 5px;
         flex-wrap: wrap;
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
 
-        >small {
+        &>li {
           background-color: var(--ghost-white);
           color: var(--cerise);
           border: 1px solid var(--cerise);
           padding: 3px 7px;
-          border-radius: 5px;
+          border-radius: var(--border-radius-x1);
           white-space: nowrap;
           font-size: 0.85rem;
         }

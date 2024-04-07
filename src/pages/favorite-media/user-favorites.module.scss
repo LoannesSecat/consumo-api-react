@@ -21,6 +21,7 @@
 
   & .favorites_media {
     --gap-masonry: 1.5rem;
+    --details-color: color-mix(in srgb, transparent, var(--black-chocolate) 10%);
     @extend %lateral-paddings;
     padding-block: 32px;
     max-width: var(--maximum-width);
@@ -33,12 +34,12 @@
 
     & .card {
       --padding: 16px;
-      border: 1px solid rgb(226, 226, 226);
+      border: 1px solid var(--details-color);
       word-break: break-word;
       display: grid;
       padding: var(--padding);
       gap: 6px;
-      border-radius: 6px;
+      border-radius: var(--border-radius-x1);
       width: fit-content;
       height: fit-content;
       break-inside: avoid;
@@ -49,9 +50,9 @@
       }
 
       &>.media_image {
-        border-radius: 6px;
+        border-radius: var(--border-radius-x1);
         display: block;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         width: 100%;
         object-fit: cover;
       }
@@ -101,8 +102,8 @@
         display: flex;
         align-items: center;
         gap: 6px;
-        background-color: rgb(226, 226, 226);
-        border-radius: 6px;
+        background-color: var(--details-color);
+        border-radius: var(--border-radius-x2);
         padding: 4px 6px;
         width: fit-content;
         flex-wrap: wrap;
@@ -122,6 +123,9 @@
         align-self: start;
         display: flex;
         gap: 6px;
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
 
         & .vote_average {
           >svg {

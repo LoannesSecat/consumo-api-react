@@ -119,34 +119,34 @@ export default function FavoriteMedia() {
                         overview?.length && <p className={styles.overview}>{overview}</p>
                       }
 
-                      <div className={styles.statistics}>
+                      <ul className={styles.statistics}>
                         {
-                          popularity && (
-                            <div title="Popularidad" className={styles.popularity}>
+                          Boolean(popularity) && (
+                            <li title="Popularidad" className={styles.popularity}>
                               <UserGroup />
                               <span>{popularity}</span>
-                            </div>
+                            </li>
                           )
                         }
 
                         {
-                          vote_average && (
-                            <div title="Votación promedio" className={styles.vote_average}>
+                          Boolean(vote_average) && (
+                            <li title="Votación promedio" className={styles.vote_average}>
                               <Sparkles />
                               <span>{vote_average}</span>
-                            </div>
+                            </li>
                           )
                         }
 
                         {
-                          vote_count && (
-                            <div title="Me gusta" className={styles.vote_count}>
+                          Boolean(vote_count) && (
+                            <li title="Me gusta" className={styles.vote_count}>
                               <Heart />
                               <span>{vote_count}</span>
-                            </div>
+                            </li>
                           )
                         }
-                      </div>
+                      </ul>
                     </article>
                   );
                 })
