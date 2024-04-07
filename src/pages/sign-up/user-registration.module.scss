@@ -1,6 +1,5 @@
 @use "../../styles/General.scss";
 
-
 .user_registration {
   @extend %lateral-paddings;
   height: 100vh;
@@ -8,6 +7,7 @@
   max-width: var(--maximum-width);
   margin-inline: auto;
   width: 100%;
+  box-sizing: border-box;
 
   & .top_buttons_container {
     display: flex;
