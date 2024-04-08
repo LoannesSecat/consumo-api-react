@@ -2,7 +2,7 @@
 
 .media {
   --gap-masonry: 2rem;
-  padding-block: 10rem 12rem;
+  padding-block: 14rem 12rem;
   justify-self: center;
   width: 100%;
   max-width: var(--maximum-width);
@@ -76,12 +76,10 @@
           & .vote_count {
             display: flex;
             gap: 4px;
-            border-color: rgb(128 128 128 / 30%);
-            border-width: 1px;
-            border-style: solid;
-            padding: 6px 12px;
+            border: 1px solid color-mix(in srgb, transparent, var(--black-chocolate) 20%);
+            padding: var(--padding-x2);
             border-radius: var(--border-radius-x2);
-            background: rgb(0 0 0 / 20%);
+            background-color: color-mix(in srgb, transparent, var(--black-chocolate) 40%);
             align-items: center;
 
             &>svg {
