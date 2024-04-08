@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, /* useMemo ,*/ useState } from "react";
 import { Route, Switch } from "wouter";
 import Home from "~/pages/Home";
 import FavoriteMedia from "~/pages/favorite-media";
@@ -13,20 +13,22 @@ import { authStateChange, isSessionActive } from "~/services/user-services";
 import store from "~/store";
 
 authStateChange();
+const initialSession = isSessionActive()
 
 export default function Routes() {
   const { session } = store.user()
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(initialSession);
 
   useEffect(() => {
-    (async () => {
-      setIsLoggedIn(await isSessionActive());
-    })();
+    if (initialSession !== isSessionActive()) {
+      setIsLoggedIn(isSessionActive());
+    }
   }, [session]);
 
   return (
     <Switch>
       <Route path="/" component={Home} />
+
       {
         isLoggedIn && (
           <>

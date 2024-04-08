@@ -50,15 +50,9 @@ const readFavorites = () => {
 }
 
 // Services
-export const isSessionActive = async () => {
-  const { data, error } = await supabase.auth.getSession();
+export const isSessionActive = /* async */ () => {
+  const { session } = getStore("user");
 
-  if (error) {
-    useToast.error({ message: "Ha ocurrido un problema al verificar la sesión" });
-    return;
-  }
-
-  const { session } = data;
   return (session && Object.keys(session)?.length) ? true : false;
 }
 
