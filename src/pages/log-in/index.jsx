@@ -4,29 +4,20 @@ import GoBackButton from "~/components/go-back-button";
 import EyeSlash from "~/icons/eye-slash.svg?react";
 import Eye from "~/icons/eye.svg?react";
 import { signIn } from "~/services/user-services";
-import { formValidator } from "~/utils/functions.js";
+import { formValidator, formValuesExtractor } from "~/utils/functions.js";
 import styles from "./user-login.module.scss";
 
 export default function UserLogIn() {
   const [showPass, setShowPass] = useState(false);
   const [, navigate] = useLocation();
 
-  const HandleShowPass = (e) => {
-    e.preventDefault();
-    setShowPass(!showPass);
-  };
-
   const HandleOnSubmit = (e) => {
     e.preventDefault();
 
-    const formValues = {
-      email: e.target.email.value,
-      password: e.target.pass.value,
-      navigate: () => navigate("/"),
-    };
+    const values = { ...formValuesExtractor(e), navigate: () => navigate("/") };
 
-    if (formValidator(formValues)) {
-      signIn(formValues);
+    if (formValidator(values)) {
+      signIn(values);
     }
   };
 
@@ -48,8 +39,16 @@ export default function UserLogIn() {
             <span>Contraseña</span>
 
             <div>
-              <input type={showPass ? "text" : "password"} name="pass" autoComplete="true" />
-              <button onClick={(e) => HandleShowPass(e)} type="button">{!showPass ? <Eye /> : <EyeSlash />}</button>
+              <input type={showPass ? "text" : "password"} name="password" autoComplete="true" />
+              <button
+                onClick={(event) => {
+                  event.preventDefault();
+                  setShowPass(!showPass);
+                }}
+                type="button"
+              >
+                {!showPass ? <Eye /> : <EyeSlash />}
+              </button>
             </div>
           </label>
         </div>

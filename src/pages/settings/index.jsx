@@ -7,7 +7,7 @@ import userSvg from "~/icons/user.svg";
 import XMark from "~/icons/x-mark.svg?react";
 import { deleteAccountUser, deleteAvatar, signOut, updateUserData, uploadAvatar } from "~/services/user-services";
 import store from "~/store";
-import { $ } from "~/utils/functions";
+import { $, formValuesExtractor } from "~/utils/functions";
 import styles from "./user-settings.module.scss";
 
 export default function UserSettings() {
@@ -31,8 +31,8 @@ export default function UserSettings() {
   }
 
   const handlerOnhange = (event) => {
-    const formData = new FormData(event.currentTarget);
-    const { avatar, ...values } = Object.fromEntries(formData.entries());
+    const { avatar, ...values } = formValuesExtractor(event);
+
     let newValues = {};
 
     // Parse state values ---

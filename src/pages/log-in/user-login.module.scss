@@ -18,6 +18,7 @@
     >button {
       @extend %button-ghost-white;
       @extend %button-effect-tufts-blue;
+      padding: var(--padding-x2);
     }
   }
 

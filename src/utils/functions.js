@@ -103,10 +103,18 @@ export const formValidator = ({ email, password }) => {
   return true;
 };
 
-export const formValuesExtractor = ({ event = {} }) => {
+export const formValuesExtractor = (event = {}) => {
   const target = event.currentTarget;
   const formData = new FormData(target);
   const valuesObject = Object.fromEntries(formData.entries());
+
+  for (const key in valuesObject) {
+    const value = valuesObject[key];
+
+    if (!value.length) {
+      delete valuesObject[key];
+    }
+  }
 
   return valuesObject;
 };

@@ -14,7 +14,7 @@ export default function UpdatePassword() {
   const handleUpdatePassword = (event) => {
     event.preventDefault();
 
-    const { password } = formValuesExtractor({ event });
+    const { password } = formValuesExtractor(event);
     updateUserData({ password, navigate: () => navigate("/") })
   }
 

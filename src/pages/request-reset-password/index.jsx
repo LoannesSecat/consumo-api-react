@@ -6,7 +6,7 @@ export default function RequestResetPassword() {
   const HandleOnSubmit = (event) => {
     event.preventDefault();
 
-    const { email } = formValuesExtractor({ event });
+    const { email } = formValuesExtractor(event);
     requestResetPassword({ email });
   };
 

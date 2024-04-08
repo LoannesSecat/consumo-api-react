@@ -20,9 +20,7 @@ export default function Routes() {
   const [isLoggedIn, setIsLoggedIn] = useState(initialSession);
 
   useEffect(() => {
-    if (initialSession !== isSessionActive()) {
-      setIsLoggedIn(isSessionActive());
-    }
+    setIsLoggedIn(isSessionActive());
   }, [session]);
 
   return (
