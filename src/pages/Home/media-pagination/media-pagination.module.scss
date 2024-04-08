@@ -61,7 +61,7 @@
     }
 
     & button {
-      padding: 5px 16px;
+      padding: var(--padding-x2);
       font-size: 0.9rem;
       @extend %button-ghost-white;
 

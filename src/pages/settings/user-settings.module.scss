@@ -20,6 +20,7 @@
     &>button {
       @extend %button-effect-tufts-blue;
       @extend %button-ghost-white;
+      padding: var(--padding-x2);
     }
   }
 
@@ -27,7 +28,6 @@
     display: flex;
     gap: 32px;
     flex-direction: column;
-    --padding-button: 4px 12px;
 
     &>:is(label, div) {
       display: flex;
@@ -117,7 +117,7 @@
         width: fit-content;
         background-color: var(--tufts-blue);
         color: white;
-        padding: var(--padding-button);
+        padding: var(--padding-x2);
         border-radius: var(--border-radius-x2);
         line-height: normal;
 
@@ -164,7 +164,7 @@
             flex-wrap: wrap;
 
             &>button {
-              padding: var(--padding-button);
+              padding: var(--padding-x2);
               @extend %button-tufts-blue;
               transition: .3s filter ease;
 
@@ -190,7 +190,7 @@
       transition: .3s filter ease;
       border: 1px solid red;
       border-radius: var(--border-radius-x3);
-      padding: var(--padding-button);
+      padding: var(--padding-x2);
       background-color: red;
       color: white;
 
@@ -204,7 +204,7 @@
       @extend %button-ghost-white;
       @extend %button-effect-cerise;
       align-self: end;
-      padding: var(--padding-button);
+      padding: var(--padding-x2);
       position: sticky;
       bottom: 16px;
     }

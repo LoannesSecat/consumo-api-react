@@ -130,7 +130,7 @@
         background-color: transparent;
         color: var(--black-chocolate);
         font-family: "General Sans Semibold";
-        padding: 6px 12px;
+        padding: var(--padding-x3);
         border-radius: var(--border-radius-x3);
         @extend %transition-speed;
 

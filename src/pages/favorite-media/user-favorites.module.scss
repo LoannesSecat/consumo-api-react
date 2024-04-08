@@ -104,7 +104,8 @@
         gap: 6px;
         background-color: var(--details-color);
         border-radius: var(--border-radius-x2);
-        padding: 4px 6px;
+        padding: var(--padding-x1);
+        padding-block: 4px;
         width: fit-content;
         flex-wrap: wrap;
         justify-content: center;
