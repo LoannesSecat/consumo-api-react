@@ -44,6 +44,8 @@
       height: fit-content;
       break-inside: avoid;
       max-width: 20rem;
+      width: 100%;
+      box-sizing: border-box;
 
       &:not(:first-child) {
         margin-top: var(--gap-masonry);
