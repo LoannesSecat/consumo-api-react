@@ -5,7 +5,7 @@ import Paragraph from "../../../components/Paragraph";
 import Popularity from "../../../components/Popularity";
 import styles from "../media-details.module.scss";
 
-export default function PersonDetails({ data } = {} = {}) {
+export default function PersonDetails({ data } = {}) {
   const {
     name,
     also_known_as,
@@ -17,16 +17,18 @@ export default function PersonDetails({ data } = {} = {}) {
     deathday,
     place_of_birth,
     popularity,
-    backdrop_url,
+    profile_path,
   } = data;
 
   return (
     <>
       <picture className={styles.banner}>
         <Image
-          src={backdrop_url}
+          data-src={profile_path}
           className={styles.person_img}
           alt={`Imagen de ${name}`}
+          height="600"
+          width="auto"
         />
 
         <hgroup className={styles.titles}>

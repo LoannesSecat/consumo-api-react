@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import GoBackButton from "~/components/go-back-button";
 import Loading from "~/components/loading";
 import SaveFavoriteButton from "~/components/save-favorite-button";
-import photoSVG from '~/icons/photo.svg';
 import { readMediaDetails } from "~/services/media-services";
 import store from "~/store";
 import { TMDB } from "~/utils/constants";
@@ -18,15 +17,11 @@ export default function MediaDetails() {
   const { details, mediaSelectedType, auxMediaDetails, isLoading, isDone } = store.media();
   const { profile_path, backdrop_path } = details;
 
-  let backdrop_url = (mediaSelectedType === "person")
-    ? `${url_img}/h632${profile_path}`
-    : `${url_img}/w1280${backdrop_path}`;
+  let url = (mediaSelectedType === "person")
+    ? { profile_path: `${url_img}/h632${profile_path}` }
+    : { backdrop_path: `${url_img}/w1280${backdrop_path}` };
 
-  if (backdrop_url.includes("undefined")) {
-    backdrop_url = photoSVG;
-  }
-
-  Object.assign(details, { backdrop_url });
+  Object.assign(details, { ...url });
 
   useEffect(() => {
     scrollTo(0, 0);

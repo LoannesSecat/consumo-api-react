@@ -32,14 +32,14 @@ export default function FilmDetails({ data } = {}) {
     vote_average,
     vote_count,
     homepage,
-    backdrop_url,
+    backdrop_path,
   } = data;
 
   return (
     <>
       <picture className={styles.banner}>
         <Image
-          src={backdrop_url}
+          data-src={backdrop_path}
           alt={`Fondo de la película: ${title}`}
           className={styles.film_img}
         />

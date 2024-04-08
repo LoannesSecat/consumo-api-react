@@ -35,14 +35,14 @@ export default function SerieDetails({ data } = {}) {
     homepage,
     in_production,
     type,
-    backdrop_url,
+    backdrop_path,
   } = data;
 
   return (
     <>
       <picture className={styles.banner}>
         <Image
-          src={backdrop_url}
+          data-src={backdrop_path}
           alt={`Fondo de la serie: ${name}`}
           className={styles.serie_img}
         />
