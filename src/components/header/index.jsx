@@ -5,36 +5,20 @@ import Cog8Tooth from "~/icons/cog-8-tooth.svg?react";
 import userSvg from "~/icons/user.svg";
 import { isSessionActive, signOut } from "~/services/user-services";
 import store from "~/store";
+import { $ } from "~/utils/functions";
 import styles from "./header.module.scss";
-
 
 export default function Header({ children, className }) {
   const { user, session } = store.user();
   const [location, navigate] = useLocation();
-  const [optionsAreDisplayed, setOptionsAreDisplayed] = useState(false);
   const [isUserLogged, setIsUserLogged] = useState(false);
 
   const newClassName = useMemo(() => {
     return [className, styles.header].join(" ")
   }, [className]);
 
-  // Solution for anchor positioning of popover ---
-  const popoverButton = document.querySelector(`.${styles.settings_switch_button}`);
-  const popoverContainer = document.querySelector(`.${styles.settings_container}`);
-
-  if (isUserLogged && (popoverButton?.getBoundingClientRect() && popoverContainer?.style)) {
-    const params = popoverContainer.getBoundingClientRect();
-    const { x: xAxis, y: yAxis } = params;
-
-    popoverContainer.style.setProperty("--vertical-axis", `${Math.round(yAxis) + 50}px`);
-    popoverContainer.style.setProperty("--horizontal-axis", `${Math.round(xAxis) - 50}px`);
-  }
-  // End ---
-
   useEffect(() => {
-    (async () => {
-      setIsUserLogged(await isSessionActive());
-    })();
+    setIsUserLogged(isSessionActive());
   }, [session]);
 
   return (
@@ -62,12 +46,21 @@ export default function Header({ children, className }) {
                   popovertarget="options"
                   popovertargetaction="toggle"
                   type="button"
-                  onClick={() => {
-                    setOptionsAreDisplayed(!optionsAreDisplayed);
-                  }}
                   className={styles.settings_switch_button}
+                  onClick={() => {
+                    // Solution for anchor positioning of popover ---
+                    const popoverContainer = $(`.${styles.settings_container}`);
+
+                    const params = popoverContainer.getBoundingClientRect();
+                    const { x: xAxis, y: yAxis } = params;
+
+                    popoverContainer.style.setProperty("--vertical-axis", `${Math.round(yAxis) + 50}px`);
+                    popoverContainer.style.setProperty("--horizontal-axis", `${Math.round(xAxis) - 50}px`);
+                    // End ---
+                  }}
                 >
-                  {optionsAreDisplayed ? <ChevronUp /> : <Cog8Tooth />}
+                  <ChevronUp id={styles.chevron_up} />
+                  <Cog8Tooth id={styles.nut} />
                 </button>
 
                 <nav className={styles.list_container} popover="" id="options">

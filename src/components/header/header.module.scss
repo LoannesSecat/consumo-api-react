@@ -71,10 +71,20 @@
             height: 24px;
             width: 24px;
           }
-        }
 
-        & [popover] {
-          margin: 0px;
+          &>#chevron_up {
+            display: none;
+          }
+
+          &:has(~.list_container:popover-open) {
+            &>#chevron_up {
+              display: block;
+            }
+
+            &>#nut {
+              display: none;
+            }
+          }
         }
 
         & .list_container {
@@ -84,6 +94,7 @@
           padding: 0px;
           top: var(--vertical-axis);
           left: var(--horizontal-axis);
+          margin: 0px;
 
           & .list {
             margin: 0px;
